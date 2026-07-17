@@ -783,12 +783,12 @@ ul.trait-list li:last-child{border-bottom:none;}
   from{opacity:0;}
   to{opacity:1;}
 }
-   /* ============================================================
-   CSS PRINT - UNTUK CETAK PDF (TULISAN HITAM)
+  /* ============================================================
+   CSS PRINT - VERSI PROFESIONAL (RAPI & TANPA JEDA KOSONG)
    ============================================================ */
 
 @media print {
-    /* Reset semua warna menjadi hitam */
+    /* ===== RESET ===== */
     * {
         color: #000000 !important;
         background: transparent !important;
@@ -798,81 +798,456 @@ ul.trait-list li:last-child{border-bottom:none;}
     
     body {
         background: #ffffff !important;
-        padding: 20px !important;
-        font-size: 12pt !important;
+        padding: 10px !important;
+        font-size: 10pt !important;
+        line-height: 1.4 !important;
     }
     
-    /* Card dan Container */
     .wrap {
         max-width: 100% !important;
-        padding: 20px 26px !important;
+        padding: 10px 15px !important;
+        margin: 0 !important;
     }
     
-    .card, .panel, .profile-banner, .num-card, .risk-card, .bal-col {
-        background: #ffffff !important;
-        border: 1px solid #dddddd !important;
-        box-shadow: none !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
+    /* ===== HERO ===== */
+    .hero {
+        margin-bottom: 12px !important;
+        padding-bottom: 8px !important;
+        border-bottom: 2px solid #000000 !important;
     }
     
-    /* Semua teks jadi hitam */
-    .hero h1, .hero h1 em, .hero p, .hero .seal,
-    .section-title, .section-title .cn, .section-sub,
-    .num-card .code, .num-card .meaning, .num-card .label,
-    .main-char-highlight .info .name, .main-char-highlight .info .desc,
-    .bal-name, .bal-num, .bal-status, .bal-ideal, .bal-diff,
-    .bal-category, .bal-position, .year-num, .year-info .l1,
-    .year-info .l2, .year-info .l3, .rel-item, .swatch,
-    .summary-info-row, .summary-13-item .s-num-box,
-    .profile-banner .name, .profile-banner .meta,
-    .shio-badge .label, .shio-badge .sub {
-        color: #000000 !important;
-        background: transparent !important;
+    .hero .seal {
+        font-size: 10px !important;
+        margin-bottom: 4px !important;
     }
     
-    /* Tombol */
-    .btn, .btn-masuk, .splash-btn, .btn-lanjut, .btn-gold,
-    .btn-outline, .btn-primary, .btn-danger {
-        background: #ffffff !important;
-        color: #000000 !important;
-        border: 2px solid #000000 !important;
-        box-shadow: none !important;
+    .hero h1 {
+        font-size: 20px !important;
+        margin: 0 0 4px !important;
     }
     
-    /* Gambar */
-    .splash-image, img {
-        max-width: 100% !important;
-        border: 1px solid #cccccc !important;
-        box-shadow: none !important;
+    .hero p {
+        font-size: 11px !important;
+        margin: 0 auto !important;
     }
     
-    /* Grid */
-    .calc-preview, .num-grid, .risk-grid, .bal-grid {
-        background: #f9f9f9 !important;
-        border: 1px solid #dddddd !important;
-    }
-    
-    .calc-key, .num-card, .risk-card, .bal-col {
-        border: 1px solid #cccccc !important;
-        background: #f5f5f5 !important;
-    }
-    
-    /* Sembunyikan elemen yang tidak perlu saat print */
-    .user-status-bar, .print-bar, .modal-overlay,
-    .license-warning, .history-actions, .no-print {
+    .hero .hanzi-row {
         display: none !important;
     }
     
-    .hero {
-        border-bottom: 2px solid #000000 !important;
-        margin-bottom: 24px !important;
-        padding-bottom: 16px !important;
+    /* ===== PROFILE BANNER ===== */
+    .profile-banner {
+        padding: 12px 16px !important;
+        margin-bottom: 10px !important;
+        background: #f5f5f5 !important;
+        border: 1px solid #dddddd !important;
+        border-radius: 6px !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+    
+    .profile-banner .name {
+        font-size: 18px !important;
+        margin: 0 !important;
+    }
+    
+    .profile-banner .meta {
+        font-size: 11px !important;
+        margin: 0 !important;
+    }
+    
+    .shio-badge .animal {
+        font-size: 22px !important;
+    }
+    
+    .shio-badge .label {
+        font-size: 11px !important;
+    }
+    
+    .shio-badge .sub {
+        font-size: 10px !important;
+    }
+    
+    /* ===== SECTION TITLE ===== */
+    .section-title {
+        font-size: 16px !important;
+        margin: 12px 0 2px !important;
+        padding: 0 !important;
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+    }
+    
+    .section-title .cn {
+        font-size: 11px !important;
+    }
+    
+    .section-sub {
+        font-size: 10px !important;
+        margin: 0 0 8px !important;
+        padding: 0 !important;
+        color: #333333 !important;
+    }
+    
+    /* ===== CARD & PANEL ===== */
+    .card, .panel {
+        padding: 10px 12px !important;
+        margin-bottom: 8px !important;
+        background: #ffffff !important;
+        border: 1px solid #dddddd !important;
+        border-radius: 4px !important;
+        box-shadow: none !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+    
+    /* ===== DIAGRAM ===== */
+    .diagram-panel {
+        padding: 4px !important;
+        margin-bottom: 6px !important;
     }
     
     .diagram-panel svg {
         max-width: 100% !important;
         height: auto !important;
+        max-height: 320px !important;
+    }
+    
+    /* ===== SUMMARY 13 GRID ===== */
+    .summary-13-grid {
+        display: grid !important;
+        grid-template-columns: repeat(13, 1fr) !important;
+        gap: 3px !important;
+        margin-bottom: 6px !important;
+    }
+    
+    .summary-13-item .s-num-label {
+        font-size: 6px !important;
+    }
+    
+    .summary-13-item .s-num-box {
+        font-size: 12px !important;
+        padding: 3px 2px !important;
+        border: 1px solid #cccccc !important;
+        border-radius: 3px !important;
+        background: #f9f9f9 !important;
+    }
+    
+    .summary-13-item .s-num-index {
+        display: none !important;
+    }
+    
+    .summary-info-row {
+        font-size: 10px !important;
+        padding: 6px 10px !important;
+        background: #f5f5f5 !important;
+        border-radius: 4px !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 4px 10px !important;
+    }
+    
+    /* ===== MAIN CHARACTER ===== */
+    .main-char-highlight {
+        padding: 10px 14px !important;
+        margin-bottom: 8px !important;
+        border: 1px solid #000000 !important;
+        border-radius: 6px !important;
+        background: #f5f5f5 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 14px !important;
+    }
+    
+    .main-char-highlight .big-num {
+        font-size: 32px !important;
+        min-width: 40px !important;
+    }
+    
+    .main-char-highlight .info .label {
+        font-size: 9px !important;
+    }
+    
+    .main-char-highlight .info .name {
+        font-size: 16px !important;
+    }
+    
+    .main-char-highlight .info .desc {
+        font-size: 10px !important;
+    }
+    
+    /* ===== GRID 2 KOLOM ===== */
+    .grid-2 {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px !important;
+        margin-bottom: 8px !important;
+    }
+    
+    .grid-2 .panel {
+        padding: 8px 10px !important;
+        margin: 0 !important;
+    }
+    
+    .grid-2 .panel h3 {
+        font-size: 12px !important;
+        margin: 0 0 4px !important;
+    }
+    
+    .grid-2 .panel ul.trait-list li {
+        font-size: 9px !important;
+        padding: 3px 0 !important;
+        border-bottom: 1px dashed #dddddd !important;
+    }
+    
+    .grid-2 .panel .swatch {
+        font-size: 9px !important;
+    }
+    
+    /* ===== BALANCE GRID ===== */
+    .bal-grid {
+        display: grid !important;
+        grid-template-columns: repeat(5, 1fr) !important;
+        gap: 6px !important;
+        margin: 0 !important;
+    }
+    
+    .bal-col {
+        padding: 6px 4px !important;
+        border: 1px solid #cccccc !important;
+        border-radius: 4px !important;
+        background: #f9f9f9 !important;
+        text-align: center !important;
+    }
+    
+    .bal-col .bal-icon {
+        font-size: 16px !important;
+    }
+    
+    .bal-col .bal-name {
+        font-size: 9px !important;
+    }
+    
+    .bal-col .bal-num {
+        font-size: 20px !important;
+    }
+    
+    .bal-col .bal-status {
+        font-size: 8px !important;
+        padding: 1px 8px !important;
+    }
+    
+    .bal-col .bal-ideal {
+        font-size: 8px !important;
+    }
+    
+    .bal-col .bal-diff {
+        font-size: 10px !important;
+    }
+    
+    .bal-col .bal-category {
+        font-size: 8px !important;
+        margin-top: 4px !important;
+        padding-top: 4px !important;
+        border-top: 1px solid #dddddd !important;
+    }
+    
+    .bal-col .bal-position {
+        display: none !important;
+    }
+    
+    /* ===== YEAR BANNER ===== */
+    .year-banner {
+        padding: 10px 14px !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 14px !important;
+    }
+    
+    .year-num {
+        font-size: 28px !important;
+    }
+    
+    .year-info .l1 {
+        font-size: 11px !important;
+    }
+    
+    .year-info .l2 {
+        font-size: 10px !important;
+    }
+    
+    .year-info .l3 {
+        font-size: 10px !important;
+    }
+    
+    /* ===== NUM GRID (13 KARTU) ===== */
+    .num-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 6px !important;
+        margin: 0 !important;
+    }
+    
+    .num-card {
+        padding: 8px 10px !important;
+        border: 1px solid #cccccc !important;
+        border-radius: 4px !important;
+        background: #f9f9f9 !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        position: relative !important;
+    }
+    
+    .num-card::before {
+        font-size: 24px !important;
+        opacity: 0.2 !important;
+    }
+    
+    .num-card .code {
+        font-size: 18px !important;
+    }
+    
+    .num-card .label {
+        font-size: 8px !important;
+        margin: 0 0 2px !important;
+    }
+    
+    .num-card .meaning {
+        font-size: 8px !important;
+        line-height: 1.3 !important;
+        color: #333333 !important;
+    }
+    
+    .num-card.main-char-card {
+        border-color: #000000 !important;
+        background: #f0f0f0 !important;
+    }
+    
+    /* ===== MISSING NUMBERS ===== */
+    .missing-box {
+        display: flex !important;
+        gap: 6px !important;
+        flex-wrap: wrap !important;
+    }
+    
+    .miss-num {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 14px !important;
+        border: 1px solid #999999 !important;
+        background: #f0f0f0 !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    /* ===== DREAM BOX ===== */
+    .dream-box {
+        padding: 10px 14px !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        align-items: center !important;
+    }
+    
+    .dream-box .big {
+        font-size: 14px !important;
+    }
+    
+    .dream-box .need {
+        font-size: 10px !important;
+    }
+    
+    /* ===== BLESSINGS ===== */
+    .bless-list li {
+        font-size: 10px !important;
+        padding: 4px 0 !important;
+        border-bottom: 1px dashed #dddddd !important;
+    }
+    
+    .bless-num {
+        width: 20px !important;
+        height: 20px !important;
+        font-size: 10px !important;
+    }
+    
+    /* ===== RISK GRID ===== */
+    .risk-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 6px !important;
+    }
+    
+    .risk-card {
+        padding: 6px 10px !important;
+        border: 1px solid #cccccc !important;
+        border-radius: 4px !important;
+        background: #f9f9f9 !important;
+    }
+    
+    .risk-card .rtitle {
+        font-size: 10px !important;
+        font-weight: 700 !important;
+    }
+    
+    .risk-card .rstatus {
+        font-size: 9px !important;
+        color: #333333 !important;
+    }
+    
+    .risk-card.hit {
+        border-color: #000000 !important;
+        background: #f5f5f5 !important;
+    }
+    
+    /* ===== RELATION ===== */
+    .rel-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 6px !important;
+    }
+    
+    .rel-item {
+        font-size: 10px !important;
+        padding: 4px 0 !important;
+    }
+    
+    .rel-item b {
+        font-size: 9px !important;
+        display: block !important;
+        margin-bottom: 2px !important;
+    }
+    
+    /* ===== HIDE ELEMENTS ===== */
+    .user-status-bar,
+    .modal-overlay,
+    .license-warning,
+    .history-actions,
+    .btn-group,
+    .print-btn,
+    .no-print,
+    .footnote,
+    .hero .hanzi-row {
+        display: none !important;
+    }
+    
+    /* ===== FORCE PAGE BREAKS ===== */
+    .section-title {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+    }
+    
+    .num-card, .panel, .risk-card, .bal-col {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+    
+    /* ===== LINKS ===== */
+    a {
+        color: #0000ff !important;
+        text-decoration: underline !important;
     }
 }
 </style>
