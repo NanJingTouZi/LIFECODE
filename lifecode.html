@@ -1,0 +1,3017 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#12181a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔮</text></svg>">
+<title>角数命理 · Kalkulator Angka Kehidupan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   BAGIAN 1: CSS (SAMA PERSIS)
+   ============================================================ */
+:root{
+  --ink:#12181a;
+  --ink-2:#1b2427;
+  --panel:#1f2a2d;
+  --panel-2:#242f32;
+  --gold:#c9a24a;
+  --gold-soft:#e4c988;
+  --jade:#4f8a72;
+  --jade-soft:#7fb59c;
+  --cinnabar:#b4483a;
+  --paper:#f3ede0;
+  --paper-dim:#cfc6b0;
+  --line: rgba(201,162,74,0.22);
+  --shadow: 0 20px 60px rgba(0,0,0,0.45);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:
+    radial-gradient(1200px 700px at 85% -10%, rgba(79,138,114,0.18), transparent 60%),
+    radial-gradient(900px 600px at -10% 20%, rgba(201,162,74,0.10), transparent 55%),
+    var(--ink);
+  color:var(--paper);
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+  line-height:1.5;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:56px 22px 100px;}
+
+.hero{position:relative;text-align:center;margin-bottom:52px;padding-bottom:34px;border-bottom:1px solid var(--line);}
+.hero .seal{
+  font-family:'Noto Serif SC',serif;
+  font-size:15px;letter-spacing:0.5em;color:var(--gold-soft);
+  text-transform:uppercase;margin-bottom:18px;opacity:0.85;
+}
+.hero h1{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:600;
+  font-size:clamp(34px,6vw,54px);
+  margin:0 0 10px;
+  color:var(--paper);
+  letter-spacing:0.01em;
+}
+.hero h1 em{font-style:italic;color:var(--gold-soft);}
+.hero p{
+  color:var(--paper-dim);
+  font-size:15.5px;max-width:520px;margin:0 auto;
+}
+.hanzi-row{
+  font-family:'Noto Serif SC',serif;
+  font-size:13px;color:var(--jade-soft);
+  letter-spacing:0.3em;margin-top:14px;opacity:0.7;
+}
+
+.card{
+  background:linear-gradient(180deg,var(--panel),var(--panel-2));
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:32px;
+  box-shadow:var(--shadow);
+  margin-bottom:34px;
+}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+@media (max-width:640px){.form-grid{grid-template-columns:1fr;}}
+.form-group{position:relative;}
+label{
+  display:block;font-size:12.5px;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--gold-soft);margin-bottom:8px;font-weight:600;
+}
+input[type="text"], input[type="email"], input[type="password"], input[type="tel"]{
+  width:100%;padding:13px 14px;border-radius:10px;
+  border:1px solid rgba(201,162,74,0.3);
+  background:rgba(0,0,0,0.25);
+  color:var(--paper);font-size:15px;font-family:'Inter',sans-serif;
+  outline:none;transition:border-color .15s, box-shadow .15s;
+}
+input::placeholder{color:rgba(243,237,224,0.35);}
+input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,74,0.15);}
+
+.date-group{display:flex;gap:10px;align-items:center;}
+.date-group .date-part{flex:1;text-align:center;}
+.date-group .date-part input{
+  width:100%;padding:13px 4px;border-radius:10px;
+  border:1px solid rgba(201,162,74,0.3);
+  background:rgba(0,0,0,0.25);
+  color:var(--paper);font-size:15px;font-family:'Inter',sans-serif;
+  outline:none;text-align:center;
+  transition:border-color .15s, box-shadow .15s;
+}
+.date-group .date-part input:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(201,162,74,0.15);
+}
+.date-group .date-part input::placeholder{color:rgba(243,237,224,0.35);font-size:12px;}
+.date-group .date-sep{
+  color:var(--paper-dim);
+  font-size:18px;
+  font-weight:300;
+  padding:0 2px;
+}
+.date-group .date-part .date-label{
+  display:block;
+  font-size:9px;
+  text-transform:uppercase;
+  color:var(--paper-dim);
+  opacity:0.5;
+  margin-top:4px;
+  letter-spacing:0.04em;
+}
+
+.btn-group{display:flex;gap:14px;margin-top:26px;flex-wrap:wrap;}
+.btn{
+  flex:1;min-width:140px;
+  background:linear-gradient(135deg,var(--gold),#a9843a);
+  color:#1a1408;border:none;border-radius:12px;
+  padding:15px 20px;font-size:15.5px;font-weight:700;letter-spacing:0.03em;
+  cursor:pointer;transition:transform .12s, box-shadow .12s;
+  font-family:'Inter',sans-serif;
+}
+.btn:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(201,162,74,0.3);}
+.btn:active{transform:translateY(0);}
+.btn-outline{
+  background:transparent;color:var(--gold-soft);
+  border:1px solid var(--gold-soft);
+  flex:0.5;min-width:100px;
+}
+.btn-outline:hover{background:rgba(201,162,74,0.1);}
+.btn-danger{
+  background:transparent;color:#e0968a;
+  border:1px solid var(--cinnabar);
+  flex:0.3;min-width:80px;
+}
+.btn-danger:hover{background:rgba(180,72,58,0.15);}
+.btn-primary{background:linear-gradient(135deg,var(--jade),#3d705a);color:#fff;}
+.btn-primary:hover{box-shadow:0 8px 20px rgba(79,138,114,0.4);}
+.btn-sm{padding:10px 16px;font-size:13px;min-width:auto;flex:0;}
+.btn-block{width:100%;}
+.err{color:var(--cinnabar);font-size:13.5px;margin-top:10px;display:none;}
+.success{color:var(--jade-soft);font-size:13.5px;margin-top:10px;display:none;}
+
+.modal-overlay{
+  display:none;
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,0.8);
+  z-index:1000;
+  justify-content:center;
+  align-items:center;
+  backdrop-filter:blur(4px);
+}
+.modal-overlay.show{display:flex;}
+.modal-box{
+  background:linear-gradient(180deg,var(--panel),var(--panel-2));
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:36px 40px;
+  max-width:450px;
+  width:90%;
+  box-shadow:0 30px 80px rgba(0,0,0,0.6);
+  animation:modalIn .3s ease;
+  max-height:90vh;
+  overflow-y:auto;
+}
+@keyframes modalIn{
+  from{transform:scale(0.9);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+.modal-box .modal-icon{font-size:48px;text-align:center;margin-bottom:8px;}
+.modal-box h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px;
+  color:var(--gold-soft);
+  text-align:center;
+  margin:0 0 8px;
+}
+.modal-box p{
+  color:var(--paper-dim);
+  text-align:center;
+  font-size:14px;
+  margin:4px 0;
+}
+.modal-btns{
+  display:flex;
+  gap:12px;
+  margin-top:16px;
+}
+.modal-btns .btn{
+  flex:1;
+  padding:12px;
+  font-size:14px;
+  min-width:auto;
+}
+.modal-btns .btn-save{background:linear-gradient(135deg,var(--jade),#3d705a);color:#fff;}
+.modal-btns .btn-skip{background:transparent;border:1px solid var(--paper-dim);color:var(--paper-dim);}
+
+.otp-container{display:flex;gap:12px;justify-content:center;margin:16px 0;}
+.otp-container input{
+  width:48px;height:56px;text-align:center;font-size:24px;font-weight:700;
+  border-radius:10px;border:1px solid rgba(201,162,74,0.3);
+  background:rgba(0,0,0,0.25);color:var(--paper);
+  outline:none;transition:border-color .15s, box-shadow .15s;
+  font-family:'Inter',sans-serif;
+}
+.otp-container input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,74,0.15);}
+.otp-container input::placeholder{color:rgba(243,237,224,0.2);}
+
+#results{display:none;}
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:26px;font-weight:600;color:var(--gold-soft);
+  margin:44px 0 4px;display:flex;align-items:baseline;gap:12px;
+}
+.section-title .cn{font-family:'Noto Serif SC',serif;font-size:16px;color:var(--jade-soft);opacity:0.8;letter-spacing:0.1em;}
+.section-sub{color:var(--paper-dim);font-size:13.5px;margin-bottom:18px;}
+
+.profile-banner{
+  display:flex;flex-wrap:wrap;gap:26px;align-items:center;
+  background:linear-gradient(180deg,var(--panel),var(--panel-2));
+  border:1px solid var(--line);border-radius:18px;padding:28px 30px;
+  box-shadow:var(--shadow);
+}
+.profile-banner .name{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--paper);margin:0;}
+.profile-banner .meta{color:var(--paper-dim);font-size:13.5px;margin-top:4px;}
+.shio-badge{
+  margin-left:auto;text-align:right;
+}
+.shio-badge .animal{font-size:34px;line-height:1;}
+.shio-badge .label{font-family:'Noto Serif SC',serif;color:var(--gold-soft);font-size:14px;margin-top:4px;}
+.shio-badge .sub{color:var(--paper-dim);font-size:12px;margin-top:2px;}
+
+.grid-2{display:grid;grid-template-columns:1.1fr 0.9fr;gap:20px;}
+@media (max-width:720px){.grid-2{grid-template-columns:1fr;}}
+
+.panel{
+  background:linear-gradient(180deg,var(--panel),var(--panel-2));
+  border:1px solid var(--line);border-radius:16px;padding:24px 26px;
+}
+.panel h3{
+  font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold-soft);
+  margin:0 0 14px;font-weight:600;
+}
+ul.trait-list{margin:0;padding:0;list-style:none;}
+ul.trait-list li{padding:9px 0;border-bottom:1px dashed rgba(201,162,74,0.15);font-size:14px;color:var(--paper);}
+ul.trait-list li:last-child{border-bottom:none;}
+.swatch{font-size:12.5px;color:var(--paper-dim);}
+.swatch b{color:var(--paper);}
+
+.main-char-highlight{
+  display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  background:linear-gradient(135deg,rgba(201,162,74,0.12),rgba(201,162,74,0.04));
+  border:1px solid rgba(201,162,74,0.35);
+  border-radius:14px;padding:18px 24px;margin-bottom:14px;
+}
+.main-char-highlight .big-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:58px;color:var(--gold-soft);
+  font-weight:700;line-height:1;min-width:70px;text-align:center;
+}
+.main-char-highlight .info{flex:1;}
+.main-char-highlight .info .label{font-size:13px;color:var(--jade-soft);letter-spacing:0.06em;text-transform:uppercase;}
+.main-char-highlight .info .name{font-size:22px;color:var(--paper);font-weight:600;}
+.main-char-highlight .info .desc{font-size:14px;color:var(--paper-dim);}
+
+.diagram-panel{padding:12px 10px 20px;}
+.diagram-panel svg{width:100%;height:auto;display:block;}
+
+.num-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+.num-card{
+  background:linear-gradient(180deg,var(--panel),var(--panel-2));
+  border:1px solid var(--line);
+  border-radius:14px;padding:18px 20px;
+  position:relative;overflow:hidden;
+}
+.num-card::before{
+  content:attr(data-idx);position:absolute;right:14px;top:8px;
+  font-family:'Cormorant Garamond',serif;font-size:38px;color:rgba(201,162,74,0.14);
+  font-weight:700;
+}
+.num-card .code{
+  font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold-soft);
+  letter-spacing:0.08em;font-weight:700;
+}
+.num-card .label{font-size:12.5px;text-transform:uppercase;letter-spacing:0.06em;color:var(--jade-soft);margin:2px 0 8px;}
+.num-card .meaning{font-size:13.5px;color:var(--paper-dim);line-height:1.55;}
+.num-card.main-char-card{border-color:var(--gold);background:linear-gradient(135deg,rgba(201,162,74,0.15),rgba(201,162,74,0.05));}
+.num-card.main-char-card .code{font-size:34px;color:var(--gold);}
+.num-card.main-char-card::before{color:rgba(201,162,74,0.25);}
+
+.missing-box{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+.miss-num{
+  width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-weight:700;font-size:18px;
+  background:rgba(180,72,58,0.16);border:1px solid rgba(180,72,58,0.4);color:#e0968a;
+}
+.miss-empty{color:var(--paper-dim);font-size:13.5px;}
+
+.risk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;}
+.risk-card{
+  border-radius:14px;padding:16px 18px;border:1px solid var(--line);
+  background:rgba(0,0,0,0.15);
+}
+.risk-card.hit{border-color:rgba(180,72,58,0.45);background:rgba(180,72,58,0.08);}
+.risk-card .rtitle{font-size:13.5px;font-weight:600;color:var(--paper);margin-bottom:6px;}
+.risk-card .rstatus{font-size:12.5px;color:var(--paper-dim);}
+.risk-card.hit .rstatus{color:#e0968a;}
+.risk-card.ok .rstatus{color:var(--jade-soft);}
+.risk-card.wealth.hit{border-color:rgba(201,162,74,0.5);background:rgba(201,162,74,0.08);}
+.risk-card.wealth.hit .rstatus{color:var(--gold-soft);}
+
+.bal-grid{
+  display:grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap:14px;
+  margin:6px 0;
+}
+@media (max-width:768px){
+  .bal-grid{grid-template-columns: repeat(2, 1fr);}
+}
+@media (max-width:480px){
+  .bal-grid{grid-template-columns: repeat(2, 1fr);}
+}
+.bal-col{
+  text-align:center;
+  padding:16px 10px 14px;
+  border-radius:14px;
+  border:2px solid var(--line);
+  background:rgba(0,0,0,0.12);
+  transition:all .3s ease;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.bal-col.bal-main{
+  border-color:var(--gold);
+  background:rgba(201,162,74,0.08);
+}
+.bal-col.bal-main .bal-name{color:var(--paper);}
+.bal-col.bal-main .bal-num{color:var(--gold-soft);}
+.bal-icon{font-size:28px;margin-bottom:2px;}
+.bal-name{
+  font-size:16px;
+  font-weight:700;
+  color:var(--gold-soft);
+  letter-spacing:0.04em;
+}
+.bal-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:38px;
+  font-weight:700;
+  color:var(--paper);
+  line-height:1.2;
+  margin:2px 0;
+}
+.bal-status{
+  font-size:12px;
+  font-weight:600;
+  padding:2px 14px;
+  border-radius:12px;
+  margin:4px 0 2px;
+}
+.bal-status.seimbang{
+  background:rgba(201,162,74,0.2);
+  color:var(--gold-soft);
+}
+.bal-status.kelebihan{
+  background:rgba(79,138,114,0.25);
+  color:var(--jade-soft);
+}
+.bal-status.kekurangan{
+  background:rgba(180,72,58,0.2);
+  color:#e0968a;
+}
+.bal-ideal{
+  font-size:12px;
+  color:var(--paper-dim);
+  opacity:0.6;
+}
+.bal-diff{
+  font-size:14px;
+  font-weight:700;
+  margin-top:2px;
+}
+.bal-diff.plus{color:var(--jade-soft);}
+.bal-diff.minus{color:#e0968a;}
+.bal-diff.zero{color:var(--gold-soft);}
+.bal-category{
+  font-size:13px;
+  font-weight:600;
+  color:var(--paper);
+  margin-top:8px;
+  padding-top:8px;
+  border-top:1px solid rgba(201,162,74,0.12);
+  width:100%;
+}
+.bal-position{
+  font-size:11px;
+  color:var(--paper-dim);
+  opacity:0.5;
+}
+
+.summary-13-grid{
+  display:grid;
+  grid-template-columns: repeat(13, 1fr);
+  gap:4px;
+  margin-bottom:14px;
+}
+@media (max-width:860px){
+  .summary-13-grid{
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+@media (max-width:540px){
+  .summary-13-grid{
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.summary-13-item{
+  text-align:center;
+  padding:4px 2px;
+}
+.summary-13-item .s-num-label{
+  font-size:8px;
+  text-transform:uppercase;
+  letter-spacing:0.04em;
+  color:var(--paper-dim);
+  opacity:0.5;
+  line-height:1.2;
+}
+.summary-13-item .s-num-box{
+  background:rgba(0,0,0,0.2);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:6px 2px;
+  margin-top:2px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;
+  font-weight:700;
+  color:var(--gold-soft);
+  letter-spacing:0.06em;
+}
+.summary-13-item.main-char .s-num-box{
+  border-color:var(--gold);
+  background:rgba(201,162,74,0.12);
+  color:var(--gold);
+}
+.summary-13-item .s-num-index{
+  font-size:7px;
+  color:var(--paper-dim);
+  opacity:0.3;
+  margin-top:2px;
+}
+.summary-info-row{
+  font-size:14px;
+  color:var(--paper-dim);
+  padding:12px 16px;
+  background:rgba(0,0,0,0.15);
+  border-radius:10px;
+  margin-top:4px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px 12px;
+}
+.summary-info-row .highlight{color:var(--gold-soft);font-weight:600;}
+.summary-info-row .missing{color:#e0968a;font-weight:600;}
+
+.rel-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+@media (max-width:560px){.rel-grid{grid-template-columns:1fr;}}
+.rel-item{font-size:13.5px;color:var(--paper-dim);}
+.rel-item b{display:block;color:var(--gold-soft);font-size:12px;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;font-weight:600;}
+
+.dream-box{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;}
+.dream-box .big{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--paper);flex:1;min-width:220px;}
+.dream-box .need{color:var(--jade-soft);font-size:13.5px;}
+
+.bless-list{list-style:none;margin:0;padding:0;}
+.bless-list li{padding:10px 0;border-bottom:1px dashed rgba(201,162,74,0.15);font-size:14px;display:flex;gap:10px;align-items:flex-start;}
+.bless-list li:last-child{border-bottom:none;}
+.bless-num{
+  flex:none;width:26px;height:26px;border-radius:50%;background:rgba(201,162,74,0.18);
+  border:1px solid rgba(201,162,74,0.4);color:var(--gold-soft);
+  display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;
+  font-family:'Cormorant Garamond',serif;
+}
+
+.year-banner{
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+}
+.year-num{
+  font-family:'Cormorant Garamond',serif;font-size:52px;color:var(--gold-soft);font-weight:700;
+  line-height:1;
+}
+.year-info{flex:1;min-width:200px;}
+.year-info .l1{font-size:15px;color:var(--paper);margin-bottom:4px;}
+.year-info .l2{font-size:13px;color:var(--jade-soft);margin-bottom:4px;}
+.year-info .l3{font-size:12.5px;color:var(--paper-dim);}
+
+.footnote{margin-top:60px;text-align:center;color:var(--paper-dim);font-size:12px;opacity:0.7;line-height:1.7;}
+.print-btn{
+  background:transparent;border:1px solid var(--gold);color:var(--gold-soft);
+  border-radius:10px;padding:10px 18px;font-size:13.5px;font-weight:600;
+  cursor:pointer;font-family:'Inter',sans-serif;display:inline-flex;align-items:center;gap:8px;
+  transition:background .15s, color .15s;
+}
+.print-btn:hover{background:var(--gold);color:#1a1408;}
+#print-header{display:none;}
+
+.user-status-bar{
+  display:flex !important;
+  flex-wrap:wrap;
+  gap:16px;
+  align-items:center;
+  background:linear-gradient(135deg,rgba(201,162,74,0.08),rgba(201,162,74,0.02));
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:14px 20px;
+  margin-bottom:20px;
+}
+.user-status-bar .login-btn {
+    background: linear-gradient(135deg, var(--jade), #3d705a);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform .12s, box-shadow .12s;
+    font-family: 'Inter', sans-serif;
+}
+.user-status-bar .login-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(79, 138, 114, 0.4);
+}   
+.user-status-bar .status-item{
+  display:flex;align-items:center;gap:8px;
+  font-size:14px;color:var(--paper-dim);
+}
+.user-status-bar .status-item .val{
+  color:var(--gold-soft);font-weight:700;font-size:16px;
+}
+.user-status-bar .status-item .val.danger{color:#e0968a;}
+.user-status-bar .status-item .val.success{color:var(--jade-soft);}
+.user-status-bar .user-name{
+  font-weight:600;color:var(--paper);margin-right:8px;
+}
+.user-status-bar .logout-btn{
+  margin-left:auto;
+  background:transparent;border:1px solid var(--cinnabar);color:#e0968a;
+  border-radius:8px;padding:6px 14px;font-size:12px;cursor:pointer;
+  transition:background .15s;
+}
+.user-status-bar .logout-btn:hover{background:rgba(180,72,58,0.15);}
+.user-status-bar .token-btn{
+  background:transparent;border:1px solid var(--gold-soft);color:var(--gold-soft);
+  border-radius:8px;padding:6px 14px;font-size:12px;cursor:pointer;
+  transition:background .15s;
+}
+.user-status-bar .token-btn:hover{background:rgba(201,162,74,0.1);}
+
+.license-warning{
+  background:rgba(180,72,58,0.12);
+  border:1px solid var(--cinnabar);
+  border-radius:10px;
+  padding:14px 18px;
+  margin-bottom:16px;
+  display:none;
+}
+.license-warning .title{color:#e0968a;font-weight:600;font-size:15px;}
+.license-warning .desc{color:var(--paper-dim);font-size:13px;margin-top:4px;}
+.license-warning .wa-link{
+  display:inline-block;margin-top:8px;
+  background:linear-gradient(135deg,#25D366,#128C7E);
+  color:#fff;padding:10px 20px;border-radius:10px;
+  text-decoration:none;font-weight:600;font-size:14px;
+  transition:transform .12s;
+}
+.license-warning .wa-link:hover{transform:scale(1.02);}
+
+.history-table{width:100%;border-collapse:collapse;font-size:13px;}
+.history-table th{
+  text-align:left;padding:8px 10px;color:var(--paper-dim);
+  border-bottom:1px solid var(--line);font-weight:600;font-size:11px;
+  text-transform:uppercase;letter-spacing:0.06em;
+}
+.history-table td{
+  padding:8px 10px;border-bottom:1px solid rgba(201,162,74,0.08);
+  color:var(--paper);
+}
+.history-table .delete-btn{
+  background:transparent;border:none;color:#e0968a;cursor:pointer;
+  font-size:14px;padding:2px 6px;border-radius:4px;
+  transition:background .15s;
+}
+.history-table .delete-btn:hover{background:rgba(180,72,58,0.15);}
+.history-table .view-btn{
+  background:transparent;border:1px solid var(--gold-soft);color:var(--gold-soft);
+  border-radius:6px;padding:2px 10px;font-size:11px;cursor:pointer;
+  transition:background .15s;
+  font-family:'Inter',sans-serif;
+}
+.history-table .view-btn:hover{background:rgba(201,162,74,0.15);}
+.history-empty-state{text-align:center;padding:30px 0;color:var(--paper-dim);font-size:14px;}
+.history-actions{display:flex;gap:10px;margin:12px 0;flex-wrap:wrap;}
+
+#quotaModal .modal-data {
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin: 16px 0;
+}
+#quotaModal .modal-data .md-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    font-size: 14px;
+}
+#quotaModal .modal-data .md-item .md-label {
+    color: var(--paper-dim);
+}
+#quotaModal .modal-data .md-item .md-value {
+    color: var(--paper);
+    font-weight: 600;
+}
+#quotaModal .modal-data .md-item .md-value.danger {
+    color: #e0968a;
+}
+#quotaModal .btn-save {
+    background: linear-gradient(135deg, #25D366, #128C7E) !important;
+    color: #fff !important;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    transition: transform .12s, box-shadow .12s;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+}
+#quotaModal .btn-save:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
+}
+@media print{
+  body{background:var(--paper) !important;color:var(--ink) !important;}
+  .wrap{max-width:100%;padding:20px 26px;}
+  .card,.print-bar,.hero .hanzi-row,.footnote,.user-status-bar,
+  .modal-overlay,.license-warning,.history-actions{display:none !important;}
+  .hero{border-bottom:2px solid var(--ink);margin-bottom:24px;padding-bottom:16px;}
+  .hero h1{color:var(--ink);font-size:30px;}
+  .hero h1 em{color:#8a6a1f;}
+  .hero p{color:#4a4a44;}
+  .hero .seal{color:#8a6a1f;}
+  #print-header{display:block !important;margin:0 0 22px;text-align:center;}
+  #print-header .pname{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--ink);}
+  #print-header .pdob{font-size:13px;color:#5a5a52;margin-top:2px;}
+  .section-title{color:#8a6a1f;break-after:avoid;page-break-after:avoid;}
+  .section-title .cn{color:#3f6e5a;}
+  .section-sub{color:#5a5a52;}
+  .profile-banner,.panel,.num-card,.risk-card,.bal-col{
+    background:#ffffff !important;
+    border:1px solid #d8cba3 !important;
+    box-shadow:none !important;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+    break-inside:avoid;page-break-inside:avoid;
+  }
+  .profile-banner .name,.num-card .code,.year-num,.bal-num,.summary-13-item .s-num-box{color:#8a6a1f !important;}
+  .profile-banner .meta,.num-card .meaning,.panel,body,.rel-item,.swatch,.summary-info-row{color:#2a2a26 !important;}
+  .shio-badge .label{color:#3f6e5a !important;}
+  .bal-col.bal-main{border-color:#8a6a1f !important;background:#f5f0e8 !important;}
+  .bal-status.seimbang{background:#f0ebe0 !important;color:#8a6a1f !important;}
+  .bal-status.kelebihan{background:#e8f5ee !important;color:#3f6e5a !important;}
+  .bal-status.kekurangan{background:#fdeeeb !important;color:#b4483a !important;}
+  .num-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+  .grid-2{grid-template-columns:1fr 1fr;}
+  .risk-grid{grid-template-columns:repeat(2,1fr);}
+  .bal-grid{grid-template-columns:repeat(5,1fr);}
+  .summary-13-grid{grid-template-columns:repeat(13,1fr) !important;}
+  a{color:inherit;text-decoration:none;}
+}
+
+/* ============================================================
+   CUSTOM MODAL (Pengganti alert)
+   ============================================================ */
+.custom-alert-overlay{
+  display:none;
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,0.85);
+  z-index:2000;
+  justify-content:center;
+  align-items:center;
+  backdrop-filter:blur(6px);
+  animation:fadeIn .25s ease;
+}
+.custom-alert-overlay.show{display:flex;}
+.custom-alert-overlay .alert-box{
+  background:linear-gradient(180deg,var(--panel),var(--panel-2));
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:36px 40px 32px;
+  max-width:420px;
+  width:90%;
+  box-shadow:0 30px 80px rgba(0,0,0,0.6);
+  animation:modalIn .3s ease;
+  text-align:center;
+}
+.custom-alert-overlay .alert-icon{font-size:52px;margin-bottom:6px;}
+.custom-alert-overlay .alert-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;
+  color:var(--gold-soft);
+  margin:0 0 6px;
+  font-weight:600;
+}
+.custom-alert-overlay .alert-message{
+  color:var(--paper-dim);
+  font-size:15px;
+  margin:0 0 20px;
+  line-height:1.6;
+}
+.custom-alert-overlay .alert-btn{
+  background:linear-gradient(135deg,var(--gold),#a9843a);
+  color:#1a1408;
+  border:none;
+  border-radius:10px;
+  padding:12px 32px;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+  font-family:'Inter',sans-serif;
+  transition:transform .12s, box-shadow .12s;
+}
+.custom-alert-overlay .alert-btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 8px 24px rgba(201,162,74,0.3);
+}
+.custom-alert-overlay .alert-btn-success{
+  background:linear-gradient(135deg,var(--jade),#3d705a);
+  color:#fff;
+}
+.custom-alert-overlay .alert-btn-success:hover{
+  box-shadow:0 8px 20px rgba(79,138,114,0.4);
+}
+.custom-alert-overlay .alert-btn-danger{
+  background:linear-gradient(135deg,var(--cinnabar),#8a3a2e);
+  color:#fff;
+}
+.custom-alert-overlay .alert-btn-danger:hover{
+  box-shadow:0 8px 20px rgba(180,72,58,0.4);
+}
+.custom-alert-overlay .alert-btn-cancel{
+  background:transparent !important;
+  border:1px solid var(--paper-dim) !important;
+  color:var(--paper-dim) !important;
+  margin-left:12px;
+}
+.custom-alert-overlay .alert-btn-cancel:hover{
+  background:rgba(201,162,74,0.1) !important;
+  box-shadow:none !important;
+  transform:none !important;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <div class="hero">
+    <div class="seal">生辰數理 · Life Number</div>
+    <h1>Kalkulator <em>Angka Kehidupan</em></h1>
+    <p>Masukkan nama dan tanggal lahir — profil karakter, elemen, shio, angka kehidupan, hingga ramalan tahun ini akan tersusun otomatis.</p>
+    <div class="hanzi-row">鼠 牛 虎 兔 龍 蛇 馬 羊 猴 雞 狗 豬</div>
+  </div>
+
+  <!-- ============================================================
+       USER STATUS BAR
+       ============================================================ -->
+  <div id="userStatusBar" style="display:none;" class="user-status-bar">
+    <span class="user-name" id="displayName">—</span>
+    <span class="status-item" id="kuotaItem">📊 Kuota: <span class="val success" id="displayKuota">0</span></span>
+    <span class="status-item" id="masaItem">⏰ Masa Aktif: <span class="val" id="displayMasaAktif">0</span> hari</span>
+    <span class="status-item" id="expiredItem">📅 Expired: <span class="val" id="displayExpired">—</span></span>
+    <div style="flex:1;"></div>
+    <button class="token-btn" id="changePasswordBtn" style="display:none;">🔑 Ganti Password</button>
+    <button class="token-btn" id="historyBtn">📊 Riwayat</button>
+    <button class="token-btn" id="tokenBtn">🔑 Token</button>
+    <button class="logout-btn" id="logoutBtn">🚪 Logout</button>
+    <button class="login-btn" id="loginBtn" style="display:none;">🔐 Login</button>
+  </div>
+
+  <!-- ============================================================
+       LICENSE WARNING
+       ============================================================ -->
+  <div id="licenseWarning" class="license-warning">
+    <div class="title">⚠️ LISENSI ANDA TELAH HABIS</div>
+    <div class="desc" id="licenseWarningDesc">Kuota atau masa aktif Anda telah habis. Hubungi admin untuk perpanjang.</div>
+    <a href="#" id="waLink" class="wa-link" target="_blank">📱 Hubungi Admin via WhatsApp</a>
+  </div>
+
+  <!-- ============================================================
+       FORM INPUT
+       ============================================================ -->
+  <div class="card" id="formCard">
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="fname">Nama <span style="font-weight:400;font-size:10px;color:var(--paper-dim);">(yang akan dihitung)</span></label>
+        <input type="text" id="fname" placeholder="cth. Su Yhi">
+      </div>
+      <div>
+        <label>Tanggal Lahir <span style="font-weight:400;font-size:10px;color:var(--paper-dim);">(dd/mm/yyyy)</span></label>
+        <div class="date-group">
+          <div class="date-part">
+            <input type="text" id="dobDay" placeholder="DD" maxlength="2" inputmode="numeric">
+            <span class="date-label">Hari</span>
+          </div>
+          <span class="date-sep">/</span>
+          <div class="date-part">
+            <input type="text" id="dobMonth" placeholder="MM" maxlength="2" inputmode="numeric">
+            <span class="date-label">Bulan</span>
+          </div>
+          <span class="date-sep">/</span>
+          <div class="date-part">
+            <input type="text" id="dobYear" placeholder="YYYY" maxlength="4" inputmode="numeric">
+            <span class="date-label">Tahun</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="btn-group">
+      <button class="btn" id="calcBtn">Hitung Angka Kehidupan</button>
+      <button class="btn btn-outline" id="printBtn" style="display:none;">🖨 Cetak PDF</button>
+    </div>
+    <div class="err" id="errBox"></div>
+  </div>
+
+  <!-- ============================================================
+       RESULTS
+       ============================================================ -->
+  <div id="results"></div>
+
+  <!-- ============================================================
+       FOOTNOTE
+       ============================================================ -->
+  <div class="footnote">
+    Dibuat berdasarkan struktur perhitungan pada template "SU YHI LIFE NUMBER".<br>
+    Untuk refleksi &amp; hiburan pribadi — bukan pengganti nasihat profesional apa pun.
+  </div>
+</div>
+
+<!-- ============================================================
+   BAGIAN 2: MODAL HTML
+   ============================================================ -->
+<!-- Modal Login -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal-box" id="loginModalBox">
+    <div class="modal-icon" id="modalIcon">🔐</div>
+    <h2 id="modalTitle">Login</h2>
+    <p id="modalSub">Masukkan email dan password Anda.</p>
+
+    <!-- Step 1: Login -->
+    <div id="loginStep1">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="loginEmail" placeholder="email@domain.com">
+      </div>
+      <div class="form-group" style="margin-top:12px;">
+        <label>Password</label>
+        <input type="password" id="loginPassword" placeholder="Password">
+      </div>
+      <div class="modal-btns">
+        <button class="btn btn-block" id="loginBtnAction">Login</button>
+      </div>
+      <p style="text-align:center;font-size:13px;margin-top:8px;color:var(--paper-dim);">
+        <a href="#" id="forgotPasswordBtn" style="color:var(--gold-soft);text-decoration:none;">Lupa password?</a>
+      </p>
+      <p style="text-align:center;font-size:13px;margin-top:4px;color:var(--paper-dim);">
+        Belum punya akun? <a href="#" id="goToRegister" style="color:var(--gold-soft);text-decoration:none;">Daftar di sini</a>
+      </p>
+    </div>
+
+    <!-- Step 2: Register -->
+    <div id="registerStep" style="display:none;">
+      <p style="color:var(--paper-dim);font-size:13px;">Buat akun baru untuk mulai menghitung.</p>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="regEmail" placeholder="email@domain.com">
+      </div>
+      <div class="form-group" style="margin-top:12px;">
+        <label>Password</label>
+        <input type="password" id="regPassword" placeholder="Minimal 6 karakter">
+      </div>
+      <div class="form-group" style="margin-top:12px;">
+        <label>Nama Lengkap</label>
+        <input type="text" id="regName" placeholder="Nama lengkap">
+      </div>
+      <div class="form-group" style="margin-top:12px;">
+        <label>No HP</label>
+        <input type="tel" id="regPhone" placeholder="08123456789">
+      </div>
+      <div class="modal-btns">
+        <button class="btn btn-block" id="registerSubmitBtn">Kirim Kode OTP</button>
+      </div>
+      <p style="text-align:center;font-size:13px;margin-top:12px;color:var(--paper-dim);">
+        Sudah punya akun? <a href="#" id="goToLogin" style="color:var(--gold-soft);text-decoration:none;">Login di sini</a>
+      </p>
+    </div>
+
+    <!-- Step 3: Register OTP Verification -->
+    <div id="registerOtpStep" style="display:none;">
+      <p style="color:var(--jade-soft);font-size:13px;">✅ Kode OTP telah dikirim ke <span id="regOtpEmailDisplay">—</span></p>
+      <div class="otp-container">
+        <input type="text" maxlength="1" class="otp-input-reg" data-index="0">
+        <input type="text" maxlength="1" class="otp-input-reg" data-index="1">
+        <input type="text" maxlength="1" class="otp-input-reg" data-index="2">
+        <input type="text" maxlength="1" class="otp-input-reg" data-index="3">
+        <input type="text" maxlength="1" class="otp-input-reg" data-index="4">
+        <input type="text" maxlength="1" class="otp-input-reg" data-index="5">
+      </div>
+      <div class="modal-btns">
+        <button class="btn btn-block" id="verifyRegOtpBtn">Verifikasi & Daftar</button>
+      </div>
+      <p style="text-align:center;font-size:13px;margin-top:12px;color:var(--paper-dim);">
+        Tidak menerima kode? <a href="#" id="resendRegOtpBtn" style="color:var(--gold-soft);text-decoration:none;">Kirim ulang</a>
+      </p>
+    </div>
+
+    <!-- Step 4: Token -->
+    <div id="tokenStep" style="display:none;">
+      <p style="color:var(--paper-dim);font-size:13px;">
+        Masukkan token perpanjang yang diberikan oleh admin.
+      </p>
+      <div class="form-group">
+        <label>Token</label>
+        <input type="text" id="tokenInput" placeholder="EXTEND-20250720-A7F3">
+      </div>
+      <div class="modal-btns">
+        <button class="btn btn-block" id="redeemTokenBtn">🔓 Perpanjang Lisensi</button>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:16px;">
+      <a href="#" id="closeModalBtn" style="color:var(--paper-dim);opacity:0.5;text-decoration:none;font-size:13px;">Tutup</a>
+    </div>
+  </div>
+</div>
+
+<!-- Modal History -->
+<div class="modal-overlay" id="historyModal">
+  <div class="modal-box" style="max-width:600px;">
+    <div class="modal-icon">📊</div>
+    <h2>Riwayat Perhitungan</h2>
+    <p style="color:var(--paper-dim);font-size:13px;margin-bottom:12px;">
+      Data disimpan di cloud. <span style="color:var(--jade-soft);">Menghapus tidak mengurangi kuota.</span>
+    </p>
+    <div id="historyContent">
+      <div class="history-empty-state">Belum ada riwayat perhitungan.</div>
+    </div>
+    <div class="history-actions">
+      <button class="btn btn-sm btn-danger" id="deleteAllHistoryBtn">🗑️ Hapus Semua</button>
+      <button class="btn btn-sm btn-outline" id="closeHistoryBtn">Tutup</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Kuota Habis -->
+<div class="modal-overlay" id="quotaModal">
+  <div class="modal-box">
+    <div class="modal-icon">⚠️</div>
+    <h2>Kuota Anda Telah Habis</h2>
+    <p style="color:var(--paper-dim);font-size:14px;">
+      Anda tidak bisa melakukan perhitungan baru karena kuota telah habis.
+    </p>
+    <div class="modal-data">
+      <div class="md-item">
+        <span class="md-label">📊 Sisa Kuota</span>
+        <span class="md-value" style="color:#e0968a;">0 / 5</span>
+      </div>
+      <div class="md-item">
+        <span class="md-label">⏰ Masa Aktif</span>
+        <span class="md-value" id="quotaMasaAktif">—</span>
+      </div>
+      <div class="md-item">
+        <span class="md-label">📅 Expired</span>
+        <span class="md-value" id="quotaExpired">—</span>
+      </div>
+      <div class="md-item">
+        <span class="md-label">👤 User</span>
+        <span class="md-value" id="quotaUserName">—</span>
+      </div>
+      <div class="md-item">
+        <span class="md-label">📧 Email</span>
+        <span class="md-value" id="quotaUserEmail">—</span>
+      </div>
+    </div>
+    <p style="color:var(--paper-dim);font-size:13px;text-align:center;">
+      Hubungi admin untuk mendapatkan token perpanjang.
+    </p>
+    <div class="modal-btns">
+      <a href="#" id="quotaWaLink" class="btn btn-save" target="_blank">
+        📱 Hubungi Admin via WhatsApp
+      </a>
+    </div>
+    <div style="text-align:center;margin-top:12px;">
+      <button class="btn btn-sm btn-outline" id="closeQuotaModalBtn" style="padding:6px 20px;font-size:13px;">Tutup</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Forgot Password -->
+<div class="modal-overlay" id="forgotPasswordModal">
+  <div class="modal-box">
+    <div class="modal-icon">🔑</div>
+    <h2>Reset Password</h2>
+    <p style="color:var(--paper-dim);font-size:13px;">
+      Masukkan email Anda. Kami akan kirim link untuk membuat password baru.
+    </p>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="resetEmail" placeholder="email@domain.com">
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-block" id="resetPasswordBtn">Kirim Link Reset</button>
+    </div>
+    <p style="text-align:center;font-size:13px;margin-top:12px;color:var(--paper-dim);">
+      <a href="#" id="backToLoginFromReset" style="color:var(--gold-soft);text-decoration:none;">Kembali ke Login</a>
+    </p>
+    <div style="text-align:center;margin-top:12px;">
+      <a href="#" id="closeForgotModalBtn" style="color:var(--paper-dim);opacity:0.5;text-decoration:none;font-size:13px;">Tutup</a>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Change Password -->
+<div class="modal-overlay" id="changePasswordModal">
+  <div class="modal-box">
+    <div class="modal-icon">🔐</div>
+    <h2>Ganti Password</h2>
+    <p style="color:var(--paper-dim);font-size:13px;">
+      Masukkan password lama dan password baru Anda.
+    </p>
+    <div class="form-group">
+      <label>Password Lama</label>
+      <input type="password" id="oldPassword" placeholder="Password lama">
+    </div>
+    <div class="form-group" style="margin-top:12px;">
+      <label>Password Baru</label>
+      <input type="password" id="newPassword" placeholder="Minimal 6 karakter">
+    </div>
+    <div class="form-group" style="margin-top:12px;">
+      <label>Konfirmasi Password Baru</label>
+      <input type="password" id="confirmNewPassword" placeholder="Konfirmasi password baru">
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-block btn-primary" id="changePasswordSubmitBtn">Ganti Password</button>
+    </div>
+    <div style="text-align:center;margin-top:12px;">
+      <a href="#" id="closeChangePasswordBtn" style="color:var(--paper-dim);opacity:0.5;text-decoration:none;font-size:13px;">Tutup</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+   CUSTOM ALERT MODAL
+   ============================================================ -->
+<div class="custom-alert-overlay" id="customAlert">
+  <div class="alert-box">
+    <div class="alert-icon" id="alertIcon">✅</div>
+    <h3 class="alert-title" id="alertTitle">Sukses</h3>
+    <p class="alert-message" id="alertMessage">Pesan Anda</p>
+    <div>
+      <button class="alert-btn" id="alertBtn">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+   BAGIAN 3: JAVASCRIPT - FIREBASE + EMAILJS
+   ============================================================ -->
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+// ============================================================
+// FIREBASE CONFIG - GANTI DENGAN MILIK ANDA!
+// ============================================================
+const firebaseConfig = {
+  apiKey: "AIzaSyDX9Rm_Wz8Ge2AiYvTMBQ4VbyQu6zI2esI",
+  authDomain: "shuyi-lifecode.firebaseapp.com",
+  projectId: "shuyi-lifecode",
+  storageBucket: "shuyi-lifecode.firebasestorage.app",
+  messagingSenderId: "386576582379",
+  appId: "1:386576582379:web:aa54c278e314361c1ee0ae",
+  measurementId: "G-CXEHC5EEMG"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+// ============================================================
+// EMAILJS CONFIG
+// ============================================================
+(function() {
+    emailjs.init({
+        publicKey: 's0RdgWb8Mw4sJzBr4',
+    });
+})();
+
+// ============================================================
+// CONFIGURATION
+// ============================================================
+const CONFIG = {
+    ADMIN_PHONE: '6285270269090',
+    DEFAULT_QUOTA: 5,
+    DEFAULT_DAYS: 30,
+    EMAILJS_SERVICE_ID: 'service_yiq2t8f',
+    EMAILJS_TEMPLATE_ID: 'template_7aslf4m',
+    EMAILJS_PUBLIC_KEY: 's0RdgWb8Mw4sJzBr4'
+};
+
+// ============================================================
+// CUSTOM ALERT FUNCTIONS
+// ============================================================
+function showCustomAlert(type, title, message) {
+    var overlay = document.getElementById('customAlert');
+    var icon = document.getElementById('alertIcon');
+    var titleEl = document.getElementById('alertTitle');
+    var msgEl = document.getElementById('alertMessage');
+    var btn = document.getElementById('alertBtn');
+    
+    var icons = {
+        'success': '✅',
+        'error': '❌',
+        'warning': '⚠️',
+        'info': 'ℹ️'
+    };
+    icon.textContent = icons[type] || 'ℹ️';
+    titleEl.textContent = title || 'Info';
+    msgEl.textContent = message || '';
+    
+    btn.className = 'alert-btn';
+    if (type === 'success') btn.classList.add('alert-btn-success');
+    else if (type === 'error') btn.classList.add('alert-btn-danger');
+    btn.textContent = 'OK';
+    
+    var cancelBtn = document.querySelector('.alert-btn-cancel');
+    if (cancelBtn) cancelBtn.remove();
+    
+    overlay.classList.add('show');
+    
+    btn.onclick = function() {
+        overlay.classList.remove('show');
+    };
+    overlay.onclick = function(e) {
+        if (e.target === overlay) overlay.classList.remove('show');
+    };
+}
+
+function showCustomAlertConfirm(title, message, confirmText, cancelText, callback) {
+    var overlay = document.getElementById('customAlert');
+    var icon = document.getElementById('alertIcon');
+    var titleEl = document.getElementById('alertTitle');
+    var msgEl = document.getElementById('alertMessage');
+    var btn = document.getElementById('alertBtn');
+    
+    icon.textContent = '❓';
+    titleEl.textContent = title || 'Konfirmasi';
+    msgEl.textContent = message || '';
+    
+    btn.textContent = confirmText || 'Ya';
+    btn.className = 'alert-btn alert-btn-danger';
+    
+    var oldCancel = document.querySelector('.alert-btn-cancel');
+    if (oldCancel) oldCancel.remove();
+    
+    var cancelBtn = document.createElement('button');
+    cancelBtn.textContent = cancelText || 'Batal';
+    cancelBtn.className = 'alert-btn alert-btn-cancel';
+    cancelBtn.style.marginLeft = '12px';
+    btn.parentNode.insertBefore(cancelBtn, btn.nextSibling);
+    
+    overlay.classList.add('show');
+    
+    btn.onclick = function() {
+        overlay.classList.remove('show');
+        if (callback) callback(true);
+    };
+    cancelBtn.onclick = function() {
+        overlay.classList.remove('show');
+        if (callback) callback(false);
+    };
+    overlay.onclick = function(e) {
+        if (e.target === overlay) {
+            overlay.classList.remove('show');
+            if (callback) callback(false);
+        }
+    };
+}
+
+// ============================================================
+// DATA from Excel (LENGKAP - SAMA PERSIS)
+// ============================================================
+const MEANING_DATA = {
+"112":"Orang Yang Sangat Percaya Diri & Pintar Bicara, komunikasi sangat keras, ada kuasa, status pernikahan yang berbeda/pasti tidak bahagia. Status kesehatan yang kurang dan di atas usia 40 tahun tidak di senangin lagi di ajak bicara oleh orang lain. Sangat keras pendirian.",
+"123":"Pintar Bicara, Jikalau buat prestasi sangat terstruktur, omongan bisa sangat bagus tetapi orang lain tidak ngerti, bisa nyinggung orang/ sarkastik, jadi energy harus tinggi",
+"213":"Harus Bicara Yang Benar/Jujur, omongan benar, tapi orang lain tidak suka dengarnya, harus ngomong yang bagus, berpikir dengan baik dan omongan jadi baik, bisa jadi jendral dan tidak boleh bilang yang tidak baik",
+"134":"Orang yang sangat baik hati (suka menolong), Rajin, Perlu Banyak Belajar Bersabar, Harus Buat Banyak Amal Bakti Baru Bisa Mempunyai Peruntungan, buat usaha apapun sangat stabil. Punya rasa dendam/ pendendam, suka ingat yang tidak baik dan yang baik tidak mau di ingat. Bisa jadi usahawan / ilmuwan",
+"314":"Harus selalu berpikiran positif, kalau energy kuat, buat apapun bahagia, kalau energy rendah bisa di bawa sampai kerumah, harus bisa kontrol emosi, saat bahagia bisa sangat bahagia dan sebaliknya",
+"145":"Perlu Meningkatkan Keahlian Untuk Berkembang, Suka Berencana, Jikalaupun berencana mesti bisa buat setting goal yang lebih tinggi. Keputusan tidak sesuai dengan perencanaan, planning kebanyakan tidak jadi kalau tidak ada angka penolong, sebelum nikah ada perpect dream, begitu nikah beda lagi.",
+"415":"Berpikir adalah masalah, Berbuat adalah jawaban. Bisa berhasil dan bisa tidak berhasil. Jangan berpikir, berbuat aja. Energy harus tinggi, banyak rintangan kalau tidak ada angka 9",
+"156":"Perlu Keluar kota untuk mendapatkan hasil yang baik, keluar dari kota kelahiran, kalau ada pressure/ tekanan keluar sebentar.",
+"516":"Personal Dirinya Mesti Keluar Dari Kota Kelahiran Untuk Mencari Penghasilan Jikalau Mau Dapat Hasil Yang Besar, yang penting keluar jalan jalan, karena ada arah, yakin buat apa bis dapat apa. Punya hobby yang tidak sehat (minum, judi dll yang habiskan uang)",
+"167":"Orang Yang Berbakat Bisnis. Pinter cari tempat makan yang sedap, punya simpanan khusus. Satu org cari uang, semua orang bisa menikmati uangnya, ada hoki, mau usaha apapun tapi usaha sendiri kalau di kasi modal tidak aman membuat sukses.",
+"617":"Jangan menikah sebelum 30 taon, kalau bisnis jangan ambil uang orang tua hidup macam rolly coster (cendrung Boros), selalu makan makanan yang enak, suka traktir orang makan, selalu berusaha sendiri baru sukses, jgn berpuas diri, akan terus bekerja terus, harus ada simpanan/uang/ jgn di habiskan, terhadap uang sangat sensitif, lebih jaga diri sendiri duluan.",
+"178":"Gak Boleh Pinjam Orang Uang/Kendaraan tapi boleh kasih , Gak Boleh Garansi Orang. Jikalau mau peruntungan bagus mesti buat perjalanan ke luar kota minimal 4 jam melalui udara. Selalu kena masalah hukum, suka di gisipin / di fitnah, masalah kecil yang bisa di jadikan masalah besar, bisa dapat uang global dan tidak boleh jadi pemimpin no. 1",
+"718":"Boleh buat bisnis international kalau energy positip, kalau negatip bukan masalah dia bisa kena masalah juga. Suka di gosipin/difitnah, selalu kena masalah hukum. Hal yang tidak boleh dikerjakan : 1. jangan pinjam uang ke orang lain, 2. jangan pinjamkan mobil ke orang lain, 3. tidak boleh menjadi penjamin, 4. jangan janji buatkan kasih orang.",
+"189":"Mengerjakan sesuatu hal tidak percaya sama orang lain, kalau energy low ada kondisi ODC, terlalu Pintar, capek sendiri. Untuk usaha yang di lakukan sendiri pasti sukses, harus banyak istirahat. Selalu merasa lebih pintar dari pada orang lain",
+"819":"Orang yang sangat sibuk, Perfeksionis. Kalau Kerja sangat di sukai Boss, Kalau tidur kadang kurang lelap suka kebangun karena kepikiran sesuatu. Segala sesuatu buat sampai capek sendiri karena anggap orang lain tidak sanggup. Ada darah tinggi, pendendam, tidak bisa cepat tidur, pikiran terlalu banyak",
+"191":"Orang yang Sangat Pintar, Suka Menyendiri, Agak Egois, Kalau energy negatip Bicara agak kasar, segala sesuatu buat sendiri, sangat repot dan tidak suka di bantu orang, suka menyendiri. Kerja buat sendiri, ngomong bisa nyakitin orang lain",
+"224":"Orang Yang Terlalu Pintar Bicara untuk membuat perencanaan, Lembut hati, Tetapi Tidak Bisa Simpan Rahasia, Kalau energy low bisa sering masalah gosip, dan masalah hukum, sangat suka ngomong tapi tidak yakin, karena kurang percaya diri, ngomong suka berulang ulang. selamanya jadi orang yang selalu melewatkan kesempatan. saat energy tinggi, bisa merancang komunikasi akan banyak sukses, dan kalu low energi, bahasa yang di keluarkan tidak baik, tidak akan sukses. bisa menjadi sales agen yang sangat baik. tidak bisa menyimpan rahasia.",
+"235":"Orang Yang Punya Selling Poin Dalam Berbicara, Emosian bisa buat orang sakit hati. Pintar dan suka banyak ngomong. Kalau di segitiga ada no.3, apa yang diomongkan itu ada point.",
+"325":"Apa yang di omongkan sampai orang nya ngerti, keras kepala, dan kalau ngomong ada arah dan tujuan.",
+"246":"Orang yang tidak terlalu perhitungan dalam uang dan kerja. Mesti komunikasi apabila mau menghasilkan pendapatan. Energy tinggi keuangan stabil dan semakin meningkat. Energy rendah keuangan semakin menurun. Jika ada 9 uang gampang dapat.",
+"426":"Bicara , buat perencanaan maka uang akan datang. Jika ada uang, suka beli barang yang lbh bagus.",
+"257":"Orang Yang Punya Daya Tarik Dari Sisi Penampilan, Biasanya Cowok itu Ganteng dan Cewek Cantik, ada jodoh dengan orang lain jika anak ada nomer ini bisa berpengaruh terhadap kesehatan orang tua",
+"527":"Kalau Energy Rendah Pikiran mereka sangat complicated, sangat suka tanya2 masalah, kalau tidak dapat jawaban, akan tanya sampai puas. Kalau anak ada nomer ini, bisa pengaruh terhadap kesehatan orang tua nya.",
+"268":"Orang Yang Sangat Sensitif apabila bicara tentang Uang (Mengeluarkan Uang Harus Punya Alasan Yang Kuat Dan Masuk Akal), harus banyak buat amal supaya uang lancar. Jangan ngomong uang, omong hubungan, ngomong benefit baru mau dengar. Jangan ngomong soal uang dulu, harus ngomong yang lain dulu baru uang akan keluar",
+"628":"Investasi Sering salah sasaran yang mengakibatkan kerugian (Tidak Boleh Bisnis Duet Cepat), kalau tidak ada benefit, tidak mau buat. Dapat duit sudah ada tekanan. Jika energy tinggi akan ada kelimpahan, kekayaan yang sempurna, bahagia. Low energy, dapat uang sudah ada tekanan.",
+"279":"Orang Yang Ramah (Mulut manis). Jika Laki Laki Orang Pendukungnya Wanita Lebih muda begitu sebaliknya, laki2 sangat tampan, jika perempuan sangat cantik sangat disukai. Punya kharismatik, sangat suka menolong orang dengan rela hati.",
+"729":"Jika Laki Laki Orang Pendukungnya Wanita Lebih Tua dan sebalik nya. Banyak jodoh baik dengan orang.",
+"281":"Seorang Penjual Yang Baik khusus retail barang barang kecil. Untuk Wanita tidak boleh pakai gelang atau jam tangan, untuk Laki Laki Tidak Boleh Pakai Cincin (Dalam Segitiga Tengah) bisa mengundang kecelakaan khusus karakter utama 281, orangnya sangat pintar. Jika perempuan biasanya sangat sibuk karena semua di kerjakan sendiri.",
+"821":"Seorang Penjual Yang Baik khusus retail barang barang besar. Untuk Wanita Jaga Masalah Organ Produksi, Kalau Laki Lakai Prostat (Dalam Segitiga Tengah) dan penyakit tulang. Jika letak di karakter utama wanita, jgn menyetir. Jika menyetir harus mobil besar.",
+"292":"Sering berbicara hal yang sudah selesai tapi dibicarakan lagi. Sering Berhubungan Dengan Masalah Hukum, Sangat Cerdas (tidak bisa jadi Bos Mesti Jadi Orang Kedua), Berbuat Sesuatu mesti ada bukti. Kalau perempuan bisa bertemu dengan playboy, jika laki2 suka ketemu dengan masalah pengadilan.",
+"336":"Jikalau Bertindak, bertindak lagi Uang Akan Datang, Tidak Boleh Judi, Harus Kontrol Emosi, Tidak Bisa Dapat Uang Cepat Tapi Harus Melalui Usaha Yang Benar, tidak bisa dapat uang dengan instant / harus usaha yang besar baru bisa dapat uang besar. Harus investasi bisnis yang jelas.",
+"347":"Cocok Untuk Bisnis Jaringan, Mesti Kontrol Emosi Kalau Tidak Gampang Melukai Orang Lain, Seorang Pemimpin Yang Baik Bisa Buat Team Yang Besar ,banyak jodoh dengan orang lain, bereaksi aja, rancang saja banyak dapat peluang. Kalau wanita biasanya sangat cantik.",
+"437":"Tidak boleh banyak emosi, gampang sukses dan gampang jatuh bisa energy lor, usahawan yang berperancang sudah ada. Tinggal bergabung team builder. Kalau sudah bangun team harus jaga emosi.",
+"358":"Uang Datang Sendiri Tetapi Perlu Buat Amal Bakti Yang Banyak, Seorang Public Relation Dan Sangat Bertanggung Jawab, Kerja Banyak Tapi Tak Ada Hasil, kalau kerja harus di kerjakan dengan setulus hati, kerja sangat rajin. Recruit orang yang punya angka ini, tap harus ada angka 9",
+"538":"Buat Banyak / Kerja saja mengenai kompensasi tidak terlalu perhitungan. Apabila dalam segitiga tidak ada 2 hasilnya bisa ribut aja, semakin tua, emosi semakin tidak baik. Org ini selalu tau tempat makan enak dan tempat makan murah.",
+"369":"Pinter Cari Uang Pintar Juga Habisinnya. Harus Sering Bergaul Dengan Banyak Orang. Kalau energy rendah, uang cepat habis, kalau positif kemanapun pergi selalu bisa dapat uang. Jika energy rendah, keluar rumah sebentar apalagi sedang emosi, lebih baik keluar rumah.",
+"639":"Jikalau Energy Tinggi, Bisa Menggunakan Kondisi Untuk Menghasilkan Uang, Jikalau energy negatip menjadi Konsumtif. Kalau sukses apapun oke, mau kemanapun oke karena ada uang. Harus jalan baru ada uang. Ada relasi banyak baru ada banyak peluang. Banyak pindah banyak rezeki. kalau tidak ada angka 4, konsumtif, kalau bisa 4 tahun sekali pindah rumah.",
+"371":"Orang Yang Tidak Mau Mengalah, Ego Tinggi, Tidak Boleh Pegang Uang. Kemampuan harus banyak perlu bantuan dari orang lain. Harus banyak berpikir baru bisa sukses ( harus ada angka 9), jangan pegang keuangan, bisa kena masalah keuangan. Tidak bisa jadi bos utama atau ceo ( manager boleh)",
+"731":"Pemimpin yang sangat yakin dengan diri sendiri, dengan beri arahan saja kerja pasti sukses. Jika tidak ada 9, buat sampai capek reward yang di dapat sedikit. Harus waspada dengan siau jin karena tidak bisa membedakan sauijin dengan kuijin. Wajib ada angka 5",
+"382":"Penjual / Sales Yang Hebat, tidak boleh banyak emosi/ kalau sudah emosi mending pergi, kalau perempuan sangat cantik, kalau laki laki sangat pintar gombalin cewek. Bila bisa jaga emosi, banyak orang yang senangin orang ini.",
+"832":"Cepat Naik Emosi dan tidak Stabil, Kalau energy positip bisa handle banyak masalah. Orang yang sangat lihai, dan komunikatif. Laki2 sangat tampan, dan perempuan sangat cantik, suka ngomong2 sehingga buat orang tersinggung jika energy negatif, jika energy positif, ngomong sangat bagus, sangat manis sehingga bisa banyak berjodoh dengan orang lain",
+"393":"Selalu Bermasalah, Cari Kegiatan Yang Sebaiknya Membuahkan Hasil (Mis : Guru/Trainer), Kalau energy rendah gampang attract penyakit terutama tumor, dapat uang pun tidak ada guna/ harus banyak buat amal kebajikan. Kalau join usaha dengan orang lain akan kena cancer. kalau laki2 jgn menghianati/aborsi, akan kena kanker",
+"448":"(Perlu Jaga Kesehatan). Energy Tinggi, Pintar Berencana, Kalau Rencana itu bagus, Akan Mendapatkan Support. Kalau energy negatif bisa terlalu banyak pikir dan akhirnya stress, laki2 bisa ketemu kasus hukum. Perempuan bisa bertemu playboy",
+"459":"Punya Nasib Jadi BOS, Perlu Buat Bisnis Sendiri, Kalau Energy Rendah.. Mudah Terpengaruh Perkataan Orang Lain, kalau masih kerja sama orang, kehidupan tidak begitu baik. Harus beli property. Jika set ke 6, bisa jadi bos dan ada harta kasih anak cucu. harus buka usaha sendiri jangan kerja dengan orang",
+"549":"Punya arah (leader of leader), Tau Planning Pasti dapat hasil, Kalau Energy Rendah MIMPI lah. Fokus 1 saja jangan semua, di atas 40 buat usaha sendiri, kalau tidak banyak rintangan ada pengaruh ke anak cucu juga. Bisa tau usaha apa yang cocok pasti cocok.",
+"461":"Orang Yang Pintar Mengatur Keuangan Tetapi Tidak Boleh Investasi Sendiri, kalau low energy, rancang apapun gampang ketemu masalah. Biasanya financial consultant",
+"641":"Seorang Financial Advisor Yang Handal, kalau perempuan, gampang ketemu dengan laki2 yang porotin uang. Harusnya pakai dengan uang tapi pakai perasaan akhirnya uang tidak ada, perasaan juga tidak ada, tinggal sendiri saja.",
+"472":"Orang Yang Suka Memberi Saran dan Perencanaan, Typekal Analitik Tapi Sering Ragu Ragu, (Pinter membuat perencanaan pasti ada pendukung asal mau dibicarakan) jika ada no 9, buat apapun dapat di lihat org, bisa naik top. Buat apapun sangat rajin/ banyak bantuan orang. banyak kuijin, banyak disukai orang dari kecil sampai tua karena orang rela hati bantu karena leluhur banyak buat karma baik. kalau kurang 3 di segitiga, action kurang.",
+"742":"Gampang Mendapatkan Apa Yang Diinginkan, energy tinggi akan ketemu jodoh baik/bala bantuan (-) omong saja tidak ada aksi. Jangan banyak omong.",
+"483":"Typekal Orang Yang Mengutamakan Profesional dalam Kerja (Jangan Menjadi Orang No. 1 walaupun ini bisnis sendiri), perfectionis. Banyak yang di pikir, semakin di pikir semakin ribet. Ada orang ke 3. jika energy rendah bakal cerai. Orang yang lihai, jika angka ini muncul di set 6 pernikahan bisa cerai. dan kesehatan harus di jaga.",
+"843":"Kalau Bisnis Harus Fokus dan Menjadikan bisnis ini menjadi Bisnis Yang Profesional. Udah tinggi selalu ingin lebih tinggi layak profesor. Jika di karakter utama, ada orang ke 3 bisa cerai jika energy rendah. Kalau malas bisa demensia.",
+"494":"Orang Yang Hebat Dalam Berstrategy, Terlalu Banyak Berpikir (Perlu 2 Pekerjaan), banyak pemikir, bisa ada masalah di liver harus cepat tidur. Usahawan yang dapat multiple income. Bisa sangat sukses.",
+"551":"Perlu Banyak Orang Pendukung & Perlu Orang Pintar Yang Membimbing (Lead Of Lead, Punya Arah Akan Menjadi Pemimpin Yang Hebat dalam segitiga perlu ada 3 dan 9) pemimpin di atas pemimpin. Jika energy rendah, bisa bunuh diri dan harus sering ajak bergaul orang ini. sangat gampang emosi. dan kalau tidak ada angka 9 akan mudah depresi.",
+"562":"Cenderung Pelit, Semakin Expense Semakin Banyak Yang Di Dapat. Jikalau Laki Laki Mesti Kasih Ke Istri supaya makin beruang, Jikalau Wanita Bisa Buat Suami Makin Kaya (Sangat hemat)",
+"652":"Perempuan bisa buat uang suami banyak kalau laki2 uang semakin banyak. Uang suami harus banyak kasih ke istri. Kalau belum menikah, uang pakai aja. Akan semakin banyak. Yang seharusnya dipakai harus di pakai. Setelah terima uang katakan terima kasih maka akan datang semakin banyak.",
+"573":"Orang Yang Mempunyai Pendukung Yang Banyak, ada power, ada jabatan. Harus hati2, anak akan balas budi, harus ada 9, akan dapat pengakuan. Orang yang banyak ilmu. Jangan senang berjanji, kalau tidak ditepati menjadi musuh",
+"753":"Jikalau Energy Positip Tidak ada Orang Yang Berani Menggangu begitupula sebaliknya (Kalau Energy kita rendah, orang yang datang selalu menghabiskan duit anda) Kalau Energy Tinggi Itu Orang Yang Datang Orang Yang Millioner Yang Datang Mendukung. Jika energy rendah, orang di sekeliling banyak kasih masalah, anak ga berani mendekati. kalau di set 6, anak datang habisin uang saja. menyusahkan orang tua. harus energy tinggi supaya anak tidak menyusahkan orang tua.",
+"584":"Orang Yang Bisa Buat Bisnis Sangat Besar Jikalau Energy Positip, Mesti Kuat Amal Bakti. Kalau di posisi main karakter, bisa pengaruh ke anak, kesehatan karir, pasangan maupun org tua. Energy tinggi, apa yang di omongin bagus bisa dapat yang bagus, pemikiran bagus dapat bagus. bisa legowo",
+"854":"Orang Yang Selalu Risau, Dalam Segitiga Perlu Konsultasi Kesehatan, proses kehidupan banyak rintangan.",
+"595":"Orang apapun berani buat (Baik Yg Baik atau sebaliknya), Sangat Hebat Dalam Memimpin, Keras Kepala dan Perlu Keluar Kota Untuk Mencari Nafkah, orang yang sangat pemberani, pilihan bagus dapat bagus.",
+"663":"Jikalau Bertindak, bertindak lagi Uang Akan Datang, Tidak Boleh Judi, Harus Kontrol Emosi, Perlu Kontrol Financial, seumur hidup jangan suka investasi, beli properti aja dapat uang",
+"674":"Orang Yang Type Agak Sombong, Punya Bakat khusus, Punya Standar Khusus , Jago Buat Perencanaan Keuangan, punya kemampuan/ sangat pintar, susah berteman karena pemilih, mau peluang, ada plan aja uang sudah datang. Bila di main karakter, orang yang tidak suka senyum",
+"764":"Banyak jodoh dan di senangin orang, tidak suka gossip, harus ada 9, ada rancang aja peluang sudah ada. Harus ada angka 9 & 5. bisa jadi usahawan yang sukses.",
+"685":"Orang Yang Dasarnya dilahir Bernasib Mujur, tetapi perlu buat Amal Bakti (Agar Uang Bisa Datang Begitu Saja), harus ada agama agar bisa guiding hidup lebih lancar, energy rendah bisa susah. Jika karakter utama, tidak ada agama bisa susah. Jika di set 6, anak pakai uangmu.",
+"865":"Orang Yang Dasarnya dilahir Bernasib Mujur, tetapi perlu buat Amal Bakti (Agar Uang Bisa Datang Begitu Saja). Harus buat yang berguna untuk orang lain, nasib akan kurang baik bila tidak buat amal baik. Tidak boleh cepat nikah karena bisa efek ke anak, kesehatan.",
+"696":"Orang Yang Punya Dewa Rezeki Dari bawaan lahir (perlu amal bakti), Perlu Tau Bagaimana mengkoneksikan antara uang masuk dan uang keluar (Simpan Uang) karakter utama set, 1,3, 6 dan 12 (nama tidak ada yang bagus sebagai guiding) maka keberuntungan cari makan susah, kesehatan terganggu.",
+"775":"Type Orang Yang Suka dan Memprioritas Kesetiaan Dalam Berhubungan Tetapi Punya Sifat Pendendam, Banyak Pendukung Setia, kalau berbuat baik 1 akan di balas 10, energy tinggi bisa jadi leader, orang yang sangat tau budi, pemimpin yang hebat.",
+"786":"Wanita Sebaiknya buat bisnis yang biasa lelaki buat, kalau pria sebaliknya (Pendukungnya Lebih Muda), Hati hati masalah keluarga rentan perselingkuhan. Banyak orang yang membantu. Banyak dewa penolong, harus ada good attitude, tapi kalau kuijin di manfaatin akan jadi siojin",
+"876":"Wanita Sebaiknya buat bisnis yang biasa lelaki buat, kalau pria sebaliknya (Pendukungnya Lebih Tua), Hati hati masalah keluarga rentan perselingkuhan, gampang dapat uang, kuijin lawan jenis, jika di set karir & partner, thau hua sangat banyak. Jika di set 876 di set 6, anak sulung harus laki2",
+"797":"Pintar Buat Bisnis dan Banyak Bisnis, Cepat Emosian, Susah Fokus, banyak ketemu orang, harus banyak liat masalah orang. Jika energy rendah ketemu masalah dengan orang lain dan dapat bermacam2 masalah",
+"887":"Orang Yang Sangat Tanggung Jawab / Disiplin, Lebih cepat emosian, orang yang sangat steady, emosi yang sangat tidak stabil. Jika orang ini belikan makan, cukup katakan terima kasih. Jangan balas belikan makan nanti di kira pandang rendah. Jika low energy, orang di samping pergi semua.",
+"898":"Jiwa Pengusaha Sangat Besar, Mudah Stress Karena Semua Dikerjain Sendiri, sangat lelah, kerjaan ga ada habisnya, banyak tanggung jawab dan tekanan, dan banyak urus urusan orang lain. Energy tinggi, orang yang sangat sukses. Jika energi rendah, masalah akan datang terus.",
+"911":"Orang yang Sangat Pintar, Suka Menyendiri, Agak Egois, Kalau energy negatip Bicara agak kasar, segala sesuatu buat sendiri, sangat repot dan tidak suka di bantu orang, suka menyendiri. Kerja buat sendiri, ngomong bisa nyakitin orang lain",
+"922":"Sering berbicara hal yang sudah selesai tapi dibicarakan lagi. Sering Berhubungan Dengan Masalah Hukum, Sangat Cerdas (tidak bisa jadi Bos Mesti Jadi Orang Kedua), Berbuat Sesuatu mesti ada bukti. Kalau perempuan bisa bertemu dengan playboy, jika laki2 suka ketemu dengan masalah pengadilan., lebih suka banyak cakap, apa yang sudah di tanya suka tanya kembali. Diri sendiri yang buktikan sendiri karena sudah pengalaman.",
+"933":"Selalu Bermasalah, Cari Kegiatan Yang Sebaiknya Membuahkan Hasil (Mis : Guru/Trainer), Kalau energy rendah gampang attract penyakit terutama tumor, sangat cepat belajar/ lat aja cepat tau, jika ketemu aliran tahun 3,6,8 harus pergi cek kesehatan. Tidak bisa duduk diam, kalau ada anak bisa sangat repot, kawatir tidak ada habis.",
+"944":"Banyak pikir, jika di karakter utama ada multiple income, jangan serakah klo energy rendah banyak tidak ada yang sukses, jangan liat org lain bisnis bagus, yang lain ditutup.",
+"955":"Pemberani, buat apapun sangat berani kalau energy positif tinggi",
+"966":"Most Elegant Of Wealth, banyak uang. Harus ada nama tek baru bisa ada chai contoh te wei, te su. Jika nama tidak ada penolong maka uang lau chai.",
+"977":"Pintar Buat Bisnis dan Banyak Bisnis, Cepat Emosian, Susah Fokus, banyak ketemu orang, harus banyak liat masalah orang. Jika energy rendah ketemu masalah dengan orang lain dan dapat bermacam2 masalah",
+"988":"Stress berlebih",
+"999":"Terlalu Banyak Peluang, Energy Mesti Tinggi Sekali, Bisa Jadi Raja Atau Tahanan, Bisa Sukses Besar Atau Gagal Total, Rumah Tangga Bisa Sangat harmonis Atau Tinggal Diri Sendiri, tuaho tuaphai. Energy tinggi bisa jadi sukses besar, energy rendah bisa jadi pengemis atau terkena masalah hukum. bila di main karakter, beli barang harus yang high quality, jika di set 6, anak sulung opposit dengan kita, jika di set 9, tidak ada teman sejati, tinggal sendiri saja."
+};
+
+const RISK_DATA = {
+  'Gabungan Angka Benturan API dan AIR': ['123','213','178','718','235','325','268','628','281','821','347','437','371','731','382','832','573','753','786','876','887'],
+  'Potensi Menyebabkan Gagal Bisnis/Karir': ['112','123','213','393','933','167','358','538'],
+  'Potensi Menyebabkan Masalah Keharmonisan Keluarga': ['112','123','213','167','191','911','134','314','145','279','729','415','382','832','483','843','786','876','887','999'],
+  'Potensi Bermasalah di Kesehatan': ['112','189','819','382','832','393','933','494','944','898','988'],
+  'Potensi Terkena Masalah Hukum': ['112','178','718','224','292','922','731','483','843','448','595','955','999'],
+  'Potensi Memiliki Kekayaan Yang Besar': ['156','516','336','663','369','639','696','966','999']
+};
+
+const RISK_SCOPE = {
+  'Gabungan Angka Benturan API dan AIR': [1,2,3,4,5],
+  'Potensi Menyebabkan Gagal Bisnis/Karir': [7,8],
+  'Potensi Menyebabkan Masalah Keharmonisan Keluarga': [6,10,11],
+  'Potensi Bermasalah di Kesehatan': [4,5,12],
+  'Potensi Terkena Masalah Hukum': [4,5,7,8,9,12],
+  'Potensi Memiliki Kekayaan Yang Besar': [4,5,7,8,12]
+};
+
+const ELEMEN_DATA = {
+  1: { nama:'LOGAM', positif:['TERLAHIR SEBAGAI SEORANG PEMIMPIN SECARA ALAMI','HEBAT DALAM MANAJEMEN(TERMASUK DIRI SENDIRI)','KREATIF & INOVATIF','PERCAYA DIRI'], negatif:['EGOIS & KURANG EMPATI','KURANG TRANSPARAN','AROGAN & EMOSIONAL'], warna_sesuai:'PUTIH, EMAS, APRIKOT,PERAK', warna_pendukung:'KUNING, KOPI, COKLAT TUA/MUDA', warna_melemahkan:'HIJAU, CYAN', siklus:['MEMULAI SESUATU (BISNIS ATAU HAL BAIK APAPUN)','PENUH TANTANGAN','KEBERUNTUNGAN TINGGI'] },
+  2: { nama:'AIR', positif:['TERLAHIR SEBAGAI SEORANG YANG AHLI BICARA / KOMUNIKASI','MENGGUNAKAN BICARA UNTUK MENGHASILKAN APAPUN','MUDAH BERADAPTASI GAYA KOMUNIKASI , RAMAH','PENDENGAR YANG BAIK'], negatif:['MUDAH RAGU RAGU','MUDAH TERPENGARUH KEADAAN','GOSIP'], warna_sesuai:'HITAM, BIRU, ABU ABU', warna_pendukung:'PUTIH, EMAS, APRIKOT,PERAK', warna_melemahkan:'MERAH, MERAH JAMBU, UNGU, ORANGE', siklus:['KERJASAMA & MENJAGA KESEIMBANGAN','EVALUASI DARI TAHUN PERTAMA','KEBERUNTUNGAN SEDANG'] },
+  3: { nama:'API', positif:['TERLAHIR SEBAGAI SEORANG SUKA BERTINDAK','PEMIKIR YANG KRITIS & PERCAYA DIRI','CEPAT MENANGKAP PELUANG / MATA TAJAM','PANTANG MENYERAH & MANDIRI'], negatif:['IMPULSIF','KURANG MENIMBANG PERASAAN ORANG LAIN','DOMINAN, KURANG SABAR'], warna_sesuai:'MERAH, MERAH JAMBU, UNGU, ORANGE', warna_pendukung:'HIJAU, CYAN', warna_melemahkan:'PUTIH, EMAS, APRIKOT,PERAK', siklus:['TINDAKAN YANG KONSISTEN','KOMITMEN & PANTANG MENYERAH','KEBERUNTUNGAN RENDAH'] },
+  4: { nama:'KAYU', positif:['TERLAHIR SEBAGAI SEORANG YANG SUKA MEMBUAT RENCANA','TELITI & DETAIL (SELALU MENCARI JAWABAN)','TERORGANISIR & DISIPLIN & PINTAR MERANGKUM (KESIMPULAN)','ORIENTASI TUJUAN & DAPAT DIANDALKAN'], negatif:['TERLALU BANYAK PIKIRAN (LAMBAT MENGAMBIL KEPUTUSAN)','KAKU/TIDAK FLEKSIBEL','CEPAT KUATIR & MUDAH KECEWA'], warna_sesuai:'HIJAU, CYAN', warna_pendukung:'HITAM, BIRU, ABU ABU', warna_melemahkan:'KUNING, KOPI, COKLAT TUA/MUDA', siklus:['PERENCANAAN TUJUAN, SUMBER DAYA & RESIKO','STABILITAS (BUTUH AMAL BAKTI)','KEBERUNTUNGAN SEDANG'] },
+  5: { nama:'TANAH', positif:['TERLAHIR SEBAGAI SEORANG PEMIMPIN DIATAS PARA PEMIMPIN','PUNYA TUJUAN&ARAH JELAS (AHLI NAVIGASI)','MUDAH MENYATUKAN ORANG','TEGAS,STRATEGIS & BERINTEGRITAS'], negatif:['OTORITER, SOMBONG','SULIT MENERIMA KRITIK & MENDENGAR','KURANG SABAR'], warna_sesuai:'KUNING, KOPI, COKLAT TUA/MUDA', warna_pendukung:'MERAH, MERAH JAMBU, UNGU, ORANGE', warna_melemahkan:'HITAM, BIRU, ABU ABU', siklus:['MENENTUKAN ARAH & KETEGUHAN','TRANSISI','KEBERUNTUNGAN TINGGI'] },
+  6: { nama:'LOGAM', positif:['TERLAHIR SEBAGAI SEORANG YANG MEMILIKI INDERA KE-6 MENGENAI UANG','MAGNET UANG','KREATIF DALAM MENCARI PELUANG','PEKA & PANDAI MENGELOLA UANG'], negatif:['TERLALU MATERIALISTIS & BOROS','PEMILIH DALAM BERGAUL','TERLALU BERHITUNG & SERAKAH'], warna_sesuai:'PUTIH, EMAS, APRIKOT,PERAK', warna_pendukung:'KUNING, KOPI, COKLAT TUA/MUDA', warna_melemahkan:'HIJAU, CYAN', siklus:['MEMANEN UANG (BAGI HASIL)','KEBIJAKSANAAN (MENGERTI MEMBERI & MENERIMA)','KEBERUNTUNGAN TERMASUK TINGGI'] },
+  7: { nama:'AIR', positif:['TERLAHIR SEBAGAI SEORANG YANG PALING BERUNTUNG (HAPPY GO LUCKY)','BANYAK PENDUKUNG & BERJIWA SOSIAL','BANYAK PELUANG & KONEKSI & KETRAMPILAN OBSERVASI YANG KUAT','MUDAH BERGAUL & OPTIMIS'], negatif:['MUDAH TERPENGARUH OPINI','SUKA CARI PERHATIAN','SOMBONG'], warna_sesuai:'HITAM, BIRU, ABU ABU', warna_pendukung:'PUTIH, EMAS, APRIKOT,PERAK', warna_melemahkan:'MERAH, MERAH JAMBU, UNGU, ORANGE', siklus:['MEMBANGUN RELASI','PENUH KEJUTAN','KEBERUNTUNGAN TINGGI'] },
+  8: { nama:'API', positif:['TERLAHIR SEBAGAI SEORANG YG MEMPUNYAI SIFAT TANGGUNG JAWAB','MENGUTAMAKAN ORANG LAIN (PERHATIAN)','MEMPUNYAI ETOS KERJA','JUJUR & BERINTEGRITAS & DERMAWAN'], negatif:['KURANG BERPIKIR KE DIRI SENDIRI','STRESS&KURANG WAKTU SENDIRI','PERFEKSIONIS(SUSAH MENDELEGASI)'], warna_sesuai:'MERAH, MERAH JAMBU, UNGU, ORANGE', warna_pendukung:'HIJAU, CYAN', warna_melemahkan:'PUTIH, EMAS, APRIKOT,PERAK', siklus:['MEMBANGUN KEKUASAAN','MEMBANGUN TANGGUNG JAWAB','KEBERUNTUNGAN RENDAH'] },
+  9: { nama:'KAYU', positif:['TERLAHIR SEBAGAI SEORANG YANG VISIONER(IMAJINATIF)','KUAT DALAM PIKIRAN & KEYAKINAN (APA YANG DIPIKIRKAN AKAN MUDAH DIDAPATKAN)','KHARISMATIK & OPTIMIS (MENTAL KUAT)','INTUITIF, MUDAH & CEPAT MENARIK PELUANG'], negatif:['TIDAK KONSISTEN, EKSPEKTASI TERLALU TINGGI','MUDAH STRESS & TERSUGESTI','SULIT MENGONTROL EMOSI & PIKIRAN'], warna_sesuai:'HIJAU, CYAN', warna_pendukung:'HITAM, BIRU, ABU ABU', warna_melemahkan:'KUNING, KOPI, COKLAT TUA/MUDA', siklus:['MENIKMATI HASIL (PENUTUP)','PERSIAPAN SIKLUS BARU YANG LEBIH BAIK','KEBERUNTUNGAN TERMASUK TINGGI'] }
+};
+
+const BLESSINGS = {
+  4:'Mendapatkan Berkat KEBAHAGIAN ( Lahan / Tanah / Perumahan / Aset )',
+  5:'Mendapatkan Berkat KEDUDUKAN ( Posisi, Karir )',
+  6:'Mendapatkan Berkat KEBERUNTUNGAN/KEBIJAKSANAAN (Makan / Kekayaan)',
+  7:'Mendapatkan Berkat KEPOPULERAN ( Kekuasaan / Orang Pendukung )',
+  9:'Mendapatkan Berkat PANJANG UMUR/KESUKSESAN ( Kesejahteraan Hidup - XI YUE HONG )'
+};
+
+const DREAMS = [
+  {no:1, title:'MENJADI PEMIMPIN (LEADER, DIREKTUR, MANAGER)', segitiga:'1 (Leader), 5 (Arah), 7 (Orang Pendukung), 9 (Hasil)'},
+  {no:2, title:'MENJADI PEMBICARA HANDAL (MOTIVATOR, PENCERAMAH)', segitiga:'2 (Komunikasi), 7 (Orang Pendukung), 9 (Hasil)'},
+  {no:3, title:'MENJADI BANGSAWAN', segitiga:'3 (Tindakan), 6 (Uang)'},
+  {no:4, title:'MENJADI PLANNER (KONSELOR, KONSULTAN)', segitiga:'2 (Komunikasi), 4 (Rencana), 9 (Hasil)'},
+  {no:5, title:'MENJADI KETUA PARA PEMIMPIN (CEO, RAJA, KETUA UMUM)', segitiga:'1 (Leader), 4 (Rencana), 5 (Arah), 7 (Orang Pendukung), 8 (Bertanggung Jawab), 9 (Hasil)'},
+  {no:6, title:'MENJADI PENGUSAHA, INVESTOR, BANKIR, OLIGARKI', segitiga:'3 (Tindakan), 6 (Uang)'},
+  {no:7, title:'MENJADI PENGENDALI SEMUA ORANG', segitiga:'2 (Komunikasi), 7 (Orang Pendukung), 9 (Hasil)'},
+  {no:8, title:'MENDAPATKAN HAK ANDA SENDIRI (KUASA)', segitiga:'2 (Komunikasi), 4 (Rencana), 5 (Arah), 8 (Bertanggung Jawab), 9 (Hasil)'},
+  {no:9, title:'MENGUASAI DUNIA', segitiga:'1 (Leader), 2 (Komunikasi), 4 (Rencana), 5 (Arah), 7 (Orang Pendukung), 9 (Hasil)'}
+];
+
+// ============================================================
+// SHIO DATA
+// ============================================================
+var SHIO_DATA = [];
+(function buildShioData(){
+  var base = [
+    {no:1,start:'1900-01-31',shio:'鼠 Tikus 🐭',elemen:'Logam',yy:'Yang',trait:'Cerdas, adaptif, oportunis'},
+    {no:2,start:'1901-02-19',shio:'牛 Kerbau 🐃',elemen:'Logam',yy:'Yin',trait:'Tekun, sabar, dapat diandalkan'},
+    {no:3,start:'1902-02-08',shio:'虎 Macan 🐯',elemen:'Air',yy:'Yang',trait:'Berani, kompetitif, tidak terduga'},
+    {no:4,start:'1903-01-29',shio:'兔 Kelinci 🐰',elemen:'Air',yy:'Yin',trait:'Lembut, elegan, waspada'},
+    {no:5,start:'1904-02-16',shio:'龍 Naga 🐲',elemen:'Kayu',yy:'Yang',trait:'Kuat, beruntung, karismatik'},
+    {no:6,start:'1905-02-04',shio:'蛇 Ular🐍',elemen:'Kayu',yy:'Yin',trait:'Bijaksana, misterius, intuitif'},
+    {no:7,start:'1906-01-25',shio:'馬 Kuda 🐴',elemen:'Api',yy:'Yang',trait:'Energik, bebas, antusias'},
+    {no:8,start:'1907-02-13',shio:'羊 Kambing 🐐',elemen:'Api',yy:'Yin',trait:'Seni, dermawan, pemalu'},
+    {no:9,start:'1908-02-02',shio:'猴 Monyet 🐒',elemen:'Tanah',yy:'Yang',trait:'Cerdik, serbabisa, kreatif'},
+    {no:10,start:'1909-01-22',shio:'雞 Ayam 🐓',elemen:'Tanah',yy:'Yin',trait:'Pekerja keras, jujur, teliti'},
+    {no:11,start:'1910-02-10',shio:'狗 Anjing 🐕',elemen:'Logam',yy:'Yang',trait:'Setia, jujur, keras kepala'},
+    {no:12,start:'1911-01-30',shio:'豬 Babi 🐷',elemen:'Logam',yy:'Yin',trait:'Baik hati, murah hati, optimis'}
+  ];
+  var elemCycle = ['Logam','Air','Kayu','Api','Tanah'];
+  for(var s = 1; s <= 151; s++){
+    var idx = (s-1) % 12;
+    var entry = JSON.parse(JSON.stringify(base[idx]));
+    entry.no = s;
+    var year = 1900 + s - 1;
+    var imlekOffset = Math.floor((year - 1900) * 0.032);
+    var imlekDay = 31 + imlekOffset;
+    if(imlekDay > 59) imlekDay = imlekDay - 28;
+    var startStr = year + '-' + String(imlekDay < 32 ? 1 : 2).padStart(2,'0') + '-' + String(imlekDay < 32 ? imlekDay : imlekDay - 31).padStart(2,'0');
+    entry.start = startStr;
+    entry.elemen = elemCycle[(s-1) % 5];
+    SHIO_DATA.push(entry);
+  }
+})();
+
+const RELATION_DATA = [
+  {shio:'鼠 Tikus 🐭', serangkai:'龍 Naga 🐲, 猴 Monyet 🐒', cabang:'牛 Kerbau 🐃, 豬 Babi 🐷', menyakiti:'馬 Kuda 🐴', harmoni:'牛 Kerbau 🐃'},
+  {shio:'牛 Kerbau 🐃', serangkai:'蛇 Ular🐍, 雞 Ayam 🐓', cabang:'豬 Babi 🐷, 鼠 Tikus 🐭', menyakiti:'羊 Kambing 🐐', harmoni:'鼠 Tikus 🐭'},
+  {shio:'虎 Macan 🐯', serangkai:'馬 Kuda 🐴, 狗 Anjing 🐕', cabang:'兔 Kelinci 🐰, 龍 Naga 🐲', menyakiti:'猴 Monyet 🐒, 蛇 Ular🐍, 豬 Babi 🐷', harmoni:'豬 Babi 🐷'},
+  {shio:'兔 Kelinci 🐰', serangkai:'羊 Kambing 🐐, 豬 Babi 🐷', cabang:'龍 Naga 🐲, 虎 Macan 🐯', menyakiti:'雞 Ayam 🐓', harmoni:'狗 Anjing 🐕'},
+  {shio:'龍 Naga 🐲', serangkai:'鼠 Tikus 🐭, 猴 Monyet 🐒', cabang:'虎 Macan 🐯, 兔 Kelinci 🐰', menyakiti:'狗 Anjing 🐕', harmoni:'雞 Ayam 🐓'},
+  {shio:'蛇 Ular🐍', serangkai:'牛 Kerbau 🐃, 雞 Ayam 🐓', cabang:'馬 Kuda , 羊 Kambing 🐐', menyakiti:'虎 Macan 🐯', harmoni:'猴 Monyet 🐒'},
+  {shio:'馬 Kuda 🐴', serangkai:'虎 Macan 🐯, 狗 Anjing 🐕', cabang:'羊 Kambing 🐐, 蛇 Ular🐍', menyakiti:'鼠 Tikus 🐭', harmoni:'羊 Kambing 🐐'},
+  {shio:'羊 Kambing 🐐', serangkai:'兔 Kelinci 🐰, 豬 Babi 🐷', cabang:'蛇 Ular🐍, 馬 Kuda 🐴', menyakiti:'牛 Kerbau 🐃', harmoni:'馬 Kuda 🐴'},
+  {shio:'猴 Monyet 🐒', serangkai:'鼠 Tikus 🐭, 龍 Naga 🐲', cabang:'雞 Ayam 🐓, 狗 Anjing 🐕', menyakiti:'虎 Macan 🐯, 豬 Babi 🐷', harmoni:'蛇 Ular🐍'},
+  {shio:'雞 Ayam 🐓', serangkai:'牛 Kerbau 🐃, 蛇 Ular🐍', cabang:'狗 Anjing 🐕, 猴 Monyet 🐒', menyakiti:'兔 Kelinci 🐰', harmoni:'龍 Naga 🐲'},
+  {shio:'狗 Anjing 🐕', serangkai:'虎 Macan 🐯, 馬 Kuda 🐴', cabang:'猴 Monyet 🐒, 雞 Ayam 🐓', menyakiti:'龍 Naga 🐲', harmoni:'兔 Kelinci 🐰'},
+  {shio:'豬 Babi 🐷', serangkai:'羊 Kambing 🐐, 兔 Kelinci 🐰', cabang:'鼠 Tikus 🐭, 牛 Kerbau 🐃', menyakiti:'虎 Macan 🐯', harmoni:'虎 Macan 🐯'}
+];
+
+// ============================================================
+// FUNGSI UTILITY
+// ============================================================
+function generateId() { return 'id_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6); }
+function esc(s) { if (!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function getTodayStr() { return new Date().toISOString().slice(0,10); }
+function getNowISO() { return new Date().toISOString(); }
+function daysBetween(d1, d2) { const a = new Date(d1); const b = new Date(d2); return Math.ceil((b - a) / (1000 * 60 * 60 * 24)); }
+function elemByNo(no){ return ELEMEN_DATA[no] || null; }
+function getMeaning(code){ if(MEANING_DATA[code]) return MEANING_DATA[code]; var clean = String(parseInt(code,10)); return MEANING_DATA[clean] || null; }
+function findShio(dateObj){ var match = SHIO_DATA[0]; for(var i = 0; i < SHIO_DATA.length; i++){ var entry = SHIO_DATA[i]; var start = new Date(entry.start + 'T00:00:00'); if(start <= dateObj){ match = entry; } else { break; } } return match; }
+function findRelation(animalName){ for(var i = 0; i < RELATION_DATA.length; i++){ if(RELATION_DATA[i].shio.indexOf(animalName) !== -1) return RELATION_DATA[i]; } return null; }
+
+// ============================================================
+// SESSION MANAGEMENT (TETAP localStorage)
+// ============================================================
+function getSession() {
+    const data = localStorage.getItem('session');
+    return data ? JSON.parse(data) : null;
+}
+function setSession(email, name) {
+    localStorage.setItem('session', JSON.stringify({ email: email, name: name, login_at: getNowISO() }));
+}
+function clearSession() {
+    localStorage.removeItem('session');
+}
+
+// ============================================================
+// OTP FUNCTIONS (TETAP - HANYA UNTUK REGISTER)
+// ============================================================
+function generateOTP() { return String(Math.floor(100000 + Math.random() * 900000)); }
+function saveOTP(email, otp) { localStorage.setItem('otp_' + email, JSON.stringify({ code: otp, created_at: getNowISO(), attempts: 0 })); }
+function getOTP(email) { const data = localStorage.getItem('otp_' + email); return data ? JSON.parse(data) : null; }
+function verifyOTP(email, code) {
+    const otpData = getOTP(email);
+    if (!otpData) return { valid: false, message: 'OTP tidak ditemukan. Minta ulang.' };
+    const created = new Date(otpData.created_at);
+    const now = new Date();
+    const diff = (now - created) / 1000 / 60;
+    if (diff > 5) { localStorage.removeItem('otp_' + email); return { valid: false, message: 'OTP sudah kadaluarsa. Minta ulang.' }; }
+    if (otpData.attempts >= 3) { localStorage.removeItem('otp_' + email); return { valid: false, message: 'Terlalu banyak percobaan. Minta ulang.' }; }
+    if (otpData.code !== code) { otpData.attempts++; localStorage.setItem('otp_' + email, JSON.stringify(otpData)); return { valid: false, message: 'Kode OTP salah.' }; }
+    localStorage.removeItem('otp_' + email);
+    return { valid: true, message: 'OTP valid.' };
+}
+function sendOTP(email) {
+    const otp = generateOTP();
+    saveOTP(email, otp);
+    if (CONFIG.EMAILJS_PUBLIC_KEY) {
+        console.log('📧 Mengirim OTP ke ' + email + ' via EmailJS...');
+        emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_ID, { user_email: email, otp: otp }, CONFIG.EMAILJS_PUBLIC_KEY)
+        .then(function(response) { console.log('📧 Email OTP terkirim ke ' + email); })
+        .catch(function(error) { console.log('❌ Gagal kirim email:', error); console.log('📧 [FALLBACK] OTP untuk ' + email + ': ' + otp); });
+    } else {
+        console.log('📧 [LOCAL] OTP untuk ' + email + ': ' + otp);
+    }
+    return true;
+}
+function getWALink(email) {
+    const phone = CONFIG.ADMIN_PHONE;
+    const text = 'Halo Admin, saya mau minta token perpanjang lisensi Angka Kehidupan. Email saya: ' + email;
+    return 'https://wa.me/' + phone + '?text=' + encodeURIComponent(text);
+}
+
+// ============================================================
+// DATA STORE - FIREBASE
+// ============================================================
+// ---- USERS ----
+async function getUser(email) {
+    try {
+        const doc = await db.collection('users').doc(email).get();
+        return doc.exists ? doc.data() : null;
+    } catch (e) {
+        console.error('getUser error:', e);
+        return null;
+    }
+}
+
+async function createUser(email, name, phone) {
+    try {
+        await db.collection('users').doc(email).set({
+            name: name,
+            phone: phone,
+            verified: true,
+            registered_at: getNowISO()
+        });
+        return true;
+    } catch (e) {
+        console.error('createUser error:', e);
+        return false;
+    }
+}
+
+// ---- LICENSES ----
+async function getLicense(email) {
+    try {
+        const doc = await db.collection('licenses').doc(email).get();
+        return doc.exists ? doc.data() : null;
+    } catch (e) {
+        console.error('getLicense error:', e);
+        return null;
+    }
+}
+
+async function createLicense(email, quota, days) {
+    try {
+        const key = 'LIFE-' + getTodayStr().replace(/-/g,'') + '-' + Math.random().toString(36).substring(2,6).toUpperCase();
+        const expiry = new Date();
+        expiry.setDate(expiry.getDate() + days);
+        const expiryStr = expiry.toISOString().slice(0,10);
+        
+        await db.collection('licenses').doc(email).set({
+            key: key,
+            user_email: email,
+            type: 'both',
+            quota: quota,
+            used_count: 0,
+            start_date: getTodayStr(),
+            expiry_date: expiryStr,
+            is_active: true
+        });
+        return key;
+    } catch (e) {
+        console.error('createLicense error:', e);
+        return null;
+    }
+}
+
+async function updateLicenseUsage(email) {
+    try {
+        const license = await getLicense(email);
+        if (!license) return false;
+        if (!license.is_active) return false;
+        if (license.used_count >= license.quota) return false;
+        if (new Date(license.expiry_date) < new Date()) return false;
+        
+        await db.collection('licenses').doc(email).update({
+            used_count: license.used_count + 1
+        });
+        return true;
+    } catch (e) {
+        console.error('updateLicenseUsage error:', e);
+        return false;
+    }
+}
+
+async function getLicenseStatus(email) {
+    try {
+        const license = await getLicense(email);
+        if (!license) return { active: false, reason: 'no_license' };
+        if (!license.is_active) return { active: false, reason: 'inactive' };
+        if (license.used_count >= license.quota) {
+            return { active: false, reason: 'quota_exhausted', used: license.used_count, quota: license.quota };
+        }
+        if (new Date(license.expiry_date) < new Date()) {
+            return { active: false, reason: 'expired', expiry: license.expiry_date };
+        }
+        const remaining = license.quota - license.used_count;
+        const daysLeft = daysBetween(getTodayStr(), license.expiry_date);
+        return {
+            active: true,
+            remaining: remaining,
+            daysLeft: daysLeft,
+            expiry: license.expiry_date,
+            used: license.used_count,
+            quota: license.quota
+        };
+    } catch (e) {
+        console.error('getLicenseStatus error:', e);
+        return { active: false, reason: 'error' };
+    }
+}
+
+// ---- CODES / TOKEN ----
+async function redeemToken(email, token) {
+    try {
+        const doc = await db.collection('codes').doc(token).get();
+        if (!doc.exists) {
+            return { success: false, message: 'Token tidak ditemukan.' };
+        }
+        const codeData = doc.data();
+        if (codeData.used) {
+            return { success: false, message: 'Token sudah digunakan.' };
+        }
+        
+        await db.collection('codes').doc(token).update({
+            used: true,
+            used_by: email,
+            used_at: getNowISO()
+        });
+        
+        const license = await getLicense(email);
+        if (!license) {
+            return { success: false, message: 'Lisensi tidak ditemukan.' };
+        }
+        
+        if (codeData.type === 'quota' || codeData.type === 'both') {
+            await db.collection('licenses').doc(email).update({
+                quota: license.quota + (codeData.amount || 10)
+            });
+        }
+        if (codeData.type === 'time' || codeData.type === 'both') {
+            const currentExpiry = new Date(license.expiry_date);
+            currentExpiry.setDate(currentExpiry.getDate() + (codeData.duration || 30));
+            await db.collection('licenses').doc(email).update({
+                expiry_date: currentExpiry.toISOString().slice(0, 10),
+                is_active: true
+            });
+        }
+        
+        return { success: true, message: 'Lisensi berhasil diperpanjang!' };
+    } catch (e) {
+        console.error('redeemToken error:', e);
+        return { success: false, message: 'Terjadi kesalahan: ' + e.message };
+    }
+}
+
+// ---- HISTORY ----
+async function getUserHistory(email) {
+    try {
+        const snapshot = await db.collection('history')
+            .where('email', '==', email)
+            .orderBy('calculated_at', 'desc')
+            .get();
+        const history = [];
+        snapshot.forEach(function(doc) {
+            history.push({ id: doc.id, ...doc.data() });
+        });
+        return history;
+    } catch (e) {
+        console.error('getUserHistory error:', e);
+        return [];
+    }
+}
+
+async function saveUserHistory(email, name, dob) {
+    try {
+        await db.collection('history').add({
+            email: email,
+            name: name,
+            dob: dob,
+            calculated_at: getNowISO()
+        });
+        return true;
+    } catch (e) {
+        console.error('saveUserHistory error:', e);
+        return false;
+    }
+}
+
+async function deleteUserHistoryItem(email, id) {
+    try {
+        await db.collection('history').doc(id).delete();
+        return true;
+    } catch (e) {
+        console.error('deleteUserHistoryItem error:', e);
+        return false;
+    }
+}
+
+async function deleteAllUserHistory(email) {
+    try {
+        const snapshot = await db.collection('history')
+            .where('email', '==', email)
+            .get();
+        const batch = db.batch();
+        snapshot.forEach(function(doc) {
+            batch.delete(doc.ref);
+        });
+        await batch.commit();
+        return true;
+    } catch (e) {
+        console.error('deleteAllUserHistory error:', e);
+        return false;
+    }
+}
+
+// ============================================================
+// FUNGSI PERHITUNGAN (SAMA PERSIS)
+// ============================================================
+function reduceDigit(n){
+  n = Math.abs(Math.round(n));
+  if(n === 0) return 5;
+  while(n > 9){
+    n = String(n).split('').reduce(function(a,d){ return a + parseInt(d,10); }, 0);
+  }
+  return n;
+}
+
+function computeProfile(dobStr, todayStr){
+  var d = new Date(dobStr + 'T00:00:00');
+  var day = d.getDate();
+  var month = d.getMonth() + 1;
+  var year = d.getFullYear();
+  var yStr = String(year).padStart(4,'0');
+  var yFirst2 = parseInt(yStr.substring(0,2), 10);
+  var yLast2 = parseInt(yStr.substring(2,4), 10);
+
+  var M8 = reduceDigit(day);
+  var O8 = reduceDigit(month);
+  var S8 = reduceDigit(yFirst2);
+  var U8 = reduceDigit(yLast2);
+  var N9 = reduceDigit(M8 + O8);
+  var T9 = reduceDigit(S8 + U8);
+  var Q12 = reduceDigit(N9 + T9);
+  var M15 = reduceDigit(T9 + Q12);
+  var U15 = reduceDigit(N9 + Q12);
+  var Q17 = reduceDigit(M15 + U15);
+  var N17 = reduceDigit(O8 + N9);
+  var O17 = reduceDigit(M8 + N9);
+  var M17 = reduceDigit(N17 + O17);
+  var S17 = reduceDigit(S8 + T9);
+  var T17 = reduceDigit(U8 + T9);
+  var U17 = reduceDigit(S17 + T17);
+  var F19 = reduceDigit(N9 * 2);
+  var G19 = reduceDigit(T9 * 2);
+  var H19 = reduceDigit(Q12 * 2);
+
+  var rows = [
+    {no:1, label:'DNA Ayah', code:'' + M8 + O8 + N9},
+    {no:2, label:'DNA Ibu', code:'' + S8 + U8 + T9},
+    {no:3, label:'Karakter Utama', code:'' + N9 + T9 + Q12},
+    {no:4, label:'Perjalanan Hidup (1)', code:'' + N9 + Q12 + U15},
+    {no:5, label:'Perjalanan Hidup (2)', code:'' + T9 + Q12 + M15},
+    {no:6, label:'Anak', code:'' + M15 + U15 + Q17},
+    {no:7, label:'Karir (1)', code:'' + M8 + N9 + O17},
+    {no:8, label:'Karir (2)', code:'' + O8 + N9 + N17},
+    {no:9, label:'Teman', code:'' + O17 + N17 + M17},
+    {no:10, label:'Pernikahan (1)', code:'' + S8 + T9 + S17},
+    {no:11, label:'Pernikahan (2)', code:'' + U8 + T9 + T17},
+    {no:12, label:'Masa Depan', code:'' + S17 + T17 + U17},
+    {no:13, label:'Alam Bawah Sadar', code:'' + F19 + G19 + H19}
+  ];
+  for(var ri = 0; ri < rows.length; ri++){
+    rows[ri].meaning = getMeaning(rows[ri].code);
+  }
+
+  var baseDigits = [M8,O8,S8,U8,N9,T9,Q12];
+  var missing = [];
+  for(var n = 1; n <= 9; n++){
+    if(baseDigits.indexOf(n) === -1) missing.push(n);
+  }
+
+  var t = new Date(todayStr + 'T00:00:00');
+  var cycleYear = t.getFullYear();
+  if(t.getMonth() === 10) cycleYear += 1;
+  var cyStr = String(cycleYear);
+  var cyF = reduceDigit(parseInt(cyStr.substring(0,2),10));
+  var cyL = reduceDigit(parseInt(cyStr.substring(2,4),10));
+  var AB9 = reduceDigit(cyF + cyL);
+  var Q11 = reduceDigit(N9 + AB9);
+  var Q5 = reduceDigit(M8 + U8 + Q12);
+
+  var shio = findShio(d);
+  var animalName = shio ? shio.shio.split(' ')[0] : '';
+  var relation = findRelation(animalName);
+
+  var elemMap = {1:'LOGAM',2:'AIR',3:'API',4:'KAYU',5:'TANAH',6:'LOGAM',7:'AIR',8:'API',9:'KAYU'};
+  var allSixteen = [M8, O8, S8, U8, N9, T9, Q12, M15, U15, M17, N17, O17, Q17, S17, T17, U17];
+  var balance = {LOGAM:0, AIR:0, API:0, KAYU:0, TANAH:0};
+  for(var ei = 0; ei < allSixteen.length; ei++){
+    var e = elemMap[allSixteen[ei]];
+    if(e && balance[e] !== undefined) balance[e]++;
+  }
+
+  var mainElemKey = elemMap[Q12] || 'API';
+  var productionCycle = ['API', 'TANAH', 'LOGAM', 'AIR', 'KAYU'];
+  var displayOrder = [];
+  var startIdx = productionCycle.indexOf(mainElemKey);
+  if(startIdx !== -1){
+    for(var ci = 0; ci < productionCycle.length; ci++){
+      var idx = (startIdx + ci) % productionCycle.length;
+      displayOrder.push(productionCycle[idx]);
+    }
+  } else {
+    displayOrder = productionCycle.slice();
+  }
+
+  var categoryMap = {
+    0: {label: 'Diri Sendiri', icon: '👤'},
+    1: {label: 'Anak / Uang', icon: '💰'},
+    2: {label: 'Karir / Pasangan', icon: '💼'},
+    3: {label: 'Politik / Kesehatan', icon: '🏛️'},
+    4: {label: 'Orang Tua / Pendukung', icon: '👨‍👩‍👦'}
+  };
+
+  var IDEAL_BY_POSITION = [4, 3, 3, 3, 3];
+
+  return {
+    day: day, month: month, year: year, 
+    M8: M8, O8: O8, S8: S8, U8: U8, 
+    N9: N9, T9: T9, Q12: Q12,
+    M15: M15, U15: U15, Q17: Q17,
+    N17: N17, O17: O17, M17: M17,
+    S17: S17, T17: T17, U17: U17,
+    F19: F19, G19: G19, H19: H19, 
+    Q11: Q11, Q5: Q5,
+    rows: rows, missing: missing, baseDigits: baseDigits, 
+    shio: shio, animalName: animalName, relation: relation,
+    balance: balance, mainElemKey: mainElemKey, displayOrder: displayOrder,
+    categoryMap: categoryMap, allSixteen: allSixteen,
+    basicCharacter: '' + N9 + T9 + Q12,
+    IDEAL_BY_POSITION: IDEAL_BY_POSITION
+  };
+}
+
+// ============================================================
+// BUILD CALC DIAGRAM
+// ============================================================
+function buildCalcDiagram(profile, mainCharName){
+  var W = 720, H = 640;
+  var cx = W/2;
+  var dreamY = 46, parentY = 150, mainY = 300, childY = 410, bottomY = 520;
+  var ayahX = 150, ibuX = W-150, temanX = 130, depanX = W-130;
+
+  function line(x1,y1,x2,y2,extra){
+    return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="var(--gold)" stroke-opacity="0.45" stroke-width="1.6" '+(extra||'')+'/>';
+  }
+
+  var html = '<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">';
+  html += '<defs><radialGradient id="mcGlow" cx="50%" cy="50%" r="60%">';
+  html += '<stop offset="0%" stop-color="var(--gold-soft)" stop-opacity="0.35"/>';
+  html += '<stop offset="100%" stop-color="var(--gold-soft)" stop-opacity="0"/>';
+  html += '</radialGradient></defs>';
+
+  html += line(cx, dreamY+22, cx, mainY-46);
+  html += line(ayahX, parentY+26, cx, mainY-40);
+  html += line(ibuX, parentY+26, cx, mainY-40);
+  html += line(cx, mainY+46, cx, childY-14);
+  html += line(ayahX+40, childY, cx-10, childY, '');
+  html += line(ibuX-40, childY, cx+10, childY, '');
+  html += line(cx, childY+14, cx, bottomY-30);
+  html += line(cx-6, bottomY-14, temanX+50, bottomY-14);
+  html += line(cx+6, bottomY-14, depanX-50, bottomY-14);
+
+  html += '<g><rect x="'+(cx-30)+'" y="'+(dreamY-22)+'" width="60" height="44" rx="10" fill="var(--panel-2)" stroke="var(--gold)" stroke-width="1.4"/>';
+  html += '<text x="'+cx+'" y="'+(dreamY+7)+'" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="700" font-size="26" fill="var(--gold-soft)">'+profile.Q5+'</text></g>';
+  html += '<text x="'+cx+'" y="'+(dreamY+42)+'" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" letter-spacing="0.08em" fill="var(--jade-soft)">IMPIAN HIDUP</text>';
+
+  html += '<g><rect x="'+(ayahX-58)+'" y="'+(parentY-24)+'" width="116" height="48" rx="10" fill="var(--panel-2)" stroke="var(--jade)" stroke-width="1.3"/>';
+  html += '<text x="'+ayahX+'" y="'+(parentY+8)+'" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="700" font-size="22" fill="var(--paper)">'+profile.M8+' '+profile.O8+' '+profile.N9+'</text></g>';
+  html += '<text x="'+ayahX+'" y="'+(parentY+42)+'" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" letter-spacing="0.08em" fill="var(--jade-soft)">DNA AYAH</text>';
+
+  html += '<g><rect x="'+(ibuX-58)+'" y="'+(parentY-24)+'" width="116" height="48" rx="10" fill="var(--panel-2)" stroke="var(--jade)" stroke-width="1.3"/>';
+  html += '<text x="'+ibuX+'" y="'+(parentY+8)+'" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="700" font-size="22" fill="var(--paper)">'+profile.S8+' '+profile.U8+' '+profile.T9+'</text></g>';
+  html += '<text x="'+ibuX+'" y="'+(parentY+42)+'" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" letter-spacing="0.08em" fill="var(--jade-soft)">DNA IBU</text>';
+
+  html += '<circle cx="'+cx+'" cy="'+mainY+'" r="70" fill="url(#mcGlow)"/>';
+  html += '<g transform="translate('+cx+','+mainY+') rotate(45)">';
+  html += '<rect x="-46" y="-46" width="92" height="92" rx="14" fill="var(--panel-2)" stroke="var(--gold)" stroke-width="2.4"/>';
+  html += '</g>';
+  html += '<text x="'+cx+'" y="'+(mainY+16)+'" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="700" font-size="52" fill="var(--gold-soft)">'+profile.Q12+'</text>';
+  html += '<circle cx="'+(cx+52)+'" cy="'+(mainY-46)+'" r="15" fill="var(--panel)" stroke="var(--jade-soft)" stroke-width="1.3"/>';
+  html += '<text x="'+(cx+52)+'" y="'+(mainY-41)+'" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="700" font-size="15" fill="var(--jade-soft)">'+profile.Q11+'</text>';
+  html += '<text x="'+cx+'" y="'+(mainY+88)+'" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" letter-spacing="0.1em" fill="var(--gold-soft)">MAIN CHARACTER · '+esc(mainCharName).toUpperCase()+'</text>';
+
+  html += '<circle cx="'+(ayahX+40)+'" cy="'+childY+'" r="20" fill="var(--panel-2)" stroke="var(--jade)" stroke-width="1.3"/>';
+  html += '<text x="'+(ayahX+40)+'" y="'+(childY+7)+'" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="700" font-size="19" fill="var(--paper)">'+profile.M15+'</text>';
+  html += '<circle cx="'+(ibuX-40)+'" cy="'+childY+'" r="20" fill="var(--panel-2)" stroke="var(--jade)" stroke-width="1.3"/>';
+  html += '<text x="'+(ibuX-40)+'" y="'+(childY+7)+'" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="700" font-size="19" fill="var(--paper)">'+profile.U15+'</text>';
+  html += '<text x="'+cx+'" y="'+(childY-30)+'" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" letter-spacing="0.08em" fill="var(--jade-soft)">ANAK</text>';
+
+  html += '<circle cx="'+cx+'" cy="'+(bottomY-14)+'" r="22" fill="var(--panel-2)" stroke="var(--gold)" stroke-width="1.6"/>';
+  html += '<text x="'+cx+'" y="'+(bottomY-7)+'" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="700" font-size="20" fill="var(--gold-soft)">'+profile.Q17+'</text>';
+
+  html += '<g><rect x="'+(temanX-56)+'" y="'+(bottomY-24)+'" width="112" height="46" rx="10" fill="var(--panel-2)" stroke="var(--jade)" stroke-width="1.3"/>';
+  html += '<text x="'+temanX+'" y="'+(bottomY+7)+'" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="700" font-size="21" fill="var(--paper)">'+profile.M17+' '+profile.N17+' '+profile.O17+'</text></g>';
+  html += '<text x="'+temanX+'" y="'+(bottomY+42)+'" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" letter-spacing="0.08em" fill="var(--jade-soft)">TEMAN</text>';
+
+  html += '<g><rect x="'+(depanX-56)+'" y="'+(bottomY-24)+'" width="112" height="46" rx="10" fill="var(--panel-2)" stroke="var(--jade)" stroke-width="1.3"/>';
+  html += '<text x="'+depanX+'" y="'+(bottomY+7)+'" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="700" font-size="21" fill="var(--paper)">'+profile.S17+' '+profile.T17+' '+profile.U17+'</text></g>';
+  html += '<text x="'+depanX+'" y="'+(bottomY+42)+'" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" letter-spacing="0.08em" fill="var(--jade-soft)">MASA DEPAN</text>';
+
+  html += '<text x="'+cx+'" y="'+(H-34)+'" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="var(--paper)">Main Character: <tspan fill="var(--gold-soft)" font-weight="700">'+profile.Q12+' '+esc(mainCharName).toUpperCase()+'</tspan> (Elemen Utama)</text>';
+  html += '<text x="'+cx+'" y="'+(H-12)+'" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="var(--paper-dim)">Basic Character: <tspan fill="var(--paper)" font-weight="600">'+profile.basicCharacter+'</tspan></text>';
+
+  html += '</svg>';
+  return html;
+}
+
+// ============================================================
+// DISPLAY RESULT (SAMA PERSIS)
+// ============================================================
+function displayResult(name, dobDisplay, profile){
+  var el = document.getElementById('results');
+  var mainChar = elemByNo(profile.Q12);
+  var yearElem = elemByNo(profile.Q11);
+  var dream = null;
+  for(var i = 0; i < DREAMS.length; i++){
+    if(DREAMS[i].no === profile.Q5){ dream = DREAMS[i]; break; }
+  }
+
+  var mainCharElem = elemByNo(profile.Q12);
+  var mainCharName = mainCharElem ? mainCharElem.nama : '—';
+  var baseDigitsStr = profile.baseDigits.join(', ');
+  var missingStr = profile.missing.length ? profile.missing.join(', ') : 'Tidak ada';
+  
+  var colLabels = [
+    {no:1, label:'DNA AYAH'},{no:2, label:'DNA IBU'},{no:3, label:'KARAKTER UTAMA'},
+    {no:4, label:'P.HIDUP (1)'},{no:5, label:'P.HIDUP (2)'},{no:6, label:'ANAK'},
+    {no:7, label:'KARIR (1)'},{no:8, label:'KARIR (2)'},{no:9, label:'TEMAN'},
+    {no:10, label:'PERNIKAH (1)'},{no:11, label:'PERNIKAH (2)'},{no:12, label:'MASA DEPAN'},
+    {no:13, label:'ALAM BAWAH'}
+  ];
+  
+  var summaryHtml = '';
+  summaryHtml += '<div class="section-title">Ilustrasi Perhitungan 13 Angka <span class="cn">生命數組圖示</span></div>';
+  summaryHtml += '<div class="section-sub">13 set angka kehidupan yang dihitung dari tanggal lahir Anda (seperti format segitiga).</div>';
+  summaryHtml += '<div class="panel">';
+  summaryHtml += '<div class="summary-13-grid">';
+  for(var ci = 0; ci < profile.rows.length; ci++){
+    var r = profile.rows[ci];
+    var isMain = r.no === 3;
+    var label = colLabels[ci] ? colLabels[ci].label : '';
+    summaryHtml += '<div class="summary-13-item ' + (isMain ? 'main-char' : '') + '">';
+    summaryHtml += '<div class="s-num-label">' + label + '</div>';
+    summaryHtml += '<div class="s-num-box">' + esc(r.code) + '</div>';
+    summaryHtml += '<div class="s-num-index">#' + r.no + '</div>';
+    summaryHtml += '</div>';
+  }
+  summaryHtml += '</div>';
+  summaryHtml += '<div class="summary-info-row">';
+  summaryHtml += '📅 <strong>Tanggal:</strong> ' + esc(dobDisplay) + ' → ';
+  summaryHtml += '<strong>Angka Dasar:</strong> ' + esc(baseDigitsStr) + ' → ';
+  summaryHtml += '<strong>Karakter Utama:</strong> <span class="highlight">' + profile.Q12 + '</span> | ';
+  summaryHtml += '<strong>Angka Hilang:</strong> <span class="missing">' + esc(missingStr) + '</span>';
+  summaryHtml += '</div>';
+  summaryHtml += '</div>';
+
+  var missingHtml = profile.missing.length
+    ? profile.missing.map(function(n){ return '<span class="miss-num">' + n + '</span>'; }).join('')
+    : '<span class="miss-empty">Tidak ada angka yang hilang — semua angka dasar 1–9 lengkap.</span>';
+
+  var numCards = '';
+  for(var ri = 0; ri < profile.rows.length; ri++){
+    var r = profile.rows[ri];
+    var isMain = r.no === 3;
+    var cls = isMain ? 'num-card main-char-card' : 'num-card';
+    numCards += '<div class="' + cls + '" data-idx="' + String(r.no).padStart(2,'0') + '">';
+    numCards += '<div class="code">' + esc(r.code) + '</div>';
+    numCards += '<div class="label">' + esc(r.no) + '. ' + esc(r.label) + '</div>';
+    numCards += '<div class="meaning">' + (r.meaning ? esc(r.meaning) : 'Kombinasi ini belum memiliki catatan makna spesifik pada referensi.') + '</div>';
+    numCards += '</div>';
+  }
+
+  var mainCharHtml = '';
+  if(mainChar){
+    mainCharHtml = '<div class="main-char-highlight">';
+    mainCharHtml += '<div class="big-num">' + profile.Q12 + '</div>';
+    mainCharHtml += '<div class="info">';
+    mainCharHtml += '<div class="label">Karakter Utama · Elemen ' + esc(mainChar.nama) + '</div>';
+    mainCharHtml += '<div class="name">' + esc(mainChar.nama) + '</div>';
+    mainCharHtml += '<div class="desc">' + esc(mainChar.positif[0]) + '</div>';
+    mainCharHtml += '</div></div>';
+  }
+
+  var blessNums = ['4','5','6','7','9'].filter(function(n){ return profile.baseDigits.indexOf(parseInt(n,10)) !== -1; });
+  var blessHtml = '';
+  if(blessNums.length){
+    blessHtml = '<ul class="bless-list">';
+    for(var bi = 0; bi < blessNums.length; bi++){
+      var bn = blessNums[bi];
+      blessHtml += '<li><span class="bless-num">' + bn + '</span><span>' + esc(BLESSINGS[bn]) + '</span></li>';
+    }
+    blessHtml += '</ul>';
+  } else {
+    blessHtml = '<p class="section-sub" style="margin:0;">Belum ada angka berkat (4, 5, 6, 7, 9) yang terdeteksi pada susunan angka dasar Anda.</p>';
+  }
+
+  var elemNames = {'LOGAM':'Logam','AIR':'Air','API':'Api','KAYU':'Kayu','TANAH':'Tanah'};
+  var elemIcons = {'LOGAM':'⚙','AIR':'💧','API':'🔥','KAYU':'🌳','TANAH':'🌍'};
+  
+  var balanceHtml = '';
+  var displayOrder = profile.displayOrder || ['API', 'TANAH', 'LOGAM', 'AIR', 'KAYU'];
+  var mainElemKey = profile.mainElemKey || 'API';
+  var categoryMap = profile.categoryMap || {};
+  var IDEAL_BY_POSITION = profile.IDEAL_BY_POSITION || [4, 3, 3, 3, 3];
+  
+  for(var di = 0; di < displayOrder.length; di++){
+    var key = displayOrder[di];
+    var val = profile.balance[key] || 0;
+    var ideal = IDEAL_BY_POSITION[di] || 3;
+    var diff = val - ideal;
+    var isMain = (key === mainElemKey);
+    var cat = categoryMap[di] || {label: '—', icon: ''};
+    
+    var statusClass = 'seimbang';
+    var statusLabel = 'Seimbang';
+    var diffClass = 'zero';
+    var diffDisplay = '0';
+    if(diff > 0){
+      statusClass = 'kelebihan';
+      statusLabel = 'Kelebihan';
+      diffClass = 'plus';
+      diffDisplay = '+' + diff;
+    } else if(diff < 0){
+      statusClass = 'kekurangan';
+      statusLabel = 'Kekurangan';
+      diffClass = 'minus';
+      diffDisplay = '' + diff;
+    }
+    
+    var posNum = di + 1;
+    
+    balanceHtml += '<div class="bal-col ' + (isMain ? 'bal-main' : '') + '">';
+    balanceHtml += '<div class="bal-icon">' + elemIcons[key] + '</div>';
+    balanceHtml += '<div class="bal-name">' + elemNames[key] + '</div>';
+    balanceHtml += '<div class="bal-num">' + val + '</div>';
+    balanceHtml += '<div class="bal-status ' + statusClass + '">' + statusLabel + '</div>';
+    balanceHtml += '<div class="bal-ideal">Ideal: ' + ideal + '</div>';
+    balanceHtml += '<div class="bal-diff ' + diffClass + '">' + diffDisplay + '</div>';
+    balanceHtml += '<div class="bal-category">' + cat.icon + ' ' + cat.label + '</div>';
+    balanceHtml += '<div class="bal-position">#' + posNum + '</div>';
+    balanceHtml += '</div>';
+  }
+
+  var riskLabels = Object.keys(RISK_DATA);
+  var riskHtml = '';
+  for (var rl = 0; rl < riskLabels.length; rl++) {
+    var label = riskLabels[rl];
+    var list = RISK_DATA[label];
+    var scope = RISK_SCOPE[label] || [1,2,3,4,5,6,7,8,9,10,11,12,13];
+    
+    var hitRows = [];
+    for (var ri2 = 0; ri2 < profile.rows.length; ri2++) {
+      var r = profile.rows[ri2];
+      if (scope.indexOf(r.no) !== -1 && list.indexOf(r.code) !== -1) {
+        hitRows.push(r);
+      }
+    }
+    
+    var hit = hitRows.length > 0;
+    var isWealth = label.toLowerCase().indexOf('kekayaan') !== -1;
+    var cls = hit ? (isWealth ? 'risk-card wealth hit' : 'risk-card hit') : 'risk-card ok';
+    var status;
+    if (hit) {
+      var detail = '';
+      for (var hr = 0; hr < hitRows.length; hr++) {
+        if (hr > 0) detail += ', ';
+        detail += esc(hitRows[hr].code) + ' (' + esc(hitRows[hr].label) + ')';
+      }
+      status = (isWealth ? '✦ ' : '⚠ ') + detail;
+    } else {
+      status = 'Tidak terindikasi';
+    }
+    riskHtml += '<div class="' + cls + '"><div class="rtitle">' + esc(label) + '</div><div class="rstatus">' + status + '</div></div>';
+  }
+
+  var rel = profile.relation || {};
+  var shioName = profile.shio ? profile.shio.shio : '';
+  var extraRel = '';
+  if (shioName.indexOf('Babi') !== -1 || shioName.indexOf('Macan') !== -1 || 
+      shioName.indexOf('Ular') !== -1 || shioName.indexOf('Monyet') !== -1) {
+    extraRel = 'BERTENTANGAN/MELUKAI';
+  } else if (shioName.indexOf('Kerbau') !== -1 || shioName.indexOf('Naga') !== -1 || 
+             shioName.indexOf('Kambing') !== -1 || shioName.indexOf('Anjing') !== -1) {
+    extraRel = 'TERJEBAK FISIK & MENTAL';
+  } else {
+    extraRel = '4 JODOH BESAR';
+  }
+
+  var relHtml = '<div class="rel-grid">';
+  relHtml += '<div class="rel-item"><b>Tiga Serangkai Duniawi</b>' + esc(rel.serangkai || '—') + '</div>';
+  relHtml += '<div class="rel-item"><b>Tiga Cabang Duniawi</b>' + esc(rel.cabang || '—') + '</div>';
+  relHtml += '<div class="rel-item"><b>Bertentangan / Menyakiti</b>' + esc(rel.menyakiti || '—') + '</div>';
+  relHtml += '<div class="rel-item"><b>Enam Harmoni (Jodoh)</b>' + esc(rel.harmoni || '—') + '</div>';
+  relHtml += '</div>';
+
+  var fullHtml = '';
+  fullHtml += '<div class="profile-banner">';
+  fullHtml += '<div><p class="name">' + esc(name || 'Tanpa Nama') + '</p>';
+  fullHtml += '<p class="meta">Lahir ' + esc(dobDisplay) + '</p></div>';
+  fullHtml += '<div class="shio-badge">';
+  fullHtml += '<div class="animal">' + esc(profile.shio ? profile.shio.shio : '') + '</div>';
+  fullHtml += '<div class="label">Elemen ' + esc(profile.shio ? profile.shio.elemen : '') + ' · ' + esc(profile.shio ? profile.shio.yy : '') + '</div>';
+  fullHtml += '<div class="sub">' + esc(profile.shio ? profile.shio.trait : '') + '</div>';
+  fullHtml += '</div></div>';
+
+  fullHtml += '<div class="section-title">Lembar Kalkulasi <span class="cn">計算表</span></div>';
+  fullHtml += '<div class="section-sub">Ilustrasi bagaimana angka-angka Anda saling terhubung — dari DNA orang tua hingga Karakter Utama yang ditonjolkan di tengah.</div>';
+  fullHtml += '<div class="panel diagram-panel">' + buildCalcDiagram(profile, mainChar ? mainChar.nama : '') + '</div>';
+
+  fullHtml += summaryHtml;
+
+  fullHtml += '<div class="section-title">Karakter Utama <span class="cn">主性格</span></div>';
+  fullHtml += mainCharHtml;
+  fullHtml += '<div class="section-sub">Elemen inti Anda: <strong style="color:var(--gold-soft)">' + (mainChar ? esc(mainChar.nama) : '—') + '</strong> — diturunkan dari angka ' + esc(profile.Q12) + ' pada perhitungan tanggal lahir.</div>';
+  fullHtml += '<div class="grid-2">';
+  fullHtml += '<div class="panel">';
+  fullHtml += '<h3>Sifat Positif</h3>';
+  fullHtml += '<ul class="trait-list">';
+  if(mainChar){
+    for(var pi = 0; pi < mainChar.positif.length; pi++){
+      fullHtml += '<li>' + esc(mainChar.positif[pi]) + '</li>';
+    }
+  } else {
+    fullHtml += '<li>—</li>';
+  }
+  fullHtml += '</ul>';
+  fullHtml += '<h3 style="margin-top:20px;">Sifat Perlu Diwaspadai</h3>';
+  fullHtml += '<ul class="trait-list">';
+  if(mainChar){
+    for(var ni = 0; ni < mainChar.negatif.length; ni++){
+      fullHtml += '<li>' + esc(mainChar.negatif[ni]) + '</li>';
+    }
+  } else {
+    fullHtml += '<li>—</li>';
+  }
+  fullHtml += '</ul>';
+  fullHtml += '</div>';
+  fullHtml += '<div class="panel">';
+  fullHtml += '<h3>Warna Pendukung</h3>';
+  fullHtml += '<div class="swatch"><b>Sesuai elemen:</b><br>' + (mainChar ? esc(mainChar.warna_sesuai) : '—') + '</div><br>';
+  fullHtml += '<div class="swatch"><b>Memperkuat elemen:</b><br>' + (mainChar ? esc(mainChar.warna_pendukung) : '—') + '</div><br>';
+  fullHtml += '<div class="swatch"><b>Melemahkan gangguan:</b><br>' + (mainChar ? esc(mainChar.warna_melemahkan) : '—') + '</div>';
+  fullHtml += '<h3 style="margin-top:20px;">Siklus Hidup</h3>';
+  fullHtml += '<ul class="trait-list">';
+  if(mainChar){
+    for(var si2 = 0; si2 < mainChar.siklus.length; si2++){
+      fullHtml += '<li>' + esc(mainChar.siklus[si2]) + '</li>';
+    }
+  } else {
+    fullHtml += '<li>—</li>';
+  }
+  fullHtml += '</ul>';
+  fullHtml += '</div></div>';
+
+  fullHtml += '<div class="section-title">Keseimbangan 5 Elemen <span class="cn">五行平衡</span></div>';
+  fullHtml += '<div class="section-sub">';
+  fullHtml += 'Jumlah kemunculan setiap elemen dalam <strong>16 angka</strong>. ';
+  fullHtml += 'Urutan dimulai dari <strong>elemen utama (' + (mainChar ? esc(mainChar.nama) : '—') + ')</strong>. ';
+  fullHtml += 'Nilai ideal berdasarkan posisi: <strong>4,3,3,3,3</strong>. ';
+  fullHtml += 'Kelebihan (+) / Kekurangan (-) ditampilkan.';
+  fullHtml += '</div>';
+  fullHtml += '<div class="panel"><div class="bal-grid">' + balanceHtml + '</div></div>';
+
+  fullHtml += '<div class="section-title">Ramalan Tahun Berjalan <span class="cn">流年</span></div>';
+  fullHtml += '<div class="section-sub">Berdasarkan angka tahun personal Anda saat ini (dihitung otomatis dari tanggal hari ini).</div>';
+  fullHtml += '<div class="panel year-banner">';
+  fullHtml += '<div class="year-num">' + esc(profile.Q11) + '</div>';
+  fullHtml += '<div class="year-info">';
+  fullHtml += '<div class="l1">Fokus tahun ini: <strong>' + (yearElem ? esc(yearElem.siklus[0]) : '—') + '</strong></div>';
+  fullHtml += '<div class="l2">Perlu dievaluasi: ' + (yearElem ? esc(yearElem.siklus[1]) : '—') + '</div>';
+  fullHtml += '<div class="l3">Tingkat keberuntungan: ' + (yearElem ? esc(yearElem.siklus[2]) : '—') + '</div>';
+  fullHtml += '</div></div>';
+
+  fullHtml += '<div class="section-title">13 Angka Kehidupan <span class="cn">生命數組</span></div>';
+  fullHtml += '<div class="section-sub">Tiga digit pada setiap kartu adalah kombinasi angka dari tanggal lahir Anda; teks di bawahnya adalah makna dari kombinasi tersebut.</div>';
+  fullHtml += '<div class="num-grid">' + numCards + '</div>';
+
+  fullHtml += '<div class="section-title">Angka yang Hilang <span class="cn">缺失數</span></div>';
+  fullHtml += '<div class="section-sub">Angka 1–9 yang tidak muncul pada tujuh angka dasar kelahiran Anda.</div>';
+  fullHtml += '<div class="panel"><div class="missing-box">' + missingHtml + '</div></div>';
+
+  fullHtml += '<div class="section-title">Impian Hidup Bawaan Lahir <span class="cn">天賦使命</span></div>';
+  fullHtml += '<div class="panel dream-box">';
+  fullHtml += '<div class="big">' + (dream ? esc(dream.title) : '—') + '</div>';
+  fullHtml += '<div class="need">Dalam segitiga dibutuhkan angka: <strong>' + (dream ? esc(dream.segitiga) : '—') + '</strong></div>';
+  fullHtml += '</div>';
+
+  fullHtml += '<div class="section-title">5 Berkat Kehidupan <span class="cn">五福</span></div>';
+  fullHtml += '<div class="section-sub">Berkat yang tersirat bila angka pembawanya hadir di susunan angka dasar Anda.</div>';
+  fullHtml += '<div class="panel">' + blessHtml + '</div>';
+
+  fullHtml += '<div class="section-title">Potensi &amp; Peringatan <span class="cn">潛在課題</span></div>';
+  fullHtml += '<div class="section-sub">Diperiksa dari kecocokan kombinasi angka Anda terhadap pola-pola referensi sesuai area masing-masing.</div>';
+  fullHtml += '<div class="risk-grid">' + riskHtml + '</div>';
+
+  fullHtml += '<div class="section-title">Shio &amp; Relasi <span class="cn">生肖</span></div>';
+  fullHtml += '<div class="section-sub">Hubungan shio kelahiran Anda dengan shio-shio lain. Status: <strong>' + extraRel + '</strong></div>';
+  fullHtml += '<div class="panel">' + relHtml + '</div>';
+  
+  el.innerHTML = fullHtml;
+  el.style.display = 'block';
+  document.getElementById('printBtn').style.display = 'inline-block';
+  el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ============================================================
+// UI FUNCTIONS
+// ============================================================
+async function updateStatusBar() {
+    var session = getSession();
+    var bar = document.getElementById('userStatusBar');
+    var warning = document.getElementById('licenseWarning');
+    
+    var nameEl = document.getElementById('displayName');
+    var kuotaEl = document.getElementById('displayKuota');
+    var masaEl = document.getElementById('displayMasaAktif');
+    var expiredEl = document.getElementById('displayExpired');
+    var kuotaItem = document.getElementById('kuotaItem');
+    var masaItem = document.getElementById('masaItem');
+    var expiredItem = document.getElementById('expiredItem');
+    var historyBtn = document.getElementById('historyBtn');
+    var tokenBtn = document.getElementById('tokenBtn');
+    var logoutBtn = document.getElementById('logoutBtn');
+    var loginBtn = document.getElementById('loginBtn');
+    var changePasswordBtn = document.getElementById('changePasswordBtn');
+    
+    if (!bar) return;
+    
+    if (!session) {
+        bar.style.display = 'flex';
+        if (warning) warning.style.display = 'none';
+        document.getElementById('formCard').style.display = 'block';
+        if (nameEl) nameEl.textContent = '👤 Belum Login';
+        if (kuotaItem) kuotaItem.style.display = 'none';
+        if (masaItem) masaItem.style.display = 'none';
+        if (expiredItem) expiredItem.style.display = 'none';
+        if (historyBtn) historyBtn.style.display = 'none';
+        if (tokenBtn) tokenBtn.style.display = 'none';
+        if (logoutBtn) logoutBtn.style.display = 'none';
+        if (loginBtn) loginBtn.style.display = 'inline-block';
+        if (changePasswordBtn) changePasswordBtn.style.display = 'none';
+        return;
+    }
+    
+    var user = await getUser(session.email);
+    if (!user) {
+        bar.style.display = 'none';
+        if (warning) warning.style.display = 'none';
+        return;
+    }
+    
+    bar.style.display = 'flex';
+    if (nameEl) nameEl.textContent = '👤 ' + user.name;
+    if (kuotaItem) kuotaItem.style.display = 'flex';
+    if (masaItem) masaItem.style.display = 'flex';
+    if (expiredItem) expiredItem.style.display = 'flex';
+    if (historyBtn) historyBtn.style.display = 'inline-block';
+    if (tokenBtn) tokenBtn.style.display = 'inline-block';
+    if (logoutBtn) logoutBtn.style.display = 'inline-block';
+    if (loginBtn) loginBtn.style.display = 'none';
+    if (changePasswordBtn) changePasswordBtn.style.display = 'inline-block';
+    
+    var status = await getLicenseStatus(session.email);
+    
+    if (status.active) {
+        if (kuotaEl) {
+            kuotaEl.textContent = status.remaining + '/' + status.quota;
+            kuotaEl.className = 'val success';
+            kuotaEl.style.color = '#7fb59c';
+            kuotaEl.style.fontWeight = 'bold';
+            kuotaEl.style.fontSize = '16px';
+            kuotaEl.style.display = 'inline-block';
+        }
+        if (masaEl) {
+            masaEl.textContent = status.daysLeft > 0 ? status.daysLeft : 0;
+            masaEl.className = 'val';
+        }
+        if (expiredEl) {
+            expiredEl.textContent = status.expiry || '—';
+            expiredEl.className = 'val';
+        }
+        if (warning) warning.style.display = 'none';
+        document.getElementById('formCard').style.display = 'block';
+    } else {
+        if (kuotaEl) {
+            kuotaEl.textContent = '0/0';
+            kuotaEl.className = 'val danger';
+            kuotaEl.style.color = '#e0968a';
+            kuotaEl.style.fontWeight = 'bold';
+            kuotaEl.style.fontSize = '16px';
+            kuotaEl.style.display = 'inline-block';
+        }
+        if (masaEl) {
+            masaEl.textContent = '0';
+            masaEl.className = 'val danger';
+        }
+        if (expiredEl) {
+            expiredEl.textContent = '—';
+            expiredEl.className = 'val danger';
+        }
+        if (warning) {
+            warning.style.display = 'block';
+            document.getElementById('licenseWarningDesc').textContent = 'Lisensi Anda tidak aktif. Hubungi admin untuk perpanjang.';
+            document.getElementById('waLink').href = getWALink(session.email);
+        }
+        document.getElementById('formCard').style.display = 'none';
+    }
+}
+
+// ============================================================
+// MODAL FUNCTIONS
+// ============================================================
+function showModal(step, email) {
+    const modal = document.getElementById('loginModal');
+    modal.classList.add('show');
+    
+    document.getElementById('loginStep1').style.display = 'none';
+    document.getElementById('registerStep').style.display = 'none';
+    document.getElementById('registerOtpStep').style.display = 'none';
+    document.getElementById('tokenStep').style.display = 'none';
+    
+    if (step === 'login') {
+        document.getElementById('modalIcon').textContent = '🔐';
+        document.getElementById('modalTitle').textContent = 'Login';
+        document.getElementById('modalSub').textContent = 'Masukkan email dan password Anda.';
+        document.getElementById('loginStep1').style.display = 'block';
+        document.getElementById('loginEmail').value = '';
+        document.getElementById('loginPassword').value = '';
+        document.getElementById('loginEmail').focus();
+    } else if (step === 'register') {
+        document.getElementById('modalIcon').textContent = '📝';
+        document.getElementById('modalTitle').textContent = 'Registrasi Akun Baru';
+        document.getElementById('modalSub').textContent = 'Buat akun untuk mulai menghitung.';
+        document.getElementById('registerStep').style.display = 'block';
+        document.getElementById('regEmail').value = '';
+        document.getElementById('regPassword').value = '';
+        document.getElementById('regName').value = '';
+        document.getElementById('regPhone').value = '';
+        document.getElementById('regEmail').focus();
+    } else if (step === 'register_otp') {
+        document.getElementById('modalIcon').textContent = '📧';
+        document.getElementById('modalTitle').textContent = 'Verifikasi Kode OTP';
+        document.getElementById('modalSub').textContent = 'Masukkan kode 6 digit yang dikirim ke email Anda.';
+        document.getElementById('registerOtpStep').style.display = 'block';
+        document.getElementById('regOtpEmailDisplay').textContent = email || '—';
+        document.querySelectorAll('.otp-input-reg').forEach(inp => inp.value = '');
+        document.querySelector('.otp-input-reg').focus();
+    } else if (step === 'token') {
+        document.getElementById('modalIcon').textContent = '🔑';
+        document.getElementById('modalTitle').textContent = 'Masukkan Token Perpanjang';
+        document.getElementById('modalSub').textContent = 'Masukkan token yang diberikan oleh admin.';
+        document.getElementById('tokenStep').style.display = 'block';
+        document.getElementById('tokenInput').value = '';
+        document.getElementById('tokenInput').focus();
+    }
+}
+
+function hideModal() {
+    document.getElementById('loginModal').classList.remove('show');
+}
+
+// ============================================================
+// SHOW QUOTA MODAL
+// ============================================================
+async function showQuotaModal() {
+    const session = getSession();
+    if (!session) {
+        showModal('login');
+        return;
+    }
+    
+    const user = await getUser(session.email);
+    const status = await getLicenseStatus(session.email);
+    const license = await getLicense(session.email);
+    
+    document.getElementById('quotaUserName').textContent = user ? user.name : '—';
+    document.getElementById('quotaUserEmail').textContent = session.email;
+    document.getElementById('quotaMasaAktif').textContent = status.daysLeft > 0 ? status.daysLeft + ' hari' : 'Habis';
+    document.getElementById('quotaExpired').textContent = license ? license.expiry_date : '—';
+    
+    const phone = CONFIG.ADMIN_PHONE;
+    const text = 
+        'Halo Admin, saya mau minta token perpanjang lisensi Angka Kehidupan.%0A%0A' +
+        '📧 Email: ' + session.email + '%0A' +
+        '👤 Nama: ' + (user ? user.name : '—') + '%0A' +
+        '📊 Sisa Kuota: 0/5%0A' +
+        '⏰ Masa Aktif: ' + (status.daysLeft > 0 ? status.daysLeft + ' hari lagi' : 'Habis') + '%0A' +
+        '📅 Expired: ' + (license ? license.expiry_date : '—') + '%0A%0A' +
+        'Mohon bantuannya untuk token perpanjang. Terima kasih.';
+    
+    document.getElementById('quotaWaLink').href = 'https://wa.me/' + phone + '?text=' + text;
+    document.getElementById('quotaModal').classList.add('show');
+}
+
+// ============================================================
+// LOAD HISTORY
+// ============================================================
+async function loadHistory() {
+    const session = getSession();
+    const container = document.getElementById('historyContent');
+    
+    if (!session) {
+        container.innerHTML = '<div class="history-empty-state">🔐 Silakan login terlebih dahulu untuk melihat riwayat.</div>';
+        return;
+    }
+    
+    const history = await getUserHistory(session.email);
+    
+    if (history.length === 0) {
+        container.innerHTML = '<div class="history-empty-state">📭 Belum ada riwayat perhitungan.</div>';
+        return;
+    }
+    
+    let html = '<table class="history-table"><thead><tr><th>#</th><th>Nama</th><th>Tanggal Lahir</th><th>Waktu</th><th>Aksi</th><th>Lihat</th></tr></thead><tbody>';
+    history.forEach((item, index) => {
+        const date = new Date(item.calculated_at);
+        const dateStr = date.toLocaleDateString('id-ID') + ' ' + date.toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
+        html += '<tr>';
+        html += '<td>' + (index + 1) + '</td>';
+        html += '<td>' + esc(item.name) + '</td>';
+        html += '<td>' + esc(item.dob) + '</td>';
+        html += '<td>' + dateStr + '</td>';
+        html += '<td><button class="delete-btn" data-id="' + item.id + '">🗑️</button></td>';
+        html += '<td><button class="view-btn" data-name="' + esc(item.name) + '" data-dob="' + esc(item.dob) + '">👁️ Lihat</button></td>';
+        html += '</tr>';
+    });
+    html += '</tbody></table>';
+    container.innerHTML = html;
+    
+    container.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', async function() {
+            const id = this.dataset.id;
+            showCustomAlertConfirm('Hapus Riwayat', 'Yakin ingin menghapus riwayat ini?', 'Hapus', 'Batal', async function(result) {
+                if (result) {
+                    await deleteUserHistoryItem(session.email, id);
+                    loadHistory();
+                    showCustomAlert('success', 'Berhasil', 'Riwayat telah dihapus.');
+                }
+            });
+        });
+    });
+    
+    container.querySelectorAll('.view-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const name = this.dataset.name;
+            const dob = this.dataset.dob;
+            const parts = dob.split('/');
+            if (parts.length === 3) {
+                document.getElementById('fname').value = name;
+                document.getElementById('dobDay').value = parts[0];
+                document.getElementById('dobMonth').value = parts[1];
+                document.getElementById('dobYear').value = parts[2];
+            }
+            document.getElementById('historyModal').classList.remove('show');
+            calculateWithoutQuota();
+        });
+    });
+}
+
+// ============================================================
+// CALCULATE WITHOUT QUOTA
+// ============================================================
+async function calculateWithoutQuota() {
+    var name = document.getElementById('fname').value.trim();
+    var day = document.getElementById('dobDay').value.trim();
+    var month = document.getElementById('dobMonth').value.trim();
+    var year = document.getElementById('dobYear').value.trim();
+    var errBox = document.getElementById('errBox');
+    errBox.style.display = 'none';
+    errBox.textContent = '';
+    
+    if (!name || !day || !month || !year) {
+        errBox.textContent = 'Isi nama dan tanggal lahir lengkap.';
+        errBox.style.display = 'block';
+        return;
+    }
+    
+    var d = parseInt(day), m = parseInt(month), y = parseInt(year);
+    if (isNaN(d) || isNaN(m) || isNaN(y) || y < 1900 || y > 2050 || m < 1 || m > 12 || d < 1 || d > 31) {
+        errBox.textContent = 'Tanggal lahir tidak valid.';
+        errBox.style.display = 'block';
+        return;
+    }
+    
+    var dateStr = y + '-' + String(m).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+    var todayStr = new Date().toISOString().slice(0,10);
+    var profile = computeProfile(dateStr, todayStr);
+    displayResult(name, day + '/' + month + '/' + year, profile);
+}
+
+// ============================================================
+// OTP INPUT AUTO-FOCUS
+// ============================================================
+document.querySelectorAll('.otp-input-reg').forEach((input, index) => {
+    input.addEventListener('input', function() {
+        if (this.value.length === 1 && index < 5) {
+            document.querySelectorAll('.otp-input-reg')[index + 1].focus();
+        }
+    });
+    input.addEventListener('keydown', function(e) {
+        if (e.key === 'Backspace' && this.value.length === 0 && index > 0) {
+            document.querySelectorAll('.otp-input-reg')[index - 1].focus();
+        }
+        if (e.key === 'Enter') {
+            document.getElementById('verifyRegOtpBtn').click();
+        }
+    });
+});
+
+// ============================================================
+// AUTO-TAB INPUT TANGGAL LAHIR
+// ============================================================
+document.getElementById('dobDay').addEventListener('input', function() {
+    if (this.value.length === 2) {
+        document.getElementById('dobMonth').focus();
+    }
+});
+
+document.getElementById('dobMonth').addEventListener('input', function() {
+    if (this.value.length === 2) {
+        document.getElementById('dobYear').focus();
+    }
+});
+
+// ============================================================
+// BUTTON EVENT HANDLERS
+// ============================================================
+
+// --- LOGIN (PAKAI PASSWORD) ---
+document.getElementById('loginBtnAction').addEventListener('click', async function() {
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    
+    if (!email || !password) {
+        showCustomAlert('warning', 'Peringatan', 'Masukkan email dan password.');
+        return;
+    }
+    
+    try {
+        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        const user = await getUser(email);
+        if (user) {
+            setSession(email, user.name);
+            hideModal();
+            updateStatusBar();
+            showCustomAlert('success', 'Login Berhasil', 'Selamat datang, ' + user.name + '!');
+        } else {
+            showCustomAlert('error', 'Gagal', 'Data user tidak ditemukan.');
+            await auth.signOut();
+        }
+    } catch (error) {
+        if (error.code === 'auth/user-not-found') {
+            showCustomAlert('warning', 'Email Belum Terdaftar', 'Email belum terdaftar. Silakan registrasi terlebih dahulu.');
+            showModal('register', email);
+        } else if (error.code === 'auth/wrong-password') {
+            showCustomAlert('error', 'Password Salah', 'Password salah. Silakan coba lagi.');
+        } else {
+            showCustomAlert('error', 'Error', error.message);
+        }
+    }
+});
+
+// --- FORGOT PASSWORD ---
+document.getElementById('forgotPasswordBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim();
+    if (!email) {
+        showCustomAlert('warning', 'Peringatan', 'Masukkan email Anda terlebih dahulu.');
+        return;
+    }
+    document.getElementById('resetEmail').value = email;
+    document.getElementById('loginModal').classList.remove('show');
+    document.getElementById('forgotPasswordModal').classList.add('show');
+    document.getElementById('resetEmail').focus();
+});
+
+document.getElementById('resetPasswordBtn').addEventListener('click', function() {
+    const email = document.getElementById('resetEmail').value.trim();
+    if (!email || !email.includes('@') || !email.includes('.')) {
+        showCustomAlert('warning', 'Peringatan', 'Masukkan email yang valid.');
+        return;
+    }
+    
+    var btn = this;
+    btn.disabled = true;
+    btn.textContent = '⏳ Mengirim...';
+    
+    auth.sendPasswordResetEmail(email)
+        .then(function() {
+            btn.disabled = false;
+            btn.textContent = 'Kirim Link Reset';
+            document.getElementById('forgotPasswordModal').classList.remove('show');
+            showCustomAlert('success', 'Email Terkirim', 'Link reset password telah dikirim ke ' + email + '. Cek inbox Anda.');
+        })
+        .catch(function(error) {
+            btn.disabled = false;
+            btn.textContent = 'Kirim Link Reset';
+            if (error.code === 'auth/user-not-found') {
+                showCustomAlert('warning', 'Email Tidak Ditemukan', 'Email ini belum terdaftar. Silakan registrasi.');
+            } else {
+                showCustomAlert('error', 'Gagal', error.message);
+            }
+        });
+});
+
+document.getElementById('backToLoginFromReset').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('forgotPasswordModal').classList.remove('show');
+    document.getElementById('loginModal').classList.add('show');
+});
+
+document.getElementById('closeForgotModalBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('forgotPasswordModal').classList.remove('show');
+    document.getElementById('loginModal').classList.add('show');
+});
+
+document.getElementById('forgotPasswordModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        this.classList.remove('show');
+        document.getElementById('loginModal').classList.add('show');
+    }
+});
+
+document.getElementById('resetEmail').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        document.getElementById('resetPasswordBtn').click();
+    }
+});
+
+// --- CHANGE PASSWORD ---
+document.getElementById('changePasswordBtn').addEventListener('click', function() {
+    const session = getSession();
+    if (!session) {
+        showCustomAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu.');
+        return;
+    }
+    document.getElementById('oldPassword').value = '';
+    document.getElementById('newPassword').value = '';
+    document.getElementById('confirmNewPassword').value = '';
+    document.getElementById('changePasswordModal').classList.add('show');
+    document.getElementById('oldPassword').focus();
+});
+
+document.getElementById('changePasswordSubmitBtn').addEventListener('click', function() {
+    const oldPassword = document.getElementById('oldPassword').value;
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmPassword = document.getElementById('confirmNewPassword').value;
+    
+    if (!oldPassword) {
+        showCustomAlert('warning', 'Peringatan', 'Masukkan password lama.');
+        return;
+    }
+    if (!newPassword || newPassword.length < 6) {
+        showCustomAlert('warning', 'Peringatan', 'Password baru minimal 6 karakter.');
+        return;
+    }
+    if (newPassword !== confirmPassword) {
+        showCustomAlert('warning', 'Peringatan', 'Password baru dan konfirmasi tidak sama.');
+        return;
+    }
+    
+    var btn = this;
+    btn.disabled = true;
+    btn.textContent = '⏳ Memproses...';
+    
+    const user = auth.currentUser;
+    if (!user) {
+        showCustomAlert('error', 'Gagal', 'Anda belum login.');
+        btn.disabled = false;
+        btn.textContent = 'Ganti Password';
+        return;
+    }
+    
+    const credential = firebase.auth.EmailAuthProvider.credential(user.email, oldPassword);
+    
+    user.reauthenticateWithCredential(credential)
+        .then(function() {
+            return user.updatePassword(newPassword);
+        })
+        .then(function() {
+            btn.disabled = false;
+            btn.textContent = 'Ganti Password';
+            document.getElementById('changePasswordModal').classList.remove('show');
+            showCustomAlert('success', 'Berhasil', 'Password Anda berhasil diubah!');
+        })
+        .catch(function(error) {
+            btn.disabled = false;
+            btn.textContent = 'Ganti Password';
+            if (error.code === 'auth/wrong-password') {
+                showCustomAlert('error', 'Gagal', 'Password lama salah.');
+            } else {
+                showCustomAlert('error', 'Gagal', error.message);
+            }
+        });
+});
+
+document.getElementById('closeChangePasswordBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('changePasswordModal').classList.remove('show');
+});
+
+document.getElementById('changePasswordModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        this.classList.remove('show');
+    }
+});
+
+document.getElementById('oldPassword').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('newPassword').focus();
+});
+document.getElementById('newPassword').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('confirmNewPassword').focus();
+});
+document.getElementById('confirmNewPassword').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('changePasswordSubmitBtn').click();
+});
+
+// --- REGISTER ---
+document.getElementById('registerSubmitBtn').addEventListener('click', async function() {
+    const email = document.getElementById('regEmail').value.trim();
+    const password = document.getElementById('regPassword').value;
+    const name = document.getElementById('regName').value.trim();
+    const phone = document.getElementById('regPhone').value.trim();
+    
+    if (!email || !email.includes('@') || !email.includes('.')) {
+        showCustomAlert('warning', 'Peringatan', 'Masukkan email yang valid.');
+        return;
+    }
+    if (!password || password.length < 6) {
+        showCustomAlert('warning', 'Peringatan', 'Password minimal 6 karakter.');
+        return;
+    }
+    if (!name || name.length < 2) {
+        showCustomAlert('warning', 'Peringatan', 'Masukkan nama lengkap Anda.');
+        return;
+    }
+    if (!phone || phone.length < 10 || phone.length > 13) {
+        showCustomAlert('warning', 'Peringatan', 'Masukkan nomor HP yang valid (10-13 digit).');
+        return;
+    }
+    
+    const existingUser = await getUser(email);
+    if (existingUser) {
+        showCustomAlert('warning', 'Email Terdaftar', 'Email sudah terdaftar. Silakan login.');
+        showModal('login');
+        return;
+    }
+    
+    try {
+        await db.collection('users').doc(email).set({
+            name: name,
+            phone: phone,
+            verified: false,
+            registered_at: getNowISO(),
+            password_temp: password
+        });
+    } catch (e) {
+        showCustomAlert('error', 'Gagal', 'Gagal menyimpan data: ' + e.message);
+        return;
+    }
+    
+    sendOTP(email);
+    showModal('register_otp', email);
+});
+
+// --- VERIFY REGISTER OTP ---
+document.getElementById('verifyRegOtpBtn').addEventListener('click', async function() {
+    const email = document.getElementById('regOtpEmailDisplay').textContent;
+    let otp = '';
+    document.querySelectorAll('.otp-input-reg').forEach(inp => otp += inp.value);
+    
+    if (otp.length !== 6) {
+        showCustomAlert('warning', 'Peringatan', 'Masukkan 6 digit kode OTP.');
+        return;
+    }
+    
+    const result = verifyOTP(email, otp);
+    if (result.valid) {
+        try {
+            const userDoc = await db.collection('users').doc(email).get();
+            if (!userDoc.exists) {
+                showCustomAlert('error', 'Gagal', 'Data user tidak ditemukan.');
+                return;
+            }
+            const userData = userDoc.data();
+            
+            const password = userData.password_temp || '123456';
+            await auth.createUserWithEmailAndPassword(email, password);
+            
+            await db.collection('users').doc(email).update({
+                verified: true,
+                password_temp: firebase.firestore.FieldValue.delete()
+            });
+            
+            await createLicense(email, CONFIG.DEFAULT_QUOTA, CONFIG.DEFAULT_DAYS);
+            setSession(email, userData.name);
+            hideModal();
+            updateStatusBar();
+            showCustomAlert('success', 'Registrasi Berhasil', 'Selamat datang, ' + userData.name + '!');
+            showCustomAlert('info', 'Selamat', 'Anda mendapatkan ' + CONFIG.DEFAULT_QUOTA + ' kali kuota dan ' + CONFIG.DEFAULT_DAYS + ' hari masa aktif.');
+        } catch (e) {
+            console.error('Registrasi error:', e);
+            showCustomAlert('error', 'Gagal', 'Gagal registrasi: ' + e.message);
+        }
+    } else {
+        showCustomAlert('error', 'Gagal', result.message);
+    }
+});
+
+// --- RESEND REGISTER OTP ---
+document.getElementById('resendRegOtpBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    const email = document.getElementById('regOtpEmailDisplay').textContent;
+    sendOTP(email);
+    showCustomAlert('success', 'OTP Dikirim', 'Kode OTP baru telah dikirim ke ' + email);
+});
+
+// --- REDEEM TOKEN ---
+document.getElementById('redeemTokenBtn').addEventListener('click', async function() {
+    var session = getSession();
+    if (!session) {
+        showCustomAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu.');
+        hideModal();
+        return;
+    }
+    
+    var token = document.getElementById('tokenInput').value.trim();
+    if (!token) {
+        showCustomAlert('warning', 'Peringatan', 'Masukkan token perpanjang.');
+        return;
+    }
+    
+    var btn = this;
+    btn.disabled = true;
+    btn.textContent = '⏳ Memproses...';
+    
+    try {
+        const result = await redeemToken(session.email, token);
+        btn.disabled = false;
+        btn.textContent = '🔓 Perpanjang Lisensi';
+        
+        if (result.success) {
+            hideModal();
+            updateStatusBar();
+            showCustomAlert('success', 'Berhasil', result.message);
+        } else {
+            showCustomAlert('error', 'Gagal', result.message);
+        }
+    } catch (e) {
+        btn.disabled = false;
+        btn.textContent = '🔓 Perpanjang Lisensi';
+        showCustomAlert('error', 'Error', 'Terjadi kesalahan: ' + e.message);
+    }
+});
+
+// --- NAVIGASI MODAL ---
+document.getElementById('goToRegister').addEventListener('click', function(e) {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim();
+    showModal('register', email || '');
+});
+
+document.getElementById('goToLogin').addEventListener('click', function(e) {
+    e.preventDefault();
+    showModal('login');
+});
+
+document.getElementById('closeModalBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    hideModal();
+});
+
+document.getElementById('loginBtn').addEventListener('click', function() {
+    showModal('login');
+});
+
+document.getElementById('tokenBtn').addEventListener('click', function() {
+    const session = getSession();
+    if (!session) {
+        showCustomAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu.');
+        return;
+    }
+    showModal('token');
+});
+
+document.getElementById('logoutBtn').addEventListener('click', function() {
+    showCustomAlertConfirm('Konfirmasi Logout', 'Yakin ingin logout?', 'Logout', 'Batal', function(result) {
+        if (result) {
+            auth.signOut();
+            clearSession();
+            updateStatusBar();
+            document.getElementById('results').style.display = 'none';
+            showCustomAlert('info', 'Logout', 'Anda telah logout.');
+        }
+    });
+});
+
+// ============================================================
+// RIWAYAT
+// ============================================================
+document.getElementById('historyBtn').addEventListener('click', function() {
+    var session = getSession();
+    if (!session) {
+        showCustomAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu.');
+        return;
+    }
+    loadHistory();
+    document.getElementById('historyModal').classList.add('show');
+});
+
+document.getElementById('closeHistoryBtn').addEventListener('click', function() {
+    document.getElementById('historyModal').classList.remove('show');
+});
+
+document.getElementById('deleteAllHistoryBtn').addEventListener('click', async function() {
+    const session = getSession();
+    if (!session) return;
+    showCustomAlertConfirm('Hapus Semua Riwayat', 'Yakin ingin menghapus semua riwayat perhitungan?', 'Hapus', 'Batal', async function(result) {
+        if (result) {
+            await deleteAllUserHistory(session.email);
+            loadHistory();
+            showCustomAlert('success', 'Berhasil', 'Semua riwayat telah dihapus.');
+        }
+    });
+});
+
+document.getElementById('closeQuotaModalBtn').addEventListener('click', function() {
+    document.getElementById('quotaModal').classList.remove('show');
+});
+
+document.getElementById('quotaModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        this.classList.remove('show');
+    }
+});
+
+// ============================================================
+// MAIN CALCULATE BUTTON
+// ============================================================
+document.getElementById('calcBtn').addEventListener('click', async function() {
+    var name = document.getElementById('fname').value.trim();
+    var day = document.getElementById('dobDay').value.trim();
+    var month = document.getElementById('dobMonth').value.trim();
+    var year = document.getElementById('dobYear').value.trim();
+    var errBox = document.getElementById('errBox');
+    errBox.style.display = 'none';
+    errBox.textContent = '';
+    
+    if (!name || !day || !month || !year) {
+        errBox.textContent = 'Isi nama dan tanggal lahir lengkap.';
+        errBox.style.display = 'block';
+        return;
+    }
+    
+    var d = parseInt(day), m = parseInt(month), y = parseInt(year);
+    if (isNaN(d) || isNaN(m) || isNaN(y) || y < 1900 || y > 2050 || m < 1 || m > 12 || d < 1 || d > 31) {
+        errBox.textContent = 'Tanggal lahir tidak valid.';
+        errBox.style.display = 'block';
+        return;
+    }
+    
+    var session = getSession();
+    if (!session) {
+        showModal('login');
+        return;
+    }
+    
+    var status = await getLicenseStatus(session.email);
+    if (!status.active) {
+        showQuotaModal();
+        return;
+    }
+    
+    var updated = await updateLicenseUsage(session.email);
+    if (!updated) {
+        showCustomAlert('error', 'Gagal', 'Gagal mengurangi kuota.');
+        return;
+    }
+    
+    var dateStr = y + '-' + String(m).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+    var todayStr = new Date().toISOString().slice(0,10);
+    var profile = computeProfile(dateStr, todayStr);
+    
+    await saveUserHistory(session.email, name, day + '/' + month + '/' + year);
+    displayResult(name, day + '/' + month + '/' + year, profile);
+    updateStatusBar();
+});
+
+// ============================================================
+// PRINT
+// ============================================================
+document.getElementById('printBtn').addEventListener('click', function() {
+    window.print();
+});
+
+// ============================================================
+// AUTH STATE OBSERVER
+// ============================================================
+auth.onAuthStateChanged(function(user) {
+    if (user) {
+        console.log('✅ Firebase Auth: User logged in:', user.email);
+    } else {
+        console.log('🔓 Firebase Auth: User logged out');
+    }
+});
+
+// ============================================================
+// INIT
+// ============================================================
+updateStatusBar();
+
+console.log('🚀 Aplikasi siap dengan Firebase!');
+console.log('📌 Data di Firestore: users, licenses, codes, history');
+console.log('🔐 Firebase Auth untuk login (Email + Password)');
+console.log('📧 OTP via EmailJS untuk verifikasi register');
+</script>
+   <script>
+    // ===== SIMPAN WAKTU AKSES LIFECODE =====
+    // Ini akan update waktu setiap kali user buka lifecode.html
+    (function() {
+        const STORAGE_KEY = 'nanjing_last_visit_lifecode';
+        const currentTime = Date.now();
+        localStorage.setItem(STORAGE_KEY, currentTime.toString());
+        console.log('💾 Waktu akses lifecode diupdate:', new Date(currentTime).toLocaleString());
+    })();
+</script>
+</body>
+</html>

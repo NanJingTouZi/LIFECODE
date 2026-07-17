@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nanjing Investment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a1a2b;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .splash-container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .splash-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+            margin-bottom: 30px;
+        }
+
+        .btn-lanjut {
+            background: linear-gradient(135deg, #f5c842, #dba62b);
+            border: none;
+            border-radius: 50px;
+            padding: 16px 60px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #0a1a2b;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 0 #a07a1e, 0 10px 30px rgba(245, 200, 66, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .btn-lanjut:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 0 #a07a1e, 0 15px 40px rgba(245, 200, 66, 0.4);
+        }
+
+        .btn-lanjut:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #a07a1e;
+        }
+
+        .timer-info {
+            color: #7e9bb5;
+            font-size: 13px;
+            margin-top: 16px;
+            opacity: 0.7;
+        }
+
+        .timer-info span {
+            color: #f5c842;
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .btn-lanjut {
+                padding: 14px 40px;
+                font-size: 17px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="splash-container">
+        <!-- Gambar Iklan -->
+        <img 
+            src="nanjing1.jpeg" 
+            alt="Nanjing Investment" 
+            class="splash-image"
+            id="splashImage"
+        />
+
+        <!-- Tombol Lanjutkan -->
+        <button class="btn-lanjut" id="btnLanjut">
+            Lanjutkan →
+        </button>
+
+        <div class="timer-info">
+            ⏱️ Akan muncul kembali jika <span>1 jam</span> tidak mengunjungi aplikasi
+        </div>
+    </div>
+
+    <script>
+        // ===== KONFIGURASI =====
+        const ONE_HOUR = 60 * 60 * 1000; // 1 jam
+        const STORAGE_KEY = 'nanjing_last_visit_lifecode';
+
+        // ===== CEK WAKTU TERAKHIR AKSES LIFECODE =====
+        function checkLastVisit() {
+            const lastVisit = localStorage.getItem(STORAGE_KEY);
+            const currentTime = Date.now();
+
+            if (lastVisit) {
+                const timeDiff = currentTime - parseInt(lastVisit, 10);
+                
+                // Jika kurang dari 1 jam → langsung ke lifecode.html
+                if (timeDiff < ONE_HOUR) {
+                    console.log('⏳ Masih dalam 1 jam, langsung ke lifecode...');
+                    window.location.href = 'lifecode.html';
+                    return true;
+                } else {
+                    console.log('⏰ Sudah lebih dari 1 jam, tampilkan splash...');
+                    return false;
+                }
+            } else {
+                // Pertama kali buka → tampilkan splash
+                console.log('🆕 Pertama kali buka, tampilkan splash...');
+                return false;
+            }
+        }
+
+        // ===== FUNGSI MASUK KE LIFECODE =====
+        function goToLifecode() {
+            // Simpan waktu sekarang sebagai waktu terakhir akses lifecode
+            const currentTime = Date.now();
+            localStorage.setItem(STORAGE_KEY, currentTime.toString());
+            console.log('💾 Waktu kunjungan lifecode disimpan:', new Date(currentTime).toLocaleString());
+            
+            // Redirect ke lifecode.html
+            window.location.href = 'lifecode.html';
+        }
+
+        // ===== EKSEKUSI =====
+        const isRedirected = checkLastVisit();
+
+        // Jika tidak redirect (artinya tampilkan splash)
+        if (!isRedirected) {
+            // Tombol Lanjutkan
+            const btnLanjut = document.getElementById('btnLanjut');
+            btnLanjut.addEventListener('click', function(e) {
+                e.preventDefault();
+                goToLifecode();
+            });
+
+            // Klik pada gambar juga bisa lanjut
+            const splashImage = document.getElementById('splashImage');
+            splashImage.addEventListener('click', function() {
+                goToLifecode();
+            });
+            splashImage.style.cursor = 'pointer';
+
+            // Klik pada container juga bisa lanjut
+            document.querySelector('.splash-container').addEventListener('click', function(e) {
+                // Jangan trigger jika yang diklik adalah tombol (sudah terhandle)
+                if (e.target === btnLanjut || e.target.closest('.btn-lanjut')) {
+                    return;
+                }
+                goToLifecode();
+            });
+
+            // Keyboard: Enter atau Space
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    goToLifecode();
+                }
+            });
+
+            console.log('✅ Splash siap. Klik tombol, gambar, atau area untuk masuk ke lifecode.html');
+        }
+
+        // ===== TAMPILKAN INFO DI CONSOLE =====
+        const lastVisit = localStorage.getItem(STORAGE_KEY);
+        if (lastVisit) {
+            const date = new Date(parseInt(lastVisit, 10));
+            console.log('📅 Terakhir akses lifecode:', date.toLocaleString());
+            const diff = Date.now() - parseInt(lastVisit, 10);
+            const hours = Math.floor(diff / (60 * 60 * 1000));
+            const minutes = Math.floor((diff % (60 * 60 * 1000)) / (60 * 1000));
+            console.log(`⏱️ Selisih: ${hours} jam ${minutes} menit`);
+        } else {
+            console.log('📅 Belum pernah akses lifecode sebelumnya');
+        }
+    </script>
+
+</body>
+</html>
