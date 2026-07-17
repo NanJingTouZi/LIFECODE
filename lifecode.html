@@ -3290,7 +3290,14 @@ document.getElementById('resetPasswordBtn').addEventListener('click', function()
     btn.disabled = true;
     btn.textContent = '⏳ Mengirim...';
     
-    auth.sendPasswordResetEmail(email)
+    // ===== TAMBAHKAN INI =====
+    const actionCodeSettings = {
+        url: 'https://nanjingtouzi.github.io/LIFECODE/lifecode.html',
+        handleCodeInApp: true
+    };
+    
+    // ===== UBAH BARIS INI =====
+    auth.sendPasswordResetEmail(email, actionCodeSettings)  // ← TAMBAHKAN actionCodeSettings
         .then(function() {
             btn.disabled = false;
             btn.textContent = 'Kirim Link Reset';
