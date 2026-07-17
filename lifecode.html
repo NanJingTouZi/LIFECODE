@@ -1826,24 +1826,19 @@ ul.trait-list li:last-child{border-bottom:none;}
 
 <!-- Load Firebase Config dari file terpisah -->
 <script src="config.js"></script>
- <script>  
+
+<script>  
 // ===== INISIALISASI FIREBASE =====
-// Ambil config dari file config.js (yang sudah dibuat terpisah)
+// Ambil config dari file config.js
 const firebaseConfig = window.FIREBASE_CONFIG;
 
-// Inisialisasi Firebase (SAMA PERSIS seperti sebelumnya)
+// Inisialisasi Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
-   
+
 <script>
-// ============================================================
-// FIREBASE CONFIG - GANTI DENGAN MILIK ANDA!
-// ============================================================
-
-
-
 // ============================================================
 // EMAILJS CONFIG
 // ============================================================
@@ -2079,7 +2074,7 @@ const DREAMS = [
   {no:7, title:'MENJADI PENGENDALI SEMUA ORANG', segitiga:'2 (Komunikasi), 7 (Orang Pendukung), 9 (Hasil)'},
   {no:8, title:'MENDAPATKAN HAK ANDA SENDIRI (KUASA)', segitiga:'2 (Komunikasi), 4 (Rencana), 5 (Arah), 8 (Bertanggung Jawab), 9 (Hasil)'},
   {no:9, title:'MENGUASAI DUNIA', segitiga:'1 (Leader), 2 (Komunikasi), 4 (Rencana), 5 (Arah), 7 (Orang Pendukung), 9 (Hasil)'}
-];
+};
 
 // ============================================================
 // SHIO DATA
