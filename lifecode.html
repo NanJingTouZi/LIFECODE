@@ -3280,10 +3280,7 @@ document.getElementById('forgotPasswordBtn').addEventListener('click', function(
 });
 
 document.getElementById('resetPasswordBtn').addEventListener('click', function() {
-    console.log("🟢 Tombol reset password DIKLIK!");  // ← TAMBAHKAN INI
-    
     const email = document.getElementById('resetEmail').value.trim();
-    console.log("📧 Email:", email);  // ← TAMBAHKAN INI
     
     if (!email || !email.includes('@') || !email.includes('.')) {
         showCustomAlert('warning', 'Peringatan', 'Masukkan email yang valid.');
@@ -3294,23 +3291,23 @@ document.getElementById('resetPasswordBtn').addEventListener('click', function()
     btn.disabled = true;
     btn.textContent = '⏳ Mengirim...';
     
-    const actionCodeSettings = {
-        url: 'https://nanjingtouzi.github.io/LIFECODE/lifecode.html',
-        handleCodeInApp: false
+    // ===== HANYA URL SAJA, TANPA handleCodeInApp =====
+    var actionCodeSettings = {
+        url: 'https://nanjingtouzi.github.io/LIFECODE/lifecode.html'
     };
     
-    console.log("🔗 actionCodeSettings:", actionCodeSettings);  // ← TAMBAHKAN INI
+    console.log("🔗 actionCodeSettings:", actionCodeSettings);
     
     auth.sendPasswordResetEmail(email, actionCodeSettings)
         .then(function() {
-            console.log("✅ Email terkirim!");  // ← TAMBAHKAN INI
+            console.log("✅ Email terkirim!");
             btn.disabled = false;
             btn.textContent = 'Kirim Link Reset';
             document.getElementById('forgotPasswordModal').classList.remove('show');
             showCustomAlert('success', 'Email Terkirim', 'Link reset password telah dikirim ke ' + email + '. Cek inbox Anda.');
         })
         .catch(function(error) {
-            console.error("❌ Error:", error);  // ← TAMBAHKAN INI
+            console.error("❌ Error:", error);
             btn.disabled = false;
             btn.textContent = 'Kirim Link Reset';
             if (error.code === 'auth/user-not-found') {
