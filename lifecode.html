@@ -1829,17 +1829,15 @@ ul.trait-list li:last-child{border-bottom:none;}
 // FIREBASE CONFIG - GANTI DENGAN MILIK ANDA!
 // ============================================================
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDX9Rm_Wz8Ge2AiYvTMBQ4VbyQu6zI2esI",
-  authDomain: "shuyi-lifecode.firebaseapp.com",
-  projectId: "shuyi-lifecode",
-  storageBucket: "shuyi-lifecode.firebasestorage.app",
-  messagingSenderId: "386576582379",
-  appId: "1:386576582379:web:aa54c278e314361c1ee0ae",
-  measurementId: "G-CXEHC5EEMG"
-};
 
-// Initialize Firebase
+<!-- Load Firebase Config dari file terpisah -->
+<script src="config.js"></script>
+   
+// ===== INISIALISASI FIREBASE =====
+// Ambil config dari file config.js (yang sudah dibuat terpisah)
+const firebaseConfig = window.FIREBASE_CONFIG;
+
+// Inisialisasi Firebase (SAMA PERSIS seperti sebelumnya)
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
