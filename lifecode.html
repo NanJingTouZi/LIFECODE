@@ -1832,11 +1832,11 @@ ul.trait-list li:last-child{border-bottom:none;}
 
 <!-- Load Firebase Config dari file terpisah -->
 <script src="config.js"></script>
-   
+ <script>  
 // ===== INISIALISASI FIREBASE =====
 // Ambil config dari file config.js (yang sudah dibuat terpisah)
 const firebaseConfig = window.FIREBASE_CONFIG;
-<script>
+
 // Inisialisasi Firebase (SAMA PERSIS seperti sebelumnya)
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
