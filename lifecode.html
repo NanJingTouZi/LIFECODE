@@ -783,6 +783,98 @@ ul.trait-list li:last-child{border-bottom:none;}
   from{opacity:0;}
   to{opacity:1;}
 }
+   /* ============================================================
+   CSS PRINT - UNTUK CETAK PDF (TULISAN HITAM)
+   ============================================================ */
+
+@media print {
+    /* Reset semua warna menjadi hitam */
+    * {
+        color: #000000 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    
+    body {
+        background: #ffffff !important;
+        padding: 20px !important;
+        font-size: 12pt !important;
+    }
+    
+    /* Card dan Container */
+    .wrap {
+        max-width: 100% !important;
+        padding: 20px 26px !important;
+    }
+    
+    .card, .panel, .profile-banner, .num-card, .risk-card, .bal-col {
+        background: #ffffff !important;
+        border: 1px solid #dddddd !important;
+        box-shadow: none !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    /* Semua teks jadi hitam */
+    .hero h1, .hero h1 em, .hero p, .hero .seal,
+    .section-title, .section-title .cn, .section-sub,
+    .num-card .code, .num-card .meaning, .num-card .label,
+    .main-char-highlight .info .name, .main-char-highlight .info .desc,
+    .bal-name, .bal-num, .bal-status, .bal-ideal, .bal-diff,
+    .bal-category, .bal-position, .year-num, .year-info .l1,
+    .year-info .l2, .year-info .l3, .rel-item, .swatch,
+    .summary-info-row, .summary-13-item .s-num-box,
+    .profile-banner .name, .profile-banner .meta,
+    .shio-badge .label, .shio-badge .sub {
+        color: #000000 !important;
+        background: transparent !important;
+    }
+    
+    /* Tombol */
+    .btn, .btn-masuk, .splash-btn, .btn-lanjut, .btn-gold,
+    .btn-outline, .btn-primary, .btn-danger {
+        background: #ffffff !important;
+        color: #000000 !important;
+        border: 2px solid #000000 !important;
+        box-shadow: none !important;
+    }
+    
+    /* Gambar */
+    .splash-image, img {
+        max-width: 100% !important;
+        border: 1px solid #cccccc !important;
+        box-shadow: none !important;
+    }
+    
+    /* Grid */
+    .calc-preview, .num-grid, .risk-grid, .bal-grid {
+        background: #f9f9f9 !important;
+        border: 1px solid #dddddd !important;
+    }
+    
+    .calc-key, .num-card, .risk-card, .bal-col {
+        border: 1px solid #cccccc !important;
+        background: #f5f5f5 !important;
+    }
+    
+    /* Sembunyikan elemen yang tidak perlu saat print */
+    .user-status-bar, .print-bar, .modal-overlay,
+    .license-warning, .history-actions, .no-print {
+        display: none !important;
+    }
+    
+    .hero {
+        border-bottom: 2px solid #000000 !important;
+        margin-bottom: 24px !important;
+        padding-bottom: 16px !important;
+    }
+    
+    .diagram-panel svg {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}
 </style>
 </head>
 <body>
