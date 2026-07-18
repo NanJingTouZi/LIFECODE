@@ -5,9 +5,7 @@ const urlsToCache = [
     '/LIFECODE/index.html',
     '/LIFECODE/lifecode.html',
     '/LIFECODE/manifest.json',
-    '/LIFECODE/nanjing1.jpeg',
-    '/LIFECODE/icon-192.png',
-    '/LIFECODE/icon-512.png'
+    '/LIFECODE/nanjing1.jpeg'
 ];
 
 // Install Service Worker
