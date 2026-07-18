@@ -3452,11 +3452,20 @@ document.getElementById('registerSubmitBtn').addEventListener('click', async fun
     }
     
     const existingUser = await getUser(email);
-    if (existingUser) {
+if (existingUser) {
+    // Jika user sudah verified → arahkan ke login
+    if (existingUser.verified === true) {
         showCustomAlert('warning', 'Email Terdaftar', 'Email sudah terdaftar. Silakan login.');
         showModal('login');
         return;
+    } else {
+        // Jika belum verified → izinkan registrasi ulang (timpa data lama)
+        showCustomAlert('info', 'Registrasi Ulang', 'Pendaftaran sebelumnya belum selesai. Silakan daftar ulang.');
+        // Hapus data lama
+        await db.collection('users').doc(email).delete();
+        // Lanjutkan proses registrasi
     }
+}
     
     try {
         await db.collection('users').doc(email).set({
