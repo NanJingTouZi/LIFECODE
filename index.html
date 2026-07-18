@@ -2,9 +2,19 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#0a1a2b" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <!-- Link ke manifest.json untuk PWA -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔮</text></svg>" />
+    
     <title>Nanjing Investment</title>
+    
     <style>
+        /* ===== RESET ===== */
         * {
             margin: 0;
             padding: 0;
@@ -18,23 +28,45 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        /* ===== SPLASH CONTAINER ===== */
         .splash-container {
             max-width: 800px;
             width: 100%;
             text-align: center;
+            animation: fadeInUp 0.8s ease;
         }
 
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) scale(0.96);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* ===== GAMBAR IKLAN ===== */
         .splash-image {
             width: 100%;
             height: auto;
             display: block;
-            border-radius: 12px;
+            border-radius: 16px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
-            margin-bottom: 30px;
+            margin-bottom: 28px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
+        .splash-image:hover {
+            transform: scale(1.01);
+        }
+
+        /* ===== TOMBOL ===== */
         .btn-lanjut {
             background: linear-gradient(135deg, #f5c842, #dba62b);
             border: none;
@@ -47,6 +79,8 @@
             transition: all 0.3s ease;
             box-shadow: 0 6px 0 #a07a1e, 0 10px 30px rgba(245, 200, 66, 0.3);
             letter-spacing: 1px;
+            width: 100%;
+            max-width: 300px;
         }
 
         .btn-lanjut:hover {
@@ -59,9 +93,10 @@
             box-shadow: 0 2px 0 #a07a1e;
         }
 
+        /* ===== COUNTER / TIMER ===== */
         .timer-info {
             color: #7e9bb5;
-            font-size: 13px;
+            font-size: 14px;
             margin-top: 16px;
             opacity: 0.7;
         }
@@ -71,19 +106,25 @@
             font-weight: 600;
         }
 
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
             .btn-lanjut {
                 padding: 14px 40px;
                 font-size: 17px;
-                width: 100%;
+                max-width: 100%;
+            }
+            
+            .splash-image {
+                border-radius: 12px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="splash-container">
-        <!-- Gambar Iklan -->
+    <div class="splash-container" id="splashContainer">
+        
+        <!-- Gambar Iklan (klik juga bisa masuk) -->
         <img 
             src="nanjing1.jpeg" 
             alt="Nanjing Investment" 
@@ -96,102 +137,78 @@
             Lanjutkan →
         </button>
 
+        <!-- Timer Info -->
         <div class="timer-info">
-            ⏱️ Akan muncul kembali jika <span>1 jam</span> tidak mengunjungi aplikasi
+            ⏳ Redirect otomatis dalam <span id="counter">3</span> detik
         </div>
     </div>
 
     <script>
-        // ===== KONFIGURASI =====
-        const ONE_HOUR = 60 * 60 * 1000; // 1 jam
-        const STORAGE_KEY = 'nanjing_last_visit_lifecode';
-
-        // ===== CEK WAKTU TERAKHIR AKSES LIFECODE =====
-        function checkLastVisit() {
-            const lastVisit = localStorage.getItem(STORAGE_KEY);
-            const currentTime = Date.now();
-
-            if (lastVisit) {
-                const timeDiff = currentTime - parseInt(lastVisit, 10);
-                
-                // Jika kurang dari 1 jam → langsung ke lifecode.html
-                if (timeDiff < ONE_HOUR) {
-                    console.log('⏳ Masih dalam 1 jam, langsung ke lifecode...');
-                    window.location.href = 'lifecode.html';
-                    return true;
-                } else {
-                    console.log('⏰ Sudah lebih dari 1 jam, tampilkan splash...');
-                    return false;
-                }
-            } else {
-                // Pertama kali buka → tampilkan splash
-                console.log('🆕 Pertama kali buka, tampilkan splash...');
-                return false;
-            }
-        }
-
-        // ===== FUNGSI MASUK KE LIFECODE =====
+        // ============================================================
+        // FUNGSI MASUK KE LIFECODE
+        // ============================================================
         function goToLifecode() {
-            // Simpan waktu sekarang sebagai waktu terakhir akses lifecode
-            const currentTime = Date.now();
-            localStorage.setItem(STORAGE_KEY, currentTime.toString());
-            console.log('💾 Waktu kunjungan lifecode disimpan:', new Date(currentTime).toLocaleString());
-            
-            // Redirect ke lifecode.html
             window.location.href = 'lifecode.html';
         }
 
-        // ===== EKSEKUSI =====
-        const isRedirected = checkLastVisit();
+        // ============================================================
+        // COUNTER 3 DETIK + AUTO REDIRECT
+        // ============================================================
+        let countdown = 3;
+        const counterElement = document.getElementById('counter');
+        
+        // Timer setiap 1 detik
+        const timer = setInterval(function() {
+            countdown--;
+            counterElement.textContent = countdown;
+            
+            if (countdown <= 0) {
+                clearInterval(timer);
+                goToLifecode();
+            }
+        }, 1000);
 
-        // Jika tidak redirect (artinya tampilkan splash)
-        if (!isRedirected) {
-            // Tombol Lanjutkan
-            const btnLanjut = document.getElementById('btnLanjut');
-            btnLanjut.addEventListener('click', function(e) {
+        // ============================================================
+        // EVENT LISTENER: KLIK TOMBOL
+        // ============================================================
+        document.getElementById('btnLanjut').addEventListener('click', function(e) {
+            e.stopPropagation();
+            clearInterval(timer); // Hentikan timer
+            goToLifecode();
+        });
+
+        // ============================================================
+        // EVENT LISTENER: KLIK GAMBAR
+        // ============================================================
+        document.getElementById('splashImage').addEventListener('click', function() {
+            clearInterval(timer); // Hentikan timer
+            goToLifecode();
+        });
+
+        // ============================================================
+        // EVENT LISTENER: KLIK AREA CARD (tapi bukan tombol/gambar)
+        // ============================================================
+        document.getElementById('splashContainer').addEventListener('click', function(e) {
+            // Jika yang diklik adalah tombol atau gambar, sudah terhandle di atas
+            if (e.target === document.getElementById('btnLanjut')) return;
+            if (e.target === document.getElementById('splashImage')) return;
+            
+            clearInterval(timer);
+            goToLifecode();
+        });
+
+        // ============================================================
+        // KEYBOARD: Tekan Enter atau Space
+        // ============================================================
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
+                clearInterval(timer);
                 goToLifecode();
-            });
+            }
+        });
 
-            // Klik pada gambar juga bisa lanjut
-            const splashImage = document.getElementById('splashImage');
-            splashImage.addEventListener('click', function() {
-                goToLifecode();
-            });
-            splashImage.style.cursor = 'pointer';
-
-            // Klik pada container juga bisa lanjut
-            document.querySelector('.splash-container').addEventListener('click', function(e) {
-                // Jangan trigger jika yang diklik adalah tombol (sudah terhandle)
-                if (e.target === btnLanjut || e.target.closest('.btn-lanjut')) {
-                    return;
-                }
-                goToLifecode();
-            });
-
-            // Keyboard: Enter atau Space
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    goToLifecode();
-                }
-            });
-
-            console.log('✅ Splash siap. Klik tombol, gambar, atau area untuk masuk ke lifecode.html');
-        }
-
-        // ===== TAMPILKAN INFO DI CONSOLE =====
-        const lastVisit = localStorage.getItem(STORAGE_KEY);
-        if (lastVisit) {
-            const date = new Date(parseInt(lastVisit, 10));
-            console.log('📅 Terakhir akses lifecode:', date.toLocaleString());
-            const diff = Date.now() - parseInt(lastVisit, 10);
-            const hours = Math.floor(diff / (60 * 60 * 1000));
-            const minutes = Math.floor((diff % (60 * 60 * 1000)) / (60 * 1000));
-            console.log(`⏱️ Selisih: ${hours} jam ${minutes} menit`);
-        } else {
-            console.log('📅 Belum pernah akses lifecode sebelumnya');
-        }
+        console.log('✅ Splash siap! Auto redirect dalam 3 detik.');
     </script>
 
 </body>
