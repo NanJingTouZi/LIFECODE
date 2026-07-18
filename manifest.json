@@ -1,6 +1,6 @@
 {
-    "name": "Kalkulator Angka Kehidupan",
-    "short_name": "Angka Kehidupan",
+    "name": "Nanjing Kalkulator Angka Kehidupan",
+    "short_name": "LIFE CODE",
     "start_url": "/LIFECODE/index.html",
     "display": "standalone",
     "background_color": "#0a1a2b",
