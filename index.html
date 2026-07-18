@@ -143,6 +143,19 @@
         }
     </style>
 </head>
+
+<script>
+    // ===== REGISTRASI SERVICE WORKER =====
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/LIFECODE/sw.js')
+            .then(function(registration) {
+                console.log('✅ Service Worker terdaftar!');
+            })
+            .catch(function(error) {
+                console.log('❌ Service Worker gagal:', error);
+            });
+    }
+</script>    
 <body>
 
     <div class="splash-container" id="splashContainer">
