@@ -7,7 +7,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     
-    <!-- Link ke manifest.json untuk PWA -->
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔮</text></svg>" />
     
@@ -63,31 +62,13 @@
             transform: scale(1.01);
         }
 
-        .btn-lanjut {
-            background: linear-gradient(135deg, #f5c842, #dba62b);
-            border: none;
-            border-radius: 50px;
-            padding: 16px 60px;
-            font-size: 20px;
-            font-weight: 700;
-            color: #0a1a2b;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 0 #a07a1e, 0 10px 30px rgba(245, 200, 66, 0.3);
-            letter-spacing: 1px;
+        /* ===== BUTTON WRAPPER ===== */
+        .button-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
             width: 100%;
-            max-width: 300px;
-            margin-bottom: 12px;
-        }
-
-        .btn-lanjut:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 0 #a07a1e, 0 15px 40px rgba(245, 200, 66, 0.4);
-        }
-
-        .btn-lanjut:active {
-            transform: translateY(4px);
-            box-shadow: 0 2px 0 #a07a1e;
         }
 
         .btn-install {
@@ -104,8 +85,7 @@
             letter-spacing: 1px;
             width: 100%;
             max-width: 300px;
-            display: none; /* Sembunyi dulu, muncul saat ready */
-            margin-bottom: 12px;
+            display: none; /* Sembunyi dulu, muncul saat siap install */
         }
 
         .btn-install:hover {
@@ -116,6 +96,32 @@
         .btn-install:active {
             transform: translateY(4px);
             box-shadow: 0 2px 0 #2a4d3e;
+        }
+
+        .btn-lanjut {
+            background: linear-gradient(135deg, #f5c842, #dba62b);
+            border: none;
+            border-radius: 50px;
+            padding: 16px 60px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #0a1a2b;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 0 #a07a1e, 0 10px 30px rgba(245, 200, 66, 0.3);
+            letter-spacing: 1px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .btn-lanjut:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 0 #a07a1e, 0 15px 40px rgba(245, 200, 66, 0.4);
+        }
+
+        .btn-lanjut:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #a07a1e;
         }
 
         .timer-info {
@@ -143,23 +149,11 @@
         }
     </style>
 </head>
-
-<script>
-    // ===== REGISTRASI SERVICE WORKER =====
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/LIFECODE/sw.js')
-            .then(function(registration) {
-                console.log('✅ Service Worker terdaftar!');
-            })
-            .catch(function(error) {
-                console.log('❌ Service Worker gagal:', error);
-            });
-    }
-</script>    
 <body>
 
     <div class="splash-container" id="splashContainer">
         
+        <!-- Gambar Iklan -->
         <img 
             src="nanjing1.jpeg" 
             alt="Nanjing Investment" 
@@ -167,16 +161,20 @@
             id="splashImage"
         />
 
-        <!-- Tombol Install (khusus Android yang belum install) -->
-        <button class="btn-install" id="btnInstall">
-            📱 Install Aplikasi
-        </button>
+        <!-- BUTTON WRAPPER: Tombol Install di ATAS, Lanjutkan di BAWAH -->
+        <div class="button-wrapper">
+            <!-- Tombol Install (muncul jika belum install) -->
+            <button class="btn-install" id="btnInstall">
+                📱 Install Aplikasi
+            </button>
 
-        <!-- Tombol Lanjutkan -->
-        <button class="btn-lanjut" id="btnLanjut">
-            Lanjutkan →
-        </button>
+            <!-- Tombol Lanjutkan -->
+            <button class="btn-lanjut" id="btnLanjut">
+                Lanjutkan →
+            </button>
+        </div>
 
+        <!-- Timer Info -->
         <div class="timer-info">
             ⏳ Redirect otomatis dalam <span id="counter">3</span> detik
         </div>
@@ -240,9 +238,6 @@
             counterElement.textContent = '⏳';
             document.querySelector('.timer-info span').textContent = 'Klik Lanjutkan untuk masuk';
             
-            // Simpan ke localStorage bahwa prompt pernah muncul
-            localStorage.setItem('pwa_prompt_shown', 'true');
-            
             console.log('✅ Tombol Install muncul! Timer ditahan.');
         });
 
@@ -258,13 +253,9 @@
                         console.log('✅ User menerima install');
                         isInstallAvailable = false;
                         btnInstall.style.display = 'none';
-                        localStorage.setItem('pwa_installed', 'true');
                         startTimer();
                     } else {
                         console.log('❌ User menolak install');
-                        // User menolak → tombol tetap muncul (biarkan)
-                        // Tapi timer tetap ditahan, user harus klik Lanjutkan
-                        localStorage.setItem('pwa_prompt_declined', 'true');
                     }
                     deferredPrompt = null;
                 });
@@ -302,7 +293,6 @@
         } else {
             console.log('⏳ Menunggu status install...');
             
-            // Jika dalam 5 detik tidak ada beforeinstallprompt, jalankan timer
             setTimeout(function() {
                 if (!isInstallAvailable && !isAppInstalled()) {
                     console.log('⏳ Tidak ada prompt install, timer berjalan...');
