@@ -7,6 +7,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     
+    <!-- Link ke manifest.json untuk PWA -->
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔮</text></svg>" />
     
@@ -103,7 +104,7 @@
             letter-spacing: 1px;
             width: 100%;
             max-width: 300px;
-            display: none;
+            display: none; /* Sembunyi dulu, muncul saat ready */
             margin-bottom: 12px;
         }
 
@@ -180,7 +181,7 @@
         // VARIABEL
         // ============================================================
         let deferredPrompt = null;
-        let isInstallAvailable = false;  // TRUE jika tombol install muncul
+        let isInstallAvailable = false;
         let countdown = 3;
         let timer = null;
         const counterElement = document.getElementById('counter');
@@ -191,11 +192,9 @@
         // CEK APAKAH SUDAH TERINSTALL (PWA)
         // ============================================================
         function isAppInstalled() {
-            // Cek apakah aplikasi berjalan dalam mode standalone (sudah diinstall)
             if (window.matchMedia('(display-mode: standalone)').matches) {
                 return true;
             }
-            // Cek dari navigator (iOS)
             if (window.navigator.standalone === true) {
                 return true;
             }
@@ -203,24 +202,35 @@
         }
 
         // ============================================================
-        // TOMBOL INSTALL PWA (KHUSUS BELUM INSTALL)
+        // REGISTRASI SERVICE WORKER
+        // ============================================================
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/LIFECODE/sw.js')
+                .then(function(registration) {
+                    console.log('✅ Service Worker terdaftar!');
+                })
+                .catch(function(error) {
+                    console.log('❌ Service Worker gagal:', error);
+                });
+        }
+
+        // ============================================================
+        // TOMBOL INSTALL PWA
         // ============================================================
         window.addEventListener('beforeinstallprompt', function(e) {
-            // Cegah prompt otomatis
             e.preventDefault();
             deferredPrompt = e;
-            
-            // Tandai bahwa tombol install tersedia
             isInstallAvailable = true;
-            
-            // Tampilkan tombol install
             btnInstall.style.display = 'block';
             
             // Update timer info
             counterElement.textContent = '⏳';
             document.querySelector('.timer-info span').textContent = 'Klik Lanjutkan untuk masuk';
             
-            console.log('✅ Aplikasi siap diinstall! Timer ditahan.');
+            // Simpan ke localStorage bahwa prompt pernah muncul
+            localStorage.setItem('pwa_prompt_shown', 'true');
+            
+            console.log('✅ Tombol Install muncul! Timer ditahan.');
         });
 
         // ============================================================
@@ -235,11 +245,13 @@
                         console.log('✅ User menerima install');
                         isInstallAvailable = false;
                         btnInstall.style.display = 'none';
-                        // Setelah install, lanjutkan timer
+                        localStorage.setItem('pwa_installed', 'true');
                         startTimer();
                     } else {
                         console.log('❌ User menolak install');
-                        // User menolak, tetap di halaman
+                        // User menolak → tombol tetap muncul (biarkan)
+                        // Tapi timer tetap ditahan, user harus klik Lanjutkan
+                        localStorage.setItem('pwa_prompt_declined', 'true');
                     }
                     deferredPrompt = null;
                 });
@@ -250,7 +262,6 @@
         // FUNGSI START TIMER
         // ============================================================
         function startTimer() {
-            // Reset counter
             countdown = 3;
             counterElement.textContent = countdown;
             document.querySelector('.timer-info span').textContent = 'detik';
@@ -269,19 +280,16 @@
         }
 
         // ============================================================
-        // CEK STATUS INSTALL SAAT PERTAMA KALI LOAD
+        // CEK STATUS SAAT PERTAMA LOAD
         // ============================================================
         if (isAppInstalled()) {
-            // Sudah terinstall → langsung jalankan timer
             console.log('✅ Aplikasi sudah terinstall. Timer berjalan normal.');
             isInstallAvailable = false;
             startTimer();
         } else {
-            // Belum terinstall → tunggu event beforeinstallprompt
             console.log('⏳ Menunggu status install...');
             
             // Jika dalam 5 detik tidak ada beforeinstallprompt, jalankan timer
-            // (misal: browser tidak mendukung PWA atau sudah pernah menolak)
             setTimeout(function() {
                 if (!isInstallAvailable && !isAppInstalled()) {
                     console.log('⏳ Tidak ada prompt install, timer berjalan...');
@@ -291,7 +299,7 @@
         }
 
         // ============================================================
-        // EVENT LISTENER: KLIK TOMBOL LANJUT (Manual)
+        // EVENT LISTENER: KLIK TOMBOL LANJUT
         // ============================================================
         btnLanjut.addEventListener('click', function(e) {
             e.stopPropagation();
