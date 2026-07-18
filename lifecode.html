@@ -3275,7 +3275,7 @@ document.getElementById('forgotPasswordBtn').addEventListener('click', function(
     document.getElementById('resetEmail').focus();
 });
 
-document.getElementById('resetPasswordBtn').addEventListener('click', function() {
+document.getElementById('resetPasswordBtn').addEventListener('click', async function() {
     const email = document.getElementById('resetEmail').value.trim();
     
     if (!email || !email.includes('@') || !email.includes('.')) {
@@ -3287,33 +3287,60 @@ document.getElementById('resetPasswordBtn').addEventListener('click', function()
     btn.disabled = true;
     btn.textContent = '⏳ Mengirim...';
     
-    // ===== HANYA URL SAJA, TANPA handleCodeInApp =====
-    var actionCodeSettings = {
-        url: 'https://nanjingtouzi.github.io/LIFECODE/lifecode.html'
-    };
-    
-    console.log("🔗 actionCodeSettings:", actionCodeSettings);
-    
-    auth.sendPasswordResetEmail(email, actionCodeSettings)
-        .then(function() {
-            console.log("✅ Email terkirim!");
-            btn.disabled = false;
-            btn.textContent = 'Kirim Link Reset';
-            document.getElementById('forgotPasswordModal').classList.remove('show');
-            showCustomAlert('success', 'Email Terkirim', 'Link reset password telah dikirim ke ' + email + '. Cek inbox Anda.');
-        })
-        .catch(function(error) {
-            console.error("❌ Error:", error);
-            btn.disabled = false;
-            btn.textContent = 'Kirim Link Reset';
-            if (error.code === 'auth/user-not-found') {
-                showCustomAlert('warning', 'Email Tidak Ditemukan', 'Email ini belum terdaftar. Silakan registrasi.');
-            } else {
-                showCustomAlert('error', 'Gagal', error.message);
+    try {
+        // ===== CEK DI FIRESTORE =====
+        const userData = await getUser(email);
+        var actionCodeSettings = {
+            url: 'https://nanjingtouzi.github.io/LIFECODE/lifecode.html'
+        };
+        
+        // Jika user ada di Firestore (verified: false), buat akun Firebase Auth dulu
+        if (userData && userData.verified === false) {
+            console.log('📧 User belum verified, buat akun Firebase Auth dulu...');
+            
+            // Buat akun Firebase Auth dengan password_temp (jika ada)
+            const password = userData.password_temp || '123456';
+            try {
+                await auth.createUserWithEmailAndPassword(email, password);
+                console.log('✅ Akun Firebase Auth berhasil dibuat untuk reset password');
+            } catch (createError) {
+                // Jika email sudah terdaftar di Auth, lanjutkan
+                if (createError.code !== 'auth/email-already-in-use') {
+                    throw createError;
+                }
+                console.log('ℹ️ Email sudah terdaftar di Firebase Auth');
             }
-        });
+        }
+        
+        // ===== KIRIM RESET PASSWORD =====
+        await auth.sendPasswordResetEmail(email, actionCodeSettings);
+        
+        console.log("✅ Email reset password terkirim!");
+        btn.disabled = false;
+        btn.textContent = 'Kirim Link Reset';
+        document.getElementById('forgotPasswordModal').classList.remove('show');
+        showCustomAlert('success', 'Email Terkirim', 'Link reset password telah dikirim ke ' + email + '. Cek inbox Anda.');
+        
+    } catch (error) {
+        console.error("❌ Error:", error);
+        btn.disabled = false;
+        btn.textContent = 'Kirim Link Reset';
+        
+        if (error.code === 'auth/user-not-found') {
+            // Cek apakah email ada di Firestore
+            const userData = await getUser(email);
+            if (userData && userData.verified === false) {
+                showCustomAlert('warning', 'Akun Belum Aktif', 'Email sudah terdaftar tapi belum diverifikasi. Silakan registrasi ulang atau hubungi admin.');
+            } else {
+                showCustomAlert('warning', 'Email Tidak Ditemukan', 'Email ini belum terdaftar. Silakan registrasi.');
+            }
+        } else if (error.code === 'auth/too-many-requests') {
+            showCustomAlert('warning', 'Terlalu Banyak Percobaan', 'Terlalu banyak percobaan. Coba lagi nanti.');
+        } else {
+            showCustomAlert('error', 'Gagal', error.message);
+        }
+    }
 });
-
 document.getElementById('backToLoginFromReset').addEventListener('click', function(e) {
     e.preventDefault();
     document.getElementById('forgotPasswordModal').classList.remove('show');
