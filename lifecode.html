@@ -2659,7 +2659,7 @@ function displayResult(name, dobDisplay, profile){
     ? profile.missing.map(function(n){ return '<span class="miss-num">' + n + '</span>'; }).join('')
     : '<span class="miss-empty">Tidak ada angka yang hilang — semua angka dasar 1–9 lengkap.</span>';
 
-    var numCards = '';
+     var numCards = '';
   for(var ri = 0; ri < profile.rows.length; ri++){
     var r = profile.rows[ri];
     var isMain = r.no === 3;
@@ -2670,10 +2670,7 @@ function displayResult(name, dobDisplay, profile){
     
     // ===== INI YANG DIUBAH =====
     var meaningText = r.meaning ? r.meaning : 'Kombinasi ini belum memiliki catatan makna spesifik pada referensi.';
-    // Ubah \n menjadi <br> DULU
-    meaningText = meaningText.replace(/\\n/g, '<br>');
-    // Baru esc() untuk keamanan
-    meaningText = esc(meaningText);
+    // Langsung tampilkan (tanpa esc) agar <br> terbaca
     numCards += '<div class="meaning">' + meaningText + '</div>';
     // ===== SAMPAI SINI =====
     
