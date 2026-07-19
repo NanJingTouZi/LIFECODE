@@ -2659,7 +2659,7 @@ function displayResult(name, dobDisplay, profile){
     ? profile.missing.map(function(n){ return '<span class="miss-num">' + n + '</span>'; }).join('')
     : '<span class="miss-empty">Tidak ada angka yang hilang — semua angka dasar 1–9 lengkap.</span>';
 
-  var numCards = '';
+    var numCards = '';
   for(var ri = 0; ri < profile.rows.length; ri++){
     var r = profile.rows[ri];
     var isMain = r.no === 3;
@@ -2667,12 +2667,18 @@ function displayResult(name, dobDisplay, profile){
     numCards += '<div class="' + cls + '" data-idx="' + String(r.no).padStart(2,'0') + '">';
     numCards += '<div class="code">' + esc(r.code) + '</div>';
     numCards += '<div class="label">' + esc(r.no) + '. ' + esc(r.label) + '</div>';
+    
+    // ===== INI YANG DIUBAH =====
     var meaningText = r.meaning ? r.meaning : 'Kombinasi ini belum memiliki catatan makna spesifik pada referensi.';
-meaningText = esc(meaningText).replace(/\\n/g, '<br>');
-numCards += '<div class="meaning">' + meaningText + '</div>';
+    // Ubah \n menjadi <br> DULU
+    meaningText = meaningText.replace(/\\n/g, '<br>');
+    // Baru esc() untuk keamanan
+    meaningText = esc(meaningText);
+    numCards += '<div class="meaning">' + meaningText + '</div>';
+    // ===== SAMPAI SINI =====
+    
     numCards += '</div>';
   }
-
   var mainCharHtml = '';
   if(mainChar){
     mainCharHtml = '<div class="main-char-highlight">';
