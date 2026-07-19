@@ -2659,7 +2659,7 @@ function displayResult(name, dobDisplay, profile){
     ? profile.missing.map(function(n){ return '<span class="miss-num">' + n + '</span>'; }).join('')
     : '<span class="miss-empty">Tidak ada angka yang hilang — semua angka dasar 1–9 lengkap.</span>';
 
-     var numCards = '';
+    var numCards = '';
   for(var ri = 0; ri < profile.rows.length; ri++){
     var r = profile.rows[ri];
     var isMain = r.no === 3;
