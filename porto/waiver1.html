@@ -351,6 +351,8 @@
         .strategy-section p {
             color: #cbd5e1;
             margin-bottom: 12px;
+            font-size: 15px;
+            line-height: 1.8;
         }
 
         .strategy-section ul {
@@ -361,10 +363,12 @@
         }
 
         .strategy-section ul li {
-            padding: 4px 0;
+            padding: 5px 0;
             display: flex;
             align-items: flex-start;
             gap: 8px;
+            font-size: 15px;
+            line-height: 1.6;
         }
 
         .strategy-section ul li::before {
@@ -372,6 +376,7 @@
             color: #4ade80;
             font-size: 14px;
             flex-shrink: 0;
+            margin-top: 1px;
         }
 
         .strategy-section .setup-grid {
@@ -1057,22 +1062,36 @@
         }
 
         @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
             .main-header h1 {
                 font-size: 22px;
             }
 
+            .main-header .header-stats {
+                flex-direction: column;
+                align-items: center;
+                gap: 6px;
+                font-size: 12px;
+            }
+
             .metrics-grid {
                 grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .metric-box .value {
+                font-size: 16px;
+            }
+
+            .metric-box {
+                padding: 10px 14px;
             }
 
             .insight-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .header-stats {
-                flex-direction: column;
-                align-items: center;
-                gap: 6px;
             }
 
             .card-header .right {
@@ -1080,8 +1099,8 @@
             }
 
             .status-badge {
-                font-size: 12px;
-                padding: 4px 14px;
+                font-size: 11px;
+                padding: 4px 12px;
             }
 
             .monthly-table,
@@ -1111,6 +1130,78 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 6px;
+                padding: 10px 14px;
+            }
+
+            .trust-badge .item {
+                font-size: 12px;
+            }
+
+            .strategy-section {
+                padding: 14px 16px;
+            }
+
+            .strategy-section p {
+                font-size: 14px;
+                text-align: justify;
+            }
+
+            .strategy-section ul li {
+                font-size: 14px;
+                word-break: break-word;
+            }
+
+            .forward-summary {
+                padding: 16px;
+            }
+
+            .chart-wrapper {
+                height: 180px;
+            }
+
+            .links-section {
+                gap: 10px;
+            }
+
+            .btn-link {
+                font-size: 13px;
+                padding: 10px 20px;
+                max-width: 100%;
+            }
+
+            .live-table-wrap,
+            .monthly-table-wrap,
+            .faq-section {
+                padding: 12px 14px;
+            }
+
+            .faq-section .faq-item .q {
+                font-size: 13px;
+            }
+
+            .faq-section .faq-item .a {
+                font-size: 13px;
+            }
+
+            .risk-disclaimer {
+                padding: 14px 16px;
+            }
+
+            .risk-disclaimer p {
+                font-size: 13px;
+            }
+
+            .update-info {
+                font-size: 12px;
+            }
+
+            .footer-note {
+                font-size: 13px;
+            }
+
+            .smart-insight {
+                font-size: 13px;
+                padding: 12px 14px;
             }
         }
     </style>
@@ -1342,7 +1433,7 @@
                 </div>
 
                 <!-- ============================================================
-                SECTION 2: STRATEGI TRADING
+                SECTION 2: STRATEGI TRADING (DIPERBAIKI)
                 ============================================================ -->
                 <div class="strategy-section">
                     <h3>🧠 Strategi Trading — WAIVER 1</h3>
