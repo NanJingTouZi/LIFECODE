@@ -1,349 +1,46 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="theme-color" content="#0a1a2b" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    
-    <link rel="manifest" href="manifest.json" />
-    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔮</text></svg>" />
-    
-    <title>Nanjing Investment</title>
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+const CACHE_NAME = 'nanjing-v1';
+const urlsToCache = [
+    'index.html',
+    'menu.html',
+    'lifecode.html',
+    'ass.html',
+    'admin.html',
+    'data-kendaraan.json',
+    'manifest.json',
+    'nanjing1.jpeg'
+];
 
-        body {
-            background: #0a1a2b;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+self.addEventListener('install', function(event) {
+    event.waitUntil(
+        caches.open(CACHE_NAME)
+            .then(function(cache) {
+                return cache.addAll(urlsToCache);
+            })
+    );
+});
 
-        .splash-container {
-            max-width: 800px;
-            width: 100%;
-            text-align: center;
-            animation: fadeInUp 0.8s ease;
-        }
+self.addEventListener('fetch', function(event) {
+    event.respondWith(
+        caches.match(event.request)
+            .then(function(response) {
+                if (response) {
+                    return response;
+                }
+                return fetch(event.request);
+            })
+    );
+});
 
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(40px) scale(0.96);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .splash-image {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
-            margin-bottom: 28px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .splash-image:hover {
-            transform: scale(1.01);
-        }
-
-        /* ===== BUTTON WRAPPER ===== */
-        .button-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-        }
-
-        .btn-install {
-            background: linear-gradient(135deg, #4f8a72, #3d705a);
-            border: none;
-            border-radius: 50px;
-            padding: 14px 40px;
-            font-size: 16px;
-            font-weight: 700;
-            color: #ffffff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 0 #2a4d3e, 0 10px 30px rgba(79, 138, 114, 0.3);
-            letter-spacing: 1px;
-            width: 100%;
-            max-width: 300px;
-            display: none; /* Sembunyi dulu, muncul saat siap install */
-        }
-
-        .btn-install:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 0 #2a4d3e, 0 15px 40px rgba(79, 138, 114, 0.4);
-        }
-
-        .btn-install:active {
-            transform: translateY(4px);
-            box-shadow: 0 2px 0 #2a4d3e;
-        }
-
-        .btn-lanjut {
-            background: linear-gradient(135deg, #f5c842, #dba62b);
-            border: none;
-            border-radius: 50px;
-            padding: 16px 60px;
-            font-size: 20px;
-            font-weight: 700;
-            color: #0a1a2b;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 0 #a07a1e, 0 10px 30px rgba(245, 200, 66, 0.3);
-            letter-spacing: 1px;
-            width: 100%;
-            max-width: 300px;
-        }
-
-        .btn-lanjut:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 0 #a07a1e, 0 15px 40px rgba(245, 200, 66, 0.4);
-        }
-
-        .btn-lanjut:active {
-            transform: translateY(4px);
-            box-shadow: 0 2px 0 #a07a1e;
-        }
-
-        .timer-info {
-            color: #7e9bb5;
-            font-size: 14px;
-            margin-top: 16px;
-            opacity: 0.7;
-        }
-
-        .timer-info span {
-            color: #f5c842;
-            font-weight: 600;
-        }
-
-        @media (max-width: 600px) {
-            .btn-lanjut, .btn-install {
-                padding: 14px 40px;
-                font-size: 17px;
-                max-width: 100%;
-            }
-            
-            .splash-image {
-                border-radius: 12px;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="splash-container" id="splashContainer">
-        
-        <!-- Gambar Iklan -->
-        <img 
-            src="nanjing1.jpeg" 
-            alt="Nanjing Investment" 
-            class="splash-image"
-            id="splashImage"
-        />
-
-        <!-- BUTTON WRAPPER: Tombol Install di ATAS, Lanjutkan di BAWAH -->
-        <div class="button-wrapper">
-            <!-- Tombol Install (muncul jika belum install) -->
-            <button class="btn-install" id="btnInstall">
-                📱 Install Aplikasi
-            </button>
-
-            <!-- Tombol Lanjutkan -->
-            <button class="btn-lanjut" id="btnLanjut">
-                Lanjutkan →
-            </button>
-        </div>
-
-        <!-- Timer Info -->
-        <div class="timer-info">
-            ⏳ Redirect otomatis dalam <span id="counter">3</span> detik
-        </div>
-    </div>
-
-    <script>
-        // ============================================================
-        // FUNGSI MASUK KE LIFECODE
-        // ============================================================
-        function goToLifecode() {
-            window.location.href = 'lifecode.html';
-        }
-
-        // ============================================================
-        // VARIABEL
-        // ============================================================
-        let deferredPrompt = null;
-        let isInstallAvailable = false;
-        let countdown = 3;
-        let timer = null;
-        const counterElement = document.getElementById('counter');
-        const btnInstall = document.getElementById('btnInstall');
-        const btnLanjut = document.getElementById('btnLanjut');
-
-        // ============================================================
-        // CEK APAKAH SUDAH TERINSTALL (PWA)
-        // ============================================================
-        function isAppInstalled() {
-            if (window.matchMedia('(display-mode: standalone)').matches) {
-                return true;
-            }
-            if (window.navigator.standalone === true) {
-                return true;
-            }
-            return false;
-        }
-
-        // ============================================================
-        // REGISTRASI SERVICE WORKER
-        // ============================================================
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/LIFECODE/sw.js')
-                .then(function(registration) {
-                    console.log('✅ Service Worker terdaftar!');
-                })
-                .catch(function(error) {
-                    console.log('❌ Service Worker gagal:', error);
-                });
-        }
-
-        // ============================================================
-        // TOMBOL INSTALL PWA
-        // ============================================================
-        window.addEventListener('beforeinstallprompt', function(e) {
-            e.preventDefault();
-            deferredPrompt = e;
-            isInstallAvailable = true;
-            btnInstall.style.display = 'block';
-            
-            // Update timer info
-            counterElement.textContent = '⏳';
-            document.querySelector('.timer-info span').textContent = 'Klik Lanjutkan untuk masuk';
-            
-            console.log('✅ Tombol Install muncul! Timer ditahan.');
-        });
-
-        // ============================================================
-        // KLIK TOMBOL INSTALL
-        // ============================================================
-        btnInstall.addEventListener('click', function() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                
-                deferredPrompt.userChoice.then(function(choiceResult) {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('✅ User menerima install');
-                        isInstallAvailable = false;
-                        btnInstall.style.display = 'none';
-                        startTimer();
-                    } else {
-                        console.log('❌ User menolak install');
+self.addEventListener('activate', function(event) {
+    event.waitUntil(
+        caches.keys().then(function(cacheNames) {
+            return Promise.all(
+                cacheNames.map(function(cacheName) {
+                    if (cacheName !== CACHE_NAME) {
+                        return caches.delete(cacheName);
                     }
-                    deferredPrompt = null;
-                });
-            }
-        });
-
-        // ============================================================
-        // FUNGSI START TIMER
-        // ============================================================
-        function startTimer() {
-            countdown = 3;
-            counterElement.textContent = countdown;
-            document.querySelector('.timer-info span').textContent = 'detik';
-            
-            if (timer) clearInterval(timer);
-            
-            timer = setInterval(function() {
-                countdown--;
-                counterElement.textContent = countdown;
-                
-                if (countdown <= 0) {
-                    clearInterval(timer);
-                    goToLifecode();
-                }
-            }, 1000);
-        }
-
-        // ============================================================
-        // CEK STATUS SAAT PERTAMA LOAD
-        // ============================================================
-        if (isAppInstalled()) {
-            console.log('✅ Aplikasi sudah terinstall. Timer berjalan normal.');
-            isInstallAvailable = false;
-            startTimer();
-        } else {
-            console.log('⏳ Menunggu status install...');
-            
-            setTimeout(function() {
-                if (!isInstallAvailable && !isAppInstalled()) {
-                    console.log('⏳ Tidak ada prompt install, timer berjalan...');
-                    startTimer();
-                }
-            }, 5000);
-        }
-
-        // ============================================================
-        // EVENT LISTENER: KLIK TOMBOL LANJUT
-        // ============================================================
-        btnLanjut.addEventListener('click', function(e) {
-            e.stopPropagation();
-            clearInterval(timer);
-            goToLifecode();
-        });
-
-        // ============================================================
-        // EVENT LISTENER: KLIK GAMBAR
-        // ============================================================
-        document.getElementById('splashImage').addEventListener('click', function() {
-            clearInterval(timer);
-            goToLifecode();
-        });
-
-        // ============================================================
-        // EVENT LISTENER: KLIK AREA CARD
-        // ============================================================
-        document.getElementById('splashContainer').addEventListener('click', function(e) {
-            if (e.target === btnLanjut) return;
-            if (e.target === document.getElementById('splashImage')) return;
-            if (e.target === btnInstall) return;
-            
-            clearInterval(timer);
-            goToLifecode();
-        });
-
-        // ============================================================
-        // KEYBOARD
-        // ============================================================
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                clearInterval(timer);
-                goToLifecode();
-            }
-        });
-
-        console.log('✅ Splash siap!');
-        console.log('📱 Status install:', isAppInstalled() ? 'SUDAH TERINSTALL' : 'BELUM TERINSTALL');
-    </script>
-
-</body>
-</html>
+                })
+            );
+        })
+    );
+});
