@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalkulator Premi & Proposal Asuransi Mobil</title>
+    <style>
+        /* ===== RESET & GLOBAL ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px 35px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a3a5c;
+            font-size: 26px;
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #5e7a93;
+            margin-bottom: 25px;
+            font-size: 13px;
+        }
+
+        .badge-ojk {
+            display: inline-block;
+            background: #1a3a5c;
+            color: white;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-left: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #1a3a5c;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        label .hint {
+            font-weight: 400;
+            color: #7a8fa5;
+            font-size: 12px;
+        }
+
+        label .required {
+            color: #c0392b;
+            font-weight: 700;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #dce3ec;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: 0.2s;
+            background: #fafcff;
+            font-family: inherit;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #2b6c9e;
+            box-shadow: 0 0 0 3px rgba(43, 108, 158, 0.15);
+        }
+
+        input[readonly] {
+            background: #f0f2f5;
+            cursor: not-allowed;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .form-group-with-manual {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .form-group-with-manual select {
+            flex: 2;
+        }
+
+        .form-group-with-manual input {
+            flex: 1;
+            display: none;
+        }
+
+        .form-group-with-manual input.show {
+            display: block;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: #1a3a5c;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #0f2a44;
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: #1e7e34;
+            color: white;
+        }
+        .btn-success:hover {
+            background: #15622a;
+            transform: translateY(-1px);
+        }
+
+        .btn-warning {
+            background: #b45309;
+            color: white;
+        }
+        .btn-warning:hover {
+            background: #92400e;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #1a3a5c;
+            border: 2px solid #1a3a5c;
+        }
+        .btn-outline:hover {
+            background: #e8edf3;
+        }
+
+        .btn-danger {
+            background: #c0392b;
+            color: white;
+        }
+        .btn-danger:hover {
+            background: #a93226;
+            transform: translateY(-1px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* ===== RESULT BOX ===== */
+        .result-box {
+            margin-top: 20px;
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            display: none;
+        }
+
+        .result-box.show {
+            display: block;
+            animation: fade 0.3s ease;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-box h3 {
+            color: #1a3a5c;
+            margin-bottom: 8px;
+            font-size: 20px;
+        }
+
+        .premi-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a3a5c;
+            background: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            display: inline-block;
+            border: 1px solid #dce3ec;
+            margin: 6px 0 14px 0;
+        }
+
+        .premi-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .detail-item {
+            background: white;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .detail-item .label {
+            font-size: 11px;
+            color: #5e7a93;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .detail-item .value {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a3a5c;
+            margin-top: 2px;
+        }
+
+        .breakdown {
+            margin-top: 14px;
+            background: white;
+            padding: 14px 18px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            font-size: 14px;
+        }
+
+        .breakdown table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .breakdown td {
+            padding: 5px 6px;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .breakdown .right {
+            text-align: right;
+        }
+
+        .breakdown .total {
+            font-weight: 700;
+            color: #1a3a5c;
+            border-top: 2px solid #1a3a5c;
+        }
+
+        /* ============================================================ */
+        /*                    PROPOSAL (untuk print)                    */
+        /* ============================================================ */
+        .proposal-wrapper {
+            display: none;
+            margin-top: 30px;
+            border-top: 2px dashed #dce3ec;
+            padding-top: 25px;
+        }
+
+        .proposal-wrapper.show {
+            display: block;
+        }
+
+        .proposal-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 40px 45px 35px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .proposal-container .header {
+            text-align: center;
+            border-bottom: 3px double #1a2a4a;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+
+        .proposal-container .header .title-main {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a2a4a;
+            letter-spacing: 1px;
+        }
+
+        .proposal-container .header .title-sub {
+            font-size: 17px;
+            font-weight: 600;
+            color: #2c3e6b;
+            margin-top: 4px;
+        }
+
+        .proposal-container .header .title-desc {
+            font-size: 12px;
+            color: #6b7a8f;
+            margin-top: 4px;
+            letter-spacing: 0.3px;
+        }
+
+        .proposal-container .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a2a4a;
+            border-left: 5px solid #2c3e6b;
+            padding-left: 12px;
+            margin-top: 22px;
+            margin-bottom: 12px;
+        }
+
+        .proposal-container .section-title-first {
+            margin-top: 0;
+        }
+
+        .proposal-container .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .proposal-container .data-table td {
+            padding: 6px 10px 6px 0;
+            vertical-align: top;
+            border-bottom: 1px solid #eef1f6;
+        }
+
+        .proposal-container .data-table .label {
+            width: 35%;
+            font-weight: 600;
+            color: #2c3e6b;
+        }
+
+        .proposal-container .data-table .value {
+            width: 65%;
+            color: #1e2f4a;
+        }
+
+        .proposal-container .premium-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .proposal-container .premium-table th {
+            background: #f0f3f8;
+            font-weight: 700;
+            color: #1a2a4a;
+            text-align: left;
+            padding: 8px 12px;
+            border-bottom: 2px solid #d0d7e3;
+        }
+
+        .proposal-container .premium-table td {
+            padding: 7px 12px;
+            border-bottom: 1px solid #e8ecf3;
+            color: #1e2f4a;
+        }
+
+        .proposal-container .premium-table .highlight-row td {
+            background: #f7f9fc;
+            font-weight: 700;
+        }
+
+        .proposal-container .premium-table .total-label {
+            font-weight: 700;
+            color: #1a2a4a;
+        }
+
+        .proposal-container .premium-table .total-value {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1a2a4a;
+        }
+
+        .proposal-container .signature-area {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 32px;
+            padding-top: 18px;
+            border-top: 2px solid #eef1f6;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .proposal-container .signature-box {
+            font-size: 14px;
+            color: #1e2f4a;
+        }
+
+        .proposal-container .signature-box .label {
+            font-weight: 600;
+            color: #2c3e6b;
+        }
+
+        .proposal-container .signature-box .line {
+            display: inline-block;
+            width: 180px;
+            border-bottom: 1px solid #1a2a4a;
+            margin-top: 28px;
+            margin-bottom: 4px;
+        }
+
+        .proposal-container .signature-box .city-date {
+            margin-top: 4px;
+            font-size: 13px;
+            color: #4a5a72;
+        }
+
+        .proposal-container .footer-notes {
+            margin-top: 28px;
+            font-size: 12px;
+            color: #5a6a7f;
+            border-top: 1px solid #e0e5ed;
+            padding-top: 14px;
+            line-height: 1.6;
+        }
+
+        .proposal-container .footer-notes ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .proposal-container .footer-notes ul li::before {
+            content: "• ";
+            color: #2c3e6b;
+            font-weight: 700;
+        }
+
+        .proposal-actions {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .print-instruction {
+            background: #f8f9fa;
+            border: 2px solid #1a3a5c;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+            display: none;
+        }
+        .print-instruction.show {
+            display: block;
+        }
+        .print-instruction h4 {
+            color: #1a3a5c;
+            margin-bottom: 10px;
+        }
+        .print-instruction ol {
+            padding-left: 20px;
+            color: #2c3e6b;
+            line-height: 1.8;
+        }
+        .print-instruction .highlight-step {
+            background: #e8edf3;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            color: #1a3a5c;
+            margin: 5px 0;
+        }
+
+        /* ============================================================ */
+        /*                    PRINT STYLING                             */
+        /* ============================================================ */
+        @media print {
+            body {
+                background: white;
+                padding: 0.2in;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 10px;
+                border-radius: 0;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .result-box {
+                border: 1px solid #ccc;
+                background: #f9f9f9;
+                break-inside: avoid;
+            }
+
+            .premi-value {
+                border: 1px solid #333;
+            }
+
+            .detail-item {
+                border: 1px solid #ccc;
+            }
+
+            .breakdown {
+                border: 1px solid #ccc;
+            }
+
+            .proposal-wrapper {
+                display: block !important;
+                border-top: none;
+                padding-top: 0;
+                margin-top: 0;
+            }
+
+            .proposal-container {
+                box-shadow: none;
+                border: none;
+                padding: 10px 20px;
+            }
+
+            .proposal-container .premium-table th {
+                background: #f0f3f8 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .proposal-container .premium-table .highlight-row td {
+                background: #f7f9fc !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .proposal-actions {
+                display: none !important;
+            }
+
+            .proposal-wrapper .no-print {
+                display: none !important;
+            }
+            
+            .print-instruction {
+                display: none !important;
+            }
+        }
+
+        /* ============================================================ */
+        /*                    RESPONSIVE                                 */
+        /* ============================================================ */
+        @media (max-width: 700px) {
+            .container {
+                padding: 18px 16px;
+            }
+
+            .row {
+                grid-template-columns: 1fr;
+            }
+
+            .premi-detail {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .premi-value {
+                font-size: 24px;
+                padding: 8px 16px;
+            }
+
+            .proposal-container {
+                padding: 20px 16px;
+            }
+
+            .proposal-container .data-table td {
+                display: block;
+                padding: 4px 0;
+                border-bottom: none;
+            }
+
+            .proposal-container .data-table .label {
+                width: 100%;
+                font-weight: 700;
+                margin-top: 6px;
+            }
+
+            .proposal-container .data-table .value {
+                width: 100%;
+                padding-left: 8px;
+                margin-bottom: 4px;
+                border-bottom: 1px dashed #eef1f6;
+            }
+
+            .proposal-container .signature-box .line {
+                width: 120px;
+            }
+
+            .btn {
+                padding: 10px 18px;
+                font-size: 14px;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .proposal-actions {
+                flex-direction: column;
+            }
+
+            .form-group-with-manual {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .premi-detail {
+                grid-template-columns: 1fr;
+            }
+
+            .premi-value {
+                font-size: 20px;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="appContainer">
+
+        <!-- ===== HEADER ===== -->
+        <h1>🚗 Kalkulator Premi Asuransi Mobil <span class="badge-ojk">OJK 2017</span></h1>
+        <p class="subtitle">Isi data di bawah untuk mendapatkan perkiraan premi dan proposal</p>
+
+        <!-- ===== FORM INPUT ===== -->
+        <div class="row">
+            <div class="form-group">
+                <label>Nama Lengkap <span class="required">*</span></label>
+                <input type="text" id="nama" placeholder="Contoh: Ali Suwito" />
+            </div>
+            <div class="form-group">
+                <label>No. HP / Telepon <span class="required">*</span></label>
+                <input type="text" id="noHp" placeholder="0812 6558 1588" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label>Jenis / Kategori <span class="required">*</span></label>
+                <select id="jenis" onchange="updateMerk()">
+                    <option value="nonbus">Non Bus / Non Truk (Mobil)</option>
+                    <option value="truk">Truk &amp; Pickup</option>
+                    <option value="bus">Bus</option>
+                    <option value="roda2">Roda 2 (Motor)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Wilayah</label>
+                <select id="wilayah">
+                    <option value="1">Wilayah 1 (Sumatera &amp; sekitarnya)</option>
+                    <option value="2" selected>Wilayah 2 (DKI Jakarta, Jabar, Banten)</option>
+                    <option value="3">Wilayah 3 (Lainnya)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label>Merek Kendaraan <span class="required">*</span></label>
+                <div class="form-group-with-manual">
+                    <select id="merk" onchange="updateTipe()">
+                        <option value="">-- Pilih Merek --</option>
+                    </select>
+                    <input type="text" id="merkManual" placeholder="Isi merek lain..." style="display:none;" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Tipe Kendaraan <span class="required">*</span></label>
+                <div class="form-group-with-manual">
+                    <select id="tipe">
+                        <option value="">-- Pilih Tipe --</option>
+                    </select>
+                    <input type="text" id="tipeManual" placeholder="Isi tipe lain..." style="display:none;" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label>Tahun Pembuatan <span class="required">*</span></label>
+                <input type="number" id="tahun" value="2020" min="1990" max="2026" />
+            </div>
+            <div class="form-group">
+                <label>Perkiraan Harga Kendaraan (Rp) <span class="required">*</span></label>
+                <input type="number" id="harga" value="350000000" step="1000000" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label>Jenis Pertanggungan</label>
+                <select id="jenisPertanggungan">
+                    <option value="comprehensive">Comprehensive (All Risk)</option>
+                    <option value="tlo">Total Loss Only (TLO)</option>
+                </select>
+            </div>
+            <div class="form-group" style="display:flex; align-items:flex-end; gap:14px; flex-wrap:wrap;">
+                <label style="display:flex; align-items:center; gap:6px; font-weight:400; cursor:pointer;">
+                    <input type="checkbox" id="extBanjir" /> Banjir
+                </label>
+                <label style="display:flex; align-items:center; gap:6px; font-weight:400; cursor:pointer;">
+                    <input type="checkbox" id="extGempa" /> Gempa
+                </label>
+                <label style="display:flex; align-items:center; gap:6px; font-weight:400; cursor:pointer;">
+                    <input type="checkbox" id="extSRCC" /> SRCC
+                </label>
+                <label style="display:flex; align-items:center; gap:6px; font-weight:400; cursor:pointer;">
+                    <input type="checkbox" id="extTeror" /> Teror
+                </label>
+            </div>
+        </div>
+
+        <div class="btn-group no-print">
+            <button class="btn btn-primary" onclick="hitungPremi()">🔍 Hitung Premi</button>
+            <button class="btn btn-success" onclick="cetakProposal()" id="btnCetak" disabled>📄 Cetak Proposal</button>
+            <button class="btn btn-outline" onclick="resetForm()">↺ Reset</button>
+        </div>
+
+        <!-- ===== HASIL PREMI ===== -->
+        <div class="result-box" id="resultBox">
+            <h3>💰 Hasil Perhitungan Premi</h3>
+            <div class="premi-value" id="premiValue">Rp 0</div>
+            <div class="premi-detail">
+                <div class="detail-item"><span class="label">Jenis</span><div class="value" id="rJenis">-</div></div>
+                <div class="detail-item"><span class="label">Wilayah</span><div class="value" id="rWilayah">-</div></div>
+                <div class="detail-item"><span class="label">Uang Pertanggungan</span><div class="value" id="rHarga">-</div>
+                </div>
+                <div class="detail-item"><span class="label">Tahun</span><div class="value" id="rTahun">-</div></div>
+                <div class="detail-item"><span class="label">Kategori</span><div class="value" id="rKategori">-</div></div>
+                <div class="detail-item"><span class="label">Rate Efektif</span><div class="value" id="rRate">-</div></div>
+            </div>
+            <div class="breakdown" id="breakdown">
+                <table>
+                    <tbody id="breakdownBody">
+                        <tr>
+                            <td>Premi Dasar</td>
+                            <td class="right" id="bPremiDasar">-</td>
+                        </tr>
+                        <tr>
+                            <td>Perluasan Jaminan</td>
+                            <td class="right" id="bExtPremi">Rp 0</td>
+                        </tr>
+                        <tr class="total">
+                            <td><strong>Total Premi</strong></td>
+                            <td class="right" id="bTotalPremi"><strong>-</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Biaya Polis &amp; Materai</td>
+                            <td class="right" id="bBiayaPolis">Rp 52.000</td>
+                        </tr>
+                        <tr class="total" style="border-top:2px solid #1a2a4a;">
+                            <td style="font-size:15px;"><strong>Total Yang Harus Dibayar</strong></td>
+                            <td class="right" style="font-size:15px; font-weight:700; color:#1a3a5c;" id="bTotalBayar">
+                                <strong>-</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="margin-top:12px; font-size:12px; color:#5e7a93;">
+                💡 Risiko sendiri (deductible) minimum Rp300.000 per kejadian (roda 2: Rp150.000).
+            </p>
+        </div>
+
+        <!-- ============================================================ -->
+        <!--                    PROPOSAL (untuk print)                    -->
+        <!-- ============================================================ -->
+        <div class="proposal-wrapper" id="proposalWrapper">
+            <div class="proposal-container" id="proposalContainer">
+
+                <!-- Header -->
+                <div class="header">
+                    <div class="title-main">PROPOSAL ASURANSI</div>
+                    <div class="title-sub">KENDARAAN BERMOTOR</div>
+                    <div class="title-desc">Dokumen Penawaran Perlindungan Kendaraan</div>
+                </div>
+
+                <!-- Kepada -->
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:24px; font-size:14px; flex-wrap:wrap; gap:10px;">
+                    <div>
+                        <strong>Kepada Yth.</strong><br />
+                        Bapak / Ibu <strong id="pNama">-</strong><br />
+                        <span style="font-size:13px; color:#4a5a72;">No. HP: <span id="pNoHp">-</span></span>
+                    </div>
+                    <div style="background:#f0f3f8; padding:5px 14px; border-radius:20px; font-weight:600; color:#1a2a4a; font-size:13px; white-space:nowrap;">
+                        No. Proposal: <strong id="pNoProposal">AVR/PROP/2026/001</strong>
+                    </div>
+                </div>
+
+                <!-- A. DATA KENDARAAN -->
+                <div class="section-title section-title-first">A. DATA KENDARAAN</div>
+                <table class="data-table">
+                    <tr><td class="label">Merek Kendaraan</td><td class="value" id="pMerk"><strong>-</strong></td></tr>
+                    <tr><td class="label">Tipe Kendaraan</td><td class="value" id="pTipe"><strong>-</strong></td></tr>
+                    <tr><td class="label">Tahun Pembuatan</td><td class="value" id="pTahun"><strong>-</strong></td></tr>
+                    <tr><td class="label">Jenis / Kategori</td><td class="value" id="pJenis">-</td></tr>
+                    <tr><td class="label">Wilayah / Zone</td><td class="value" id="pWilayah">-</td></tr>
+                    <tr><td class="label">Perkiraan Harga</td><td class="value" id="pHarga"><strong>-</strong></td></tr>
+                </table>
+
+                <!-- B. KONDISI PERTANGGUNGAN -->
+                <div class="section-title">B. KONDISI PERTANGGUNGAN</div>
+                <table class="data-table">
+                    <tr><td class="label">Jenis Pertanggungan</td><td class="value" id="pJenisPertanggungan"><strong>-</strong>
+                        </td></tr>
+                    <tr><td class="label">Perluasan Jaminan</td><td class="value" id="pExt">Tidak ada</td></tr>
+                    <tr><td class="label">Tanggal Proposal</td><td class="value" id="pTanggal">-</td></tr>
+                </table>
+
+                <!-- C. PERHITUNGAN PREMI -->
+                <div class="section-title">C. PERHITUNGAN PREMI</div>
+                <table class="premium-table">
+                    <thead>
+                        <tr>
+                            <th style="width:60%;">Komponen</th>
+                            <th style="width:20%;text-align:right;">Rate</th>
+                            <th style="width:20%;text-align:right;">Premi (Rp)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pPremiumBody">
+                        <tr>
+                            <td>Jaminan Utama</td>
+                            <td style="text-align:right;" id="pRateUtama">-</td>
+                            <td style="text-align:right;" id="pPremiUtama">-</td>
+                        </tr>
+                        <tr>
+                            <td>Perluasan Jaminan</td>
+                            <td style="text-align:right;">-</td>
+                            <td style="text-align:right;" id="pPremiExt">Rp 0</td>
+                        </tr>
+                        <tr class="highlight-row">
+                            <td><strong>Total Premi</strong></td>
+                            <td style="text-align:right;"></td>
+                            <td style="text-align:right;" id="pTotalPremi"><strong>-</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Biaya Polis &amp; Materai</td>
+                            <td style="text-align:right;"></td>
+                            <td style="text-align:right;" id="pBiayaPolis">Rp 52.000</td>
+                        </tr>
+                        <tr style="border-top:2px solid #1a2a4a;">
+                            <td class="total-label" style="font-size:15px;">TOTAL PREMI YANG HARUS DIBAYAR</td>
+                            <td style="text-align:right;"></td>
+                            <td class="total-value" style="text-align:right;font-size:17px;color:#1a2a4a;" id="pTotalBayar">
+                                <strong>-</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- D. KETENTUAN RISIKO SENDIRI -->
+                <div class="section-title">D. KETENTUAN RISIKO SENDIRI (DEDUCTIBLE)</div>
+                <table class="data-table">
+                    <tr><td class="label">Kerugian Sebagian/Total / Pencurian</td><td class="value"><strong>Rp 300.000</strong>
+                            per kejadian</td></tr>
+                    <tr><td class="label">Huru Hara / Terorisme / Banjir / Gempa</td><td class="value">10% dari klaim, min Rp
+                            500.000</td></tr>
+                    <tr><td class="label">Tanggung Jawab Hukum Pihak Ketiga</td><td class="value"><strong>Nihil</strong></td>
+                    </tr>
+                </table>
+
+                <!-- E. PERNYATAAN -->
+                <div class="section-title">E. PERNYATAAN &amp; PERSETUJUAN</div>
+                <p style="font-size:14px; color:#1e2f4a; line-height:1.6; margin-bottom:14px;">
+                    Dengan ini saya menyatakan bahwa data dan keterangan yang saya berikan adalah benar dan dapat
+                    dipertanggungjawabkan. Saya telah membaca, memahami, dan menyetujui ketentuan-ketentuan yang berlaku.
+                </p>
+
+                <div class="signature-area">
+                    <div class="signature-box">
+                        <div class="label">Tanda Tangan Pemohon</div>
+                        <div class="line">&nbsp;</div>
+                        <div class="city-date" id="pKotaTanggal">-</div>
+                    </div>
+                    <div class="signature-box" style="text-align:right;">
+                        <div class="label">Penerima / Agen</div>
+                        <div class="line">&nbsp;</div>
+                        <div class="city-date">&nbsp;</div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="footer-notes">
+                    <ul>
+                        <li><strong>Catatan:</strong> Perhitungan premi ini adalah perkiraan awal berdasarkan data yang
+                            diberikan.</li>
+                        <li>Premi final dapat berubah setelah verifikasi data kendaraan dan dokumen pendukung.</li>
+                        <li style="margin-top:4px; font-size:11px; color:#7a8a9f;">
+                            Dokumen ini adalah proposal / penawaran awal. Perlindungan asuransi akan berlaku setelah premi
+                            diterima penuh dan polis diterbitkan.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tombol aksi di dalam proposal -->
+                <div class="proposal-actions no-print">
+                    <button class="btn btn-success" onclick="downloadPDF()">📥 Download PDF</button>
+                    <button class="btn btn-danger" onclick="tutupProposal()">✖️ Tutup Proposal</button>
+                </div>
+                
+                <!-- Petunjuk Download PDF -->
+                <div class="print-instruction no-print" id="printInstruction">
+                    <h4>📋 Cara Menyimpan sebagai PDF:</h4>
+                    <ol>
+                        <li>Klik tombol <span class="highlight-step">"Download PDF"</span> di atas</li>
+                        <li>Pada jendela print yang muncul, pilih <span class="highlight-step">"Save as PDF"</span> atau <span class="highlight-step">"Microsoft Print to PDF"</span> sebagai printer tujuan</li>
+                        <li>Klik tombol <span class="highlight-step">"Save"</span> atau <span class="highlight-step">"Print"</span></li>
+                        <li>Pilih lokasi penyimpanan dan beri nama file</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================================================ -->
+    <!--                    JAVASCRIPT                                 -->
+    <!-- ============================================================ -->
+    <script>
+        // ============================================================
+        //  DATA KENDARAAN - SEMUA MEREK DAN TIPE POPULER DI INDONESIA
+        // ============================================================
+
+        const dataKendaraan = {
+            // ============ NON BUS / NON TRUK (MOBIL) ============
+            "nonbus": {
+                "Toyota": ["Avanza", "Innova", "Fortuner", "Camry", "Corolla Altis", "Yaris", "Rush", "Raize", "Veloz", "Alphard", "Land Cruiser", "Hilux", "Hiace", "Kijang", "Starlet", "Crown", "Supra", "86", "GR Yaris", "GR Corolla"],
+                "Honda": ["Civic", "HR-V", "CR-V", "BR-V", "Brio", "Mobilio", "Jazz", "City", "Accord", "Odyssey", "Pilot", "Passport", "Ridgeline", "CR-Z", "Insight", "e:N"],
+                "Suzuki": ["Ertiga", "XL7", "Carry", "APV", "Grand Vitara", "Swift", "Baleno", "S-Presso", "Jimny", "Ignis", "Ciaz", "Escudo", "Vitara", "Fronx"],
+                "Daihatsu": ["Xenia", "Terios", "Sigra", "Ayla", "Gran Max", "Luxio", "Rocky", "Mirage", "Avanza (rebadge)"],
+                "Mitsubishi": ["Pajero Sport", "Outlander", "Xpander", "Xforce", "Eclipse Cross", "ASX", "Mirage", "Attrage", "Lancer", "Evolution", "Triton", "Strada"],
+                "Nissan": ["X-Trail", "Kicks", "Serena", "Navara", "Terra", "Livina", "Grand Livina", "March", "Juke", "Teana", "Skyline", "GT-R", "Z", "Patrol", "Murano"],
+                "Hyundai": ["Creta", "Santa Fe", "Tucson", "Palisade", "Stargazer", "Ioniq", "Kona", "Elantra", "Sonata", "Starex", "H-1", "Accent", "Verna", "Genesis"],
+                "Kia": ["Seltos", "Sportage", "Carnival", "Stonic", "Picanto", "Rio", "Cerato", "Optima", "K5", "EV6", "EV5", "Niro", "Sorento", "Telluride"],
+                "Mazda": ["CX-3", "CX-5", "CX-8", "CX-9", "Mazda 2", "Mazda 3", "Mazda 6", "MX-5", "CX-30", "MX-30", "BT-50"],
+                "BMW": ["Seri 1", "Seri 2", "Seri 3", "Seri 4", "Seri 5", "Seri 7", "X1", "X3", "X5", "X7", "i4", "i7", "iX", "iX1", "iX3", "M3", "M5", "X6"],
+                "Mercedes-Benz": ["C-Class", "E-Class", "S-Class", "GLA", "GLB", "GLC", "GLE", "GLS", "A-Class", "B-Class", "CLA", "CLS", "EQS", "EQE", "EQB", "EQA", "G-Class", "SL", "SLC", "AMG GT", "EQC"],
+                "Audi": ["A3", "A4", "A5", "A6", "A8", "Q2", "Q3", "Q5", "Q7", "Q8", "e-tron", "TT", "R8", "RS3", "RS4", "RS6"],
+                "Lexus": ["RX", "NX", "UX", "RZ", "LS", "ES", "LX", "GX", "TX", "LC", "RC", "IS", "LM", "LBX", "TZ"],
+                "Volkswagen": ["Golf", "Passat", "Tiguan", "Touran", "T-Cross", "Vento", "Polo", "Beetle", "Arteon", "ID.4", "ID.6", "ID. Buzz"],
+                "Ford": ["Ranger", "Everest", "Escape", "Focus", "Fiesta", "Mustang", "F-150", "Bronco", "Explorer", "Edge", "Maverick", "Kuga"],
+                "Chevrolet": ["Trailblazer", "Blazer", "Colorado", "Captiva", "Cruze", "Malibu", "Spark", "Camaro", "Corvette", "Silverado", "Tahoe", "Suburban"],
+                "Wuling": ["Almaz", "Formo", "Cortez", "Air EV", "BinguoEV", "CloudEV", "NanoEV", "Z6", "Airliner"],
+                "DFSK": ["Gelora", "Super Cab", "Seres", "Glory", "Glorious", "E1", "EC35"],
+                "Chery": ["Tiggo", "Tiggo 4", "Tiggo 7", "Tiggo 8", "Omoda 5", "Omoda C5", "Jaecoo J7"],
+                "MG": ["ZS", "ZS EV", "RX5", "MG5", "HS", "GS", "3", "6", "Cyberster", "Marvel R"],
+                "Peugeot": ["3008", "5008", "2008", "208", "308", "508", "e-208", "e-308", "Expert", "Traveller"],
+                "Renault": ["Kadjar", "Koleos", "Captur", "Clio", "Megane", "Scenic", "Twingo", "Zoe", "Arkana", "Austral"],
+                "Subaru": ["Forester", "Outback", "XV", "BRZ", "Impreza", "Legacy", "WRX", "STI", "Ascent", "Crosstrek", "Solterra"],
+                "Isuzu": ["MU-X", "D-Max", "Panther", "Elf", "Giga", "Traga"],
+                "Mini": ["Cooper", "Countryman", "Clubman", "Paceman", "Hatch", "Convertible", "Coupe", "Roadster", "Electric"],
+                "Porsche": ["911", "Cayenne", "Macan", "Panamera", "Taycan", "Boxster", "Cayman", "718"],
+                "Bentley": ["Continental", "Bentayga", "Flying Spur", "Mulsanne", "Azure", "Brooklands", "Arnage"],
+                "Rolls-Royce": ["Phantom", "Ghost", "Wraith", "Dawn", "Cullinan", "Spectre"],
+                "Lamborghini": ["Aventador", "Huracan", "Urus", "Revuelto", "Countach", "Gallardo", "Murcielago"],
+                "Ferrari": ["488", "F8 Tributo", "Roma", "Portofino", "SF90", "296 GTB", "812 Superfast", "LaFerrari"],
+                "McLaren": ["720S", "570S", "600LT", "Senna", "Elva", "Artura", "765LT"],
+                "Aston Martin": ["DB11", "DBS", "Vantage", "DBX", "Valkyrie", "Valhalla"],
+                "Maserati": ["Ghibli", "Quattroporte", "Levante", "MC20", "GranTurismo", "Grecale"],
+                "Jaguar": ["XE", "XF", "XJ", "E-Pace", "F-Pace", "I-Pace", "F-Type"],
+                "Land Rover": ["Range Rover", "Sport", "Evoque", "Velar", "Defender", "Discovery", "Freelander"],
+                "Volvo": ["XC40", "XC60", "XC90", "S60", "S90", "V60", "C40", "EX90", "EX30"],
+                "Smart": ["Fortwo", "Forfour", "EQ Fortwo", "EQ Forfour", "Hatchback"],
+                "BYD": ["Dolphin", "Atto 3", "Seal", "M6", "Tang", "Han", "E6", "S2", "Yuan"],
+                "GWM": ["Haval H6", "Tank 300", "Tank 500", "Ora 03", "Ora 07", "Great Wall M4", "Wingle"],
+                "Mercedes-AMG": ["A 45", "CLA 45", "GLA 45", "GLB 35", "GLC 43", "GLE 53", "GT 63", "SL 63"],
+                "Alfa Romeo": ["Giulia", "Stelvio", "Tonale", "4C", "Spider", "Brera", "159"],
+                "Lancia": ["Ypsilon", "Delta", "Flavia", "Thema", "Voyager"],
+                "DS": ["DS 3", "DS 4", "DS 7", "DS 9", "DS E-Tense"],
+                "Polestar": ["Polestar 1", "Polestar 2", "Polestar 3", "Polestar 4"],
+                "Lotus": ["Emira", "Evora", "Eletre", "Evija", "Elise", "Exige"],
+                "Fisker": ["Ocean", "Karma"],
+                "Rimac": ["Nevera", "Concept Two"]
+            },
+
+            // ============ TRUK & PICKUP ============
+            "truk": {
+                "Hino": ["Dutro", "Ranger", "Profia", "FK", "FM", "SS", "Ranger 2", "Ranger 3", "300 Series", "500 Series", "700 Series"],
+                "Isuzu": ["Elf", "Giga", "N Series", "F Series", "Traviz", "Panther", "D-Max (pickup)", "FRR", "FSR", "FTR", "FVR", "C&E"],
+                "Mitsubishi Fuso": ["Canter", "Fighter", "Super Great", "The Great", "FN", "FH", "FP", "FE", "FA", "FK"],
+                "UD Trucks": ["Condor", "Quon", "Croner", "PK", "PW", "CZ", "Quester", "CWB", "CWM"],
+                "Mercedes-Benz Trucks": ["Actros", "Atego", "Axor", "Econic", "Unimog", "Zetros", "Antos", "Arocs"],
+                "Scania": ["R-Series", "G-Series", "P-Series", "S-Series", "L-Series", "XT", "K-Series", "N-Series"],
+                "MAN": ["TGS", "TGL", "TGM", "CLA", "FE", "LE", "ME", "TGX"],
+                "Volvo Trucks": ["FH", "FM", "FL", "FE", "FMX", "FH Aero", "FL Electric"],
+                "Daihatsu": ["Gran Max (pickup)", "Hijet (pickup)"],
+                "Toyota": ["Hilux", "Dyna", "Toyoace", "Ranger (pickup)"],
+                "Suzuki": ["Carry (pickup)", "APV (pickup)"],
+                "DFSK": ["Super Cab", "Gelora (pickup)", "Seres (pickup)"],
+                "Ford": ["Ranger", "F-150", "Super Duty"],
+                "Chevrolet": ["Silverado", "Colorado", "S-10"],
+                "Nissan": ["Navara", "Cabstar", "Atlas"],
+                "Hyundai": ["HD65", "HD78", "HD120", "Mighty", "Porter"],
+                "Fuso": ["Canter", "Fighter", "Super Great"],
+                "Kamaz": ["Kamaz 5490", "Kamaz 6520", "Kamaz 43118"]
+            },
+
+            // ============ BUS ============
+            "bus": {
+                "Hino": ["RK8", "RN8", "RM8", "RF8", "AK", "AM", "RU", "RB", "RG", "RK"],
+                "Mercedes-Benz": ["OH 1526", "OH 1626", "OC 500", "O 500", "OH 1836", "OH 1426", "OH 1226", "O 303", "O 404", "Sprinter (bus)"],
+                "Isuzu": ["Elf (bus)", "Giga (bus)", "NQR", "FTR", "FRR", "FSR", "LV", "LT", "LU"],
+                "Scania": ["K Series", "Irizar", "Tourismo", "OmniExpress", "Citywide"],
+                "MAN": ["Lion's Coach", "Lion's City", "TGE", "RL", "RLC"],
+                "UD Trucks": ["Croner (bus)", "Quon (bus)"],
+                "Mitsubishi Fuso": ["Rosa", "Canter (bus)", "Super Great (bus)"],
+                "Volvo": ["Buses", "9700", "9900", "B8R", "B11R", "B12M", "B7R"],
+                "Daihatsu": ["Gran Max (minibus)"],
+                "Toyota": ["Hiace (bus)", "Coaster", "Dyna (bus)"],
+                "Hyundai": ["HD (bus)", "County", "Universe", "Aero"],
+                "Kia": ["Combi (bus)"],
+                "Ford": ["Transit", "E-Transit"],
+                "Chevrolet": ["Express", "City Express"],
+                "Nissan": ["Urvan", "Civilian", "Caravan"],
+                "Isuzu": ["Elf (bus)", "Giga (bus)"],
+                "Suzuki": ["Carry (minibus)", "APV (minibus)"],
+                "DFSK": ["Gelora (minibus)", "Glory (bus)"],
+                "Yutong": ["ZK series", "E series"],
+                "Golden Dragon": ["XML series", "E series"],
+                "Zhongtong": ["LCK series", "E series"],
+                "Ankai": ["A series", "E series"],
+                "King Long": ["XMQ series", "E series"]
+            },
+
+            // ============ RODA 2 (MOTOR) ============
+            "roda2": {
+                "Honda (Motor)": ["Beat", "Vario", "PCX", "CBR", "Supra X", "Revo", "Scoopy", "Genio", "CB150R", "CBR150R", "CBR250R", "CRF150", "CRF250", "CB350", "Rebel 500", "CBR1000RR", "Gold Wing", "Africa Twin", "X-ADV", "Forza", "ADV150", "Wave", "Blade", "Verza", "Pioneer", "Supra GTR", "Supra"],
+                "Yamaha": ["Mio", "NMAX", "R15", "XMAX", "Vixion", "Lexi", "Aerox", "YZF", "MT", "FZ", "XSR", "YZF-R3", "YZF-R7", "MT-09", "MT-15", "Tracer", "Tenere", "BWS", "Fino", "Soul GT", "Jupiter", "Vega", "Aerox", "NMax", "XMax", "YZF-R1", "YZF-R6", "WR155", "WR250"],
+                "Suzuki (Motor)": ["Satria", "GSX", "Address", "Smash", "Nex", "Shogun", "Raider", "GT", "Intruder", "Burgman", "V-Strom", "Hayabusa", "GSX-R", "GSX-S", "Katana", "SV650", "V-Strom 650", "V-Strom 1050", "GSX-8S", "GSX-8R", "Avenis", "Access", "Burgman", "Gixxer", "Gixxer SF", "FXR150", "Titan"],
+                "Kawasaki": ["Ninja", "Z", "Vulcan", "Versys", "ZX", "KLX", "KSR", "Eliminator", "W", "KX", "ZX-25R", "ZX-4RR", "ZX-6R", "ZX-10R", "ZX-14R", "Ninja 250", "Ninja 400", "Ninja 650", "Ninja 1000", "Z250", "Z400", "Z650", "Z900", "Z1000", "Vulcan S", "Versys 650", "Versys 1000", "KLX150", "KLX250", "KSR150"],
+                "Piaggio": ["Vespa", "Scooter", "Liberty", "Medley", "Beverly", "MP3", "Piaggio 1", "Primavera", "GTS", "Elettrica", "Piaggio Fly", "Piaggio Typhoon"],
+                "Vespa": ["Primavera", "GTS", "Sprint", "946", "ET", "LX", "LXV", "Sei Giorni", "Elettrica", "Racing Sixties"],
+                "KTM": ["Duke", "RC", "Adventure", "SMC", "EXC", "Freeride", "250 Duke", "390 Duke", "790 Duke", "890 Duke", "1290 Duke", "RC390", "RC8", "Adventure 390", "Adventure 790", "Adventure 890", "Adventure 1290", "SMC R", "EXC-F"],
+                "Ducati": ["Panigale", "Monster", "Scrambler", "Multistrada", "Diavel", "Supersport", "Streetfighter", "Hypermotard", "DesertX", "XDiavel", "Panigale V2", "Panigale V4", "Monster 937", "Scrambler 1100", "Multistrada V4", "Diavel 1260", "Supersport 950", "Streetfighter V2", "Streetfighter V4"],
+                "Royal Enfield": ["Classic", "Bullet", "Himalayan", "Interceptor", "Continental GT", "Meteor", "Scram 411", "Super Meteor", "Hunter 350", "Shotgun", "Classic 350", "Bullet 350", "Himalayan 450", "Interceptor 650", "Continental GT 650"],
+                "TVS": ["Apache", "Jupiter", "XL", "Radeon", "Ntorq", "RTR", "Apache RR", "Radeon", "Star City", "Sport", "XL100", "Jupiter 125", "NTorq 125", "Apache RTR 200", "Apache RTR 160", "Apache RR 310"],
+                "Benelli": ["Leoncino", "TRK", "Imperiale", "302S", "TNT", "BN", "Leoncino 800", "TRK 502", "TRK 502X", "Imperiale 400", "302R", "TNT 135", "BN 125", "Leoncino Trail", "TRK 251"],
+                "Aprilia": ["RS", "Tuono", "RSV4", "Shiver", "Dorsoduro", "RS 125", "RS 250", "RS 660", "Tuono 660", "RSV4 1100", "Tuono V4", "RS 125 GP", "SX 125", "RX 125"],
+                "Triumph": ["Street Triple", "Tiger", "Bonneville", "Speed Triple", "Scrambler", "Thruxton", "Rocket 3", "Trident", "Tiger Sport", "Street Scrambler", "Speed Twin", "Bonneville T100", "Bonneville T120", "Scrambler 1200", "Rocket 3 GT"],
+                "Harley-Davidson": ["Sportster", "Softail", "Touring", "Cruiser", "Pan America", "Street", "Fat Boy", "Heritage Classic", "Road King", "Street Glide", "Road Glide", "Iron 883", "Iron 1200", "Forty-Eight", "Low Rider", "Slim", "Breakout", "Pan America 1250"],
+                "BMW Motorrad": ["GS", "R series", "S series", "F series", "G series", "K series", "R 1250 GS", "R 1250 RT", "S 1000 RR", "M 1000 RR", "F 850 GS", "F 900 R", "G 310 R", "G 310 GS", "K 1600 GT", "K 1600 GTL", "R 18", "R NineT", "S 1000 R", "S 1000 XR"],
+                "MV Agusta": ["Brutale", "F3", "F4", "Dragster", "Turismo Veloce", "Rivale", "Stradale", "Superveloce", "Oro", "Brutale 800", "Brutale 1000", "F3 800", "F4 1000", "Dragster 800"],
+                "Moto Guzzi": ["V7", "V9", "V85", "California", "Nevada", "Breva", "Griso", "Stelvio", "V700", "V1000", "V7 Stone", "V7 Special", "V9 Bobber", "V85 TT", "V85 TT Travel"],
+                "Indian Motorcycle": ["Scout", "Chief", "Challenger", "Roadmaster", "Springfield", "FTR", "Pursuit", "Scout Bobber", "Scout Sixty", "Chief Dark Horse", "Roadmaster Limited", "Challenger Dark Horse"],
+                "Zero Motorcycles": ["SR", "FX", "S", "DS", "XE", "FXE", "SR/F", "SR/S", "DSR", "DSR/X"],
+                "LiveWire": ["LiveWire One", "S2 Del Mar", "S2 Mulholland"],
+                "Energica": ["Ego", "Eva", "EsseEsse9", "Experia", "Ego+", "Eva+", "EsseEsse9+"]
+            }
+        };
+
+        // ============================================================
+        //  DATA TARIF OJK 2017
+        // ============================================================
+
+        const TARIF_COMP = {
+            nonbus: {
+                'k1': [0, 125000000, 3.82, 4.20, 3.26, 3.59, 2.53, 2.78],
+                'k2': [125000000, 200000000, 2.67, 2.94, 2.47, 2.72, 2.69, 2.96],
+                'k3': [200000000, 400000000, 2.18, 2.40, 2.08, 2.29, 1.79, 1.97],
+                'k4': [400000000, 800000000, 1.20, 1.32, 1.20, 1.32, 1.14, 1.25],
+                'k5': [800000000, Infinity, 1.05, 1.16, 1.05, 1.16, 1.05, 1.16]
+            },
+            truk: { 'k6': [0, Infinity, 2.42, 2.67, 2.39, 2.63, 2.23, 2.46] },
+            bus: { 'k7': [0, Infinity, 1.04, 1.14, 1.04, 1.14, 0.88, 0.97] },
+            roda2: { 'k8': [0, Infinity, 3.18, 3.50, 3.18, 3.50, 3.18, 3.50] }
+        };
+
+        const TARIF_TLO = {
+            nonbus: {
+                'k1': [0, 125000000, 0.47, 0.56, 0.65, 0.78, 0.51, 0.56],
+                'k2': [125000000, 200000000, 0.63, 0.69, 0.44, 0.53, 0.44, 0.48],
+                'k3': [200000000, 400000000, 0.41, 0.46, 0.38, 0.42, 0.29, 0.35],
+                'k4': [400000000, 800000000, 0.25, 0.30, 0.25, 0.30, 0.23, 0.27],
+                'k5': [800000000, Infinity, 0.20, 0.24, 0.20, 0.24, 0.20, 0.24]
+            },
+            truk: { 'k6': [0, Infinity, 0.88, 1.07, 1.68, 2.02, 0.81, 0.98] },
+            bus: { 'k7': [0, Infinity, 0.23, 0.29, 0.23, 0.29, 0.18, 0.22] },
+            roda2: { 'k8': [0, Infinity, 1.76, 2.11, 1.80, 2.16, 0.67, 0.80] }
+        };
+
+        // ============================================================
+        //  FUNGSI BANTU
+        // ============================================================
+
+        function formatRupiah(angka) {
+            if (!angka || isNaN(angka)) return 'Rp 0';
+            return 'Rp ' + Math.round(angka).toLocaleString('id-ID');
+        }
+
+        function getKategori(nilai, data) {
+            const keys = Object.keys(data);
+            for (let k of keys) {
+                const d = data[k];
+                if (nilai >= d[0] && nilai < d[1]) return k;
+            }
+            return keys[keys.length - 1];
+        }
+
+        function getRate(nilai, wilayah, data) {
+            const kategori = getKategori(nilai, data);
+            const d = data[kategori];
+            let idx = 2 + (wilayah - 1) * 2;
+            const rate = d[idx] / 100;
+            return { rate, kategori, data: d };
+        }
+
+        function getFaktorUsia(tahun) {
+            const usia = 2026 - tahun;
+            if (usia <= 2) return 1.0;
+            if (usia <= 5) return 1.05;
+            if (usia <= 10) return 1.10;
+            if (usia <= 15) return 1.20;
+            return 1.30;
+        }
+
+        function getJenisText(id) {
+            const el = document.getElementById(id);
+            return el ? el.options[el.selectedIndex].text : '-';
+        }
+
+        function getWilayahText(id) {
+            const el = document.getElementById(id);
+            return el ? el.options[el.selectedIndex].text : '-';
+        }
+
+        function hitungBanjirGempa(up, tipe) {
+            let rate = 0.0015;
+            if (tipe === 'gempa') rate = 0.0025;
+            let premi = up * rate;
+            premi = Math.round(premi / 1000) * 1000;
+            if (premi < 50000) premi = 50000;
+            return premi;
+        }
+
+        // ============================================================
+        //  FUNGSI UPDATE MEREK & TIPE
+        // ============================================================
+
+        function updateMerk() {
+            const jenis = document.getElementById('jenis').value;
+            const merkSelect = document.getElementById('merk');
+            const merkManual = document.getElementById('merkManual');
+            const tipeSelect = document.getElementById('tipe');
+            const tipeManual = document.getElementById('tipeManual');
+
+            // Reset tipe
+            tipeSelect.innerHTML = '<option value="">-- Pilih Tipe --</option>';
+            tipeSelect.value = '';
+            tipeManual.value = '';
+            tipeManual.style.display = 'none';
+
+            // Clear current merk
+            merkSelect.innerHTML = '<option value="">-- Pilih Merek --</option>';
+
+            // Get data for selected jenis
+            const dataJenis = dataKendaraan[jenis];
+            if (!dataJenis) return;
+
+            // Add merk options
+            const mereks = Object.keys(dataJenis).sort();
+            for (let merk of mereks) {
+                const option = document.createElement('option');
+                option.value = merk;
+                option.textContent = merk;
+                merkSelect.appendChild(option);
+            }
+
+            // Add "Lainnya" option
+            const optionLain = document.createElement('option');
+            optionLain.value = 'lainnya';
+            optionLain.textContent = '🔧 Lainnya (isi manual)';
+            merkSelect.appendChild(optionLain);
+
+            // Reset manual input
+            merkManual.value = '';
+            merkManual.style.display = 'none';
+        }
+
+        function updateTipe() {
+            const jenis = document.getElementById('jenis').value;
+            const merkSelect = document.getElementById('merk');
+            const merkManual = document.getElementById('merkManual');
+            const tipeSelect = document.getElementById('tipe');
+            const tipeManual = document.getElementById('tipeManual');
+
+            const selectedMerk = merkSelect.value;
+
+            // Handle "Lainnya" option
+            if (selectedMerk === 'lainnya') {
+                merkManual.style.display = 'block';
+                merkManual.placeholder = 'Masukkan merek kendaraan...';
+                tipeSelect.innerHTML = '<option value="">-- Pilih Tipe --</option>';
+                const optionLain = document.createElement('option');
+                optionLain.value = 'lainnya';
+                optionLain.textContent = '🔧 Lainnya (isi manual)';
+                tipeSelect.appendChild(optionLain);
+                tipeSelect.value = '';
+                tipeManual.value = '';
+                tipeManual.style.display = 'none';
+                return;
+            } else {
+                merkManual.style.display = 'none';
+            }
+
+            // Get data for selected jenis and merk
+            const dataJenis = dataKendaraan[jenis];
+            if (!dataJenis) return;
+
+            const tipeList = dataJenis[selectedMerk] || [];
+            tipeSelect.innerHTML = '<option value="">-- Pilih Tipe --</option>';
+
+            // Add tipe options
+            for (let tipe of tipeList.sort()) {
+                const option = document.createElement('option');
+                option.value = tipe;
+                option.textContent = tipe;
+                tipeSelect.appendChild(option);
+            }
+
+            // Add "Lainnya" option
+            const optionLain = document.createElement('option');
+            optionLain.value = 'lainnya';
+            optionLain.textContent = '🔧 Lainnya (isi manual)';
+            tipeSelect.appendChild(optionLain);
+
+            tipeManual.value = '';
+            tipeManual.style.display = 'none';
+
+            // Auto-select first tipe if available
+            if (tipeList.length > 0) {
+                tipeSelect.value = tipeList[0];
+            }
+        }
+
+        // Handle manual input for tipe
+        document.getElementById('tipe').addEventListener('change', function() {
+            const tipeManual = document.getElementById('tipeManual');
+            if (this.value === 'lainnya') {
+                tipeManual.style.display = 'block';
+                tipeManual.placeholder = 'Masukkan tipe kendaraan...';
+                tipeManual.value = '';
+                tipeManual.focus();
+            } else {
+                tipeManual.style.display = 'none';
+                tipeManual.value = '';
+            }
+        });
+
+        // Handle manual input for merk
+        document.getElementById('merk').addEventListener('change', function() {
+            const merkManual = document.getElementById('merkManual');
+            if (this.value === 'lainnya') {
+                merkManual.style.display = 'block';
+                merkManual.placeholder = 'Masukkan merek kendaraan...';
+                merkManual.value = '';
+                merkManual.focus();
+            } else {
+                merkManual.style.display = 'none';
+                merkManual.value = '';
+            }
+        });
+
+        // ============================================================
+        //  GET NILAI FORM
+        // ============================================================
+
+        function getNamaMerk() {
+            const merkSelect = document.getElementById('merk');
+            const merkManual = document.getElementById('merkManual');
+            if (merkSelect.value === 'lainnya') {
+                return merkManual.value.trim() || '';
+            }
+            return merkSelect.value || '';
+        }
+
+        function getNamaTipe() {
+            const tipeSelect = document.getElementById('tipe');
+            const tipeManual = document.getElementById('tipeManual');
+            if (tipeSelect.value === 'lainnya') {
+                return tipeManual.value.trim() || '';
+            }
+            return tipeSelect.value || '';
+        }
+
+        // ============================================================
+        //  VARIABEL GLOBAL
+        // ============================================================
+
+        let hasilTerakhir = null;
+
+        // ============================================================
+        //  HITUNG PREMI
+        // ============================================================
+
+        function hitungPremi() {
+            // Ambil data
+            const nama = document.getElementById('nama').value.trim();
+            const noHp = document.getElementById('noHp').value.trim();
+            const merk = getNamaMerk();
+            const tipe = getNamaTipe();
+            const tahun = parseInt(document.getElementById('tahun').value) || 2020;
+            const harga = parseFloat(document.getElementById('harga').value) || 0;
+            const jenis = document.getElementById('jenis').value;
+            const wilayah = parseInt(document.getElementById('wilayah').value);
+            const jenisPertanggungan = document.getElementById('jenisPertanggungan').value;
+
+            // Validasi wajib
+            if (!nama) { alert('⚠️ Mohon isi Nama Lengkap terlebih dahulu!'); return; }
+            if (!noHp) { alert('⚠️ Mohon isi No. HP / Telepon terlebih dahulu!'); return; }
+            if (!merk) { alert('⚠️ Mohon pilih/isi Merek Kendaraan terlebih dahulu!'); return; }
+            if (!tipe) { alert('⚠️ Mohon pilih/isi Tipe Kendaraan terlebih dahulu!'); return; }
+            if (harga <= 0) { alert('⚠️ Mohon isi Harga Kendaraan yang valid!'); return; }
+
+            // Pilih data tarif
+            const dataMapComp = { nonbus: TARIF_COMP.nonbus, truk: TARIF_COMP.truk, bus: TARIF_COMP.bus, roda2: TARIF_COMP
+                    .roda2 };
+            const dataMapTlo = { nonbus: TARIF_TLO.nonbus, truk: TARIF_TLO.truk, bus: TARIF_TLO.bus, roda2: TARIF_TLO
+                .roda2 };
+
+            let data, tipeAsuransi;
+            if (jenisPertanggungan === 'comprehensive') {
+                data = dataMapComp[jenis];
+                tipeAsuransi = 'Comprehensive (All Risk)';
+            } else {
+                data = dataMapTlo[jenis];
+                tipeAsuransi = 'Total Loss Only (TLO)';
+            }
+
+            if (!data) { alert('Data tarif tidak ditemukan'); return; }
+
+            const { rate, kategori } = getRate(harga, wilayah, data);
+            const faktorUsia = getFaktorUsia(tahun);
+
+            let premi = harga * rate * faktorUsia;
+            premi = Math.round(premi / 1000) * 1000;
+            if (premi < (jenisPertanggungan === 'comprehensive' ? 100000 : 50000)) {
+                premi = jenisPertanggungan === 'comprehensive' ? 100000 : 50000;
+            }
+
+            // Perluasan
+            let extPremi = 0;
+            let extList = [];
+            if (document.getElementById('extBanjir').checked) {
+                const b = hitungBanjirGempa(harga, 'banjir');
+                extPremi += b;
+                extList.push('Banjir');
+            }
+            if (document.getElementById('extGempa').checked) {
+                const g = hitungBanjirGempa(harga, 'gempa');
+                extPremi += g;
+                extList.push('Gempa');
+            }
+            if (document.getElementById('extSRCC').checked) {
+                const s = harga * (jenisPertanggungan === 'comprehensive' ? 0.0005 : 0.00035);
+                extPremi += s;
+                extList.push('SRCC');
+            }
+            if (document.getElementById('extTeror').checked) {
+                const t = harga * (jenisPertanggungan === 'comprehensive' ? 0.0005 : 0.00035);
+                extPremi += t;
+                extList.push('Teror');
+            }
+            extPremi = Math.round(extPremi / 1000) * 1000;
+
+            const totalPremi = premi + extPremi;
+            const biayaPolis = 52000;
+            const totalBayar = totalPremi + biayaPolis;
+
+            // Simpan hasil
+            hasilTerakhir = {
+                nama,
+                noHp,
+                merk,
+                tipe,
+                tahun,
+                harga,
+                jenis,
+                wilayah,
+                jenisPertanggungan: tipeAsuransi,
+                jenisPertanggunganKey: jenisPertanggungan,
+                rate,
+                kategori,
+                faktorUsia,
+                premi,
+                extPremi,
+                extList,
+                totalPremi,
+                biayaPolis,
+                totalBayar,
+                jenisText: getJenisText('jenis'),
+                wilayahText: getWilayahText('wilayah')
+            };
+
+            // Tampilkan hasil
+            const resultBox = document.getElementById('resultBox');
+            resultBox.classList.add('show');
+
+            document.getElementById('premiValue').textContent = formatRupiah(totalPremi);
+            document.getElementById('rJenis').textContent = hasilTerakhir.jenisText;
+            document.getElementById('rWilayah').textContent = hasilTerakhir.wilayahText;
+            document.getElementById('rHarga').textContent = formatRupiah(harga);
+            document.getElementById('rTahun').textContent = tahun;
+            document.getElementById('rKategori').textContent = kategori.toUpperCase();
+            document.getElementById('rRate').textContent = (rate * 100).toFixed(2) + '%';
+
+            document.getElementById('bPremiDasar').textContent = formatRupiah(premi);
+            document.getElementById('bExtPremi').textContent = extPremi > 0 ? formatRupiah(extPremi) : 'Rp 0';
+            document.getElementById('bTotalPremi').innerHTML = '<strong>' + formatRupiah(totalPremi) + '</strong>';
+            document.getElementById('bBiayaPolis').textContent = formatRupiah(biayaPolis);
+            document.getElementById('bTotalBayar').innerHTML = '<strong>' + formatRupiah(totalBayar) + '</strong>';
+
+            // Aktifkan tombol cetak
+            document.getElementById('btnCetak').disabled = false;
+
+            // Scroll ke hasil
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ============================================================
+        //  CETAK PROPOSAL - BIKIN PROPOSAL
+        // ============================================================
+
+        function cetakProposal() {
+            if (!hasilTerakhir) {
+                alert('⚠️ Silakan hitung premi terlebih dahulu!');
+                return;
+            }
+
+            const h = hasilTerakhir;
+
+            // Set data ke proposal
+            document.getElementById('pNama').textContent = h.nama;
+            document.getElementById('pNoHp').textContent = h.noHp;
+            document.getElementById('pMerk').innerHTML = '<strong>' + h.merk + '</strong>';
+            document.getElementById('pTipe').innerHTML = '<strong>' + h.tipe + '</strong>';
+            document.getElementById('pTahun').innerHTML = '<strong>' + h.tahun + '</strong>';
+            document.getElementById('pJenis').textContent = h.jenisText;
+            document.getElementById('pWilayah').textContent = h.wilayahText;
+            document.getElementById('pHarga').innerHTML = '<strong>' + formatRupiah(h.harga) + '</strong>';
+
+            document.getElementById('pJenisPertanggungan').innerHTML = '<strong>' + h.jenisPertanggungan + '</strong>';
+            document.getElementById('pExt').textContent = h.extList.length > 0 ? h.extList.join(', ') : 'Tidak ada';
+
+            // Tanggal
+            const now = new Date();
+            const tgl = now.getDate() + ' ' + ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus',
+                'September', 'Oktober', 'November', 'Desember'
+            ][now.getMonth()] + ' ' + now.getFullYear();
+            document.getElementById('pTanggal').textContent = tgl;
+            document.getElementById('pKotaTanggal').textContent = tgl;
+
+            // No Proposal
+            const noProposal = 'AVR/PROP/' + now.getFullYear() + '/' + String(now.getMonth() + 1).padStart(2, '0') +
+                String(now.getDate()).padStart(2, '0') + String(Math.floor(Math.random() * 1000)).padStart(3, '0');
+            document.getElementById('pNoProposal').textContent = noProposal;
+
+            // Perhitungan Premi
+            const rateDisplay = (h.rate * 100).toFixed(2) + '%';
+            document.getElementById('pRateUtama').textContent = rateDisplay;
+            document.getElementById('pPremiUtama').textContent = formatRupiah(h.premi);
+            document.getElementById('pPremiExt').textContent = h.extPremi > 0 ? formatRupiah(h.extPremi) : 'Rp 0';
+            document.getElementById('pTotalPremi').innerHTML = '<strong>' + formatRupiah(h.totalPremi) + '</strong>';
+            document.getElementById('pBiayaPolis').textContent = formatRupiah(h.biayaPolis);
+            document.getElementById('pTotalBayar').innerHTML = '<strong>' + formatRupiah(h.totalBayar) + '</strong>';
+
+            // Tampilkan proposal
+            document.getElementById('proposalWrapper').classList.add('show');
+            
+            // Sembunyikan petunjuk print
+            document.getElementById('printInstruction').classList.remove('show');
+
+            // Scroll ke proposal
+            document.getElementById('proposalWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Tampilkan notifikasi
+            const btn = document.getElementById('btnCetak');
+            const originalText = btn.textContent;
+            btn.textContent = '✅ Proposal Siap!';
+            setTimeout(() => {
+                btn.textContent = originalText;
+            }, 2000);
+        }
+
+        // ============================================================
+        //  DOWNLOAD PDF
+        // ============================================================
+
+        function downloadPDF() {
+            document.getElementById('proposalWrapper').classList.add('show');
+            const instruction = document.getElementById('printInstruction');
+            instruction.classList.add('show');
+            
+            setTimeout(function() {
+                window.print();
+            }, 500);
+        }
+
+        function printProposal() {
+            downloadPDF();
+        }
+
+        // ============================================================
+        //  TUTUP PROPOSAL
+        // ============================================================
+
+        function tutupProposal() {
+            document.getElementById('proposalWrapper').classList.remove('show');
+            document.getElementById('printInstruction').classList.remove('show');
+        }
+
+        // ============================================================
+        //  RESET FORM
+        // ============================================================
+
+        function resetForm() {
+            document.getElementById('nama').value = '';
+            document.getElementById('noHp').value = '';
+            document.getElementById('jenis').value = 'nonbus';
+            document.getElementById('wilayah').value = '2';
+            document.getElementById('tahun').value = '2020';
+            document.getElementById('harga').value = '350000000';
+            document.getElementById('jenisPertanggungan').value = 'comprehensive';
+            document.querySelectorAll('input[type="checkbox"]').forEach(c => c.checked = false);
+
+            // Reset merek dan tipe
+            updateMerk();
+            document.getElementById('merkManual').value = '';
+            document.getElementById('merkManual').style.display = 'none';
+            document.getElementById('tipeManual').value = '';
+            document.getElementById('tipeManual').style.display = 'none';
+
+            document.getElementById('resultBox').classList.remove('show');
+            document.getElementById('btnCetak').disabled = true;
+            document.getElementById('proposalWrapper').classList.remove('show');
+            document.getElementById('printInstruction').classList.remove('show');
+
+            hasilTerakhir = null;
+        }
+
+        // ============================================================
+        //  ENTER KEY UNTUK HITUNG
+        // ============================================================
+
+        document.querySelectorAll('input, select').forEach(el => {
+            el.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') hitungPremi();
+            });
+        });
+
+        // ============================================================
+        //  AUTO HITUNG SAAT LOAD
+        // ============================================================
+
+        window.onload = function() {
+            // Set default values
+            document.getElementById('nama').value = 'Ali Suwito';
+            document.getElementById('noHp').value = '0812 6558 1588';
+            document.getElementById('jenis').value = 'nonbus';
+            
+            // Update merek berdasarkan jenis
+            updateMerk();
+            
+            // Set default merek dan tipe
+            setTimeout(() => {
+                document.getElementById('merk').value = 'Toyota';
+                updateTipe();
+                document.getElementById('tipe').value = 'Avanza';
+            }, 100);
+            
+            document.getElementById('tahun').value = '2022';
+            document.getElementById('harga').value = '240000000';
+
+            // Hitung premi setelah semua data terisi
+            setTimeout(() => {
+                hitungPremi();
+            }, 300);
+        };
+        
+        // ============================================================
+        //  EVENT LISTENER UNTUK MENUTUP PETUNJUK SAAT PRINT DIALOG TUTUP
+        // ============================================================
+        
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                setTimeout(function() {
+                    const instruction = document.getElementById('printInstruction');
+                    if (instruction) {
+                        instruction.classList.remove('show');
+                    }
+                }, 2000);
+            }
+        });
+    </script>
+
+</body>
+</html>
