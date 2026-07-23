@@ -97,11 +97,6 @@
             box-shadow: 0 0 0 3px rgba(43, 108, 158, 0.15);
         }
 
-        input[readonly] {
-            background: #f0f2f5;
-            cursor: not-allowed;
-        }
-
         .row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -196,6 +191,51 @@
             opacity: 0.5;
             cursor: not-allowed;
             transform: none !important;
+        }
+
+        /* Loading spinner */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #5e7a93;
+        }
+        .loading.show {
+            display: block;
+        }
+        .loading .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #1a3a5c;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .data-status {
+            font-size: 12px;
+            color: #5e7a93;
+            text-align: center;
+            margin-top: 5px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .data-status.success {
+            color: #1e7e34;
+            background: #e6f4ea;
+        }
+        .data-status.error {
+            color: #c0392b;
+            background: #fde8e8;
+        }
+        .data-status.loading {
+            color: #b45309;
+            background: #fef3e8;
         }
 
         /* ===== RESULT BOX ===== */
@@ -595,6 +635,10 @@
             .print-instruction {
                 display: none !important;
             }
+            
+            .data-status {
+                display: none !important;
+            }
         }
 
         /* ============================================================ */
@@ -689,98 +733,107 @@
         <h1>🚗 Kalkulator Premi Asuransi Mobil <span class="badge-ojk">OJK 2017</span></h1>
         <p class="subtitle">Isi data di bawah untuk mendapatkan perkiraan premi dan proposal</p>
 
+        <!-- ===== LOADING ===== -->
+        <div class="loading" id="loadingData">
+            <div class="spinner"></div>
+            <p>Memuat data kendaraan...</p>
+        </div>
+        <div class="data-status" id="dataStatus"></div>
+
         <!-- ===== FORM INPUT ===== -->
-        <div class="row">
-            <div class="form-group">
-                <label>Nama Lengkap <span class="required">*</span></label>
-                <input type="text" id="nama" placeholder="Contoh: Ali Suwito" />
-            </div>
-            <div class="form-group">
-                <label>No. HP / Telepon <span class="required">*</span></label>
-                <input type="text" id="noHp" placeholder="0812 6558 1588" />
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="form-group">
-                <label>Jenis / Kategori <span class="required">*</span></label>
-                <select id="jenis" onchange="updateMerk()">
-                    <option value="nonbus">Non Bus / Non Truk (Mobil)</option>
-                    <option value="truk">Truk &amp; Pickup</option>
-                    <option value="bus">Bus</option>
-                    <option value="roda2">Roda 2 (Motor)</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Wilayah</label>
-                <select id="wilayah">
-                    <option value="1">Wilayah 1 (Sumatera &amp; sekitarnya)</option>
-                    <option value="2" selected>Wilayah 2 (DKI Jakarta, Jabar, Banten)</option>
-                    <option value="3">Wilayah 3 (Lainnya)</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="form-group">
-                <label>Merek Kendaraan <span class="required">*</span></label>
-                <div class="form-group-with-manual">
-                    <select id="merk" onchange="updateTipe()">
-                        <option value="">-- Pilih Merek --</option>
-                    </select>
-                    <input type="text" id="merkManual" placeholder="Isi merek lain..." style="display:none;" />
+        <div id="formContainer" style="display:none;">
+            <div class="row">
+                <div class="form-group">
+                    <label>Nama Lengkap <span class="required">*</span></label>
+                    <input type="text" id="nama" placeholder="Contoh: Ali Suwito" />
+                </div>
+                <div class="form-group">
+                    <label>No. HP / Telepon <span class="required">*</span></label>
+                    <input type="text" id="noHp" placeholder="0812 6558 1588" />
                 </div>
             </div>
-            <div class="form-group">
-                <label>Tipe Kendaraan <span class="required">*</span></label>
-                <div class="form-group-with-manual">
-                    <select id="tipe">
-                        <option value="">-- Pilih Tipe --</option>
+
+            <div class="row">
+                <div class="form-group">
+                    <label>Jenis / Kategori <span class="required">*</span></label>
+                    <select id="jenis" onchange="updateMerk()">
+                        <option value="nonbus">Non Bus / Non Truk (Mobil)</option>
+                        <option value="truk">Truk &amp; Pickup</option>
+                        <option value="bus">Bus</option>
+                        <option value="roda2">Roda 2 (Motor)</option>
                     </select>
-                    <input type="text" id="tipeManual" placeholder="Isi tipe lain..." style="display:none;" />
+                </div>
+                <div class="form-group">
+                    <label>Wilayah</label>
+                    <select id="wilayah">
+                        <option value="1">Wilayah 1 (Sumatera &amp; sekitarnya)</option>
+                        <option value="2" selected>Wilayah 2 (DKI Jakarta, Jabar, Banten)</option>
+                        <option value="3">Wilayah 3 (Lainnya)</option>
+                    </select>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="form-group">
-                <label>Tahun Pembuatan <span class="required">*</span></label>
-                <input type="number" id="tahun" value="2020" min="1990" max="2026" />
+            <div class="row">
+                <div class="form-group">
+                    <label>Merek Kendaraan <span class="required">*</span></label>
+                    <div class="form-group-with-manual">
+                        <select id="merk" onchange="updateTipe()">
+                            <option value="">-- Pilih Merek --</option>
+                        </select>
+                        <input type="text" id="merkManual" placeholder="Isi merek lain..." style="display:none;" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Tipe Kendaraan <span class="required">*</span></label>
+                    <div class="form-group-with-manual">
+                        <select id="tipe">
+                            <option value="">-- Pilih Tipe --</option>
+                        </select>
+                        <input type="text" id="tipeManual" placeholder="Isi tipe lain..." style="display:none;" />
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Perkiraan Harga Kendaraan (Rp) <span class="required">*</span></label>
-                <input type="number" id="harga" value="350000000" step="1000000" />
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="form-group">
-                <label>Jenis Pertanggungan</label>
-                <select id="jenisPertanggungan">
-                    <option value="comprehensive">Comprehensive (All Risk)</option>
-                    <option value="tlo">Total Loss Only (TLO)</option>
-                </select>
+            <div class="row">
+                <div class="form-group">
+                    <label>Tahun Pembuatan <span class="required">*</span></label>
+                    <input type="number" id="tahun" value="2020" min="1990" max="2026" />
+                </div>
+                <div class="form-group">
+                    <label>Perkiraan Harga Kendaraan (Rp) <span class="required">*</span></label>
+                    <input type="number" id="harga" value="350000000" step="1000000" />
+                </div>
             </div>
-            <div class="form-group" style="display:flex; align-items:flex-end; gap:14px; flex-wrap:wrap;">
-                <label style="display:flex; align-items:center; gap:6px; font-weight:400; cursor:pointer;">
-                    <input type="checkbox" id="extBanjir" /> Banjir
-                </label>
-                <label style="display:flex; align-items:center; gap:6px; font-weight:400; cursor:pointer;">
-                    <input type="checkbox" id="extGempa" /> Gempa
-                </label>
-                <label style="display:flex; align-items:center; gap:6px; font-weight:400; cursor:pointer;">
-                    <input type="checkbox" id="extSRCC" /> SRCC
-                </label>
-                <label style="display:flex; align-items:center; gap:6px; font-weight:400; cursor:pointer;">
-                    <input type="checkbox" id="extTeror" /> Teror
-                </label>
-            </div>
-        </div>
 
-        <div class="btn-group no-print">
-            <button class="btn btn-primary" onclick="hitungPremi()">🔍 Hitung Premi</button>
-            <button class="btn btn-success" onclick="cetakProposal()" id="btnCetak" disabled>📄 Cetak Proposal</button>
-            <button class="btn btn-outline" onclick="resetForm()">↺ Reset</button>
+            <div class="row">
+                <div class="form-group">
+                    <label>Jenis Pertanggungan</label>
+                    <select id="jenisPertanggungan">
+                        <option value="comprehensive">Comprehensive (All Risk)</option>
+                        <option value="tlo">Total Loss Only (TLO)</option>
+                    </select>
+                </div>
+                <div class="form-group" style="display:flex; align-items:flex-end; gap:14px; flex-wrap:wrap;">
+                    <label style="display:flex; align-items:center; gap:6px; font-weight:400; cursor:pointer;">
+                        <input type="checkbox" id="extBanjir" /> Banjir
+                    </label>
+                    <label style="display:flex; align-items:center; gap:6px; font-weight:400; cursor:pointer;">
+                        <input type="checkbox" id="extGempa" /> Gempa
+                    </label>
+                    <label style="display:flex; align-items:center; gap:6px; font-weight:400; cursor:pointer;">
+                        <input type="checkbox" id="extSRCC" /> SRCC
+                    </label>
+                    <label style="display:flex; align-items:center; gap:6px; font-weight:400; cursor:pointer;">
+                        <input type="checkbox" id="extTeror" /> Teror
+                    </label>
+                </div>
+            </div>
+
+            <div class="btn-group no-print">
+                <button class="btn btn-primary" onclick="hitungPremi()">🔍 Hitung Premi</button>
+                <button class="btn btn-success" onclick="cetakProposal()" id="btnCetak" disabled>📄 Cetak Proposal</button>
+                <button class="btn btn-outline" onclick="resetForm()">↺ Reset</button>
+            </div>
         </div>
 
         <!-- ===== HASIL PREMI ===== -->
@@ -983,138 +1036,7 @@
     <!-- ============================================================ -->
     <script>
         // ============================================================
-        //  DATA KENDARAAN - SEMUA MEREK DAN TIPE POPULER DI INDONESIA
-        // ============================================================
-
-        const dataKendaraan = {
-            // ============ NON BUS / NON TRUK (MOBIL) ============
-            "nonbus": {
-                "Toyota": ["Avanza", "Innova", "Fortuner", "Camry", "Corolla Altis", "Yaris", "Rush", "Raize", "Veloz", "Alphard", "Land Cruiser", "Hilux", "Hiace", "Kijang", "Starlet", "Crown", "Supra", "86", "GR Yaris", "GR Corolla"],
-                "Honda": ["Civic", "HR-V", "CR-V", "BR-V", "Brio", "Mobilio", "Jazz", "City", "Accord", "Odyssey", "Pilot", "Passport", "Ridgeline", "CR-Z", "Insight", "e:N"],
-                "Suzuki": ["Ertiga", "XL7", "Carry", "APV", "Grand Vitara", "Swift", "Baleno", "S-Presso", "Jimny", "Ignis", "Ciaz", "Escudo", "Vitara", "Fronx"],
-                "Daihatsu": ["Xenia", "Terios", "Sigra", "Ayla", "Gran Max", "Luxio", "Rocky", "Mirage", "Avanza (rebadge)"],
-                "Mitsubishi": ["Pajero Sport", "Outlander", "Xpander", "Xforce", "Eclipse Cross", "ASX", "Mirage", "Attrage", "Lancer", "Evolution", "Triton", "Strada"],
-                "Nissan": ["X-Trail", "Kicks", "Serena", "Navara", "Terra", "Livina", "Grand Livina", "March", "Juke", "Teana", "Skyline", "GT-R", "Z", "Patrol", "Murano"],
-                "Hyundai": ["Creta", "Santa Fe", "Tucson", "Palisade", "Stargazer", "Ioniq", "Kona", "Elantra", "Sonata", "Starex", "H-1", "Accent", "Verna", "Genesis"],
-                "Kia": ["Seltos", "Sportage", "Carnival", "Stonic", "Picanto", "Rio", "Cerato", "Optima", "K5", "EV6", "EV5", "Niro", "Sorento", "Telluride"],
-                "Mazda": ["CX-3", "CX-5", "CX-8", "CX-9", "Mazda 2", "Mazda 3", "Mazda 6", "MX-5", "CX-30", "MX-30", "BT-50"],
-                "BMW": ["Seri 1", "Seri 2", "Seri 3", "Seri 4", "Seri 5", "Seri 7", "X1", "X3", "X5", "X7", "i4", "i7", "iX", "iX1", "iX3", "M3", "M5", "X6"],
-                "Mercedes-Benz": ["C-Class", "E-Class", "S-Class", "GLA", "GLB", "GLC", "GLE", "GLS", "A-Class", "B-Class", "CLA", "CLS", "EQS", "EQE", "EQB", "EQA", "G-Class", "SL", "SLC", "AMG GT", "EQC"],
-                "Audi": ["A3", "A4", "A5", "A6", "A8", "Q2", "Q3", "Q5", "Q7", "Q8", "e-tron", "TT", "R8", "RS3", "RS4", "RS6"],
-                "Lexus": ["RX", "NX", "UX", "RZ", "LS", "ES", "LX", "GX", "TX", "LC", "RC", "IS", "LM", "LBX", "TZ"],
-                "Volkswagen": ["Golf", "Passat", "Tiguan", "Touran", "T-Cross", "Vento", "Polo", "Beetle", "Arteon", "ID.4", "ID.6", "ID. Buzz"],
-                "Ford": ["Ranger", "Everest", "Escape", "Focus", "Fiesta", "Mustang", "F-150", "Bronco", "Explorer", "Edge", "Maverick", "Kuga"],
-                "Chevrolet": ["Trailblazer", "Blazer", "Colorado", "Captiva", "Cruze", "Malibu", "Spark", "Camaro", "Corvette", "Silverado", "Tahoe", "Suburban"],
-                "Wuling": ["Almaz", "Formo", "Cortez", "Air EV", "BinguoEV", "CloudEV", "NanoEV", "Z6", "Airliner"],
-                "DFSK": ["Gelora", "Super Cab", "Seres", "Glory", "Glorious", "E1", "EC35"],
-                "Chery": ["Tiggo", "Tiggo 4", "Tiggo 7", "Tiggo 8", "Omoda 5", "Omoda C5", "Jaecoo J7"],
-                "MG": ["ZS", "ZS EV", "RX5", "MG5", "HS", "GS", "3", "6", "Cyberster", "Marvel R"],
-                "Peugeot": ["3008", "5008", "2008", "208", "308", "508", "e-208", "e-308", "Expert", "Traveller"],
-                "Renault": ["Kadjar", "Koleos", "Captur", "Clio", "Megane", "Scenic", "Twingo", "Zoe", "Arkana", "Austral"],
-                "Subaru": ["Forester", "Outback", "XV", "BRZ", "Impreza", "Legacy", "WRX", "STI", "Ascent", "Crosstrek", "Solterra"],
-                "Isuzu": ["MU-X", "D-Max", "Panther", "Elf", "Giga", "Traga"],
-                "Mini": ["Cooper", "Countryman", "Clubman", "Paceman", "Hatch", "Convertible", "Coupe", "Roadster", "Electric"],
-                "Porsche": ["911", "Cayenne", "Macan", "Panamera", "Taycan", "Boxster", "Cayman", "718"],
-                "Bentley": ["Continental", "Bentayga", "Flying Spur", "Mulsanne", "Azure", "Brooklands", "Arnage"],
-                "Rolls-Royce": ["Phantom", "Ghost", "Wraith", "Dawn", "Cullinan", "Spectre"],
-                "Lamborghini": ["Aventador", "Huracan", "Urus", "Revuelto", "Countach", "Gallardo", "Murcielago"],
-                "Ferrari": ["488", "F8 Tributo", "Roma", "Portofino", "SF90", "296 GTB", "812 Superfast", "LaFerrari"],
-                "McLaren": ["720S", "570S", "600LT", "Senna", "Elva", "Artura", "765LT"],
-                "Aston Martin": ["DB11", "DBS", "Vantage", "DBX", "Valkyrie", "Valhalla"],
-                "Maserati": ["Ghibli", "Quattroporte", "Levante", "MC20", "GranTurismo", "Grecale"],
-                "Jaguar": ["XE", "XF", "XJ", "E-Pace", "F-Pace", "I-Pace", "F-Type"],
-                "Land Rover": ["Range Rover", "Sport", "Evoque", "Velar", "Defender", "Discovery", "Freelander"],
-                "Volvo": ["XC40", "XC60", "XC90", "S60", "S90", "V60", "C40", "EX90", "EX30"],
-                "Smart": ["Fortwo", "Forfour", "EQ Fortwo", "EQ Forfour", "Hatchback"],
-                "BYD": ["Dolphin", "Atto 3", "Seal", "M6", "Tang", "Han", "E6", "S2", "Yuan"],
-                "GWM": ["Haval H6", "Tank 300", "Tank 500", "Ora 03", "Ora 07", "Great Wall M4", "Wingle"],
-                "Mercedes-AMG": ["A 45", "CLA 45", "GLA 45", "GLB 35", "GLC 43", "GLE 53", "GT 63", "SL 63"],
-                "Alfa Romeo": ["Giulia", "Stelvio", "Tonale", "4C", "Spider", "Brera", "159"],
-                "Lancia": ["Ypsilon", "Delta", "Flavia", "Thema", "Voyager"],
-                "DS": ["DS 3", "DS 4", "DS 7", "DS 9", "DS E-Tense"],
-                "Polestar": ["Polestar 1", "Polestar 2", "Polestar 3", "Polestar 4"],
-                "Lotus": ["Emira", "Evora", "Eletre", "Evija", "Elise", "Exige"],
-                "Fisker": ["Ocean", "Karma"],
-                "Rimac": ["Nevera", "Concept Two"]
-            },
-
-            // ============ TRUK & PICKUP ============
-            "truk": {
-                "Hino": ["Dutro", "Ranger", "Profia", "FK", "FM", "SS", "Ranger 2", "Ranger 3", "300 Series", "500 Series", "700 Series"],
-                "Isuzu": ["Elf", "Giga", "N Series", "F Series", "Traviz", "Panther", "D-Max (pickup)", "FRR", "FSR", "FTR", "FVR", "C&E"],
-                "Mitsubishi Fuso": ["Canter", "Fighter", "Super Great", "The Great", "FN", "FH", "FP", "FE", "FA", "FK"],
-                "UD Trucks": ["Condor", "Quon", "Croner", "PK", "PW", "CZ", "Quester", "CWB", "CWM"],
-                "Mercedes-Benz Trucks": ["Actros", "Atego", "Axor", "Econic", "Unimog", "Zetros", "Antos", "Arocs"],
-                "Scania": ["R-Series", "G-Series", "P-Series", "S-Series", "L-Series", "XT", "K-Series", "N-Series"],
-                "MAN": ["TGS", "TGL", "TGM", "CLA", "FE", "LE", "ME", "TGX"],
-                "Volvo Trucks": ["FH", "FM", "FL", "FE", "FMX", "FH Aero", "FL Electric"],
-                "Daihatsu": ["Gran Max (pickup)", "Hijet (pickup)"],
-                "Toyota": ["Hilux", "Dyna", "Toyoace", "Ranger (pickup)"],
-                "Suzuki": ["Carry (pickup)", "APV (pickup)"],
-                "DFSK": ["Super Cab", "Gelora (pickup)", "Seres (pickup)"],
-                "Ford": ["Ranger", "F-150", "Super Duty"],
-                "Chevrolet": ["Silverado", "Colorado", "S-10"],
-                "Nissan": ["Navara", "Cabstar", "Atlas"],
-                "Hyundai": ["HD65", "HD78", "HD120", "Mighty", "Porter"],
-                "Fuso": ["Canter", "Fighter", "Super Great"],
-                "Kamaz": ["Kamaz 5490", "Kamaz 6520", "Kamaz 43118"]
-            },
-
-            // ============ BUS ============
-            "bus": {
-                "Hino": ["RK8", "RN8", "RM8", "RF8", "AK", "AM", "RU", "RB", "RG", "RK"],
-                "Mercedes-Benz": ["OH 1526", "OH 1626", "OC 500", "O 500", "OH 1836", "OH 1426", "OH 1226", "O 303", "O 404", "Sprinter (bus)"],
-                "Isuzu": ["Elf (bus)", "Giga (bus)", "NQR", "FTR", "FRR", "FSR", "LV", "LT", "LU"],
-                "Scania": ["K Series", "Irizar", "Tourismo", "OmniExpress", "Citywide"],
-                "MAN": ["Lion's Coach", "Lion's City", "TGE", "RL", "RLC"],
-                "UD Trucks": ["Croner (bus)", "Quon (bus)"],
-                "Mitsubishi Fuso": ["Rosa", "Canter (bus)", "Super Great (bus)"],
-                "Volvo": ["Buses", "9700", "9900", "B8R", "B11R", "B12M", "B7R"],
-                "Daihatsu": ["Gran Max (minibus)"],
-                "Toyota": ["Hiace (bus)", "Coaster", "Dyna (bus)"],
-                "Hyundai": ["HD (bus)", "County", "Universe", "Aero"],
-                "Kia": ["Combi (bus)"],
-                "Ford": ["Transit", "E-Transit"],
-                "Chevrolet": ["Express", "City Express"],
-                "Nissan": ["Urvan", "Civilian", "Caravan"],
-                "Isuzu": ["Elf (bus)", "Giga (bus)"],
-                "Suzuki": ["Carry (minibus)", "APV (minibus)"],
-                "DFSK": ["Gelora (minibus)", "Glory (bus)"],
-                "Yutong": ["ZK series", "E series"],
-                "Golden Dragon": ["XML series", "E series"],
-                "Zhongtong": ["LCK series", "E series"],
-                "Ankai": ["A series", "E series"],
-                "King Long": ["XMQ series", "E series"]
-            },
-
-            // ============ RODA 2 (MOTOR) ============
-            "roda2": {
-                "Honda (Motor)": ["Beat", "Vario", "PCX", "CBR", "Supra X", "Revo", "Scoopy", "Genio", "CB150R", "CBR150R", "CBR250R", "CRF150", "CRF250", "CB350", "Rebel 500", "CBR1000RR", "Gold Wing", "Africa Twin", "X-ADV", "Forza", "ADV150", "Wave", "Blade", "Verza", "Pioneer", "Supra GTR", "Supra"],
-                "Yamaha": ["Mio", "NMAX", "R15", "XMAX", "Vixion", "Lexi", "Aerox", "YZF", "MT", "FZ", "XSR", "YZF-R3", "YZF-R7", "MT-09", "MT-15", "Tracer", "Tenere", "BWS", "Fino", "Soul GT", "Jupiter", "Vega", "Aerox", "NMax", "XMax", "YZF-R1", "YZF-R6", "WR155", "WR250"],
-                "Suzuki (Motor)": ["Satria", "GSX", "Address", "Smash", "Nex", "Shogun", "Raider", "GT", "Intruder", "Burgman", "V-Strom", "Hayabusa", "GSX-R", "GSX-S", "Katana", "SV650", "V-Strom 650", "V-Strom 1050", "GSX-8S", "GSX-8R", "Avenis", "Access", "Burgman", "Gixxer", "Gixxer SF", "FXR150", "Titan"],
-                "Kawasaki": ["Ninja", "Z", "Vulcan", "Versys", "ZX", "KLX", "KSR", "Eliminator", "W", "KX", "ZX-25R", "ZX-4RR", "ZX-6R", "ZX-10R", "ZX-14R", "Ninja 250", "Ninja 400", "Ninja 650", "Ninja 1000", "Z250", "Z400", "Z650", "Z900", "Z1000", "Vulcan S", "Versys 650", "Versys 1000", "KLX150", "KLX250", "KSR150"],
-                "Piaggio": ["Vespa", "Scooter", "Liberty", "Medley", "Beverly", "MP3", "Piaggio 1", "Primavera", "GTS", "Elettrica", "Piaggio Fly", "Piaggio Typhoon"],
-                "Vespa": ["Primavera", "GTS", "Sprint", "946", "ET", "LX", "LXV", "Sei Giorni", "Elettrica", "Racing Sixties"],
-                "KTM": ["Duke", "RC", "Adventure", "SMC", "EXC", "Freeride", "250 Duke", "390 Duke", "790 Duke", "890 Duke", "1290 Duke", "RC390", "RC8", "Adventure 390", "Adventure 790", "Adventure 890", "Adventure 1290", "SMC R", "EXC-F"],
-                "Ducati": ["Panigale", "Monster", "Scrambler", "Multistrada", "Diavel", "Supersport", "Streetfighter", "Hypermotard", "DesertX", "XDiavel", "Panigale V2", "Panigale V4", "Monster 937", "Scrambler 1100", "Multistrada V4", "Diavel 1260", "Supersport 950", "Streetfighter V2", "Streetfighter V4"],
-                "Royal Enfield": ["Classic", "Bullet", "Himalayan", "Interceptor", "Continental GT", "Meteor", "Scram 411", "Super Meteor", "Hunter 350", "Shotgun", "Classic 350", "Bullet 350", "Himalayan 450", "Interceptor 650", "Continental GT 650"],
-                "TVS": ["Apache", "Jupiter", "XL", "Radeon", "Ntorq", "RTR", "Apache RR", "Radeon", "Star City", "Sport", "XL100", "Jupiter 125", "NTorq 125", "Apache RTR 200", "Apache RTR 160", "Apache RR 310"],
-                "Benelli": ["Leoncino", "TRK", "Imperiale", "302S", "TNT", "BN", "Leoncino 800", "TRK 502", "TRK 502X", "Imperiale 400", "302R", "TNT 135", "BN 125", "Leoncino Trail", "TRK 251"],
-                "Aprilia": ["RS", "Tuono", "RSV4", "Shiver", "Dorsoduro", "RS 125", "RS 250", "RS 660", "Tuono 660", "RSV4 1100", "Tuono V4", "RS 125 GP", "SX 125", "RX 125"],
-                "Triumph": ["Street Triple", "Tiger", "Bonneville", "Speed Triple", "Scrambler", "Thruxton", "Rocket 3", "Trident", "Tiger Sport", "Street Scrambler", "Speed Twin", "Bonneville T100", "Bonneville T120", "Scrambler 1200", "Rocket 3 GT"],
-                "Harley-Davidson": ["Sportster", "Softail", "Touring", "Cruiser", "Pan America", "Street", "Fat Boy", "Heritage Classic", "Road King", "Street Glide", "Road Glide", "Iron 883", "Iron 1200", "Forty-Eight", "Low Rider", "Slim", "Breakout", "Pan America 1250"],
-                "BMW Motorrad": ["GS", "R series", "S series", "F series", "G series", "K series", "R 1250 GS", "R 1250 RT", "S 1000 RR", "M 1000 RR", "F 850 GS", "F 900 R", "G 310 R", "G 310 GS", "K 1600 GT", "K 1600 GTL", "R 18", "R NineT", "S 1000 R", "S 1000 XR"],
-                "MV Agusta": ["Brutale", "F3", "F4", "Dragster", "Turismo Veloce", "Rivale", "Stradale", "Superveloce", "Oro", "Brutale 800", "Brutale 1000", "F3 800", "F4 1000", "Dragster 800"],
-                "Moto Guzzi": ["V7", "V9", "V85", "California", "Nevada", "Breva", "Griso", "Stelvio", "V700", "V1000", "V7 Stone", "V7 Special", "V9 Bobber", "V85 TT", "V85 TT Travel"],
-                "Indian Motorcycle": ["Scout", "Chief", "Challenger", "Roadmaster", "Springfield", "FTR", "Pursuit", "Scout Bobber", "Scout Sixty", "Chief Dark Horse", "Roadmaster Limited", "Challenger Dark Horse"],
-                "Zero Motorcycles": ["SR", "FX", "S", "DS", "XE", "FXE", "SR/F", "SR/S", "DSR", "DSR/X"],
-                "LiveWire": ["LiveWire One", "S2 Del Mar", "S2 Mulholland"],
-                "Energica": ["Ego", "Eva", "EsseEsse9", "Experia", "Ego+", "Eva+", "EsseEsse9+"]
-            }
-        };
-
-        // ============================================================
-        //  DATA TARIF OJK 2017
+        //  DATA TARIF OJK 2017 (tetap di HTML karena data kecil)
         // ============================================================
 
         const TARIF_COMP = {
@@ -1142,6 +1064,174 @@
             bus: { 'k7': [0, Infinity, 0.23, 0.29, 0.23, 0.29, 0.18, 0.22] },
             roda2: { 'k8': [0, Infinity, 1.76, 2.11, 1.80, 2.16, 0.67, 0.80] }
         };
+
+        // ============================================================
+        //  VARIABEL GLOBAL
+        // ============================================================
+
+        let dataKendaraan = {};
+        let hasilTerakhir = null;
+        let isDataLoaded = false;
+
+        // ============================================================
+        //  LOAD DATA KENDARAAN DARI JSON
+        // ============================================================
+
+        async function loadDataKendaraan() {
+            const loadingEl = document.getElementById('loadingData');
+            const statusEl = document.getElementById('dataStatus');
+            const formEl = document.getElementById('formContainer');
+
+            loadingEl.classList.add('show');
+            statusEl.className = 'data-status loading';
+            statusEl.textContent = '⏳ Memuat data kendaraan...';
+
+            try {
+                // Coba load dari cache dulu
+                const cached = localStorage.getItem('dataKendaraan');
+                const cacheTime = localStorage.getItem('dataKendaraanTime');
+                const now = Date.now();
+                const cacheAge = cacheTime ? now - parseInt(cacheTime) : Infinity;
+
+                // Cache berlaku 1 hari
+                if (cached && cacheAge < 24 * 60 * 60 * 1000) {
+                    dataKendaraan = JSON.parse(cached);
+                    isDataLoaded = true;
+                    loadingEl.classList.remove('show');
+                    statusEl.className = 'data-status success';
+                    statusEl.textContent = '✅ Data kendaraan dimuat dari cache (' + 
+                        Object.keys(dataKendaraan).length + ' kategori)';
+                    formEl.style.display = 'block';
+                    initForm();
+                    return;
+                }
+
+                // Load dari file JSON
+                const response = await fetch('data-kendaraan.json');
+                if (!response.ok) {
+                    throw new Error('HTTP ' + response.status + ' - ' + response.statusText);
+                }
+
+                dataKendaraan = await response.json();
+                isDataLoaded = true;
+
+                // Simpan ke cache
+                localStorage.setItem('dataKendaraan', JSON.stringify(dataKendaraan));
+                localStorage.setItem('dataKendaraanTime', String(now));
+
+                loadingEl.classList.remove('show');
+                statusEl.className = 'data-status success';
+                statusEl.textContent = '✅ Data kendaraan berhasil dimuat (' + 
+                    Object.keys(dataKendaraan).length + ' kategori)';
+                formEl.style.display = 'block';
+                initForm();
+
+            } catch (error) {
+                console.error('❌ Gagal load data kendaraan:', error);
+                
+                // Coba pakai cache meskipun expired
+                const cached = localStorage.getItem('dataKendaraan');
+                if (cached) {
+                    try {
+                        dataKendaraan = JSON.parse(cached);
+                        isDataLoaded = true;
+                        loadingEl.classList.remove('show');
+                        statusEl.className = 'data-status warning';
+                        statusEl.textContent = '⚠️ Menggunakan data cache (gagal load dari server)';
+                        formEl.style.display = 'block';
+                        initForm();
+                        return;
+                    } catch(e) {}
+                }
+
+                // Fallback ke data minimal
+                dataKendaraan = getMinimalData();
+                isDataLoaded = true;
+                loadingEl.classList.remove('show');
+                statusEl.className = 'data-status error';
+                statusEl.textContent = '⚠️ Gagal load data. Menggunakan data minimal.';
+                formEl.style.display = 'block';
+                initForm();
+            }
+        }
+
+        // ============================================================
+        //  DATA MINIMAL UNTUK FALLBACK
+        // ============================================================
+
+        function getMinimalData() {
+            return {
+                "nonbus": {
+                    "Toyota": ["Avanza", "Innova", "Fortuner", "Camry", "Yaris", "Rush", "Raize", "Veloz", "Alphard"],
+                    "Honda": ["Civic", "HR-V", "CR-V", "BR-V", "Brio", "Mobilio", "Jazz", "City", "Accord"],
+                    "Suzuki": ["Ertiga", "XL7", "Carry", "APV", "Grand Vitara", "Swift", "Baleno", "S-Presso", "Jimny"],
+                    "Daihatsu": ["Xenia", "Terios", "Sigra", "Ayla", "Gran Max", "Luxio", "Rocky"],
+                    "Mitsubishi": ["Pajero Sport", "Xpander", "Xforce", "Eclipse Cross", "Mirage"],
+                    "Nissan": ["X-Trail", "Kicks", "Serena", "Navara", "Livina"],
+                    "Hyundai": ["Creta", "Santa Fe", "Tucson", "Palisade", "Stargazer", "Ioniq"],
+                    "Kia": ["Seltos", "Sportage", "Carnival", "Stonic", "Picanto"],
+                    "Mazda": ["CX-3", "CX-5", "CX-8", "Mazda 2", "Mazda 3", "MX-5"]
+                },
+                "truk": {
+                    "Hino": ["Dutro", "Ranger", "Profia", "FK", "FM"],
+                    "Isuzu": ["Elf", "Giga", "N Series", "F Series", "Traviz"],
+                    "Mitsubishi Fuso": ["Canter", "Fighter", "Super Great"],
+                    "UD Trucks": ["Condor", "Quon", "Croner"],
+                    "Mercedes-Benz Trucks": ["Actros", "Atego", "Axor", "Econic"]
+                },
+                "bus": {
+                    "Hino": ["RK8", "RN8", "RM8", "RF8"],
+                    "Mercedes-Benz": ["OH 1526", "OH 1626", "OC 500", "O 500"],
+                    "Isuzu": ["Elf", "Giga", "NQR", "FTR"],
+                    "Scania": ["K Series", "Irizar", "Tourismo"],
+                    "MAN": ["Lion's Coach", "Lion's City", "TGE"]
+                },
+                "roda2": {
+                    "Honda": ["Beat", "Vario", "PCX", "CBR", "Supra X", "Revo", "Scoopy", "Genio"],
+                    "Yamaha": ["Mio", "NMAX", "R15", "XMAX", "Vixion", "Lexi", "Aerox"],
+                    "Suzuki": ["Satria", "GSX", "Address", "Smash", "Nex", "Shogun"],
+                    "Kawasaki": ["Ninja", "Z", "Vulcan", "Versys", "ZX"],
+                    "Piaggio": ["Vespa", "Scooter", "Liberty", "Medley"],
+                    "Vespa": ["Primavera", "GTS", "Sprint", "946"]
+                }
+            };
+        }
+
+        // ============================================================
+        //  INISIALISASI FORM
+        // ============================================================
+
+        function initForm() {
+            // Set default values
+            document.getElementById('nama').value = 'Ali Suwito';
+            document.getElementById('noHp').value = '0812 6558 1588';
+            document.getElementById('jenis').value = 'nonbus';
+            document.getElementById('tahun').value = '2022';
+            document.getElementById('harga').value = '240000000';
+            
+            // Update merek berdasarkan jenis
+            updateMerk();
+            
+            // Set default merek dan tipe
+            setTimeout(() => {
+                const merkSelect = document.getElementById('merk');
+                if (merkSelect.options.length > 0) {
+                    // Cari Toyota
+                    for (let i = 0; i < merkSelect.options.length; i++) {
+                        if (merkSelect.options[i].value === 'Toyota') {
+                            merkSelect.value = 'Toyota';
+                            break;
+                        }
+                    }
+                    updateTipe();
+                    const tipeSelect = document.getElementById('tipe');
+                    if (tipeSelect.options.length > 0) {
+                        tipeSelect.value = tipeSelect.options[0].value;
+                    }
+                }
+                hitungPremi();
+            }, 200);
+        }
 
         // ============================================================
         //  FUNGSI BANTU
@@ -1202,6 +1292,8 @@
         // ============================================================
 
         function updateMerk() {
+            if (!isDataLoaded) return;
+
             const jenis = document.getElementById('jenis').value;
             const merkSelect = document.getElementById('merk');
             const merkManual = document.getElementById('merkManual');
@@ -1242,6 +1334,8 @@
         }
 
         function updateTipe() {
+            if (!isDataLoaded) return;
+
             const jenis = document.getElementById('jenis').value;
             const merkSelect = document.getElementById('merk');
             const merkManual = document.getElementById('merkManual');
@@ -1297,7 +1391,7 @@
             }
         }
 
-        // Handle manual input for tipe
+        // Handle manual input untuk tipe
         document.getElementById('tipe').addEventListener('change', function() {
             const tipeManual = document.getElementById('tipeManual');
             if (this.value === 'lainnya') {
@@ -1311,7 +1405,7 @@
             }
         });
 
-        // Handle manual input for merk
+        // Handle manual input untuk merk
         document.getElementById('merk').addEventListener('change', function() {
             const merkManual = document.getElementById('merkManual');
             if (this.value === 'lainnya') {
@@ -1348,16 +1442,15 @@
         }
 
         // ============================================================
-        //  VARIABEL GLOBAL
-        // ============================================================
-
-        let hasilTerakhir = null;
-
-        // ============================================================
         //  HITUNG PREMI
         // ============================================================
 
         function hitungPremi() {
+            if (!isDataLoaded) {
+                alert('⚠️ Data kendaraan belum dimuat. Tunggu sebentar...');
+                return;
+            }
+
             // Ambil data
             const nama = document.getElementById('nama').value.trim();
             const noHp = document.getElementById('noHp').value.trim();
@@ -1482,7 +1575,7 @@
         }
 
         // ============================================================
-        //  CETAK PROPOSAL - BIKIN PROPOSAL
+        //  CETAK PROPOSAL
         // ============================================================
 
         function cetakProposal() {
@@ -1613,33 +1706,13 @@
         });
 
         // ============================================================
-        //  AUTO HITUNG SAAT LOAD
+        //  INIT - LOAD DATA KENDARAAN
         // ============================================================
 
-        window.onload = function() {
-            // Set default values
-            document.getElementById('nama').value = 'Ali Suwito';
-            document.getElementById('noHp').value = '0812 6558 1588';
-            document.getElementById('jenis').value = 'nonbus';
-            
-            // Update merek berdasarkan jenis
-            updateMerk();
-            
-            // Set default merek dan tipe
-            setTimeout(() => {
-                document.getElementById('merk').value = 'Toyota';
-                updateTipe();
-                document.getElementById('tipe').value = 'Avanza';
-            }, 100);
-            
-            document.getElementById('tahun').value = '2022';
-            document.getElementById('harga').value = '240000000';
-
-            // Hitung premi setelah semua data terisi
-            setTimeout(() => {
-                hitungPremi();
-            }, 300);
-        };
+        // Load data kendaraan saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDataKendaraan();
+        });
         
         // ============================================================
         //  EVENT LISTENER UNTUK MENUTUP PETUNJUK SAAT PRINT DIALOG TUTUP
