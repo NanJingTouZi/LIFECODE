@@ -122,6 +122,34 @@
         .user-status-bar .logout-btn:hover {
             background: rgba(192, 57, 43, 0.1);
         }
+        .user-status-bar .history-btn {
+            background: transparent;
+            border: 1px solid #1a3a5c;
+            color: #1a3a5c;
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .user-status-bar .history-btn:hover {
+            background: rgba(26, 58, 92, 0.1);
+        }
+        .user-status-bar .token-btn {
+            background: transparent;
+            border: 1px solid #b45309;
+            color: #b45309;
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .user-status-bar .token-btn:hover {
+            background: rgba(180, 83, 9, 0.1);
+        }
 
         /* ===== TAB NAVIGATION ===== */
         .tab-nav {
@@ -136,11 +164,11 @@
 
         .tab-btn {
             flex: 1;
-            min-width: 100px;
-            padding: 12px 16px;
+            min-width: 80px;
+            padding: 10px 14px;
             border: none;
             border-radius: 10px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
@@ -164,7 +192,7 @@
         }
 
         .tab-btn .icon {
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .tab-content {
@@ -351,6 +379,12 @@
             transform: translateY(-1px);
         }
 
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 12px;
+            border-radius: 8px;
+        }
+
         .btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
@@ -432,6 +466,20 @@
             color: #1a3a5c;
             margin-bottom: 8px;
             font-size: 20px;
+        }
+
+        .result-box .view-indicator {
+            font-size: 13px;
+            color: #b45309;
+            background: #fef3e8;
+            padding: 8px 14px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            display: none;
+            border: 1px solid #f0cfa0;
+        }
+        .result-box .view-indicator.show {
+            display: block;
         }
 
         .premi-value {
@@ -590,6 +638,88 @@
             color: #c0392b;
             border-top: 3px solid #c0392b;
             padding-top: 14px;
+        }
+
+        /* ===== HISTORY TABLE ===== */
+        .history-container {
+            margin-top: 10px;
+        }
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .history-table th {
+            text-align: left;
+            padding: 8px 10px;
+            color: #2c3e6b;
+            border-bottom: 2px solid #dce3ec;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            background: #f0f4f8;
+        }
+        .history-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #edf2f7;
+            color: #1a3a5c;
+        }
+        .history-table tr:hover td {
+            background: #f8fafc;
+        }
+        .history-empty {
+            text-align: center;
+            padding: 30px 0;
+            color: #5e7a93;
+            font-size: 14px;
+        }
+        .history-actions {
+            display: flex;
+            gap: 10px;
+            margin: 12px 0;
+            flex-wrap: wrap;
+        }
+        .history-actions .btn {
+            padding: 8px 16px;
+            font-size: 12px;
+        }
+        .history-actions .btn-danger {
+            background: #c0392b;
+            color: white;
+            border: none;
+        }
+        .history-actions .btn-danger:hover {
+            background: #a93226;
+        }
+
+        .view-btn {
+            background: transparent;
+            border: 1px solid #1a3a5c;
+            color: #1a3a5c;
+            border-radius: 6px;
+            padding: 3px 12px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .view-btn:hover {
+            background: rgba(26, 58, 92, 0.1);
+        }
+        .delete-btn {
+            background: transparent;
+            border: 1px solid #c0392b;
+            color: #c0392b;
+            border-radius: 6px;
+            padding: 3px 12px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .delete-btn:hover {
+            background: rgba(192, 57, 43, 0.1);
         }
 
         /* ===== PROPOSAL ===== */
@@ -890,6 +1020,111 @@
             background: #f0f4f8 !important;
         }
 
+        /* ===== QUOTA MODAL ===== */
+        .quota-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(6px);
+        }
+        .quota-modal-overlay.show {
+            display: flex;
+        }
+        .quota-modal-overlay .quota-box {
+            background: white;
+            border-radius: 20px;
+            padding: 36px 40px 32px;
+            max-width: 420px;
+            width: 90%;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+            text-align: center;
+        }
+        .quota-modal-overlay .quota-icon {
+            font-size: 52px;
+            margin-bottom: 6px;
+        }
+        .quota-modal-overlay .quota-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #c0392b;
+            margin: 0 0 4px;
+        }
+        .quota-modal-overlay .quota-message {
+            color: #5e7a93;
+            font-size: 14px;
+            margin: 0 0 16px;
+            line-height: 1.6;
+        }
+        .quota-modal-overlay .quota-data {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin: 12px 0 16px;
+            text-align: left;
+            font-size: 14px;
+        }
+        .quota-modal-overlay .quota-data .qd-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px solid #edf2f7;
+        }
+        .quota-modal-overlay .quota-data .qd-item:last-child {
+            border-bottom: none;
+        }
+        .quota-modal-overlay .quota-data .qd-label {
+            color: #5e7a93;
+        }
+        .quota-modal-overlay .quota-data .qd-value {
+            color: #1a3a5c;
+            font-weight: 600;
+        }
+        .quota-modal-overlay .quota-data .qd-value.danger {
+            color: #c0392b;
+        }
+        .quota-modal-overlay .quota-btn {
+            background: #25D366;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 14px 24px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Segoe UI', sans-serif;
+            transition: 0.2s;
+            display: inline-block;
+            text-decoration: none;
+            width: 100%;
+        }
+        .quota-modal-overlay .quota-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
+        }
+        .quota-modal-overlay .quota-btn-secondary {
+            background: transparent;
+            color: #5e7a93;
+            border: 1px solid #dce3ec;
+            border-radius: 10px;
+            padding: 10px 24px;
+            font-size: 14px;
+            cursor: pointer;
+            font-family: 'Segoe UI', sans-serif;
+            transition: 0.2s;
+            margin-top: 10px;
+            width: 100%;
+        }
+        .quota-modal-overlay .quota-btn-secondary:hover {
+            background: #f0f4f8;
+        }
+
         /* ============================================================ */
         /*                    PRINT STYLING                             */
         /* ============================================================ */
@@ -1013,7 +1248,7 @@
             }
 
             .tab-btn {
-                min-width: 60px;
+                min-width: 50px;
                 padding: 8px 10px;
                 font-size: 11px;
                 flex: 1;
@@ -1074,13 +1309,21 @@
             .proposal-actions {
                 flex-direction: column;
             }
+
+            .history-table {
+                font-size: 12px;
+            }
+            .history-table th,
+            .history-table td {
+                padding: 6px 8px;
+            }
         }
 
         @media (max-width: 600px) {
             .tab-btn {
                 font-size: 10px;
                 padding: 6px 8px;
-                min-width: 50px;
+                min-width: 40px;
             }
 
             .tab-btn .icon {
@@ -1157,7 +1400,7 @@
             .tab-btn {
                 font-size: 9px;
                 padding: 5px 6px;
-                min-width: 40px;
+                min-width: 35px;
                 gap: 3px;
             }
 
@@ -1229,6 +1472,14 @@
             .result-box {
                 padding: 16px;
             }
+
+            .history-table {
+                font-size: 11px;
+            }
+            .history-table th,
+            .history-table td {
+                padding: 4px 6px;
+            }
         }
     </style>
 </head>
@@ -1247,23 +1498,28 @@
             <span class="status-item" id="masaItem" style="display:none;">⏰ Masa Aktif: <span class="val" id="displayMasaAktif">0</span> hari</span>
             <span class="status-item" id="expiredItem" style="display:none;">📅 Expired: <span class="val" id="displayExpired">—</span></span>
             <div style="flex:1;"></div>
+            <button class="history-btn" id="historyBtn" style="display:none;">📊 Riwayat</button>
+            <button class="token-btn" id="tokenBtn" style="display:none;">🔑 Token</button>
             <button class="login-btn" id="loginBtn">🔐 Login</button>
             <button class="logout-btn" id="logoutBtn" style="display:none;">🚪 Logout</button>
         </div>
 
         <!-- ===== TAB NAVIGATION ===== -->
-        <div class="tab-nav no-print">
-            <button class="tab-btn active" onclick="switchTab('mobil')">
+        <div class="tab-nav no-print" id="tabNav">
+            <button class="tab-btn active" data-tab="mobil" onclick="switchTab('mobil')">
                 <span class="icon">🚗</span> Mobil
             </button>
-            <button class="tab-btn" onclick="switchTab('properti')">
+            <button class="tab-btn" data-tab="properti" onclick="switchTab('properti')">
                 <span class="icon">🏠</span> Properti
             </button>
-            <button class="tab-btn" onclick="switchTab('jiwa')">
+            <button class="tab-btn" data-tab="jiwa" onclick="switchTab('jiwa')">
                 <span class="icon">📋</span> Jiwa
             </button>
-            <button class="tab-btn" onclick="switchTab('wealth')">
+            <button class="tab-btn" data-tab="wealth" onclick="switchTab('wealth')">
                 <span class="icon">💰</span> Wealth
+            </button>
+            <button class="tab-btn" data-tab="history" onclick="switchTab('history')">
+                <span class="icon">📊</span> Riwayat
             </button>
         </div>
 
@@ -1368,6 +1624,7 @@
             </div>
 
             <div class="result-box no-print" id="resultMobil">
+                <div class="view-indicator" id="viewIndicatorMobil">🔄 Melihat ulang dari riwayat (tidak mengurangi kuota)</div>
                 <h3>💰 Hasil Perhitungan Premi Mobil</h3>
                 <div class="premi-value" id="premiValueMobil">Rp 0</div>
                 <div class="premi-detail">
@@ -1489,6 +1746,7 @@
             </div>
 
             <div class="result-box no-print" id="resultProperti">
+                <div class="view-indicator" id="viewIndicatorProperti">🔄 Melihat ulang dari riwayat (tidak mengurangi kuota)</div>
                 <h3>💰 Hasil Perhitungan Premi Properti</h3>
                 <div class="premi-value" id="premiValueProperti">Rp 0</div>
                 <div class="premi-detail">
@@ -1624,6 +1882,7 @@
             </div>
 
             <div class="result-box no-print" id="resultJiwa">
+                <div class="view-indicator" id="viewIndicatorJiwa">🔄 Melihat ulang dari riwayat (tidak mengurangi kuota)</div>
                 <h3>📊 Hasil Perhitungan Kebutuhan Asuransi Jiwa</h3>
                 <div class="summary-grid">
                     <div class="summary-card"><div class="label">Usia</div><div class="value blue" id="sUsiaJiwa">-</div></div>
@@ -1734,6 +1993,7 @@
             </div>
 
             <div class="result-box no-print" id="resultWealth">
+                <div class="view-indicator" id="viewIndicatorWealth">🔄 Melihat ulang dari riwayat (tidak mengurangi kuota)</div>
                 <h3>📊 Hasil Perhitungan Dana Pensiun</h3>
                 <div class="summary-grid">
                     <div class="summary-card"><div class="label">Usia Saat Ini</div><div class="value blue" id="sUsiaSaatIniWealth">-</div></div>
@@ -1762,6 +2022,27 @@
                 <p style="margin-top:12px; font-size:12px; color:#5e7a93;">
                     💡 Perhitungan menggunakan aturan 4% withdrawal rate (Trinity Study).
                 </p>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- ===== TAB 5: RIWAYAT ===== -->
+        <!-- ============================================================ -->
+        <div id="tabHistory" class="tab-content">
+            <div class="history-container">
+                <div class="result-box" style="display:block; border: none; background: transparent; padding: 0;">
+                    <h3>📊 Riwayat Perhitungan <span id="historyTypeLabel">Semua</span></h3>
+                    <p style="color: #5e7a93; font-size: 13px; margin-bottom: 16px;" id="historySubText">
+                        Riwayat perhitungan Anda berdasarkan jenis asuransi yang dipilih.
+                    </p>
+                    <div class="history-actions no-print">
+                        <button class="btn btn-sm btn-danger" id="deleteAllHistoryBtn">🗑️ Hapus Semua</button>
+                        <button class="btn btn-sm btn-primary" id="refreshHistoryBtn">🔄 Refresh</button>
+                    </div>
+                    <div id="historyContent">
+                        <div class="history-empty">Belum ada riwayat perhitungan.</div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -1877,6 +2158,24 @@
             <h3 class="alert-title" id="alertTitle">Sukses</h3>
             <p class="alert-message" id="alertMessage">Pesan Anda</p>
             <button class="alert-btn" id="alertBtn">OK</button>
+        </div>
+    </div>
+
+    <!-- ===== QUOTA MODAL ===== -->
+    <div class="quota-modal-overlay" id="quotaModal">
+        <div class="quota-box">
+            <div class="quota-icon">⚠️</div>
+            <h3 class="quota-title">Kuota Anda Telah Habis</h3>
+            <p class="quota-message">Anda tidak bisa melakukan perhitungan baru karena kuota telah habis.</p>
+            <div class="quota-data" id="quotaData">
+                <div class="qd-item"><span class="qd-label">📊 Sisa Kuota</span><span class="qd-value danger" id="qSisaKuota">0 / 0</span></div>
+                <div class="qd-item"><span class="qd-label">⏰ Masa Aktif</span><span class="qd-value" id="qMasaAktif">—</span></div>
+                <div class="qd-item"><span class="qd-label">📅 Expired</span><span class="qd-value" id="qExpired">—</span></div>
+                <div class="qd-item"><span class="qd-label">👤 User</span><span class="qd-value" id="qUserName">—</span></div>
+                <div class="qd-item"><span class="qd-label">📧 Email</span><span class="qd-value" id="qUserEmail">—</span></div>
+            </div>
+            <a href="#" id="quotaWaLink" class="quota-btn" target="_blank">📱 Hubungi Admin via WhatsApp</a>
+            <button class="quota-btn-secondary" id="closeQuotaModalBtn">Tutup</button>
         </div>
     </div>
 
@@ -2004,6 +2303,8 @@
             const expiredItem = document.getElementById('expiredItem');
             const loginBtn = document.getElementById('loginBtn');
             const logoutBtn = document.getElementById('logoutBtn');
+            const historyBtn = document.getElementById('historyBtn');
+            const tokenBtn = document.getElementById('tokenBtn');
 
             if (!session) {
                 bar.classList.add('show');
@@ -2013,6 +2314,8 @@
                 expiredItem.style.display = 'none';
                 loginBtn.style.display = 'inline-block';
                 logoutBtn.style.display = 'none';
+                historyBtn.style.display = 'none';
+                tokenBtn.style.display = 'none';
                 return;
             }
 
@@ -2031,6 +2334,8 @@
                 expiredItem.style.display = 'flex';
                 loginBtn.style.display = 'none';
                 logoutBtn.style.display = 'inline-block';
+                historyBtn.style.display = 'inline-block';
+                tokenBtn.style.display = 'inline-block';
 
                 const licenseDoc = await db.collection('licenses').doc(session.email).get();
                 const license = licenseDoc.exists ? licenseDoc.data() : null;
@@ -2042,7 +2347,7 @@
                     const daysLeft = Math.ceil((expiry - now) / (1000 * 60 * 60 * 24));
 
                     kuotaEl.textContent = remaining + '/' + license.quota;
-                    kuotaEl.className = 'val success';
+                    kuotaEl.className = 'val ' + (remaining > 0 ? 'success' : 'danger');
                     masaEl.textContent = daysLeft > 0 ? daysLeft : 0;
                     expiredEl.textContent = license.expiry_date || '—';
                 } else {
@@ -2054,6 +2359,90 @@
             } catch (e) {
                 console.error('Update status error:', e);
             }
+        }
+
+        // ============================================================
+        // GET LICENSE STATUS (SAMA SEPERTI LIFECODE)
+        // ============================================================
+        async function getLicenseStatus(email) {
+            try {
+                const licenseDoc = await db.collection('licenses').doc(email).get();
+                const license = licenseDoc.exists ? licenseDoc.data() : null;
+                if (!license) return { active: false, reason: 'no_license' };
+                if (!license.is_active) return { active: false, reason: 'inactive' };
+                if (license.used_count >= license.quota) {
+                    return { active: false, reason: 'quota_exhausted', used: license.used_count, quota: license.quota };
+                }
+                if (new Date(license.expiry_date) < new Date()) {
+                    return { active: false, reason: 'expired', expiry: license.expiry_date };
+                }
+                const remaining = license.quota - license.used_count;
+                const daysLeft = Math.ceil((new Date(license.expiry_date) - new Date()) / (1000 * 60 * 60 * 24));
+                return {
+                    active: true,
+                    remaining: remaining,
+                    daysLeft: daysLeft,
+                    expiry: license.expiry_date,
+                    used: license.used_count,
+                    quota: license.quota
+                };
+            } catch (e) {
+                console.error('getLicenseStatus error:', e);
+                return { active: false, reason: 'error' };
+            }
+        }
+
+        // ============================================================
+        // UPDATE LICENSE USAGE (KURANGI KUOTA)
+        // ============================================================
+        async function updateLicenseUsage(email) {
+            try {
+                const licenseDoc = await db.collection('licenses').doc(email).get();
+                const license = licenseDoc.exists ? licenseDoc.data() : null;
+                if (!license) return false;
+                if (!license.is_active) return false;
+                if (license.used_count >= license.quota) return false;
+                if (new Date(license.expiry_date) < new Date()) return false;
+
+                await db.collection('licenses').doc(email).update({
+                    used_count: license.used_count + 1
+                });
+                return true;
+            } catch (e) {
+                console.error('updateLicenseUsage error:', e);
+                return false;
+            }
+        }
+
+        // ============================================================
+        // SHOW QUOTA MODAL (SAMA SEPERTI LIFECODE)
+        // ============================================================
+        async function showQuotaModal() {
+            const session = getSession();
+            if (!session) return;
+
+            const userDoc = await db.collection('users').doc(session.email).get();
+            const user = userDoc.exists ? userDoc.data() : null;
+            const status = await getLicenseStatus(session.email);
+            const licenseDoc = await db.collection('licenses').doc(session.email).get();
+            const license = licenseDoc.exists ? licenseDoc.data() : null;
+
+            document.getElementById('qUserName').textContent = user ? user.name : '—';
+            document.getElementById('qUserEmail').textContent = session.email;
+            document.getElementById('qSisaKuota').textContent = (status.remaining || 0) + '/' + (status.quota || 0);
+            document.getElementById('qMasaAktif').textContent = status.daysLeft > 0 ? status.daysLeft + ' hari' : 'Habis';
+            document.getElementById('qExpired').textContent = license ? license.expiry_date : '—';
+
+            const phone = CONFIG.ADMIN_PHONE;
+            const text = 'Halo Admin, saya mau minta token perpanjang lisensi Angka Kehidupan - Asuransi.%0A%0A' +
+                '📧 Email: ' + session.email + '%0A' +
+                '👤 Nama: ' + (user ? user.name : '—') + '%0A' +
+                '📊 Sisa Kuota: ' + (status.remaining || 0) + '/' + (status.quota || 0) + '%0A' +
+                '⏰ Masa Aktif: ' + (status.daysLeft > 0 ? status.daysLeft + ' hari lagi' : 'Habis') + '%0A' +
+                '📅 Expired: ' + (license ? license.expiry_date : '—');
+
+            document.getElementById('quotaWaLink').href = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(text);
+            document.getElementById('quotaModal').classList.add('show');
         }
 
         // ============================================================
@@ -2104,9 +2493,72 @@
         });
 
         // ============================================================
+        // TOKEN BUTTON
+        // ============================================================
+        document.getElementById('tokenBtn').addEventListener('click', function() {
+            const session = getSession();
+            if (!session) {
+                showAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu.');
+                return;
+            }
+            const token = prompt('Masukkan token perpanjang Anda:');
+            if (!token) return;
+
+            redeemToken(session.email, token);
+        });
+
+        async function redeemToken(email, token) {
+            try {
+                const docRef = await db.collection('codes').doc(token).get();
+                if (!docRef.exists) {
+                    showAlert('error', 'Gagal', 'Token tidak ditemukan.');
+                    return;
+                }
+                const codeData = docRef.data();
+                if (codeData.used) {
+                    showAlert('warning', 'Token Sudah Digunakan', 'Token ini sudah digunakan.');
+                    return;
+                }
+
+                await db.collection('codes').doc(token).update({
+                    used: true,
+                    used_by: email,
+                    used_at: new Date().toISOString()
+                });
+
+                const licenseDoc = await db.collection('licenses').doc(email).get();
+                const license = licenseDoc.exists ? licenseDoc.data() : null;
+                if (!license) {
+                    showAlert('error', 'Gagal', 'Lisensi tidak ditemukan.');
+                    return;
+                }
+
+                let updates = {};
+                if (codeData.type === 'quota' || codeData.type === 'both') {
+                    updates.quota = (license.quota || 0) + (codeData.amount || 10);
+                }
+                if (codeData.type === 'time' || codeData.type === 'both') {
+                    const currentExpiry = new Date(license.expiry_date);
+                    currentExpiry.setDate(currentExpiry.getDate() + (codeData.duration || 30));
+                    updates.expiry_date = currentExpiry.toISOString().slice(0, 10);
+                    updates.is_active = true;
+                }
+                if (Object.keys(updates).length > 0) {
+                    await db.collection('licenses').doc(email).update(updates);
+                }
+
+                updateStatusBar();
+                showAlert('success', 'Berhasil', 'Lisensi berhasil diperpanjang!');
+            } catch (e) {
+                console.error('redeemToken error:', e);
+                showAlert('error', 'Gagal', 'Terjadi kesalahan: ' + e.message);
+            }
+        }
+
+        // ============================================================
         // SAVE TO FIRESTORE
         // ============================================================
-        async function saveCalculation(type, result, input, detail) {
+        async function saveCalculation(type, result, input, detail, remainingQuota) {
             const session = getSession();
             if (!session) {
                 showAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu untuk menyimpan data.');
@@ -2120,17 +2572,66 @@
                 await db.collection('ass_calculations').add({
                     email: session.email,
                     userName: user ? user.name : session.email,
-                    type: type, // 'mobil', 'properti', 'jiwa', 'wealth'
+                    type: type,
                     result: result,
                     input: input,
                     detail: detail || {},
-                    created_at: new Date().toISOString()
+                    created_at: new Date().toISOString(),
+                    quota_used: true,
+                    remaining_quota: remainingQuota !== undefined ? remainingQuota : null
                 });
                 console.log('✅ Data perhitungan ' + type + ' tersimpan!');
                 return true;
             } catch (e) {
                 console.error('❌ Gagal simpan ke Firestore:', e);
-                showAlert('error', 'Gagal Simpan', 'Data tidak tersimpan. Error: ' + e.message);
+                return false;
+            }
+        }
+
+        // ============================================================
+        // GET HISTORY PER JENIS
+        // ============================================================
+        async function getUserHistory(email, type) {
+            try {
+                let queryRef = db.collection('ass_calculations').where('email', '==', email);
+                if (type) {
+                    queryRef = queryRef.where('type', '==', type);
+                }
+                const snapshot = await queryRef.orderBy('created_at', 'desc').get();
+                const history = [];
+                snapshot.forEach((doc) => {
+                    history.push({ id: doc.id, ...doc.data() });
+                });
+                return history;
+            } catch (e) {
+                console.error('getUserHistory error:', e);
+                return [];
+            }
+        }
+
+        async function deleteHistoryItem(id) {
+            try {
+                await db.collection('ass_calculations').doc(id).delete();
+                return true;
+            } catch (e) {
+                console.error('deleteHistoryItem error:', e);
+                return false;
+            }
+        }
+
+        async function deleteAllUserHistory(email) {
+            try {
+                const snapshot = await db.collection('ass_calculations')
+                    .where('email', '==', email)
+                    .get();
+                const batch = db.batch();
+                snapshot.forEach((doc) => {
+                    batch.delete(doc.ref);
+                });
+                await batch.commit();
+                return true;
+            } catch (e) {
+                console.error('deleteAllUserHistory error:', e);
                 return false;
             }
         }
@@ -2185,6 +2686,8 @@
         let hasilPensiun = null;
         let hasilJiwa = null;
         let isDataLoaded = false;
+        let isViewingHistory = false;
+        let currentType = 'mobil';
 
         // ============================================================
         // LOAD DATA KENDARAAN
@@ -2454,11 +2957,60 @@
         }
 
         // ============================================================
-        // HITUNG PREMI MOBIL + SIMPAN KE FIRESTORE
+        // FUNGSI BANTU FORMAT
         // ============================================================
 
-        function hitungPremiMobil() {
-            if (!isDataLoaded) { alert('⚠️ Data kendaraan belum dimuat.'); return; }
+        function formatRupiah(angka) {
+            if (!angka || isNaN(angka)) return 'Rp 0';
+            if (angka >= 1000000000000) return 'Rp ' + (angka / 1000000000000).toFixed(2) + ' Triliun';
+            if (angka >= 1000000000) return 'Rp ' + (angka / 1000000000).toFixed(2) + ' Miliar';
+            if (angka >= 1000000) return 'Rp ' + (angka / 1000000).toFixed(0) + ' Juta';
+            return 'Rp ' + Math.round(angka).toLocaleString('id-ID');
+        }
+
+        function formatRupiahFull(angka) {
+            if (!angka || isNaN(angka)) return 'Rp 0';
+            return 'Rp ' + Math.round(angka).toLocaleString('id-ID');
+        }
+
+        function formatTanggal(tanggal) {
+            if (!tanggal) return '-';
+            const t = new Date(tanggal);
+            return t.getDate() + ' ' + ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus',
+                'September', 'Oktober', 'November', 'Desember'
+            ][t.getMonth()] + ' ' + t.getFullYear();
+        }
+
+        function hitungUsia(tanggalLahir) {
+            if (!tanggalLahir) return 0;
+            const today = new Date();
+            const birth = new Date(tanggalLahir);
+            let usia = today.getFullYear() - birth.getFullYear();
+            const m = today.getMonth() - birth.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) usia--;
+            return usia;
+        }
+
+        // ============================================================
+        // HITUNG PREMI MOBIL (DENGAN CEK KUOTA)
+        // ============================================================
+
+        async function hitungPremiMobil() {
+            // Cek session & kuota
+            const session = getSession();
+            if (!session) {
+                showAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu.');
+                return;
+            }
+
+            // Cek kuota
+            const status = await getLicenseStatus(session.email);
+            if (!status.active) {
+                showQuotaModal();
+                return;
+            }
+
+            if (!isDataLoaded) { showAlert('warning', 'Info', 'Data kendaraan belum dimuat.'); return; }
 
             const nama = document.getElementById('namaMobil').value.trim();
             const noHp = document.getElementById('noHpMobil').value.trim();
@@ -2470,11 +3022,18 @@
             const wilayah = parseInt(document.getElementById('wilayahMobil').value);
             const jenisPertanggungan = document.getElementById('jenisPertanggunganMobil').value;
 
-            if (!nama) { alert('⚠️ Isi Nama Lengkap!'); return; }
-            if (!noHp) { alert('⚠️ Isi No. HP!'); return; }
-            if (!merk) { alert('⚠️ Pilih Merek!'); return; }
-            if (!tipe) { alert('⚠️ Pilih Tipe!'); return; }
-            if (harga <= 0) { alert('⚠️ Isi Harga valid!'); return; }
+            if (!nama) { showAlert('warning', 'Info', 'Isi Nama Lengkap!'); return; }
+            if (!noHp) { showAlert('warning', 'Info', 'Isi No. HP!'); return; }
+            if (!merk) { showAlert('warning', 'Info', 'Pilih Merek!'); return; }
+            if (!tipe) { showAlert('warning', 'Info', 'Pilih Tipe!'); return; }
+            if (harga <= 0) { showAlert('warning', 'Info', 'Isi Harga valid!'); return; }
+
+            // Kurangi kuota
+            const updated = await updateLicenseUsage(session.email);
+            if (!updated) {
+                showAlert('error', 'Gagal', 'Gagal mengurangi kuota. Coba lagi.');
+                return;
+            }
 
             const dataMapComp = { nonbus: TARIF_COMP.nonbus, truk: TARIF_COMP.truk, bus: TARIF_COMP.bus, roda2: TARIF_COMP.roda2 };
             const dataMapTlo = { nonbus: TARIF_TLO.nonbus, truk: TARIF_TLO.truk, bus: TARIF_TLO.bus, roda2: TARIF_TLO.roda2 };
@@ -2487,7 +3046,7 @@
                 data = dataMapTlo[jenis];
                 tipeAsuransi = 'Total Loss Only (TLO)';
             }
-            if (!data) { alert('Data tarif tidak ditemukan'); return; }
+            if (!data) { showAlert('error', 'Error', 'Data tarif tidak ditemukan'); return; }
 
             const { rate, kategori } = getRate(harga, wilayah, data);
             const faktorUsia = getFaktorUsia(tahun);
@@ -2498,7 +3057,8 @@
                 premi = jenisPertanggungan === 'comprehensive' ? 100000 : 50000;
             }
 
-            let extPremi = 0, extList = [];
+            let extPremi = 0,
+                extList = [];
             if (document.getElementById('extBanjirMobil').checked) {
                 extPremi += hitungBanjirGempa(harga, 'banjir');
                 extList.push('Banjir');
@@ -2523,13 +3083,29 @@
 
             const jenisText = getJenisText('jenisMobil');
             const wilayahText = getWilayahText('wilayahMobil');
-            const jenisPertanggunganText = document.getElementById('jenisPertanggunganMobil').options[document.getElementById('jenisPertanggunganMobil').selectedIndex].text;
+            const jenisPertanggunganText = document.getElementById('jenisPertanggunganMobil').options[document.getElementById(
+                'jenisPertanggunganMobil').selectedIndex].text;
+
+            const remainingQuota = (await getLicenseStatus(session.email)).remaining;
 
             hasilTerakhirMobil = {
-                nama, noHp, merk, tipe, tahun, harga, jenis, wilayah,
+                nama,
+                noHp,
+                merk,
+                tipe,
+                tahun,
+                harga,
+                jenis,
+                wilayah,
                 jenisPertanggungan: tipeAsuransi,
-                rate, kategori, premi, extPremi, extList,
-                totalPremi, biayaPolis, totalBayar,
+                rate,
+                kategori,
+                premi,
+                extPremi,
+                extList,
+                totalPremi,
+                biayaPolis,
+                totalBayar,
                 jenisText: jenisText,
                 wilayahText: wilayahText,
                 jenisPertanggunganText: jenisPertanggunganText
@@ -2537,6 +3113,9 @@
 
             // Tampilkan hasil
             const resultBox = document.getElementById('resultMobil');
+            const viewIndicator = document.getElementById('viewIndicatorMobil');
+            viewIndicator.classList.remove('show');
+            isViewingHistory = false;
             resultBox.classList.add('show');
             document.getElementById('premiValueMobil').textContent = formatRupiah(totalPremi);
             document.getElementById('rJenisMobil').textContent = hasilTerakhirMobil.jenisText;
@@ -2579,41 +3158,71 @@
                 kategori: kategori,
                 faktorUsia: faktorUsia.toFixed(2)
             };
-            saveCalculation('mobil', result, input, detail);
+            await saveCalculation('mobil', result, input, detail, remainingQuota);
+            updateStatusBar();
         }
 
         // ============================================================
-        // FUNGSI BANTU FORMAT
+        // VIEW HISTORY MOBIL (TANPA KURANGI KUOTA)
         // ============================================================
 
-        function formatRupiah(angka) {
-            if (!angka || isNaN(angka)) return 'Rp 0';
-            if (angka >= 1000000000000) return 'Rp ' + (angka / 1000000000000).toFixed(2) + ' Triliun';
-            if (angka >= 1000000000) return 'Rp ' + (angka / 1000000000).toFixed(2) + ' Miliar';
-            if (angka >= 1000000) return 'Rp ' + (angka / 1000000).toFixed(0) + ' Juta';
-            return 'Rp ' + Math.round(angka).toLocaleString('id-ID');
-        }
+        function viewHistoryMobil(item) {
+            const data = item;
+            const result = data.result || {};
+            const input = data.input || {};
+            const detail = data.detail || {};
 
-        function formatRupiahFull(angka) {
-            if (!angka || isNaN(angka)) return 'Rp 0';
-            return 'Rp ' + Math.round(angka).toLocaleString('id-ID');
-        }
+            // Isi form (agar user bisa lihat data)
+            document.getElementById('namaMobil').value = input.nama || '';
+            document.getElementById('noHpMobil').value = input.noHp || '';
 
-        function formatTanggal(tanggal) {
-            if (!tanggal) return '-';
-            const t = new Date(tanggal);
-            return t.getDate() + ' ' + ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus',
-                'September', 'Oktober', 'November', 'Desember'][t.getMonth()] + ' ' + t.getFullYear();
-        }
+            // Tampilkan hasil
+            const resultBox = document.getElementById('resultMobil');
+            const viewIndicator = document.getElementById('viewIndicatorMobil');
+            viewIndicator.classList.add('show');
+            isViewingHistory = true;
+            resultBox.classList.add('show');
 
-        function hitungUsia(tanggalLahir) {
-            if (!tanggalLahir) return 0;
-            const today = new Date();
-            const birth = new Date(tanggalLahir);
-            let usia = today.getFullYear() - birth.getFullYear();
-            const m = today.getMonth() - birth.getMonth();
-            if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) usia--;
-            return usia;
+            document.getElementById('premiValueMobil').textContent = result.formatted || formatRupiah(result.total);
+            document.getElementById('rJenisMobil').textContent = input.jenis || '-';
+            document.getElementById('rWilayahMobil').textContent = input.wilayah || '-';
+            document.getElementById('rHargaMobil').textContent = formatRupiah(input.harga) || '-';
+            document.getElementById('rTahunMobil').textContent = input.tahun || '-';
+            document.getElementById('rKategoriMobil').textContent = detail.kategori || '-';
+            document.getElementById('rRateMobil').textContent = detail.rate || '-';
+
+            document.getElementById('bPremiDasarMobil').textContent = formatRupiahFull(result.premiDasar) || '-';
+            document.getElementById('bExtPremiMobil').textContent = result.premiPerluasan > 0 ? formatRupiahFull(result
+                .premiPerluasan) : 'Rp 0';
+            document.getElementById('bTotalPremiMobil').innerHTML = '<strong>' + formatRupiahFull(result.totalPremi) +
+                '</strong>';
+            document.getElementById('bBiayaPolisMobil').textContent = formatRupiahFull(result.biayaPolis) || 'Rp 52.000';
+            document.getElementById('bTotalBayarMobil').innerHTML = '<strong>' + formatRupiahFull(result.total) +
+                '</strong>';
+
+            document.getElementById('btnCetakMobil').disabled = false;
+
+            // Simpan ke hasilTerakhir untuk cetak
+            hasilTerakhirMobil = {
+                nama: input.nama || '',
+                noHp: input.noHp || '',
+                merk: input.merk || '',
+                tipe: input.tipe || '',
+                tahun: input.tahun || '',
+                harga: input.harga || 0,
+                jenisText: input.jenis || '-',
+                wilayahText: input.wilayah || '-',
+                jenisPertanggungan: input.jenisPertanggungan || '-',
+                rate: parseFloat(detail.rate) || 0,
+                premi: result.premiDasar || 0,
+                extPremi: result.premiPerluasan || 0,
+                extList: input.perluasan ? input.perluasan.split(', ') : [],
+                totalPremi: result.totalPremi || 0,
+                biayaPolis: result.biayaPolis || 52000,
+                totalBayar: result.total || 0
+            };
+
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         // ============================================================
@@ -2621,7 +3230,7 @@
         // ============================================================
 
         function cetakProposalMobil() {
-            if (!hasilTerakhirMobil) { alert('⚠️ Hitung premi dahulu!'); return; }
+            if (!hasilTerakhirMobil) { showAlert('warning', 'Info', 'Hitung premi dahulu!'); return; }
             tampilkanProposalMobil(hasilTerakhirMobil);
         }
 
@@ -2659,9 +3268,9 @@
             document.getElementById('pTanggal').textContent = tgl;
             document.getElementById('pKotaTanggal').textContent = tgl;
 
-            document.getElementById('pNoProposal').textContent = 'AVR/PROP/' + now.getFullYear() + '/' + 
-                String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0') + 
-                String(Math.floor(Math.random()*1000)).padStart(3,'0');
+            document.getElementById('pNoProposal').textContent = 'AVR/PROP/' + now.getFullYear() + '/' +
+                String(now.getMonth() + 1).padStart(2, '0') + String(now.getDate()).padStart(2, '0') +
+                String(Math.floor(Math.random() * 1000)).padStart(3, '0');
 
             document.getElementById('pRateUtama').textContent = (h.rate * 100).toFixed(2) + '%';
             document.getElementById('pPremiUtama').textContent = formatRupiahFull(h.premi);
@@ -2714,6 +3323,8 @@
             document.getElementById('tipeManualMobil').style.display = 'none';
             document.getElementById('resultMobil').classList.remove('show');
             document.getElementById('btnCetakMobil').disabled = true;
+            document.getElementById('viewIndicatorMobil').classList.remove('show');
+            isViewingHistory = false;
             hasilTerakhirMobil = null;
             tutupProposal();
         }
@@ -2722,7 +3333,13 @@
         // FUNGSI PROPERTI
         // ============================================================
 
-        function hitungPremiProperti() {
+        async function hitungPremiProperti() {
+            const session = getSession();
+            if (!session) { showAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu.'); return; }
+
+            const status = await getLicenseStatus(session.email);
+            if (!status.active) { showQuotaModal(); return; }
+
             const nama = document.getElementById('namaProperti').value.trim();
             const noHp = document.getElementById('noHpProperti').value.trim();
             const jenis = document.getElementById('jenisProperti').value;
@@ -2733,10 +3350,13 @@
             const alamat = document.getElementById('alamatProperti').value.trim();
             const jenisPertanggungan = document.getElementById('jenisPertanggunganProperti').value;
 
-            if (!nama) { alert('⚠️ Isi Nama Lengkap!'); return; }
-            if (!noHp) { alert('⚠️ Isi No. HP!'); return; }
-            if (nilai <= 0) { alert('⚠️ Isi Nilai Properti!'); return; }
-            if (!alamat) { alert('⚠️ Isi Alamat Properti!'); return; }
+            if (!nama) { showAlert('warning', 'Info', 'Isi Nama Lengkap!'); return; }
+            if (!noHp) { showAlert('warning', 'Info', 'Isi No. HP!'); return; }
+            if (nilai <= 0) { showAlert('warning', 'Info', 'Isi Nilai Properti!'); return; }
+            if (!alamat) { showAlert('warning', 'Info', 'Isi Alamat Properti!'); return; }
+
+            const updated = await updateLicenseUsage(session.email);
+            if (!updated) { showAlert('error', 'Gagal', 'Gagal mengurangi kuota.'); return; }
 
             const tarifData = TARIF_PROPERTI[jenis] || TARIF_PROPERTI['lainnya'];
             let rate = (tarifData.wilayah[wilayah] || tarifData.base || 0.20) / 100;
@@ -2759,31 +3379,58 @@
             premi = Math.round(premi / 1000) * 1000;
             if (premi < 50000) premi = 50000;
 
-            let extPremi = 0, extList = [];
-            if (document.getElementById('extBanjirProperti').checked) { extPremi += nilai * 0.0015; extList.push('Banjir'); }
-            if (document.getElementById('extGempaProperti').checked) { extPremi += nilai * 0.0025; extList.push('Gempa'); }
-            if (document.getElementById('extKebakaranProperti').checked) { extPremi += nilai * 0.0010; extList.push('Kebakaran'); }
-            if (document.getElementById('extPencurianProperti').checked) { extPremi += nilai * 0.0008; extList.push('Pencurian'); }
-            if (document.getElementById('extTanggungJawabProperti').checked) { extPremi += 250000; extList.push('Tanggung Jawab Hukum'); }
+            let extPremi = 0,
+                extList = [];
+            if (document.getElementById('extBanjirProperti').checked) { extPremi += nilai * 0.0015;
+                extList.push('Banjir'); }
+            if (document.getElementById('extGempaProperti').checked) { extPremi += nilai * 0.0025;
+                extList.push('Gempa'); }
+            if (document.getElementById('extKebakaranProperti').checked) { extPremi += nilai * 0.0010;
+                extList.push('Kebakaran'); }
+            if (document.getElementById('extPencurianProperti').checked) { extPremi += nilai * 0.0008;
+                extList.push('Pencurian'); }
+            if (document.getElementById('extTanggungJawabProperti').checked) { extPremi += 250000;
+                extList.push('Tanggung Jawab Hukum'); }
             extPremi = Math.round(extPremi / 1000) * 1000;
 
             const totalPremi = premi + extPremi;
             const biayaPolis = 52000;
             const totalBayar = totalPremi + biayaPolis;
 
-            const jenisText = document.getElementById('jenisProperti').options[document.getElementById('jenisProperti').selectedIndex].text;
-            const wilayahText = document.getElementById('wilayahProperti').options[document.getElementById('wilayahProperti').selectedIndex].text;
-            const pertanggunganMap = { 'comprehensive': 'Comprehensive (All Risk)', 'tlo': 'Total Loss Only (TLO)', 'kebakaran': 'Kebakaran Only' };
+            const jenisText = document.getElementById('jenisProperti').options[document.getElementById('jenisProperti')
+                .selectedIndex].text;
+            const wilayahText = document.getElementById('wilayahProperti').options[document.getElementById('wilayahProperti')
+                .selectedIndex].text;
+            const pertanggunganMap = { 'comprehensive': 'Comprehensive (All Risk)', 'tlo': 'Total Loss Only (TLO)',
+                'kebakaran': 'Kebakaran Only' };
+
+            const remainingQuota = (await getLicenseStatus(session.email)).remaining;
 
             hasilTerakhirProperti = {
-                nama, noHp, jenis, wilayah, nilai, luas, tahun, alamat,
+                nama,
+                noHp,
+                jenis,
+                wilayah,
+                nilai,
+                luas,
+                tahun,
+                alamat,
                 jenisPertanggungan: pertanggunganMap[jenisPertanggungan] || jenisPertanggungan,
-                rate, premi, extPremi, extList, totalPremi, biayaPolis, totalBayar,
-                jenisText, wilayahText
+                rate,
+                premi,
+                extPremi,
+                extList,
+                totalPremi,
+                biayaPolis,
+                totalBayar,
+                jenisText,
+                wilayahText
             };
 
-            // Tampilkan hasil
             const resultBox = document.getElementById('resultProperti');
+            const viewIndicator = document.getElementById('viewIndicatorProperti');
+            viewIndicator.classList.remove('show');
+            isViewingHistory = false;
             resultBox.classList.add('show');
             document.getElementById('premiValueProperti').textContent = formatRupiah(totalPremi);
             document.getElementById('rJenisProperti').textContent = hasilTerakhirProperti.jenisText;
@@ -2794,13 +3441,14 @@
             document.getElementById('rRateProperti').textContent = (rate * 100).toFixed(2) + '%';
             document.getElementById('bPremiDasarProperti').textContent = formatRupiahFull(premi);
             document.getElementById('bExtPremiProperti').textContent = extPremi > 0 ? formatRupiahFull(extPremi) : 'Rp 0';
-            document.getElementById('bTotalPremiProperti').innerHTML = '<strong>' + formatRupiahFull(totalPremi) + '</strong>';
+            document.getElementById('bTotalPremiProperti').innerHTML = '<strong>' + formatRupiahFull(totalPremi) +
+            '</strong>';
             document.getElementById('bBiayaPolisProperti').textContent = formatRupiahFull(biayaPolis);
-            document.getElementById('bTotalBayarProperti').innerHTML = '<strong>' + formatRupiahFull(totalBayar) + '</strong>';
+            document.getElementById('bTotalBayarProperti').innerHTML = '<strong>' + formatRupiahFull(totalBayar) +
+            '</strong>';
             document.getElementById('btnCetakProperti').disabled = false;
             resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-            // SIMPAN KE FIRESTORE
             const result = {
                 total: totalBayar,
                 formatted: formatRupiahFull(totalBayar),
@@ -2826,11 +3474,66 @@
                 faktorUsia: faktorUsia.toFixed(2),
                 faktorLuas: faktorLuas.toFixed(2)
             };
-            saveCalculation('properti', result, input, detail);
+            await saveCalculation('properti', result, input, detail, remainingQuota);
+            updateStatusBar();
+        }
+
+        function viewHistoryProperti(item) {
+            const data = item;
+            const result = data.result || {};
+            const input = data.input || {};
+            const detail = data.detail || {};
+
+            document.getElementById('namaProperti').value = input.nama || '';
+            document.getElementById('noHpProperti').value = input.noHp || '';
+
+            const resultBox = document.getElementById('resultProperti');
+            const viewIndicator = document.getElementById('viewIndicatorProperti');
+            viewIndicator.classList.add('show');
+            isViewingHistory = true;
+            resultBox.classList.add('show');
+
+            document.getElementById('premiValueProperti').textContent = result.formatted || formatRupiah(result.total);
+            document.getElementById('rJenisProperti').textContent = input.jenis || '-';
+            document.getElementById('rWilayahProperti').textContent = input.wilayah || '-';
+            document.getElementById('rNilaiProperti').textContent = formatRupiah(input.nilai) || '-';
+            document.getElementById('rLuasProperti').textContent = (input.luas || 0) + ' m²';
+            document.getElementById('rTahunProperti').textContent = input.tahun || '-';
+            document.getElementById('rRateProperti').textContent = detail.rate || '-';
+            document.getElementById('bPremiDasarProperti').textContent = formatRupiahFull(result.premiDasar) || '-';
+            document.getElementById('bExtPremiProperti').textContent = result.premiPerluasan > 0 ? formatRupiahFull(result
+                .premiPerluasan) : 'Rp 0';
+            document.getElementById('bTotalPremiProperti').innerHTML = '<strong>' + formatRupiahFull(result.totalPremi) +
+                '</strong>';
+            document.getElementById('bBiayaPolisProperti').textContent = formatRupiahFull(result.biayaPolis) || 'Rp 52.000';
+            document.getElementById('bTotalBayarProperti').innerHTML = '<strong>' + formatRupiahFull(result.total) +
+                '</strong>';
+            document.getElementById('btnCetakProperti').disabled = false;
+
+            hasilTerakhirProperti = {
+                nama: input.nama || '',
+                noHp: input.noHp || '',
+                jenisText: input.jenis || '-',
+                wilayahText: input.wilayah || '-',
+                nilai: input.nilai || 0,
+                luas: input.luas || 0,
+                tahun: input.tahun || '',
+                alamat: input.alamat || '',
+                jenisPertanggungan: input.jenisPertanggungan || '-',
+                rate: parseFloat(detail.rate) || 0,
+                premi: result.premiDasar || 0,
+                extPremi: result.premiPerluasan || 0,
+                extList: input.perluasan ? input.perluasan.split(', ') : [],
+                totalPremi: result.totalPremi || 0,
+                biayaPolis: result.biayaPolis || 52000,
+                totalBayar: result.total || 0
+            };
+
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function cetakProposalProperti() {
-            if (!hasilTerakhirProperti) { alert('⚠️ Hitung premi dahulu!'); return; }
+            if (!hasilTerakhirProperti) { showAlert('warning', 'Info', 'Hitung premi dahulu!'); return; }
             tampilkanProposalProperti(hasilTerakhirProperti);
         }
 
@@ -2868,9 +3571,9 @@
             document.getElementById('pTanggal').textContent = tgl;
             document.getElementById('pKotaTanggal').textContent = tgl;
 
-            document.getElementById('pNoProposal').textContent = 'AVR/PROP/' + now.getFullYear() + '/' + 
-                String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0') + 
-                String(Math.floor(Math.random()*1000)).padStart(3,'0');
+            document.getElementById('pNoProposal').textContent = 'AVR/PROP/' + now.getFullYear() + '/' +
+                String(now.getMonth() + 1).padStart(2, '0') + String(now.getDate()).padStart(2, '0') +
+                String(Math.floor(Math.random() * 1000)).padStart(3, '0');
 
             document.getElementById('pRateUtama').textContent = (h.rate * 100).toFixed(2) + '%';
             document.getElementById('pPremiUtama').textContent = formatRupiahFull(h.premi);
@@ -2916,6 +3619,8 @@
             document.querySelectorAll('#formProperti input[type="checkbox"]').forEach(c => c.checked = false);
             document.getElementById('resultProperti').classList.remove('show');
             document.getElementById('btnCetakProperti').disabled = true;
+            document.getElementById('viewIndicatorProperti').classList.remove('show');
+            isViewingHistory = false;
             hasilTerakhirProperti = null;
             tutupProposal();
         }
@@ -2929,11 +3634,17 @@
             document.getElementById('usiaSaatIniJiwa').value = usia > 0 ? usia + ' tahun' : '';
         });
 
-        function hitungKebutuhanJiwa() {
+        async function hitungKebutuhanJiwa() {
+            const session = getSession();
+            if (!session) { showAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu.'); return; }
+
+            const status = await getLicenseStatus(session.email);
+            if (!status.active) { showQuotaModal(); return; }
+
             const nama = document.getElementById('namaJiwa').value.trim();
             const tanggalLahir = document.getElementById('tanggalLahirJiwa').value;
             const usiaSaatIni = parseInt(document.getElementById('usiaSaatIniJiwa').value) || 0;
-            const status = document.getElementById('statusPernikahanJiwa').value;
+            const statusPernikahan = document.getElementById('statusPernikahanJiwa').value;
             const pengeluaranBulanan = parseFloat(document.getElementById('pengeluaranBulananJiwa').value) || 0;
             const penghasilanPasangan = parseFloat(document.getElementById('penghasilanPasanganJiwa').value) || 0;
             const totalHutang = parseFloat(document.getElementById('totalHutangJiwa').value) || 0;
@@ -2945,10 +3656,13 @@
             const returnInvestasi = parseFloat(document.getElementById('returnInvestasiJiwa').value) || 8;
             const inflasi = parseFloat(document.getElementById('inflasiJiwa').value) || 4;
 
-            if (!nama) { alert('⚠️ Isi Nama Lengkap!'); return; }
-            if (!tanggalLahir) { alert('⚠️ Pilih Tanggal Lahir!'); return; }
-            if (usiaSaatIni <= 0) { alert('⚠️ Tanggal Lahir tidak valid!'); return; }
-            if (pengeluaranBulanan <= 0) { alert('⚠️ Isi Pengeluaran Keluarga!'); return; }
+            if (!nama) { showAlert('warning', 'Info', 'Isi Nama Lengkap!'); return; }
+            if (!tanggalLahir) { showAlert('warning', 'Info', 'Pilih Tanggal Lahir!'); return; }
+            if (usiaSaatIni <= 0) { showAlert('warning', 'Info', 'Tanggal Lahir tidak valid!'); return; }
+            if (pengeluaranBulanan <= 0) { showAlert('warning', 'Info', 'Isi Pengeluaran Keluarga!'); return; }
+
+            const updated = await updateLicenseUsage(session.email);
+            if (!updated) { showAlert('error', 'Gagal', 'Gagal mengurangi kuota.'); return; }
 
             const kekuranganBulanan = pengeluaranBulanan - penghasilanPasangan;
             const kekuranganTahunan = kekuranganBulanan * 12;
@@ -2973,19 +3687,40 @@
             const totalKebutuhan = danaAbadi + totalHutang + danaPendidikan + danaDarurat + biayaPemakaman;
             const kebutuhanJiwa = totalKebutuhan - tabunganSaatIni;
 
-            const statusText = document.getElementById('statusPernikahanJiwa').options[document.getElementById('statusPernikahanJiwa').selectedIndex].text;
+            const statusText = document.getElementById('statusPernikahanJiwa').options[document.getElementById(
+                'statusPernikahanJiwa').selectedIndex].text;
+
+            const remainingQuota = (await getLicenseStatus(session.email)).remaining;
 
             hasilJiwa = {
-                nama, tanggalLahir, usiaSaatIni, status: statusText,
-                pengeluaranBulanan, penghasilanPasangan, kekuranganBulanan, kekuranganTahunan,
-                totalHutang, biayaPendidikan, sisaPendidikan, tabunganSaatIni,
-                danaDaruratBulan, danaDarurat, biayaPemakaman,
-                returnInvestasi, inflasi, netReturn,
-                danaAbadi, danaPendidikan, totalKebutuhan, kebutuhanJiwa
+                nama,
+                tanggalLahir,
+                usiaSaatIni,
+                status: statusText,
+                pengeluaranBulanan,
+                penghasilanPasangan,
+                kekuranganBulanan,
+                kekuranganTahunan,
+                totalHutang,
+                biayaPendidikan,
+                sisaPendidikan,
+                tabunganSaatIni,
+                danaDaruratBulan,
+                danaDarurat,
+                biayaPemakaman,
+                returnInvestasi,
+                inflasi,
+                netReturn,
+                danaAbadi,
+                danaPendidikan,
+                totalKebutuhan,
+                kebutuhanJiwa
             };
 
-            // Tampilkan hasil
             const resultBox = document.getElementById('resultJiwa');
+            const viewIndicator = document.getElementById('viewIndicatorJiwa');
+            viewIndicator.classList.remove('show');
+            isViewingHistory = false;
             resultBox.classList.add('show');
 
             let tanggungan = 'Tidak ada';
@@ -3006,22 +3741,25 @@
             document.getElementById('dUsiaJiwa').textContent = hasilJiwa.usiaSaatIni + ' tahun';
             document.getElementById('dStatusJiwa').textContent = hasilJiwa.status;
             document.getElementById('dPengeluaranJiwa').textContent = formatRupiahFull(hasilJiwa.pengeluaranBulanan);
-            document.getElementById('dPenghasilanPasanganJiwa').textContent = formatRupiahFull(hasilJiwa.penghasilanPasangan);
+            document.getElementById('dPenghasilanPasanganJiwa').textContent = formatRupiahFull(hasilJiwa
+                .penghasilanPasangan);
             document.getElementById('dKekuranganJiwa').textContent = formatRupiahFull(hasilJiwa.kekuranganBulanan);
-            document.getElementById('dKekuranganTahunanJiwa').textContent = formatRupiahFull(hasilJiwa.kekuranganTahunan);
+            document.getElementById('dKekuranganTahunanJiwa').textContent = formatRupiahFull(hasilJiwa
+            .kekuranganTahunan);
             document.getElementById('dDanaAbadiJiwa').textContent = formatRupiahFull(hasilJiwa.danaAbadi);
             document.getElementById('dHutangJiwa').textContent = formatRupiahFull(hasilJiwa.totalHutang);
             document.getElementById('dPendidikanJiwa').textContent = formatRupiahFull(hasilJiwa.danaPendidikan);
             document.getElementById('dDanaDaruratJiwa').textContent = formatRupiahFull(hasilJiwa.danaDarurat);
             document.getElementById('dBiayaPemakamanJiwa').textContent = formatRupiahFull(hasilJiwa.biayaPemakaman);
-            document.getElementById('dTotalKebutuhanJiwa').innerHTML = '<strong>' + formatRupiahFull(hasilJiwa.totalKebutuhan) + '</strong>';
+            document.getElementById('dTotalKebutuhanJiwa').innerHTML = '<strong>' + formatRupiahFull(hasilJiwa
+                .totalKebutuhan) + '</strong>';
             document.getElementById('dTabunganJiwa').textContent = formatRupiahFull(hasilJiwa.tabunganSaatIni);
-            document.getElementById('dKebutuhanJiwaResult').innerHTML = '<strong>' + formatRupiahFull(hasilJiwa.kebutuhanJiwa) + '</strong>';
+            document.getElementById('dKebutuhanJiwaResult').innerHTML = '<strong>' + formatRupiahFull(hasilJiwa
+                .kebutuhanJiwa) + '</strong>';
 
             document.getElementById('btnCetakJiwa').disabled = false;
             resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-            // SIMPAN KE FIRESTORE
             const result = {
                 total: kebutuhanJiwa,
                 formatted: formatRupiahFull(kebutuhanJiwa),
@@ -3049,11 +3787,89 @@
                 kekuranganTahunan: kekuranganTahunan,
                 netReturn: (netReturn * 100).toFixed(2) + '%'
             };
-            saveCalculation('jiwa', result, input, detail);
+            await saveCalculation('jiwa', result, input, detail, remainingQuota);
+            updateStatusBar();
+        }
+
+        function viewHistoryJiwa(item) {
+            const data = item;
+            const result = data.result || {};
+            const input = data.input || {};
+            const detail = data.detail || {};
+
+            document.getElementById('namaJiwa').value = input.nama || '';
+            document.getElementById('tanggalLahirJiwa').value = input.tanggalLahir || '';
+
+            const resultBox = document.getElementById('resultJiwa');
+            const viewIndicator = document.getElementById('viewIndicatorJiwa');
+            viewIndicator.classList.add('show');
+            isViewingHistory = true;
+            resultBox.classList.add('show');
+
+            const total = result.total || 0;
+            const formatted = result.formatted || formatRupiahFull(total);
+
+            document.getElementById('sUsiaJiwa').textContent = (input.usia || 0) + ' tahun';
+            document.getElementById('sStatusJiwa').textContent = input.status || '-';
+            let tanggungan = 'Tidak ada';
+            if (input.status === 'Menikah') {
+                tanggungan = 'Pasangan';
+                if (parseFloat(input.pendidikan || 0) > 0) tanggungan += ' + Anak';
+            }
+            document.getElementById('sTanggunganJiwa').textContent = tanggungan;
+            document.getElementById('sDanaAbadiJiwa').textContent = formatRupiah(result.danaAbadi) || '-';
+            document.getElementById('sTotalKebutuhanJiwa').textContent = formatRupiah(result.totalKebutuhan) || '-';
+            document.getElementById('sKebutuhanJiwaResult').textContent = formatted;
+
+            document.getElementById('dNamaJiwa').textContent = input.nama || '-';
+            document.getElementById('dTanggalLahirJiwa').textContent = input.tanggalLahir || '-';
+            document.getElementById('dUsiaJiwa').textContent = (input.usia || 0) + ' tahun';
+            document.getElementById('dStatusJiwa').textContent = input.status || '-';
+            document.getElementById('dPengeluaranJiwa').textContent = formatRupiahFull(input.pengeluaranBulanan) || '-';
+            document.getElementById('dPenghasilanPasanganJiwa').textContent = formatRupiahFull(input
+                .penghasilanPasangan) || '-';
+            document.getElementById('dKekuranganJiwa').textContent = formatRupiahFull(input.kekuranganBulanan) || '-';
+            document.getElementById('dKekuranganTahunanJiwa').textContent = formatRupiahFull(input.kekuranganTahunan) || '-';
+            document.getElementById('dDanaAbadiJiwa').textContent = formatRupiahFull(result.danaAbadi) || '-';
+            document.getElementById('dHutangJiwa').textContent = formatRupiahFull(input.hutang) || '-';
+            document.getElementById('dPendidikanJiwa').textContent = formatRupiahFull(result.danaPendidikan) || '-';
+            document.getElementById('dDanaDaruratJiwa').textContent = formatRupiahFull(input.danaDarurat) || '-';
+            document.getElementById('dBiayaPemakamanJiwa').textContent = formatRupiahFull(input.biayaPemakaman) || '-';
+            document.getElementById('dTotalKebutuhanJiwa').innerHTML = '<strong>' + formatRupiahFull(result
+                .totalKebutuhan) + '</strong>';
+            document.getElementById('dTabunganJiwa').textContent = formatRupiahFull(input.tabunganSaatIni) || '-';
+            document.getElementById('dKebutuhanJiwaResult').innerHTML = '<strong>' + formatted + '</strong>';
+
+            document.getElementById('btnCetakJiwa').disabled = false;
+
+            hasilJiwa = {
+                nama: input.nama || '',
+                tanggalLahir: input.tanggalLahir || '',
+                usiaSaatIni: input.usia || 0,
+                status: input.status || '-',
+                pengeluaranBulanan: input.pengeluaranBulanan || 0,
+                penghasilanPasangan: input.penghasilanPasangan || 0,
+                kekuranganBulanan: input.kekuranganBulanan || 0,
+                kekuranganTahunan: input.kekuranganTahunan || 0,
+                totalHutang: input.hutang || 0,
+                biayaPendidikan: input.pendidikan || 0,
+                sisaPendidikan: input.sisaPendidikan || 0,
+                tabunganSaatIni: input.tabunganSaatIni || 0,
+                danaDarurat: input.danaDarurat || 0,
+                biayaPemakaman: input.biayaPemakaman || 0,
+                returnInvestasi: input.returnInvestasi || 8,
+                inflasi: input.inflasi || 4,
+                danaAbadi: result.danaAbadi || 0,
+                danaPendidikan: result.danaPendidikan || 0,
+                totalKebutuhan: result.totalKebutuhan || 0,
+                kebutuhanJiwa: total
+            };
+
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function cetakProposalJiwa() {
-            if (!hasilJiwa) { alert('⚠️ Hitung kebutuhan dahulu!'); return; }
+            if (!hasilJiwa) { showAlert('warning', 'Info', 'Hitung kebutuhan dahulu!'); return; }
             tampilkanProposalJiwa(hasilJiwa);
         }
 
@@ -3127,9 +3943,9 @@
             const tgl = formatTanggal(now.toISOString().split('T')[0]);
             document.getElementById('pKotaTanggal').textContent = tgl;
 
-            document.getElementById('pNoProposal').textContent = 'AVR/JIWA/' + now.getFullYear() + '/' + 
-                String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0') + 
-                String(Math.floor(Math.random()*1000)).padStart(3,'0');
+            document.getElementById('pNoProposal').textContent = 'AVR/JIWA/' + now.getFullYear() + '/' +
+                String(now.getMonth() + 1).padStart(2, '0') + String(now.getDate()).padStart(2, '0') +
+                String(Math.floor(Math.random() * 1000)).padStart(3, '0');
 
             document.getElementById('footerNotes').innerHTML = `
                 <ul>
@@ -3166,6 +3982,8 @@
             document.getElementById('usiaSaatIniJiwa').value = usia > 0 ? usia + ' tahun' : '';
             document.getElementById('resultJiwa').classList.remove('show');
             document.getElementById('btnCetakJiwa').disabled = true;
+            document.getElementById('viewIndicatorJiwa').classList.remove('show');
+            isViewingHistory = false;
             hasilJiwa = null;
             tutupProposal();
         }
@@ -3193,7 +4011,13 @@
             }
         });
 
-        function hitungPensiun() {
+        async function hitungPensiun() {
+            const session = getSession();
+            if (!session) { showAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu.'); return; }
+
+            const status = await getLicenseStatus(session.email);
+            if (!status.active) { showQuotaModal(); return; }
+
             const nama = document.getElementById('namaWealth').value.trim();
             const tanggalLahir = document.getElementById('tanggalLahirWealth').value;
             const usiaSaatIni = parseInt(document.getElementById('usiaSaatIniWealth').value) || 0;
@@ -3202,11 +4026,14 @@
             const inflasi = parseFloat(document.getElementById('inflasiWealth').value) || 5;
             const returnInvestasi = parseFloat(document.getElementById('returnInvestasiWealth').value) || 8;
 
-            if (!nama) { alert('⚠️ Isi Nama Lengkap!'); return; }
-            if (!tanggalLahir) { alert('⚠️ Pilih Tanggal Lahir!'); return; }
-            if (usiaSaatIni <= 0) { alert('⚠️ Tanggal Lahir tidak valid!'); return; }
-            if (usiaPensiun <= usiaSaatIni) { alert('⚠️ Usia pensiun harus lebih besar!'); return; }
-            if (kebutuhanBulanan <= 0) { alert('⚠️ Isi Kebutuhan Bulanan!'); return; }
+            if (!nama) { showAlert('warning', 'Info', 'Isi Nama Lengkap!'); return; }
+            if (!tanggalLahir) { showAlert('warning', 'Info', 'Pilih Tanggal Lahir!'); return; }
+            if (usiaSaatIni <= 0) { showAlert('warning', 'Info', 'Tanggal Lahir tidak valid!'); return; }
+            if (usiaPensiun <= usiaSaatIni) { showAlert('warning', 'Info', 'Usia pensiun harus lebih besar!'); return; }
+            if (kebutuhanBulanan <= 0) { showAlert('warning', 'Info', 'Isi Kebutuhan Bulanan!'); return; }
+
+            const updated = await updateLicenseUsage(session.email);
+            if (!updated) { showAlert('error', 'Gagal', 'Gagal mengurangi kuota.'); return; }
 
             const sisaWaktu = usiaPensiun - usiaSaatIni;
             const inflasiDecimal = inflasi / 100;
@@ -3226,39 +4053,56 @@
             }
             const totalTerkumpul = tabunganBulanan * (Math.pow(1 + rBulanan, n) - 1) / rBulanan;
 
+            const remainingQuota = (await getLicenseStatus(session.email)).remaining;
+
             hasilPensiun = {
-                nama, tanggalLahir, usiaSaatIni, usiaPensiun, sisaWaktu,
-                kebutuhanBulanan, inflasi, returnInvestasi,
-                kebutuhanPensiunBulanan, kebutuhanPensiunTahunan,
-                totalDanaDibutuhkan, tabunganBulanan, totalTerkumpul
+                nama,
+                tanggalLahir,
+                usiaSaatIni,
+                usiaPensiun,
+                sisaWaktu,
+                kebutuhanBulanan,
+                inflasi,
+                returnInvestasi,
+                kebutuhanPensiunBulanan,
+                kebutuhanPensiunTahunan,
+                totalDanaDibutuhkan,
+                tabunganBulanan,
+                totalTerkumpul
             };
 
-            // Tampilkan hasil
             const resultBox = document.getElementById('resultWealth');
+            const viewIndicator = document.getElementById('viewIndicatorWealth');
+            viewIndicator.classList.remove('show');
+            isViewingHistory = false;
             resultBox.classList.add('show');
 
             document.getElementById('sUsiaSaatIniWealth').textContent = hasilPensiun.usiaSaatIni + ' tahun';
             document.getElementById('sSisaWaktuWealth').textContent = hasilPensiun.sisaWaktu + ' tahun';
             document.getElementById('sUsiaPensiunWealth').textContent = hasilPensiun.usiaPensiun + ' tahun';
-            document.getElementById('sKebutuhanPensiunWealth').textContent = formatRupiah(hasilPensiun.kebutuhanPensiunBulanan);
+            document.getElementById('sKebutuhanPensiunWealth').textContent = formatRupiah(hasilPensiun
+                .kebutuhanPensiunBulanan);
             document.getElementById('sTotalDanaWealth').textContent = formatRupiah(hasilPensiun.totalDanaDibutuhkan);
             document.getElementById('sTabunganBulananWealth').textContent = formatRupiah(hasilPensiun.tabunganBulanan);
 
             document.getElementById('dNamaWealth').textContent = hasilPensiun.nama;
             document.getElementById('dTanggalLahirWealth').textContent = formatTanggal(hasilPensiun.tanggalLahir);
-            document.getElementById('dKebutuhanSaatIniWealth').textContent = formatRupiahFull(hasilPensiun.kebutuhanBulanan);
-            document.getElementById('dKebutuhanPensiunWealth').textContent = formatRupiahFull(hasilPensiun.kebutuhanPensiunBulanan);
-            document.getElementById('dKebutuhanTahunanWealth').textContent = formatRupiahFull(hasilPensiun.kebutuhanPensiunTahunan);
+            document.getElementById('dKebutuhanSaatIniWealth').textContent = formatRupiahFull(hasilPensiun
+                .kebutuhanBulanan);
+            document.getElementById('dKebutuhanPensiunWealth').textContent = formatRupiahFull(hasilPensiun
+                .kebutuhanPensiunBulanan);
+            document.getElementById('dKebutuhanTahunanWealth').textContent = formatRupiahFull(hasilPensiun
+                .kebutuhanPensiunTahunan);
             document.getElementById('dTotalDanaWealth').textContent = formatRupiahFull(hasilPensiun.totalDanaDibutuhkan);
             document.getElementById('dReturnInvestasiWealth').textContent = hasilPensiun.returnInvestasi + '%';
             document.getElementById('dTabunganBulananWealth').textContent = formatRupiahFull(hasilPensiun.tabunganBulanan);
             document.getElementById('dTotalTerkumpulWealth').textContent = formatRupiahFull(hasilPensiun.totalTerkumpul);
-            document.getElementById('dTotalBayarWealth').innerHTML = '<strong>' + formatRupiahFull(hasilPensiun.totalDanaDibutuhkan) + '</strong>';
+            document.getElementById('dTotalBayarWealth').innerHTML = '<strong>' + formatRupiahFull(hasilPensiun
+                .totalDanaDibutuhkan) + '</strong>';
 
             document.getElementById('btnCetakWealth').disabled = false;
             resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-            // SIMPAN KE FIRESTORE
             const result = {
                 total: totalDanaDibutuhkan,
                 formatted: formatRupiahFull(totalDanaDibutuhkan),
@@ -3281,11 +4125,72 @@
                 metode: '4% withdrawal rate (Trinity Study)',
                 nBulan: n
             };
-            saveCalculation('wealth', result, input, detail);
+            await saveCalculation('wealth', result, input, detail, remainingQuota);
+            updateStatusBar();
+        }
+
+        function viewHistoryWealth(item) {
+            const data = item;
+            const result = data.result || {};
+            const input = data.input || {};
+            const detail = data.detail || {};
+
+            document.getElementById('namaWealth').value = input.nama || '';
+            document.getElementById('tanggalLahirWealth').value = input.tanggalLahir || '';
+
+            const resultBox = document.getElementById('resultWealth');
+            const viewIndicator = document.getElementById('viewIndicatorWealth');
+            viewIndicator.classList.add('show');
+            isViewingHistory = true;
+            resultBox.classList.add('show');
+
+            const total = result.total || 0;
+            const formatted = result.formatted || formatRupiahFull(total);
+
+            document.getElementById('sUsiaSaatIniWealth').textContent = (input.usiaSaatIni || 0) + ' tahun';
+            document.getElementById('sSisaWaktuWealth').textContent = (input.sisaWaktu || 0) + ' tahun';
+            document.getElementById('sUsiaPensiunWealth').textContent = (input.usiaPensiun || 0) + ' tahun';
+            document.getElementById('sKebutuhanPensiunWealth').textContent = formatRupiah(result.kebutuhanPensiunBulanan) ||
+                '-';
+            document.getElementById('sTotalDanaWealth').textContent = formatted;
+            document.getElementById('sTabunganBulananWealth').textContent = formatRupiah(result.tabunganBulanan) || '-';
+
+            document.getElementById('dNamaWealth').textContent = input.nama || '-';
+            document.getElementById('dTanggalLahirWealth').textContent = input.tanggalLahir || '-';
+            document.getElementById('dKebutuhanSaatIniWealth').textContent = formatRupiahFull(input.kebutuhanBulanan) || '-';
+            document.getElementById('dKebutuhanPensiunWealth').textContent = formatRupiahFull(result
+                .kebutuhanPensiunBulanan) || '-';
+            document.getElementById('dKebutuhanTahunanWealth').textContent = formatRupiahFull(result
+                .kebutuhanPensiunTahunan) || '-';
+            document.getElementById('dTotalDanaWealth').textContent = formatted;
+            document.getElementById('dReturnInvestasiWealth').textContent = (input.returnInvestasi || 0) + '%';
+            document.getElementById('dTabunganBulananWealth').textContent = formatRupiahFull(result.tabunganBulanan) || '-';
+            document.getElementById('dTotalTerkumpulWealth').textContent = formatRupiahFull(result.totalTerkumpul) || '-';
+            document.getElementById('dTotalBayarWealth').innerHTML = '<strong>' + formatted + '</strong>';
+
+            document.getElementById('btnCetakWealth').disabled = false;
+
+            hasilPensiun = {
+                nama: input.nama || '',
+                tanggalLahir: input.tanggalLahir || '',
+                usiaSaatIni: input.usiaSaatIni || 0,
+                usiaPensiun: input.usiaPensiun || 0,
+                sisaWaktu: input.sisaWaktu || 0,
+                kebutuhanBulanan: input.kebutuhanBulanan || 0,
+                inflasi: input.inflasi || 5,
+                returnInvestasi: input.returnInvestasi || 8,
+                kebutuhanPensiunBulanan: result.kebutuhanPensiunBulanan || 0,
+                kebutuhanPensiunTahunan: result.kebutuhanPensiunTahunan || 0,
+                totalDanaDibutuhkan: total,
+                tabunganBulanan: result.tabunganBulanan || 0,
+                totalTerkumpul: result.totalTerkumpul || 0
+            };
+
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function cetakProposalWealth() {
-            if (!hasilPensiun) { alert('⚠️ Hitung dana pensiun dahulu!'); return; }
+            if (!hasilPensiun) { showAlert('warning', 'Info', 'Hitung dana pensiun dahulu!'); return; }
             tampilkanProposalWealth(hasilPensiun);
         }
 
@@ -3352,9 +4257,9 @@
             const tgl = formatTanggal(now.toISOString().split('T')[0]);
             document.getElementById('pKotaTanggal').textContent = tgl;
 
-            document.getElementById('pNoProposal').textContent = 'AVR/WM/' + now.getFullYear() + '/' + 
-                String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0') + 
-                String(Math.floor(Math.random()*1000)).padStart(3,'0');
+            document.getElementById('pNoProposal').textContent = 'AVR/WM/' + now.getFullYear() + '/' +
+                String(now.getMonth() + 1).padStart(2, '0') + String(now.getDate()).padStart(2, '0') +
+                String(Math.floor(Math.random() * 1000)).padStart(3, '0');
 
             document.getElementById('footerNotes').innerHTML = `
                 <ul>
@@ -3385,13 +4290,214 @@
             document.getElementById('usiaSaatIniWealth').value = usia > 0 ? usia + ' tahun' : '';
             const usiaPensiun = 60;
             if (usia > 0 && usiaPensiun > 0) {
-                document.getElementById('sisaWaktuWealth').value = (usiaPensiun - usia) > 0 ? (usiaPensiun - usia) + ' tahun' : '';
+                document.getElementById('sisaWaktuWealth').value = (usiaPensiun - usia) > 0 ? (usiaPensiun - usia) +
+                    ' tahun' : '';
             }
             document.getElementById('resultWealth').classList.remove('show');
             document.getElementById('btnCetakWealth').disabled = true;
+            document.getElementById('viewIndicatorWealth').classList.remove('show');
+            isViewingHistory = false;
             hasilPensiun = null;
             tutupProposal();
         }
+
+        // ============================================================
+        // TAB SWITCH
+        // ============================================================
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+            const tabMap = {
+                'mobil': 'tabMobil',
+                'properti': 'tabProperti',
+                'jiwa': 'tabJiwa',
+                'wealth': 'tabWealth',
+                'history': 'tabHistory'
+            };
+
+            if (tabMap[tab]) {
+                document.getElementById(tabMap[tab]).classList.add('active');
+                const btns = document.querySelectorAll('.tab-btn');
+                const idx = ['mobil', 'properti', 'jiwa', 'wealth', 'history'].indexOf(tab);
+                if (idx >= 0 && idx < btns.length) btns[idx].classList.add('active');
+            }
+
+            currentType = tab;
+            tutupProposal();
+
+            // Jika tab History, load history
+            if (tab === 'history') {
+                loadHistory();
+            }
+        }
+
+        // ============================================================
+        // LOAD HISTORY
+        // ============================================================
+
+        async function loadHistory() {
+            const session = getSession();
+            const container = document.getElementById('historyContent');
+            const typeLabel = document.getElementById('historyTypeLabel');
+            const subText = document.getElementById('historySubText');
+
+            if (!session) {
+                container.innerHTML = '<div class="history-empty">🔐 Silakan login terlebih dahulu untuk melihat riwayat.</div>';
+                typeLabel.textContent = 'Semua';
+                subText.textContent = 'Login untuk melihat riwayat perhitungan Anda.';
+                return;
+            }
+
+            // Tentukan jenis berdasarkan tab aktif
+            let type = null;
+            let typeName = 'Semua';
+            const activeTab = document.querySelector('.tab-content.active');
+            if (activeTab) {
+                const id = activeTab.id;
+                if (id === 'tabMobil') { type = 'mobil';
+                    typeName = 'Mobil'; } else if (id === 'tabProperti') { type = 'properti';
+                    typeName = 'Properti'; } else if (id === 'tabJiwa') { type = 'jiwa';
+                    typeName = 'Jiwa'; } else if (id === 'tabWealth') { type = 'wealth';
+                    typeName = 'Wealth'; }
+            }
+
+            typeLabel.textContent = typeName;
+            subText.textContent = 'Riwayat perhitungan ' + typeName + ' Anda.';
+
+            const history = await getUserHistory(session.email, type);
+
+            if (history.length === 0) {
+                container.innerHTML = '<div class="history-empty">📭 Belum ada riwayat perhitungan ' + typeName +
+                    '.</div>';
+                return;
+            }
+
+            let html = '<table class="history-table"><thead><tr>';
+            html += '<th>#</th><th>Jenis</th><th>Hasil</th><th>Tanggal</th><th>Aksi</th>';
+            html += '</tr></thead><tbody>';
+
+            const typeIcons = { 'mobil': '🚗', 'properti': '🏠', 'jiwa': '📋', 'wealth': '💰' };
+
+            history.forEach((item, index) => {
+                const result = item.result || {};
+                const resultDisplay = result.formatted || formatRupiah(result.total) || '-';
+                const date = item.created_at ? new Date(item.created_at) : new Date();
+                const dateStr = date.toLocaleDateString('id-ID') + ' ' + date.toLocaleTimeString('id-ID', { hour: '2-digit',
+                    minute: '2-digit' });
+
+                html += '<tr>';
+                html += '<td>' + (index + 1) + '</td>';
+                html += '<td>' + (typeIcons[item.type] || '📊') + ' ' + (item.type || '-') + '</td>';
+                html += '<td style="font-weight:600;color:#1a3a5c;">' + resultDisplay + '</td>';
+                html += '<td style="font-size:12px;">' + dateStr + '</td>';
+                html += '<td>';
+                html += '<button class="view-btn" data-id="' + item.id + '" data-type="' + item.type + '">👁️ Lihat</button> ';
+                html += '<button class="delete-btn" data-id="' + item.id + '">🗑️ Hapus</button>';
+                html += '</td>';
+                html += '</tr>';
+            });
+
+            html += '</tbody></table>';
+            container.innerHTML = html;
+
+            // Event listener untuk view
+            container.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.dataset.id;
+                    const type = this.dataset.type;
+                    const item = history.find(d => d.id === id);
+                    if (item) {
+                        // Pindah ke tab yang sesuai
+                        switchTab(type);
+                        // View history berdasarkan jenis
+                        if (type === 'mobil') viewHistoryMobil(item);
+                        else if (type === 'properti') viewHistoryProperti(item);
+                        else if (type === 'jiwa') viewHistoryJiwa(item);
+                        else if (type === 'wealth') viewHistoryWealth(item);
+                    }
+                });
+            });
+
+            // Event listener untuk delete
+            container.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    const id = this.dataset.id;
+                    showConfirm('Hapus Riwayat', 'Yakin ingin menghapus riwayat ini?', async function(result) {
+                        if (result) {
+                            await deleteHistoryItem(id);
+                            loadHistory();
+                            showAlert('success', 'Berhasil', 'Riwayat telah dihapus.');
+                        }
+                    });
+                });
+            });
+        }
+
+        // ============================================================
+        // DELETE ALL HISTORY
+        // ============================================================
+
+        document.getElementById('deleteAllHistoryBtn').addEventListener('click', async function() {
+            const session = getSession();
+            if (!session) {
+                showAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu.');
+                return;
+            }
+
+            let type = null;
+            const activeTab = document.querySelector('.tab-content.active');
+            if (activeTab) {
+                const id = activeTab.id;
+                if (id === 'tabMobil') type = 'mobil';
+                else if (id === 'tabProperti') type = 'properti';
+                else if (id === 'tabJiwa') type = 'jiwa';
+                else if (id === 'tabWealth') type = 'wealth';
+            }
+
+            const typeName = type ? type.charAt(0).toUpperCase() + type.slice(1) : 'Semua';
+
+            showConfirm('Hapus Semua Riwayat', 'Yakin ingin menghapus semua riwayat ' + typeName +
+                '?', async function(result) {
+                    if (result) {
+                        try {
+                            let queryRef = db.collection('ass_calculations').where('email', '==', session.email);
+                            if (type) {
+                                queryRef = queryRef.where('type', '==', type);
+                            }
+                            const snapshot = await queryRef.get();
+                            const batch = db.batch();
+                            snapshot.forEach((doc) => {
+                                batch.delete(doc.ref);
+                            });
+                            await batch.commit();
+                            loadHistory();
+                            showAlert('success', 'Berhasil', 'Semua riwayat ' + typeName + ' telah dihapus.');
+                        } catch (e) {
+                            console.error('deleteAll error:', e);
+                            showAlert('error', 'Gagal', 'Gagal menghapus riwayat.');
+                        }
+                    }
+                });
+        });
+
+        // ============================================================
+        // REFRESH HISTORY
+        // ============================================================
+
+        document.getElementById('refreshHistoryBtn').addEventListener('click', function() {
+            loadHistory();
+            showAlert('success', 'Refresh', 'Riwayat diperbarui.');
+        });
+
+        // ============================================================
+        // HISTORY BUTTON
+        // ============================================================
+
+        document.getElementById('historyBtn').addEventListener('click', function() {
+            switchTab('history');
+        });
 
         // ============================================================
         // PROPOSAL GLOBAL
@@ -3409,27 +4515,26 @@
         }
 
         // ============================================================
-        // TAB NAVIGATION
+        // QUOTA MODAL CLOSE
         // ============================================================
 
-        function switchTab(tab) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            const tabMap = { 'mobil': 'tabMobil', 'properti': 'tabProperti', 'jiwa': 'tabJiwa', 'wealth': 'tabWealth' };
-            if (tabMap[tab]) {
-                document.getElementById(tabMap[tab]).classList.add('active');
-                const btns = document.querySelectorAll('.tab-btn');
-                const idx = ['mobil', 'properti', 'jiwa', 'wealth'].indexOf(tab);
-                if (idx >= 0 && idx < btns.length) btns[idx].classList.add('active');
+        document.getElementById('closeQuotaModalBtn').addEventListener('click', function() {
+            document.getElementById('quotaModal').classList.remove('show');
+        });
+
+        document.getElementById('quotaModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('show');
             }
-            tutupProposal();
-        }
+        });
 
         // ============================================================
         // ENTER KEY
         // ============================================================
 
-        document.querySelectorAll('#formMobil input, #formMobil select, #formProperti input, #formProperti select, #formProperti textarea, #formJiwa input, #formJiwa select, #formWealth input, #formWealth select').forEach(el => {
+        document.querySelectorAll(
+            '#formMobil input, #formMobil select, #formProperti input, #formProperti select, #formProperti textarea, #formJiwa input, #formJiwa select, #formWealth input, #formWealth select'
+            ).forEach(el => {
             el.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter' && !this.closest('textarea')) {
                     if (this.closest('#formMobil')) hitungPremiMobil();
@@ -3460,20 +4565,21 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadDataKendaraan();
             updateStatusBar();
-            
+
             // Jiwa default
             const defaultDate = '1990-03-15';
             document.getElementById('tanggalLahirJiwa').value = defaultDate;
             const usiaJiwa = hitungUsia(defaultDate);
             document.getElementById('usiaSaatIniJiwa').value = usiaJiwa > 0 ? usiaJiwa + ' tahun' : '';
-            
+
             // Wealth default
             document.getElementById('tanggalLahirWealth').value = defaultDate;
             const usiaWealth = hitungUsia(defaultDate);
             document.getElementById('usiaSaatIniWealth').value = usiaWealth > 0 ? usiaWealth + ' tahun' : '';
             const usiaPensiun = 60;
             if (usiaWealth > 0 && usiaPensiun > 0) {
-                document.getElementById('sisaWaktuWealth').value = (usiaPensiun - usiaWealth) > 0 ? (usiaPensiun - usiaWealth) + ' tahun' : '';
+                document.getElementById('sisaWaktuWealth').value = (usiaPensiun - usiaWealth) > 0 ? (usiaPensiun -
+                    usiaWealth) + ' tahun' : '';
             }
         });
 
@@ -3486,8 +4592,11 @@
         });
 
         console.log('🚀 ass.html siap dengan Firebase!');
-        console.log('📌 Data perhitungan akan tersimpan di collection: ass_calculations');
-        console.log('📊 Data bisa dilihat di admin.html tab "Asuransi"');
+        console.log('📌 Kuota bersama dengan lifecode di collection: licenses');
+        console.log('📊 Data perhitungan di collection: ass_calculations');
+        console.log('📋 Riwayat per jenis (Mobil, Properti, Jiwa, Wealth)');
+        console.log('🔄 Lihat history tidak mengurangi kuota');
+        console.log('📱 Popup WA saat kuota habis');
     </script>
 
 </body>
