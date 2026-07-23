@@ -176,6 +176,11 @@
             box-shadow: 0 0 0 3px rgba(43, 108, 158, 0.15);
         }
 
+        input[readonly] {
+            background: #f0f2f5;
+            cursor: not-allowed;
+        }
+
         textarea {
             resize: vertical;
             min-height: 70px;
@@ -414,6 +419,53 @@
             font-weight: 700;
             color: #1a3a5c;
             border-top: 2px solid #1a3a5c;
+        }
+
+        /* ===== SUMMARY CARDS (Wealth) ===== */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .summary-card .label {
+            font-size: 11px;
+            color: #5e7a93;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .summary-card .value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a3a5c;
+            margin-top: 4px;
+        }
+
+        .summary-card .value.green {
+            color: #1e7e34;
+        }
+        .summary-card .value.orange {
+            color: #b45309;
+        }
+        .summary-card .value.blue {
+            color: #1a3a5c;
+        }
+        .summary-card .value.red {
+            color: #c0392b;
+        }
+        .summary-card .value.purple {
+            color: #6b3fa0;
         }
 
         /* ===== PROPOSAL ===== */
@@ -729,6 +781,10 @@
                 grid-template-columns: 1fr 1fr;
             }
 
+            .summary-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
             h1 {
                 font-size: 20px;
             }
@@ -796,6 +852,10 @@
                 grid-template-columns: 1fr;
             }
 
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
             .premi-value {
                 font-size: 20px;
                 padding: 6px 12px;
@@ -832,9 +892,8 @@
                 <span class="icon">📋</span> Asuransi Jiwa
                 <span class="badge-soon">Soon</span>
             </button>
-            <button class="tab-btn" onclick="switchTab('wealth')" style="opacity:0.6; cursor:not-allowed;">
+            <button class="tab-btn" onclick="switchTab('wealth')">
                 <span class="icon">💰</span> Wealth Management
-                <span class="badge-soon">Soon</span>
             </button>
         </div>
 
@@ -1045,7 +1104,7 @@
                     </div>
                 </div>
 
-                <!-- ===== ALAMAT PROPERTI (TEXTAREA) ===== -->
+                <!-- ALAMAT PROPERTI -->
                 <div class="form-group">
                     <label>Alamat Properti <span class="required">*</span></label>
                     <textarea id="alamatProperti" rows="3" 
@@ -1114,6 +1173,145 @@
         </div>
 
         <!-- ============================================================ -->
+        <!-- ===== TAB 3: WEALTH MANAGEMENT ===== -->
+        <!-- ============================================================ -->
+        <div id="tabWealth" class="tab-content">
+
+            <!-- FORM WEALTH -->
+            <div id="formWealth">
+                <div class="row">
+                    <div class="form-group">
+                        <label>Nama Lengkap <span class="required">*</span></label>
+                        <input type="text" id="namaWealth" placeholder="Contoh: Sutrisno" />
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Lahir <span class="required">*</span></label>
+                        <input type="date" id="tanggalLahirWealth" value="1990-03-15" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label>Usia Saat Ini</label>
+                        <input type="text" id="usiaSaatIniWealth" readonly placeholder="Akan terisi otomatis" />
+                    </div>
+                    <div class="form-group">
+                        <label>Usia Pensiun yang Direncanakan <span class="required">*</span></label>
+                        <select id="usiaPensiunWealth">
+                            <option value="55">55 tahun</option>
+                            <option value="56">56 tahun</option>
+                            <option value="57">57 tahun</option>
+                            <option value="58">58 tahun</option>
+                            <option value="59">59 tahun</option>
+                            <option value="60" selected>60 tahun</option>
+                            <option value="61">61 tahun</option>
+                            <option value="62">62 tahun</option>
+                            <option value="63">63 tahun</option>
+                            <option value="65">65 tahun</option>
+                            <option value="70">70 tahun</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label>Kebutuhan Bulanan Saat Ini (Rp) <span class="required">*</span></label>
+                        <input type="number" id="kebutuhanBulananWealth" value="10000000" step="100000" />
+                        <span style="font-size:11px; color:#7a8fa5;">Biaya hidup per bulan saat ini</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Sisa Waktu ke Pensiun</label>
+                        <input type="text" id="sisaWaktuWealth" readonly placeholder="Akan terisi otomatis" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label>Asumsi Inflasi (%) <span class="hint">(per tahun)</span></label>
+                        <input type="number" id="inflasiWealth" value="5.0" step="0.1" min="0" max="20" />
+                        <span style="font-size:11px; color:#7a8fa5;">Default: 5% per tahun</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Asumsi Return Investasi (%) <span class="hint">(per tahun)</span></label>
+                        <input type="number" id="returnInvestasiWealth" value="8.0" step="0.1" min="0" max="30" />
+                        <span style="font-size:11px; color:#7a8fa5;">Default: 8% per tahun</span>
+                    </div>
+                </div>
+
+                <div class="btn-group no-print">
+                    <button class="btn btn-primary" onclick="hitungPensiun()">🔍 Hitung Dana Pensiun</button>
+                    <button class="btn btn-success" onclick="cetakProposalWealth()" id="btnCetakWealth" disabled>📄 Cetak Laporan</button>
+                    <button class="btn btn-outline" onclick="resetFormWealth()">↺ Reset</button>
+                </div>
+            </div>
+
+            <!-- HASIL WEALTH -->
+            <div class="result-box no-print" id="resultWealth">
+                <h3>📊 Hasil Perhitungan Dana Pensiun</h3>
+
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <div class="label">Usia Saat Ini</div>
+                        <div class="value blue" id="sUsiaSaatIniWealth">-</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="label">Sisa Waktu ke Pensiun</div>
+                        <div class="value orange" id="sSisaWaktuWealth">-</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="label">Usia Pensiun</div>
+                        <div class="value blue" id="sUsiaPensiunWealth">-</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="label">Kebutuhan Bulanan di Pensiun</div>
+                        <div class="value red" id="sKebutuhanPensiunWealth">-</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="label">Total Dana Pensiun Dibutuhkan</div>
+                        <div class="value purple" id="sTotalDanaWealth">-</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="label">Tabungan Bulanan yang Diperlukan</div>
+                        <div class="value green" id="sTabunganBulananWealth">-</div>
+                    </div>
+                </div>
+
+                <div class="breakdown">
+                    <table class="detail-table" style="width:100%; border-collapse:collapse; font-size:14px;">
+                        <tbody id="detailBodyWealth">
+                            <tr><td style="padding:5px 6px; border-bottom:1px solid #edf2f7; font-weight:600; color:#2c3e6b;">Nama</td>
+                                <td style="padding:5px 6px; border-bottom:1px solid #edf2f7; text-align:right; font-weight:600; color:#1a3a5c;" id="dNamaWealth">-</td></tr>
+                            <tr><td style="padding:5px 6px; border-bottom:1px solid #edf2f7; font-weight:600; color:#2c3e6b;">Tanggal Lahir</td>
+                                <td style="padding:5px 6px; border-bottom:1px solid #edf2f7; text-align:right; font-weight:600; color:#1a3a5c;" id="dTanggalLahirWealth">-</td></tr>
+                            <tr><td style="padding:5px 6px; border-bottom:1px solid #edf2f7; font-weight:600; color:#2c3e6b;">Kebutuhan Bulanan Saat Ini</td>
+                                <td style="padding:5px 6px; border-bottom:1px solid #edf2f7; text-align:right; font-weight:600; color:#1a3a5c;" id="dKebutuhanSaatIniWealth">-</td></tr>
+                            <tr><td style="padding:5px 6px; border-bottom:1px solid #edf2f7; font-weight:600; color:#2c3e6b;">Kebutuhan Bulanan di Pensiun</td>
+                                <td style="padding:5px 6px; border-bottom:1px solid #edf2f7; text-align:right; font-weight:600; color:#1a3a5c;" id="dKebutuhanPensiunWealth">-</td></tr>
+                            <tr><td style="padding:5px 6px; border-bottom:1px solid #edf2f7; font-weight:600; color:#2c3e6b;">Kebutuhan Tahunan di Pensiun</td>
+                                <td style="padding:5px 6px; border-bottom:1px solid #edf2f7; text-align:right; font-weight:600; color:#1a3a5c;" id="dKebutuhanTahunanWealth">-</td></tr>
+                            <tr><td style="padding:5px 6px; border-bottom:1px solid #edf2f7; font-weight:600; color:#2c3e6b;">Total Dana Pensiun yang Dibutuhkan</td>
+                                <td style="padding:5px 6px; border-bottom:1px solid #edf2f7; text-align:right; font-weight:600; color:#1a3a5c;" id="dTotalDanaWealth">-</td></tr>
+                            <tr><td style="padding:5px 6px; border-bottom:1px solid #edf2f7; font-weight:600; color:#2c3e6b;">Asumsi Return Investasi</td>
+                                <td style="padding:5px 6px; border-bottom:1px solid #edf2f7; text-align:right; font-weight:600; color:#1a3a5c;" id="dReturnInvestasiWealth">-</td></tr>
+                            <tr><td style="padding:5px 6px; border-bottom:1px solid #edf2f7; font-weight:600; color:#2c3e6b;">Tabungan Bulanan yang Diperlukan</td>
+                                <td style="padding:5px 6px; border-bottom:1px solid #edf2f7; text-align:right; font-weight:600; color:#1a3a5c;" id="dTabunganBulananWealth">-</td></tr>
+                            <tr><td style="padding:5px 6px; border-bottom:1px solid #edf2f7; font-weight:600; color:#2c3e6b;">Total Dana Terkumpul di Pensiun</td>
+                                <td style="padding:5px 6px; border-bottom:1px solid #edf2f7; text-align:right; font-weight:600; color:#1a3a5c;" id="dTotalTerkumpulWealth">-</td></tr>
+                            <tr style="border-top:2px solid #1a2a4a; font-weight:700; color:#1a3a5c;">
+                                <td style="padding:5px 6px; font-size:15px;"><strong>Total Yang Harus Dipersiapkan</strong></td>
+                                <td style="padding:5px 6px; text-align:right; font-size:15px;" id="dTotalBayarWealth"><strong>-</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p style="margin-top:12px; font-size:12px; color:#5e7a93;">
+                    💡 Perhitungan menggunakan aturan 4% withdrawal rate (Trinity Study) untuk dana pensiun.
+                </p>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
         <!-- ===== PROPOSAL (UNIFIED - SATU UNTUK SEMUA) ===== -->
         <!-- ============================================================ -->
         <div class="proposal-wrapper" id="proposalWrapper">
@@ -1131,10 +1329,10 @@
                     <div>
                         <strong>Kepada Yth.</strong><br />
                         Bapak / Ibu <strong id="pNama">-</strong><br />
-                        <span style="font-size:13px; color:#4a5a72;">No. HP: <span id="pNoHp">-</span></span>
+                        <span style="font-size:13px; color:#4a5a72;" id="pInfoTambahan"></span>
                     </div>
                     <div style="background:#f0f3f8; padding:5px 14px; border-radius:20px; font-weight:600; color:#1a2a4a; font-size:13px; white-space:nowrap;">
-                        No. Proposal: <strong id="pNoProposal">AVR/PROP/2026/001</strong>
+                        No. <span id="pNoLabel">Proposal</span>: <strong id="pNoProposal">AVR/PROP/2026/001</strong>
                     </div>
                 </div>
 
@@ -1144,39 +1342,61 @@
                     <!-- Isi akan diisi oleh JavaScript -->
                 </div>
 
-                <!-- B. KONDISI PERTANGGUNGAN -->
-                <div class="section-title">B. KONDISI PERTANGGUNGAN</div>
-                <table class="data-table">
-                    <tr><td class="label">Jenis Pertanggungan</td><td class="value" id="pJenisPertanggungan"><strong>-</strong></td></tr>
-                    <tr><td class="label">Perluasan Jaminan</td><td class="value" id="pExt">Tidak ada</td></tr>
-                    <tr><td class="label">Tanggal Proposal</td><td class="value" id="pTanggal">-</td></tr>
-                </table>
+                <!-- B. KONDISI PERTANGGUNGAN (untuk asuransi) -->
+                <div id="proposalKondisiSection" style="display:none;">
+                    <div class="section-title">B. KONDISI PERTANGGUNGAN</div>
+                    <table class="data-table">
+                        <tr><td class="label">Jenis Pertanggungan</td><td class="value" id="pJenisPertanggungan"><strong>-</strong></td></tr>
+                        <tr><td class="label">Perluasan Jaminan</td><td class="value" id="pExt">Tidak ada</td></tr>
+                        <tr><td class="label">Tanggal Proposal</td><td class="value" id="pTanggal">-</td></tr>
+                    </table>
+                </div>
 
-                <!-- C. PERHITUNGAN PREMI -->
-                <div class="section-title">C. PERHITUNGAN PREMI</div>
-                <table class="premium-table">
-                    <thead><tr><th style="width:60%;">Komponen</th><th style="width:20%;text-align:right;">Rate</th><th style="width:20%;text-align:right;">Premi (Rp)</th></tr></thead>
-                    <tbody id="pPremiumBody">
-                        <tr><td>Jaminan Utama</td><td style="text-align:right;" id="pRateUtama">-</td><td style="text-align:right;" id="pPremiUtama">-</td></tr>
-                        <tr><td>Perluasan Jaminan</td><td style="text-align:right;">-</td><td style="text-align:right;" id="pPremiExt">Rp 0</td></tr>
-                        <tr class="highlight-row"><td><strong>Total Premi</strong></td><td style="text-align:right;"></td><td style="text-align:right;" id="pTotalPremi"><strong>-</strong></td></tr>
-                        <tr><td>Biaya Polis &amp; Materai</td><td style="text-align:right;"></td><td style="text-align:right;" id="pBiayaPolis">Rp 52.000</td></tr>
-                        <tr style="border-top:2px solid #1a2a4a;">
-                            <td class="total-label" style="font-size:15px;">TOTAL PREMI YANG HARUS DIBAYAR</td>
-                            <td style="text-align:right;"></td>
-                            <td class="total-value" style="text-align:right;font-size:17px;color:#1a2a4a;" id="pTotalBayar"><strong>-</strong></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <!-- C. PERHITUNGAN PREMI (untuk asuransi) -->
+                <div id="proposalPerhitunganSection" style="display:none;">
+                    <div class="section-title">C. PERHITUNGAN PREMI</div>
+                    <table class="premium-table">
+                        <thead><tr><th style="width:60%;">Komponen</th><th style="width:20%;text-align:right;">Rate</th><th style="width:20%;text-align:right;">Premi (Rp)</th></tr></thead>
+                        <tbody id="pPremiumBody">
+                            <tr><td>Jaminan Utama</td><td style="text-align:right;" id="pRateUtama">-</td><td style="text-align:right;" id="pPremiUtama">-</td></tr>
+                            <tr><td>Perluasan Jaminan</td><td style="text-align:right;">-</td><td style="text-align:right;" id="pPremiExt">Rp 0</td></tr>
+                            <tr class="highlight-row"><td><strong>Total Premi</strong></td><td style="text-align:right;"></td><td style="text-align:right;" id="pTotalPremi"><strong>-</strong></td></tr>
+                            <tr><td>Biaya Polis &amp; Materai</td><td style="text-align:right;"></td><td style="text-align:right;" id="pBiayaPolis">Rp 52.000</td></tr>
+                            <tr style="border-top:2px solid #1a2a4a;">
+                                <td class="total-label" style="font-size:15px;">TOTAL PREMI YANG HARUS DIBAYAR</td>
+                                <td style="text-align:right;"></td>
+                                <td class="total-value" style="text-align:right;font-size:17px;color:#1a2a4a;" id="pTotalBayar"><strong>-</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                <!-- D. KETENTUAN RISIKO SENDIRI -->
-                <div class="section-title">D. KETENTUAN RISIKO SENDIRI (DEDUCTIBLE)</div>
-                <div id="proposalDeductibleContent">
-                    <!-- Isi akan diisi oleh JavaScript -->
+                <!-- D. KETENTUAN RISIKO SENDIRI (untuk asuransi) -->
+                <div id="proposalDeductibleSection" style="display:none;">
+                    <div class="section-title">D. KETENTUAN RISIKO SENDIRI (DEDUCTIBLE)</div>
+                    <div id="proposalDeductibleContent">
+                        <!-- Isi akan diisi oleh JavaScript -->
+                    </div>
+                </div>
+
+                <!-- WEALTH: PERHITUNGAN DANA PENSIUN -->
+                <div id="proposalWealthSection" style="display:none;">
+                    <div class="section-title">B. PERHITUNGAN DANA PENSIUN</div>
+                    <div id="proposalWealthContent">
+                        <!-- Isi akan diisi oleh JavaScript -->
+                    </div>
+                </div>
+
+                <!-- WEALTH: REKOMENDASI -->
+                <div id="proposalRekomendasiSection" style="display:none;">
+                    <div class="section-title">C. REKOMENDASI</div>
+                    <div id="proposalRekomendasiContent" style="font-size:14px; color:#1e2f4a; line-height:1.8; padding:0 4px;">
+                        <!-- Isi akan diisi oleh JavaScript -->
+                    </div>
                 </div>
 
                 <!-- E. PERNYATAAN -->
-                <div class="section-title">E. PERNYATAAN &amp; PERSETUJUAN</div>
+                <div class="section-title" id="pernyataanTitle">E. PERNYATAAN &amp; PERSETUJUAN</div>
                 <p style="font-size:14px; color:#1e2f4a; line-height:1.6; margin-bottom:14px;">
                     Dengan ini saya menyatakan bahwa data dan keterangan yang saya berikan adalah benar dan dapat
                     dipertanggungjawabkan. Saya telah membaca, memahami, dan menyetujui ketentuan-ketentuan yang berlaku.
@@ -1187,19 +1407,13 @@
                     <div class="signature-box" style="text-align:right;"><div class="label">Penerima / Agen</div><div class="line">&nbsp;</div><div class="city-date">&nbsp;</div></div>
                 </div>
 
-                <div class="footer-notes">
-                    <ul>
-                        <li><strong>Catatan:</strong> Perhitungan premi ini adalah perkiraan awal berdasarkan data yang diberikan.</li>
-                        <li>Premi final dapat berubah setelah verifikasi data dan dokumen pendukung.</li>
-                        <li style="margin-top:4px; font-size:11px; color:#7a8a9f;">
-                            Dokumen ini adalah proposal / penawaran awal. Perlindungan asuransi akan berlaku setelah premi diterima penuh dan polis diterbitkan.
-                        </li>
-                    </ul>
+                <div class="footer-notes" id="footerNotes">
+                    <!-- Isi akan diisi oleh JavaScript -->
                 </div>
 
                 <div class="proposal-actions no-print">
                     <button class="btn btn-success" onclick="downloadPDF()">📥 Download PDF</button>
-                    <button class="btn btn-danger" onclick="tutupProposal()">✖️ Tutup Proposal</button>
+                    <button class="btn btn-danger" onclick="tutupProposal()">✖️ Tutup</button>
                 </div>
                 <div class="print-instruction no-print" id="printInstruction">
                     <h4>📋 Cara Menyimpan sebagai PDF:</h4>
@@ -1225,7 +1439,7 @@
         function switchTab(tab) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            const tabMap = { 'mobil': 'tabMobil', 'properti': 'tabProperti', 'jiwa': 'tabMobil', 'wealth': 'tabMobil' };
+            const tabMap = { 'mobil': 'tabMobil', 'properti': 'tabProperti', 'jiwa': 'tabMobil', 'wealth': 'tabWealth' };
             if (tabMap[tab]) {
                 document.getElementById(tabMap[tab]).classList.add('active');
                 const btns = document.querySelectorAll('.tab-btn');
@@ -1287,7 +1501,9 @@
         let dataKendaraan = {};
         let hasilTerakhirMobil = null;
         let hasilTerakhirProperti = null;
+        let hasilPensiun = null;
         let isDataLoaded = false;
+        let currentProposalType = 'mobil'; // 'mobil', 'properti', 'wealth'
 
         // ============================================================
         //  FUNGSI BANTU
@@ -1295,7 +1511,40 @@
 
         function formatRupiah(angka) {
             if (!angka || isNaN(angka)) return 'Rp 0';
+            if (angka >= 1000000000000) {
+                return 'Rp ' + (angka / 1000000000000).toFixed(2) + ' Triliun';
+            }
+            if (angka >= 1000000000) {
+                return 'Rp ' + (angka / 1000000000).toFixed(2) + ' Miliar';
+            }
+            if (angka >= 1000000) {
+                return 'Rp ' + (angka / 1000000).toFixed(0) + ' Juta';
+            }
             return 'Rp ' + Math.round(angka).toLocaleString('id-ID');
+        }
+
+        function formatRupiahFull(angka) {
+            if (!angka || isNaN(angka)) return 'Rp 0';
+            return 'Rp ' + Math.round(angka).toLocaleString('id-ID');
+        }
+
+        function formatTanggal(tanggal) {
+            if (!tanggal) return '-';
+            const t = new Date(tanggal);
+            return t.getDate() + ' ' + ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus',
+                'September', 'Oktober', 'November', 'Desember'][t.getMonth()] + ' ' + t.getFullYear();
+        }
+
+        function hitungUsia(tanggalLahir) {
+            if (!tanggalLahir) return 0;
+            const today = new Date();
+            const birth = new Date(tanggalLahir);
+            let usia = today.getFullYear() - birth.getFullYear();
+            const m = today.getMonth() - birth.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+                usia--;
+            }
+            return usia;
         }
 
         function getKategori(nilai, data) {
@@ -1692,15 +1941,25 @@
                 alert('⚠️ Silakan hitung premi terlebih dahulu!');
                 return;
             }
+            currentProposalType = 'mobil';
             tampilkanProposalMobil(hasilTerakhirMobil);
         }
 
         function tampilkanProposalMobil(h) {
+            // Sembunyikan section yang tidak perlu
+            document.getElementById('proposalWealthSection').style.display = 'none';
+            document.getElementById('proposalRekomendasiSection').style.display = 'none';
+            document.getElementById('proposalKondisiSection').style.display = 'table';
+            document.getElementById('proposalPerhitunganSection').style.display = 'table';
+            document.getElementById('proposalDeductibleSection').style.display = 'block';
+            document.getElementById('pernyataanTitle').textContent = 'E. PERNYATAAN & PERSETUJUAN';
+            document.getElementById('pNoLabel').textContent = 'Proposal';
+
             document.getElementById('proposalSubTitle').textContent = 'KENDARAAN BERMOTOR';
             document.getElementById('proposalDesc').textContent = 'Dokumen Penawaran Perlindungan Kendaraan';
 
             document.getElementById('pNama').textContent = h.nama;
-            document.getElementById('pNoHp').textContent = h.noHp;
+            document.getElementById('pInfoTambahan').textContent = 'No. HP: ' + h.noHp;
 
             let dataHTML = `
                 <table class="data-table">
@@ -1709,7 +1968,7 @@
                     <tr><td class="label">Tahun Pembuatan</td><td class="value"><strong>${h.tahun}</strong></td></tr>
                     <tr><td class="label">Jenis / Kategori</td><td class="value">${h.jenisText}</td></tr>
                     <tr><td class="label">Wilayah / Zone</td><td class="value">${h.wilayahText}</td></tr>
-                    <tr><td class="label">Perkiraan Harga</td><td class="value"><strong>${formatRupiah(h.harga)}</strong></td></tr>
+                    <tr><td class="label">Perkiraan Harga</td><td class="value"><strong>${formatRupiahFull(h.harga)}</strong></td></tr>
                 </table>
             `;
             document.getElementById('proposalDataContent').innerHTML = dataHTML;
@@ -1718,8 +1977,7 @@
             document.getElementById('pExt').textContent = h.extList.length > 0 ? h.extList.join(', ') : 'Tidak ada';
 
             const now = new Date();
-            const tgl = now.getDate() + ' ' + ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus',
-                'September', 'Oktober', 'November', 'Desember'][now.getMonth()] + ' ' + now.getFullYear();
+            const tgl = formatTanggal(now.toISOString().split('T')[0]);
             document.getElementById('pTanggal').textContent = tgl;
             document.getElementById('pKotaTanggal').textContent = tgl;
 
@@ -1729,11 +1987,11 @@
 
             const rateDisplay = (h.rate * 100).toFixed(2) + '%';
             document.getElementById('pRateUtama').textContent = rateDisplay;
-            document.getElementById('pPremiUtama').textContent = formatRupiah(h.premi);
-            document.getElementById('pPremiExt').textContent = h.extPremi > 0 ? formatRupiah(h.extPremi) : 'Rp 0';
-            document.getElementById('pTotalPremi').innerHTML = '<strong>' + formatRupiah(h.totalPremi) + '</strong>';
-            document.getElementById('pBiayaPolis').textContent = formatRupiah(h.biayaPolis);
-            document.getElementById('pTotalBayar').innerHTML = '<strong>' + formatRupiah(h.totalBayar) + '</strong>';
+            document.getElementById('pPremiUtama').textContent = formatRupiahFull(h.premi);
+            document.getElementById('pPremiExt').textContent = h.extPremi > 0 ? formatRupiahFull(h.extPremi) : 'Rp 0';
+            document.getElementById('pTotalPremi').innerHTML = '<strong>' + formatRupiahFull(h.totalPremi) + '</strong>';
+            document.getElementById('pBiayaPolis').textContent = formatRupiahFull(h.biayaPolis);
+            document.getElementById('pTotalBayar').innerHTML = '<strong>' + formatRupiahFull(h.totalBayar) + '</strong>';
 
             let deductHTML = `
                 <table class="data-table">
@@ -1743,6 +2001,16 @@
                 </table>
             `;
             document.getElementById('proposalDeductibleContent').innerHTML = deductHTML;
+
+            document.getElementById('footerNotes').innerHTML = `
+                <ul>
+                    <li><strong>Catatan:</strong> Perhitungan premi ini adalah perkiraan awal berdasarkan data yang diberikan.</li>
+                    <li>Premi final dapat berubah setelah verifikasi data kendaraan dan dokumen pendukung.</li>
+                    <li style="margin-top:4px; font-size:11px; color:#7a8a9f;">
+                        Dokumen ini adalah proposal / penawaran awal. Perlindungan asuransi akan berlaku setelah premi diterima penuh dan polis diterbitkan.
+                    </li>
+                </ul>
+            `;
 
             document.getElementById('proposalWrapper').classList.add('show');
             document.getElementById('printInstruction').classList.remove('show');
@@ -1775,7 +2043,7 @@
         }
 
         // ============================================================
-        //  FUNGSI PROPERTI (DENGAN ALAMAT)
+        //  FUNGSI PROPERTI
         // ============================================================
 
         function hitungPremiProperti() {
@@ -1872,16 +2140,16 @@
             document.getElementById('premiValueProperti').textContent = formatRupiah(totalPremi);
             document.getElementById('rJenisProperti').textContent = hasilTerakhirProperti.jenisText;
             document.getElementById('rWilayahProperti').textContent = hasilTerakhirProperti.wilayahText;
-            document.getElementById('rNilaiProperti').textContent = formatRupiah(nilai);
+            document.getElementById('rNilaiProperti').textContent = formatRupiahFull(nilai);
             document.getElementById('rLuasProperti').textContent = luas + ' m²';
             document.getElementById('rTahunProperti').textContent = tahun;
             document.getElementById('rRateProperti').textContent = (rate * 100).toFixed(2) + '%';
 
-            document.getElementById('bPremiDasarProperti').textContent = formatRupiah(premi);
-            document.getElementById('bExtPremiProperti').textContent = extPremi > 0 ? formatRupiah(extPremi) : 'Rp 0';
-            document.getElementById('bTotalPremiProperti').innerHTML = '<strong>' + formatRupiah(totalPremi) + '</strong>';
-            document.getElementById('bBiayaPolisProperti').textContent = formatRupiah(biayaPolis);
-            document.getElementById('bTotalBayarProperti').innerHTML = '<strong>' + formatRupiah(totalBayar) + '</strong>';
+            document.getElementById('bPremiDasarProperti').textContent = formatRupiahFull(premi);
+            document.getElementById('bExtPremiProperti').textContent = extPremi > 0 ? formatRupiahFull(extPremi) : 'Rp 0';
+            document.getElementById('bTotalPremiProperti').innerHTML = '<strong>' + formatRupiahFull(totalPremi) + '</strong>';
+            document.getElementById('bBiayaPolisProperti').textContent = formatRupiahFull(biayaPolis);
+            document.getElementById('bTotalBayarProperti').innerHTML = '<strong>' + formatRupiahFull(totalBayar) + '</strong>';
 
             document.getElementById('btnCetakProperti').disabled = false;
             resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1892,21 +2160,30 @@
                 alert('⚠️ Silakan hitung premi terlebih dahulu!');
                 return;
             }
+            currentProposalType = 'properti';
             tampilkanProposalProperti(hasilTerakhirProperti);
         }
 
         function tampilkanProposalProperti(h) {
+            document.getElementById('proposalWealthSection').style.display = 'none';
+            document.getElementById('proposalRekomendasiSection').style.display = 'none';
+            document.getElementById('proposalKondisiSection').style.display = 'table';
+            document.getElementById('proposalPerhitunganSection').style.display = 'table';
+            document.getElementById('proposalDeductibleSection').style.display = 'block';
+            document.getElementById('pernyataanTitle').textContent = 'E. PERNYATAAN & PERSETUJUAN';
+            document.getElementById('pNoLabel').textContent = 'Proposal';
+
             document.getElementById('proposalSubTitle').textContent = 'PROPERTI & BANGUNAN';
             document.getElementById('proposalDesc').textContent = 'Dokumen Penawaran Perlindungan Properti';
 
             document.getElementById('pNama').textContent = h.nama;
-            document.getElementById('pNoHp').textContent = h.noHp;
+            document.getElementById('pInfoTambahan').textContent = 'No. HP: ' + h.noHp;
 
             let dataHTML = `
                 <table class="data-table">
                     <tr><td class="label">Jenis Properti</td><td class="value"><strong>${h.jenisText}</strong></td></tr>
                     <tr><td class="label">Alamat Properti</td><td class="value"><strong>${h.alamat}</strong></td></tr>
-                    <tr><td class="label">Nilai Properti</td><td class="value"><strong>${formatRupiah(h.nilai)}</strong></td></tr>
+                    <tr><td class="label">Nilai Properti</td><td class="value"><strong>${formatRupiahFull(h.nilai)}</strong></td></tr>
                     <tr><td class="label">Luas Bangunan</td><td class="value"><strong>${h.luas} m²</strong></td></tr>
                     <tr><td class="label">Tahun Dibangun</td><td class="value"><strong>${h.tahun}</strong></td></tr>
                     <tr><td class="label">Lokasi / Wilayah</td><td class="value">${h.wilayahText}</td></tr>
@@ -1918,8 +2195,7 @@
             document.getElementById('pExt').textContent = h.extList.length > 0 ? h.extList.join(', ') : 'Tidak ada';
 
             const now = new Date();
-            const tgl = now.getDate() + ' ' + ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus',
-                'September', 'Oktober', 'November', 'Desember'][now.getMonth()] + ' ' + now.getFullYear();
+            const tgl = formatTanggal(now.toISOString().split('T')[0]);
             document.getElementById('pTanggal').textContent = tgl;
             document.getElementById('pKotaTanggal').textContent = tgl;
 
@@ -1929,11 +2205,11 @@
 
             const rateDisplay = (h.rate * 100).toFixed(2) + '%';
             document.getElementById('pRateUtama').textContent = rateDisplay;
-            document.getElementById('pPremiUtama').textContent = formatRupiah(h.premi);
-            document.getElementById('pPremiExt').textContent = h.extPremi > 0 ? formatRupiah(h.extPremi) : 'Rp 0';
-            document.getElementById('pTotalPremi').innerHTML = '<strong>' + formatRupiah(h.totalPremi) + '</strong>';
-            document.getElementById('pBiayaPolis').textContent = formatRupiah(h.biayaPolis);
-            document.getElementById('pTotalBayar').innerHTML = '<strong>' + formatRupiah(h.totalBayar) + '</strong>';
+            document.getElementById('pPremiUtama').textContent = formatRupiahFull(h.premi);
+            document.getElementById('pPremiExt').textContent = h.extPremi > 0 ? formatRupiahFull(h.extPremi) : 'Rp 0';
+            document.getElementById('pTotalPremi').innerHTML = '<strong>' + formatRupiahFull(h.totalPremi) + '</strong>';
+            document.getElementById('pBiayaPolis').textContent = formatRupiahFull(h.biayaPolis);
+            document.getElementById('pTotalBayar').innerHTML = '<strong>' + formatRupiahFull(h.totalBayar) + '</strong>';
 
             let deductHTML = `
                 <table class="data-table">
@@ -1943,6 +2219,16 @@
                 </table>
             `;
             document.getElementById('proposalDeductibleContent').innerHTML = deductHTML;
+
+            document.getElementById('footerNotes').innerHTML = `
+                <ul>
+                    <li><strong>Catatan:</strong> Perhitungan premi ini adalah perkiraan awal berdasarkan data yang diberikan.</li>
+                    <li>Premi final dapat berubah setelah verifikasi data properti dan dokumen pendukung.</li>
+                    <li style="margin-top:4px; font-size:11px; color:#7a8a9f;">
+                        Dokumen ini adalah proposal / penawaran awal. Perlindungan asuransi akan berlaku setelah premi diterima penuh dan polis diterbitkan.
+                    </li>
+                </ul>
+            `;
 
             document.getElementById('proposalWrapper').classList.add('show');
             document.getElementById('printInstruction').classList.remove('show');
@@ -1972,6 +2258,243 @@
         }
 
         // ============================================================
+        //  FUNGSI WEALTH MANAGEMENT (DANA PENSIUN)
+        // ============================================================
+
+        // Event listener untuk tanggal lahir
+        document.getElementById('tanggalLahirWealth').addEventListener('change', function() {
+            const usia = hitungUsia(this.value);
+            document.getElementById('usiaSaatIniWealth').value = usia > 0 ? usia + ' tahun' : '';
+            
+            const usiaPensiun = parseInt(document.getElementById('usiaPensiunWealth').value);
+            if (usia > 0 && usiaPensiun > 0) {
+                const sisa = usiaPensiun - usia;
+                document.getElementById('sisaWaktuWealth').value = sisa > 0 ? sisa + ' tahun' : (sisa === 0 ? 'Sudah saatnya pensiun!' : 'Melewati usia pensiun');
+            }
+        });
+
+        document.getElementById('usiaPensiunWealth').addEventListener('change', function() {
+            const usia = hitungUsia(document.getElementById('tanggalLahirWealth').value);
+            const usiaPensiun = parseInt(this.value);
+            if (usia > 0 && usiaPensiun > 0) {
+                const sisa = usiaPensiun - usia;
+                document.getElementById('sisaWaktuWealth').value = sisa > 0 ? sisa + ' tahun' : (sisa === 0 ? 'Sudah saatnya pensiun!' : 'Melewati usia pensiun');
+            }
+        });
+
+        function hitungPensiun() {
+            const nama = document.getElementById('namaWealth').value.trim();
+            const tanggalLahir = document.getElementById('tanggalLahirWealth').value;
+            const usiaSaatIni = parseInt(document.getElementById('usiaSaatIniWealth').value) || 0;
+            const usiaPensiun = parseInt(document.getElementById('usiaPensiunWealth').value);
+            const kebutuhanBulanan = parseFloat(document.getElementById('kebutuhanBulananWealth').value) || 0;
+            const inflasi = parseFloat(document.getElementById('inflasiWealth').value) || 5;
+            const returnInvestasi = parseFloat(document.getElementById('returnInvestasiWealth').value) || 8;
+
+            if (!nama) { alert('⚠️ Mohon isi Nama Lengkap terlebih dahulu!'); return; }
+            if (!tanggalLahir) { alert('⚠️ Mohon pilih Tanggal Lahir terlebih dahulu!'); return; }
+            if (usiaSaatIni <= 0) { alert('⚠️ Tanggal Lahir tidak valid!'); return; }
+            if (usiaPensiun <= usiaSaatIni) { alert('⚠️ Usia pensiun harus lebih besar dari usia saat ini!'); return; }
+            if (kebutuhanBulanan <= 0) { alert('⚠️ Mohon isi Kebutuhan Bulanan yang valid!'); return; }
+
+            const sisaWaktu = usiaPensiun - usiaSaatIni;
+            const inflasiDecimal = inflasi / 100;
+            const returnDecimal = returnInvestasi / 100;
+
+            const kebutuhanPensiunBulanan = kebutuhanBulanan * Math.pow(1 + inflasiDecimal, sisaWaktu);
+            const kebutuhanPensiunTahunan = kebutuhanPensiunBulanan * 12;
+            const totalDanaDibutuhkan = kebutuhanPensiunTahunan / 0.04;
+
+            const n = sisaWaktu * 12;
+            const rBulanan = returnDecimal / 12;
+            
+            let tabunganBulanan = 0;
+            if (rBulanan > 0) {
+                tabunganBulanan = totalDanaDibutuhkan * rBulanan / (Math.pow(1 + rBulanan, n) - 1);
+            } else {
+                tabunganBulanan = totalDanaDibutuhkan / n;
+            }
+
+            const totalTerkumpul = tabunganBulanan * (Math.pow(1 + rBulanan, n) - 1) / rBulanan;
+
+            hasilPensiun = {
+                nama, tanggalLahir, usiaSaatIni, usiaPensiun, sisaWaktu,
+                kebutuhanBulanan, inflasi, returnInvestasi,
+                kebutuhanPensiunBulanan, kebutuhanPensiunTahunan,
+                totalDanaDibutuhkan, tabunganBulanan, totalTerkumpul
+            };
+
+            tampilkanHasilPensiun(hasilPensiun);
+            document.getElementById('btnCetakWealth').disabled = false;
+        }
+
+        function tampilkanHasilPensiun(h) {
+            const resultBox = document.getElementById('resultWealth');
+            resultBox.classList.add('show');
+
+            document.getElementById('sUsiaSaatIniWealth').textContent = h.usiaSaatIni + ' tahun';
+            document.getElementById('sSisaWaktuWealth').textContent = h.sisaWaktu + ' tahun';
+            document.getElementById('sUsiaPensiunWealth').textContent = h.usiaPensiun + ' tahun';
+            document.getElementById('sKebutuhanPensiunWealth').textContent = formatRupiah(h.kebutuhanPensiunBulanan);
+            document.getElementById('sTotalDanaWealth').textContent = formatRupiah(h.totalDanaDibutuhkan);
+            document.getElementById('sTabunganBulananWealth').textContent = formatRupiah(h.tabunganBulanan);
+
+            document.getElementById('dNamaWealth').textContent = h.nama;
+            document.getElementById('dTanggalLahirWealth').textContent = formatTanggal(h.tanggalLahir);
+            document.getElementById('dKebutuhanSaatIniWealth').textContent = formatRupiahFull(h.kebutuhanBulanan);
+            document.getElementById('dKebutuhanPensiunWealth').textContent = formatRupiahFull(h.kebutuhanPensiunBulanan);
+            document.getElementById('dKebutuhanTahunanWealth').textContent = formatRupiahFull(h.kebutuhanPensiunTahunan);
+            document.getElementById('dTotalDanaWealth').textContent = formatRupiahFull(h.totalDanaDibutuhkan);
+            document.getElementById('dReturnInvestasiWealth').textContent = h.returnInvestasi + '%';
+            document.getElementById('dTabunganBulananWealth').textContent = formatRupiahFull(h.tabunganBulanan);
+            document.getElementById('dTotalTerkumpulWealth').textContent = formatRupiahFull(h.totalTerkumpul);
+            document.getElementById('dTotalBayarWealth').innerHTML = '<strong>' + formatRupiahFull(h.totalDanaDibutuhkan) + '</strong>';
+
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function cetakProposalWealth() {
+            if (!hasilPensiun) {
+                alert('⚠️ Silakan hitung dana pensiun terlebih dahulu!');
+                return;
+            }
+            currentProposalType = 'wealth';
+            tampilkanProposalWealth(hasilPensiun);
+        }
+
+        function tampilkanProposalWealth(h) {
+            document.getElementById('proposalWealthSection').style.display = 'block';
+            document.getElementById('proposalRekomendasiSection').style.display = 'block';
+            document.getElementById('proposalKondisiSection').style.display = 'none';
+            document.getElementById('proposalPerhitunganSection').style.display = 'none';
+            document.getElementById('proposalDeductibleSection').style.display = 'none';
+            document.getElementById('pernyataanTitle').textContent = 'D. PERNYATAAN & PERSETUJUAN';
+            document.getElementById('pNoLabel').textContent = 'Laporan';
+
+            document.getElementById('proposalSubTitle').textContent = 'PERENCANAAN DANA PENSIUN';
+            document.getElementById('proposalDesc').textContent = 'Laporan Perencanaan Keuangan untuk Masa Pensiun';
+
+            document.getElementById('pNama').textContent = h.nama;
+            document.getElementById('pInfoTambahan').textContent = 'Tanggal Lahir: ' + formatTanggal(h.tanggalLahir);
+
+            // Data diri
+            let dataHTML = `
+                <table class="data-table">
+                    <tr><td class="label">Nama Lengkap</td><td class="value"><strong>${h.nama}</strong></td></tr>
+                    <tr><td class="label">Tanggal Lahir</td><td class="value"><strong>${formatTanggal(h.tanggalLahir)}</strong></td></tr>
+                    <tr><td class="label">Usia Saat Ini</td><td class="value"><strong>${h.usiaSaatIni} tahun</strong></td></tr>
+                    <tr><td class="label">Usia Pensiun yang Direncanakan</td><td class="value"><strong>${h.usiaPensiun} tahun</strong></td></tr>
+                    <tr><td class="label">Sisa Waktu ke Pensiun</td><td class="value"><strong>${h.sisaWaktu} tahun</strong></td></tr>
+                </table>
+            `;
+            document.getElementById('proposalDataContent').innerHTML = dataHTML;
+
+            // Perhitungan Dana Pensiun
+            let wealthHTML = `
+                <table class="data-table">
+                    <tr><td class="label">Kebutuhan Bulanan Saat Ini</td><td class="value"><strong>${formatRupiahFull(h.kebutuhanBulanan)} / bulan</strong></td></tr>
+                    <tr><td class="label">Asumsi Inflasi</td><td class="value"><strong>${h.inflasi}% per tahun</strong></td></tr>
+                    <tr><td class="label">Kebutuhan Bulanan di Masa Pensiun</td><td class="value"><strong>${formatRupiahFull(h.kebutuhanPensiunBulanan)} / bulan</strong></td></tr>
+                    <tr><td class="label">Kebutuhan Tahunan di Masa Pensiun</td><td class="value"><strong>${formatRupiahFull(h.kebutuhanPensiunTahunan)} / tahun</strong></td></tr>
+                    <tr><td class="label">Total Dana Pensiun yang Dibutuhkan</td><td class="value"><strong>${formatRupiahFull(h.totalDanaDibutuhkan)}</strong></td></tr>
+                    <tr><td class="label">Asumsi Return Investasi</td><td class="value"><strong>${h.returnInvestasi}% per tahun</strong></td></tr>
+                    <tr><td class="label">Tabungan Bulanan yang Diperlukan</td><td class="value"><strong>${formatRupiahFull(h.tabunganBulanan)} / bulan</strong></td></tr>
+                    <tr><td class="label">Total Dana Terkumpul di Pensiun</td><td class="value"><strong>${formatRupiahFull(h.totalTerkumpul)}</strong></td></tr>
+                </table>
+            `;
+            document.getElementById('proposalWealthContent').innerHTML = wealthHTML;
+
+            // Rekomendasi
+            const sisa = h.sisaWaktu;
+            let rekomendasi = '';
+            if (sisa > 20) {
+                rekomendasi = `
+                    <p>✅ Anda memiliki waktu yang panjang (${sisa} tahun) untuk mempersiapkan dana pensiun.</p>
+                    <p>📈 <strong>Rekomendasi Investasi:</strong> Portfolio agresif dengan 70% saham, 20% reksadana, 10% deposito.</p>
+                    <p>💰 <strong>Target Tabungan:</strong> ${formatRupiahFull(h.tabunganBulanan)} per bulan.</p>
+                    <p>📊 Mulai investasi sekarang untuk memaksimalkan efek compounding.</p>
+                `;
+            } else if (sisa > 10) {
+                rekomendasi = `
+                    <p>✅ Anda memiliki waktu menengah (${sisa} tahun) untuk mempersiapkan dana pensiun.</p>
+                    <p>📈 <strong>Rekomendasi Investasi:</strong> Portfolio moderat dengan 50% saham, 30% reksadana, 20% deposito.</p>
+                    <p>💰 <strong>Target Tabungan:</strong> ${formatRupiahFull(h.tabunganBulanan)} per bulan.</p>
+                    <p>📊 Mulai investasi sekarang dan evaluasi secara berkala.</p>
+                `;
+            } else if (sisa > 5) {
+                rekomendasi = `
+                    <p>⚠️ Anda memiliki waktu yang terbatas (${sisa} tahun) untuk mempersiapkan dana pensiun.</p>
+                    <p>📈 <strong>Rekomendasi Investasi:</strong> Portfolio konservatif dengan 30% saham, 40% reksadana, 30% deposito.</p>
+                    <p>💰 <strong>Target Tabungan:</strong> ${formatRupiahFull(h.tabunganBulanan)} per bulan.</p>
+                    <p>📊 Prioritaskan investasi yang aman dan stabil.</p>
+                `;
+            } else {
+                rekomendasi = `
+                    <p>🔴 <strong>Peringatan:</strong> Anda sudah mendekati masa pensiun (${sisa} tahun lagi).</p>
+                    <p>📈 <strong>Rekomendasi Investasi:</strong> Portfolio sangat konservatif dengan 70% deposito, 20% reksadana pendapatan tetap, 10% saham blue chip.</p>
+                    <p>💰 <strong>Target Tabungan:</strong> ${formatRupiahFull(h.tabunganBulanan)} per bulan.</p>
+                    <p>📊 Fokus pada keamanan dana dan likuiditas.</p>
+                    <p>💡 <strong>Catatan:</strong> Pertimbangkan untuk menunda masa pensiun jika memungkinkan.</p>
+                `;
+            }
+            document.getElementById('proposalRekomendasiContent').innerHTML = rekomendasi;
+
+            // Tanggal
+            const now = new Date();
+            const tgl = formatTanggal(now.toISOString().split('T')[0]);
+            document.getElementById('pKotaTanggal').textContent = tgl;
+
+            const noLaporan = 'AVR/WM/' + now.getFullYear() + '/' + String(now.getMonth() + 1).padStart(2, '0') +
+                String(now.getDate()).padStart(2, '0') + String(Math.floor(Math.random() * 1000)).padStart(3, '0');
+            document.getElementById('pNoProposal').textContent = noLaporan;
+
+            document.getElementById('footerNotes').innerHTML = `
+                <ul>
+                    <li><strong>Catatan:</strong> Perhitungan ini adalah simulasi/perkiraan berdasarkan data yang diberikan.</li>
+                    <li>Hasil perhitungan dapat berubah tergantung pada inflasi, return investasi, dan perubahan kebutuhan.</li>
+                    <li>Aturan 4% withdrawal rate digunakan untuk menghitung total dana pensiun yang dibutuhkan.</li>
+                    <li style="margin-top:4px; font-size:11px; color:#7a8a9f;">
+                        Konsultasikan dengan perencana keuangan untuk perencanaan yang lebih detail dan personal.
+                    </li>
+                </ul>
+            `;
+
+            document.getElementById('proposalWrapper').classList.add('show');
+            document.getElementById('printInstruction').classList.remove('show');
+            document.getElementById('proposalWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            const btn = document.getElementById('btnCetakWealth');
+            const originalText = btn.textContent;
+            btn.textContent = '✅ Laporan Siap!';
+            setTimeout(() => { btn.textContent = originalText; }, 2000);
+        }
+
+        function resetFormWealth() {
+            document.getElementById('namaWealth').value = '';
+            document.getElementById('tanggalLahirWealth').value = '1990-03-15';
+            document.getElementById('usiaSaatIniWealth').value = '';
+            document.getElementById('usiaPensiunWealth').value = '60';
+            document.getElementById('kebutuhanBulananWealth').value = '10000000';
+            document.getElementById('sisaWaktuWealth').value = '';
+            document.getElementById('inflasiWealth').value = '5.0';
+            document.getElementById('returnInvestasiWealth').value = '8.0';
+            
+            // Hitung ulang usia
+            const usia = hitungUsia('1990-03-15');
+            document.getElementById('usiaSaatIniWealth').value = usia > 0 ? usia + ' tahun' : '';
+            const usiaPensiun = 60;
+            if (usia > 0 && usiaPensiun > 0) {
+                const sisa = usiaPensiun - usia;
+                document.getElementById('sisaWaktuWealth').value = sisa > 0 ? sisa + ' tahun' : '';
+            }
+
+            document.getElementById('resultWealth').classList.remove('show');
+            document.getElementById('btnCetakWealth').disabled = true;
+            hasilPensiun = null;
+            tutupProposal();
+        }
+
+        // ============================================================
         //  FUNGSI PROPOSAL GLOBAL
         // ============================================================
 
@@ -1990,17 +2513,35 @@
         //  ENTER KEY UNTUK HITUNG
         // ============================================================
 
-        document.querySelectorAll('#formMobil input, #formMobil select, #formProperti input, #formProperti select, #formProperti textarea').forEach(el => {
+        document.querySelectorAll('#formMobil input, #formMobil select, #formProperti input, #formProperti select, #formProperti textarea, #formWealth input, #formWealth select').forEach(el => {
             el.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter' && !this.closest('textarea')) {
                     if (this.closest('#formMobil')) {
                         hitungPremiMobil();
                     } else if (this.closest('#formProperti')) {
                         hitungPremiProperti();
+                    } else if (this.closest('#formWealth')) {
+                        hitungPensiun();
                     }
                 }
             });
         });
+
+        // ============================================================
+        //  INIT - WEALTH: SET DEFAULT TANGGAL LAHIR
+        // ============================================================
+
+        function initWealthDefault() {
+            const defaultDate = '1990-03-15';
+            document.getElementById('tanggalLahirWealth').value = defaultDate;
+            const usia = hitungUsia(defaultDate);
+            document.getElementById('usiaSaatIniWealth').value = usia > 0 ? usia + ' tahun' : '';
+            const usiaPensiun = parseInt(document.getElementById('usiaPensiunWealth').value);
+            if (usia > 0 && usiaPensiun > 0) {
+                const sisa = usiaPensiun - usia;
+                document.getElementById('sisaWaktuWealth').value = sisa > 0 ? sisa + ' tahun' : '';
+            }
+        }
 
         // ============================================================
         //  INIT
@@ -2008,6 +2549,7 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             loadDataKendaraan();
+            initWealthDefault();
         });
 
         document.addEventListener('visibilitychange', function() {
