@@ -13,7 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   BAGIAN 1: CSS (SAMA PERSIS)
+   BAGIAN 1: CSS
    ============================================================ */
 :root{
   --ink:#12181a;
@@ -42,7 +42,28 @@ body{
   min-height:100vh;
   line-height:1.5;
 }
-.wrap{max-width:1000px;margin:0 auto;padding:56px 22px 100px;}
+.wrap{max-width:1000px;margin:0 auto;padding:40px 22px 100px;}
+
+/* ===== BACK BUTTON ===== */
+.back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gold-soft);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 8px 16px;
+    border: 2px solid var(--gold-soft);
+    border-radius: 8px;
+    transition: 0.2s;
+    margin-bottom: 12px;
+    background: transparent;
+}
+.back-home:hover {
+    background: var(--gold-soft);
+    color: var(--ink);
+}
 
 .hero{position:relative;text-align:center;margin-bottom:52px;padding-bottom:34px;border-bottom:1px solid var(--line);}
 .hero .seal{
@@ -662,7 +683,7 @@ ul.trait-list li:last-child{border-bottom:none;}
 @media print{
   body{background:var(--paper) !important;color:var(--ink) !important;}
   .wrap{max-width:100%;padding:20px 26px;}
-  .card,.print-bar,.hero .hanzi-row,.footnote,.user-status-bar,
+  .back-home,.card,.print-bar,.hero .hanzi-row,.footnote,.user-status-bar,
   .modal-overlay,.license-warning,.history-actions{display:none !important;}
   .hero{border-bottom:2px solid var(--ink);margin-bottom:24px;padding-bottom:16px;}
   .hero h1{color:var(--ink);font-size:30px;}
@@ -1506,6 +1527,11 @@ ul.trait-list li:last-child{border-bottom:none;}
 <div class="wrap" id="app">
 
   <!-- ============================================================
+       BACK BUTTON
+       ============================================================ -->
+  <a href="index.html" class="back-home no-print">← Kembali ke Beranda</a>
+
+  <!-- ============================================================
        HERO
        ============================================================ -->
   <div class="hero">
@@ -1999,7 +2025,7 @@ const MEANING_DATA = {
 "562":"Hemat. Pria kasih ke istri makin beruang, wanita buat suami makin kaya.<br>⚠️ Tantangan: Cenderung pelit.<br>💡 Saran: Semakin expense semakin banyak dapat.",
 "652":"Wanita buat uang suami banyak, pria uang semakin banyak.<br>💡 Saran: Uang suami harus banyak kasih ke istri. Belum menikah: uang pakai saja akan semakin banyak. Setelah terima uang ucapkan terima kasih.",
 "573":"Banyak pendukung, ada power dan jabatan, banyak ilmu.<br>⚠️ Tantangan: Anak akan balas budi. Jangan senang berjanji jika tidak ditepati jadi musuh.<br>💡 Saran: Harus ada 9 untuk dapat pengakuan.",
-"753":"Energi positif: orang millioner datang mendukung.<br>⚠️ Tantangan: Energi rendah: orang datang habiskan uang, anak menyusahkan orang tua.<br>💡 Saran: Jaga energi tetap tinggi.",
+"753":"Energi positif: orang Millionen datang mendukung.<br>⚠️ Tantangan: Energi rendah: orang datang habiskan uang, anak menyusahkan orang tua.<br>💡 Saran: Jaga energi tetap tinggi.",
 "584":"Bisa buat bisnis sangat besar jika energi positif.<br>⚠️ Tantangan: Jika energi rendah: pengaruh negatif ke anak, kesehatan, karir, pasangan, orang tua.<br>💡 Saran: Kuat amal bakti. Legowo.",
 "854":"⚠️ Tantangan: Selalu risau, proses hidup banyak rintangan.<br>💡 Saran: Perlu konsultasi kesehatan.",
 "595":"Pemberani, hebat memimpin.<br>⚠️ Tantangan: Keras kepala. Pilihan bagus dapat bagus.<br>💡 Saran: Perlu keluar kota untuk cari nafkah.",
