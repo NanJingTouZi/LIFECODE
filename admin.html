@@ -324,7 +324,6 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
 .tab-content{display:none;}
 .tab-content.active{display:block;}
 
-/* CUSTOM POPUP MODAL */
 .custom-popup-overlay{
   display:none;
   position:fixed;
@@ -608,6 +607,7 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
           <label>Jenis Token</label>
           <select id="genType">
             <option value="quota">📊 Kuota (+10 kali)</option>
+            <option value="quota3">📊 Kuota (+3 kali)</option>
             <option value="both">📊+⏰ Kuota (+10) + Waktu (+30 hari)</option>
             <option value="time">⏰ Waktu (+30 hari)</option>
             <option value="time60">⏰ Waktu (+60 hari)</option>
@@ -773,7 +773,6 @@ function showPopup(type, title, message, confirmText, cancelText, showInput, cal
         titleEl.textContent = title || 'Informasi';
         msgEl.textContent = message || '';
         
-        // Handle input
         if (showInput) {
             inputContainer.style.display = 'block';
             inputEl.value = '';
@@ -821,7 +820,6 @@ function showPopup(type, title, message, confirmText, cancelText, showInput, cal
             btnContainer.appendChild(btnYes);
             btnContainer.appendChild(btnNo);
         } else {
-            // Alert: 1 tombol
             const btn = document.createElement('button');
             btn.textContent = 'OK';
             btn.className = 'popup-btn';
@@ -837,7 +835,6 @@ function showPopup(type, title, message, confirmText, cancelText, showInput, cal
         
         overlay.classList.add('show');
         
-        // Enter key untuk input
         if (showInput) {
             inputEl.onkeydown = function(e) {
                 if (e.key === 'Enter') {
@@ -873,7 +870,7 @@ function activateTab(tabId) {
 }
 
 // ============================================================
-// SESSION MANAGEMENT (TETAP LOGIN SAAT REFRESH)
+// SESSION MANAGEMENT
 // ============================================================
 function getAdminSession() {
     const data = localStorage.getItem('admin_session');
@@ -946,16 +943,13 @@ async function updateLicense(email, quota, expiryDate, isActive) {
 
 async function deleteUser(email) {
     try {
-        // 1. Hapus user dari collection 'users'
         await deleteDoc(doc(db, 'users', email));
         
-        // 2. Hapus license dari collection 'licenses'
         const licenseDoc = await getDoc(doc(db, 'licenses', email));
         if (licenseDoc.exists()) {
             await deleteDoc(doc(db, 'licenses', email));
         }
         
-        // 3. Hapus semua history user
         const historySnapshot = await getDocs(
             query(collection(db, 'history'), where('email', '==', email))
         );
@@ -987,6 +981,8 @@ async function generateTokens(pin, type, count) {
         let amount = null, duration = null;
         if (type === 'quota') {
             amount = 10;
+        } else if (type === 'quota3') {
+            amount = 3;
         } else if (type === 'both') {
             duration = 30;
             amount = 10;
@@ -1166,9 +1162,6 @@ function renderStats() {
     document.getElementById('statHistory').textContent = history.length;
 }
 
-// ============================================================
-// RENDER USERS - DENGAN TOMBOL DELETE
-// ============================================================
 function renderUsers() {
     const users = DATA.users || {};
     const licenses = DATA.licenses || {};
@@ -1264,9 +1257,6 @@ function renderUsers() {
     });
 }
 
-// ============================================================
-// RENDER LICENSES - DENGAN INLINE EDIT
-// ============================================================
 function renderLicenses() {
     const licenses = DATA.licenses || {};
     const search = (document.getElementById('licenseSearch').value || '').toLowerCase();
@@ -1423,6 +1413,7 @@ function renderCodes() {
         let typeText = '-';
         if (code.type === 'time') typeText = '⏰ ' + (code.duration || 0) + ' hari';
         else if (code.type === 'quota') typeText = '📊 +' + (code.amount || 0) + ' kali';
+        else if (code.type === 'quota3') typeText = '📊 +' + (code.amount || 0) + ' kali';
         else if (code.type === 'both') typeText = '⏰ +' + (code.duration || 0) + 'h 📊 +' + (code.amount || 0) + 'x';
         
         html += '<tr>';
@@ -1502,7 +1493,6 @@ document.getElementById('generateBtn').addEventListener('click', async function(
     resultEl.style.display = 'none';
     
     try {
-        // PIN input menggunakan custom popup
         const pin = await showPopup('pin', '🔑 Verifikasi PIN Admin', 
             'Masukkan PIN Admin untuk melanjutkan.', 'Verifikasi', 'Batal', true);
         
@@ -1692,7 +1682,6 @@ console.log('📌 Mode: FIREBASE');
 console.log('🔑 PIN: ' + ADMIN_PIN);
 console.log('💡 Session tersimpan, refresh tidak logout!');
 
-// Cek session saat load
 checkAdminSession();
 </script>
 </body>
