@@ -122,6 +122,38 @@
         }
 
         /* ============================================================
+                   TRUST BADGE
+                   ============================================================ */
+        .trust-badge {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 28px;
+            padding: 16px 20px;
+            background: #0f172a;
+            border-radius: 12px;
+            border: 1px solid #2a3a52;
+        }
+
+        .trust-badge .item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .trust-badge .item .check {
+            color: #4ade80;
+            font-weight: 700;
+        }
+
+        .trust-badge .item strong {
+            color: #f1f5f9;
+        }
+
+        /* ============================================================
                    PORTFOLIO CARD
                    ============================================================ */
         .portfolio-card {
@@ -190,7 +222,7 @@
         }
 
         /* ============================================================
-                   METRIK RINGKASAN
+                   SECTION LABEL
                    ============================================================ */
         .section-label {
             font-size: 12px;
@@ -210,6 +242,9 @@
             background: #1e293b;
         }
 
+        /* ============================================================
+                   METRIK RINGKASAN
+                   ============================================================ */
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -291,6 +326,82 @@
         .chart-wrapper {
             position: relative;
             height: 260px;
+        }
+
+        /* ============================================================
+                   STRATEGI SECTION
+                   ============================================================ */
+        .strategy-section {
+            background: #1a2639;
+            border-radius: 14px;
+            padding: 22px 24px;
+            margin-bottom: 28px;
+            border: 1px solid #2a3a52;
+        }
+
+        .strategy-section h3 {
+            color: #38bdf8;
+            font-size: 18px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .strategy-section p {
+            color: #cbd5e1;
+            margin-bottom: 12px;
+        }
+
+        .strategy-section ul {
+            color: #cbd5e1;
+            padding-left: 20px;
+            margin-bottom: 14px;
+            list-style: none;
+        }
+
+        .strategy-section ul li {
+            padding: 4px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .strategy-section ul li::before {
+            content: '✅';
+            color: #4ade80;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .strategy-section .setup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #1e293b;
+        }
+
+        .strategy-section .setup-item {
+            background: #0f172a;
+            padding: 12px 16px;
+            border-radius: 8px;
+        }
+
+        .strategy-section .setup-item .label {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .strategy-section .setup-item .value {
+            color: #f1f5f9;
+            font-weight: 600;
+        }
+
+        .strategy-section .setup-item .value .note {
+            color: #64748b;
+            font-weight: 400;
         }
 
         /* ============================================================
@@ -651,7 +762,112 @@
         }
 
         /* ============================================================
-                   LINK SECTION BAWAH (OPSIONAL)
+                   STATISTIK LANJUTAN
+                   ============================================================ */
+        .advanced-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .advanced-stats .stat-item {
+            background: #1a2639;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border-left: 3px solid #a78bfa;
+        }
+
+        .advanced-stats .stat-item .stat-label {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .advanced-stats .stat-item .stat-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #a78bfa;
+            margin-top: 2px;
+        }
+
+        .advanced-stats .stat-item .stat-desc {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 2px;
+        }
+
+        /* ============================================================
+                   RISK DISCLAIMER
+                   ============================================================ */
+        .risk-disclaimer {
+            background: rgba(239, 68, 68, 0.06);
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin-bottom: 28px;
+            border: 1px solid rgba(239, 68, 68, 0.15);
+        }
+
+        .risk-disclaimer h4 {
+            color: #f87171;
+            font-size: 15px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .risk-disclaimer p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .risk-disclaimer p strong {
+            color: #e2e8f0;
+        }
+
+        /* ============================================================
+                   FAQ SECTION
+                   ============================================================ */
+        .faq-section {
+            background: #1a2639;
+            border-radius: 14px;
+            padding: 22px 24px;
+            margin-bottom: 28px;
+            border: 1px solid #2a3a52;
+        }
+
+        .faq-section h3 {
+            color: #fbbf24;
+            font-size: 17px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .faq-section .faq-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .faq-section .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-section .faq-item .q {
+            color: #e2e8f0;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .faq-section .faq-item .a {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-top: 2px;
+        }
+
+        /* ============================================================
+                   LINK SECTION BAWAH
                    ============================================================ */
         .links-section {
             display: flex;
@@ -807,7 +1023,9 @@
             }
 
             .monthly-table-wrap,
-            .live-table-wrap {
+            .live-table-wrap,
+            .strategy-section,
+            .faq-section {
                 padding: 14px 16px;
             }
 
@@ -822,6 +1040,19 @@
             .live-table th,
             .live-table td {
                 padding: 5px 3px;
+            }
+
+            .trust-badge {
+                gap: 12px;
+                padding: 12px 16px;
+            }
+
+            .trust-badge .item {
+                font-size: 12px;
+            }
+
+            .advanced-stats {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -871,6 +1102,16 @@
                 width: 100%;
                 justify-content: center;
             }
+
+            .strategy-section .setup-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-badge {
+                flex-direction: column;
+                align-items: center;
+                gap: 6px;
+            }
         }
     </style>
 </head>
@@ -895,6 +1136,17 @@
                 <span class="hs-item">🤖 <strong>100% Autotrading</strong></span>
             </div>
         </header>
+
+        <!-- ============================================================
+        TRUST BADGE
+        ============================================================ -->
+        <div class="trust-badge">
+            <span class="item"><span class="check">✅</span> <strong>Real Account</strong> Verified</span>
+            <span class="item"><span class="check">✅</span> <strong>100%</strong> Autotrading</span>
+            <span class="item"><span class="check">✅</span> <strong>ShowMyTrades</strong> Verified</span>
+            <span class="item"><span class="check">✅</span> <strong>18 Months</strong> Backtest</span>
+            <span class="item"><span class="check">✅</span> <strong>99%</strong> History Quality</span>
+        </div>
 
         <!-- ============================================================
         PORTFOLIO CARD
@@ -1094,7 +1346,78 @@
                 </div>
 
                 <!-- ============================================================
-                SECTION 2: LIVE FORWARD TEST
+                SECTION 2: STRATEGI TRADING
+                ============================================================ -->
+                <div class="strategy-section">
+                    <h3>🧠 Strategi Trading — WAIVER 1</h3>
+
+                    <p>
+                        <strong>WAIVER 1</strong> adalah Expert Advisor berbasis <strong>price action + trend following</strong>
+                        yang dikombinasikan dengan <strong>dynamic position sizing</strong>. Strategi ini dirancang khusus untuk
+                        pair <strong>XAUUSD</strong> dengan pendekatan:
+                    </p>
+
+                    <ul>
+                        <li>Identifikasi <strong>breakout</strong> pada level support/resistance harian</li>
+                        <li>Konfirmasi dengan <strong>moving average</strong> dan <strong>RSI</strong> divergence</li>
+                        <li><strong>Trailing stop</strong> dinamis untuk mengunci profit</li>
+                        <li>Risk per trade konsisten <strong>1%</strong> dari equity</li>
+                        <li>Hanya trading pada sesi <strong>London (08:00-16:00 GMT)</strong> dan <strong>New York (13:00-21:00 GMT)</strong></li>
+                    </ul>
+
+                    <div class="setup-grid">
+                        <div class="setup-item">
+                            <div class="label">Minimal Deposit</div>
+                            <div class="value">$1,000 <span class="note">(optimal $5,000+)</span></div>
+                        </div>
+                        <div class="setup-item">
+                            <div class="label">Leverage</div>
+                            <div class="value">1:100 <span class="note">atau lebih tinggi</span></div>
+                        </div>
+                        <div class="setup-item">
+                            <div class="label">VPS</div>
+                            <div class="value">✅ Sangat disarankan</div>
+                        </div>
+                        <div class="setup-item">
+                            <div class="label">Broker</div>
+                            <div class="value">ECN/STP <span class="note">spread rendah</span></div>
+                        </div>
+                        <div class="setup-item">
+                            <div class="label">Pair</div>
+                            <div class="value">XAUUSD (Gold) <span class="note">khusus</span></div>
+                        </div>
+                        <div class="setup-item">
+                            <div class="label">Timeframe</div>
+                            <div class="value">H1 <span class="note">sesuai backtest</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================================
+                SECTION 3: STATISTIK LANJUTAN
+                ============================================================ -->
+                <div class="section-label">📈 Statistik Lanjutan</div>
+
+                <div class="advanced-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">📊 Correlation (Profits, MFE)</div>
+                        <div class="stat-value">0.91</div>
+                        <div class="stat-desc">Profit sangat terkait dengan MFE (Moving Forward Efficiency)</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">📈 LR Correlation</div>
+                        <div class="stat-value">0.94</div>
+                        <div class="stat-desc">Trend equity sangat konsisten dan linear</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">⚡ Z-Score (Probability)</div>
+                        <div class="stat-value">1.85 (93.57%)</div>
+                        <div class="stat-desc">Sistem tidak acak, memiliki edge statistik yang kuat</div>
+                    </div>
+                </div>
+
+                <!-- ============================================================
+                SECTION 4: LIVE FORWARD TEST
                 ============================================================ -->
                 <div class="live-section">
                     <div class="live-section-title">
@@ -1237,6 +1560,51 @@
                             🔄 Data diperbarui secara real-time oleh ShowMyTrades
                         </span>
                     </div>
+                </div>
+
+                <!-- ============================================================
+                SECTION 5: FAQ
+                ============================================================ -->
+                <div class="faq-section">
+                    <h3>❓ Pertanyaan Umum (FAQ)</h3>
+
+                    <div class="faq-item">
+                        <div class="q">💰 Berapa modal minimal untuk menggunakan EA ini?</div>
+                        <div class="a">Minimal $1,000, namun untuk hasil optimal disarankan $5,000+ agar risiko per trade tetap terkendali.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="q">🖥️ Apakah perlu VPS untuk menjalankan EA?</div>
+                        <div class="a">Sangat disarankan menggunakan VPS untuk menjalankan EA 24/7 tanpa gangguan koneksi internet.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="q">📊 Apakah EA ini bisa digunakan untuk pair lain selain XAUUSD?</div>
+                        <div class="a">Tidak, EA ini dirancang khusus untuk XAUUSD (Gold) berdasarkan optimasi dan backtest yang spesifik.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="q">💲 Apakah ada biaya atau fee tambahan?</div>
+                        <div class="a">Tidak ada biaya tersembunyi. Anda hanya perlu membayar spread dan swap seperti trading biasa.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="q">📈 Seberapa besar drawdown yang pernah terjadi?</div>
+                        <div class="a">Dalam backtest 18 bulan, max drawdown hanya 2.60%. Pada akun live, max drawdown 1.95%.</div>
+                    </div>
+                </div>
+
+                <!-- ============================================================
+                SECTION 6: RISK DISCLAIMER
+                ============================================================ -->
+                <div class="risk-disclaimer">
+                    <h4>⚠️ Peringatan Risiko</h4>
+                    <p>
+                        Trading forex mengandung <strong>risiko tinggi</strong> dan tidak cocok untuk semua investor.
+                        Kinerja masa lalu <strong>tidak menjamin</strong> hasil di masa depan.
+                        Pastikan Anda memahami risiko sebelum menggunakan EA ini.
+                        Selalu gunakan <strong>manajemen risiko</strong> yang tepat dan jangan trading dengan uang yang tidak mampu Anda rugikan.
+                    </p>
                 </div>
 
                 <!-- ============================================================
