@@ -38,6 +38,34 @@
         }
 
         /* ============================================================
+                   TOMBOL BACK
+                   ============================================================ */
+        .back-button-wrap {
+            margin-bottom: 20px;
+        }
+
+        .back-button-wrap .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 18px;
+            background: #1e293b;
+            border-radius: 30px;
+            border: 1px solid #334155;
+            transition: all 0.3s;
+        }
+
+        .back-button-wrap .btn-back:hover {
+            color: #f1f5f9;
+            border-color: #38bdf8;
+            background: #2a3a52;
+            transform: translateX(-3px);
+        }
+
+        /* ============================================================
                    HEADER
                    ============================================================ */
         .main-header {
@@ -351,6 +379,8 @@
         .strategy-section p {
             color: #cbd5e1;
             margin-bottom: 12px;
+            font-size: 15px;
+            line-height: 1.8;
         }
 
         .strategy-section ul {
@@ -361,10 +391,12 @@
         }
 
         .strategy-section ul li {
-            padding: 4px 0;
+            padding: 5px 0;
             display: flex;
             align-items: flex-start;
             gap: 8px;
+            font-size: 15px;
+            line-height: 1.6;
         }
 
         .strategy-section ul li::before {
@@ -372,6 +404,7 @@
             color: #4ade80;
             font-size: 14px;
             flex-shrink: 0;
+            margin-top: 1px;
         }
 
         .strategy-section .setup-grid {
@@ -1054,25 +1087,44 @@
             .advanced-stats {
                 grid-template-columns: 1fr;
             }
+
+            .back-button-wrap .btn-back {
+                font-size: 13px;
+                padding: 6px 14px;
+            }
         }
 
         @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
             .main-header h1 {
                 font-size: 22px;
             }
 
+            .main-header .header-stats {
+                flex-direction: column;
+                align-items: center;
+                gap: 6px;
+                font-size: 12px;
+            }
+
             .metrics-grid {
                 grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .metric-box .value {
+                font-size: 16px;
+            }
+
+            .metric-box {
+                padding: 10px 14px;
             }
 
             .insight-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .header-stats {
-                flex-direction: column;
-                align-items: center;
-                gap: 6px;
             }
 
             .card-header .right {
@@ -1080,8 +1132,8 @@
             }
 
             .status-badge {
-                font-size: 12px;
-                padding: 4px 14px;
+                font-size: 11px;
+                padding: 4px 12px;
             }
 
             .monthly-table,
@@ -1111,6 +1163,83 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 6px;
+                padding: 10px 14px;
+            }
+
+            .trust-badge .item {
+                font-size: 12px;
+            }
+
+            .strategy-section {
+                padding: 14px 16px;
+            }
+
+            .strategy-section p {
+                font-size: 14px;
+                text-align: justify;
+            }
+
+            .strategy-section ul li {
+                font-size: 14px;
+                word-break: break-word;
+            }
+
+            .forward-summary {
+                padding: 16px;
+            }
+
+            .chart-wrapper {
+                height: 180px;
+            }
+
+            .links-section {
+                gap: 10px;
+            }
+
+            .btn-link {
+                font-size: 13px;
+                padding: 10px 20px;
+                max-width: 100%;
+            }
+
+            .live-table-wrap,
+            .monthly-table-wrap,
+            .faq-section {
+                padding: 12px 14px;
+            }
+
+            .faq-section .faq-item .q {
+                font-size: 13px;
+            }
+
+            .faq-section .faq-item .a {
+                font-size: 13px;
+            }
+
+            .risk-disclaimer {
+                padding: 14px 16px;
+            }
+
+            .risk-disclaimer p {
+                font-size: 13px;
+            }
+
+            .update-info {
+                font-size: 12px;
+            }
+
+            .footer-note {
+                font-size: 13px;
+            }
+
+            .smart-insight {
+                font-size: 13px;
+                padding: 12px 14px;
+            }
+
+            .back-button-wrap .btn-back {
+                font-size: 12px;
+                padding: 5px 12px;
             }
         }
     </style>
@@ -1120,18 +1249,27 @@
     <div class="container">
 
         <!-- ============================================================
+        TOMBOL BACK
+        ============================================================ -->
+        <div class="back-button-wrap">
+            <a href="portfolio.html" class="btn-back">
+                ← Kembali ke Portfolio
+            </a>
+        </div>
+
+        <!-- ============================================================
         HEADER
         ============================================================ -->
         <header class="main-header">
             <div class="badge-top">⚡ Live Portfolio</div>
             <h1>WAIVER <span>5</span></h1>
-            <p>Expert Advisor — XAUUSD (Gold) • 1:100 Leverage • Risk: 5% (Backtest) / 10% (Live)</p>
+            <p>Expert Advisor — XAUUSD (Gold) • 1:500 Leverage • Risk: 5% (Backtest) / 10% (Live)</p>
 
             <div class="header-stats">
                 <span class="hs-item">
                     <span class="live-dot"></span> <strong>Live Forward Test</strong>
                 </span>
-                <span class="hs-item">📅 Backtest: <strong>Jan 2025 - Jun 2026</strong></span>
+                <span class="hs-item">📅 Backtest: <strong>Jan 2025 - Jul 2026</strong></span>
                 <span class="hs-item">🏦 Broker: <strong>Exness MT5</strong></span>
                 <span class="hs-item">🤖 <strong>100% Autotrading</strong></span>
             </div>
@@ -1144,7 +1282,7 @@
             <span class="item"><span class="check">✅</span> <strong>Real Account</strong> Verified</span>
             <span class="item"><span class="check">✅</span> <strong>100%</strong> Autotrading</span>
             <span class="item"><span class="check">✅</span> <strong>ShowMyTrades</strong> Verified</span>
-            <span class="item"><span class="check">✅</span> <strong>18 Months</strong> Backtest</span>
+            <span class="item"><span class="check">✅</span> <strong>19 Months</strong> Backtest</span>
             <span class="item"><span class="check">✅</span> <strong>99%</strong> History Quality</span>
         </div>
 
@@ -1178,39 +1316,39 @@
                 <div class="metrics-grid">
                     <div class="metric-box">
                         <div class="label">Total Net Profit</div>
-                        <div class="value green">+$5,538,799.22</div>
+                        <div class="value green">+$5,629,987.41</div>
                     </div>
                     <div class="metric-box">
                         <div class="label">Total Return</div>
-                        <div class="value gold">+553,879.92%</div>
+                        <div class="value gold">+562,998.74%</div>
                     </div>
                     <div class="metric-box">
                         <div class="label">Profit Factor</div>
-                        <div class="value blue">5.29</div>
+                        <div class="value blue">5.56</div>
                     </div>
                     <div class="metric-box">
                         <div class="label">Win Rate</div>
-                        <div class="value gold">86.96%</div>
+                        <div class="value gold">90.33%</div>
                     </div>
                     <div class="metric-box">
                         <div class="label">Max Drawdown</div>
-                        <div class="value pink">12.40%</div>
+                        <div class="value pink">13.83%</div>
                     </div>
                     <div class="metric-box">
                         <div class="label">Sharpe Ratio</div>
-                        <div class="value purple">18.98</div>
+                        <div class="value purple">20.31</div>
                     </div>
                     <div class="metric-box">
                         <div class="label">Total Trades</div>
-                        <div class="value cyan">299</div>
+                        <div class="value cyan">269</div>
                     </div>
                     <div class="metric-box">
                         <div class="label">Recovery Factor</div>
-                        <div class="value orange">7.67</div>
+                        <div class="value orange">6.61</div>
                     </div>
                     <div class="metric-box">
                         <div class="label">Expected Payoff</div>
-                        <div class="value green">+$18,524.41</div>
+                        <div class="value green">+$20,929.32</div>
                     </div>
                     <div class="metric-box">
                         <div class="label">Initial Deposit</div>
@@ -1218,11 +1356,11 @@
                     </div>
                     <div class="metric-box">
                         <div class="label">Final Balance</div>
-                        <div class="value green">$5,539,799.22</div>
+                        <div class="value green">$5,630,987.41</div>
                     </div>
                     <div class="metric-box">
                         <div class="label">Periode</div>
-                        <div class="value cyan">18 Bulan</div>
+                        <div class="value cyan">19 Bulan</div>
                     </div>
                 </div>
 
@@ -1230,7 +1368,7 @@
                 <div class="chart-section">
                     <div class="chart-title">
                         <h3>📈 Equity Curve — Backtest Real</h3>
-                        <span style="font-size:12px; color:#64748b;">299 trades • 99% quality</span>
+                        <span style="font-size:12px; color:#64748b;">269 trades • 99% quality</span>
                     </div>
                     <div class="chart-wrapper">
                         <canvas id="chartWaiver5"></canvas>
@@ -1268,46 +1406,46 @@
                                 <!-- 2025 -->
                                 <tr>
                                     <td><strong>2025</strong></td>
-                                    <td class="positive">+21.74%</td>
-                                    <td class="positive">+33.17%</td>
-                                    <td class="positive">+42.91%</td>
-                                    <td class="positive">+22.90%</td>
-                                    <td class="positive">+92.92%</td>
-                                    <td class="positive">+312.21%</td>
-                                    <td class="positive">+154.39%</td>
-                                    <td class="positive">+103.40%</td>
-                                    <td class="positive">+84.12%</td>
-                                    <td class="positive">+76.33%</td>
-                                    <td class="positive">+68.91%</td>
-                                    <td class="positive">+55.47%</td>
-                                    <td class="year-total"><strong>+99,893.31%</strong></td>
+                                    <td class="positive">+40.41%</td>
+                                    <td class="positive">+64.53%</td>
+                                    <td class="positive">+40.52%</td>
+                                    <td class="positive">+45.40%</td>
+                                    <td class="positive">+91.54%</td>
+                                    <td class="positive">+38.70%</td>
+                                    <td class="positive">+19.83%</td>
+                                    <td class="positive">+36.38%</td>
+                                    <td class="positive">+132.89%</td>
+                                    <td class="positive">+80.38%</td>
+                                    <td class="positive">+69.32%</td>
+                                    <td class="positive">+56.82%</td>
+                                    <td class="year-total"><strong>+22,755.38%</strong></td>
                                 </tr>
 
                                 <!-- 2026 -->
                                 <tr>
                                     <td><strong>2026</strong></td>
-                                    <td class="positive">+48.22%</td>
-                                    <td class="positive">+42.75%</td>
-                                    <td class="positive">+56.89%</td>
-                                    <td class="positive">+23.15%</td>
-                                    <td class="positive">+18.73%</td>
-                                    <td class="positive">+14.27%</td>
+                                    <td class="positive">+30.65%</td>
+                                    <td class="positive">+60.84%</td>
+                                    <td class="positive">+165.16%</td>
+                                    <td class="positive">+99.78%</td>
+                                    <td class="positive">+58.77%</td>
+                                    <td class="positive">+33.78%</td>
+                                    <td class="positive">+4.21%</td>
                                     <td class="empty">—</td>
                                     <td class="empty">—</td>
                                     <td class="empty">—</td>
                                     <td class="empty">—</td>
                                     <td class="empty">—</td>
-                                    <td class="empty">—</td>
-                                    <td class="year-total"><strong>+454.09%</strong></td>
+                                    <td class="year-total"><strong>+2,185.62%</strong></td>
                                 </tr>
 
                                 <!-- TOTAL -->
                                 <tr class="total-row">
                                     <td><strong>TOTAL</strong></td>
                                     <td colspan="12" style="text-align:center; color:#94a3b8;">
-                                        Total Return: <strong style="color:#fbbf24;">+553,879.92%</strong>
+                                        Total Return: <strong style="color:#fbbf24;">+562,998.74%</strong>
                                     </td>
-                                    <td class="year-total"><strong>+553,879.92%</strong></td>
+                                    <td class="year-total"><strong>+562,998.74%</strong></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1316,14 +1454,14 @@
                     <div style="display:flex; gap:20px; flex-wrap:wrap; margin-top:14px; padding-top:14px; border-top:1px solid #1e293b; font-size:13px; color:#94a3b8;">
                         <span style="display:flex; align-items:center; gap:6px;">
                             <span style="width:10px; height:10px; border-radius:3px; background:#4ade80;"></span>
-                            Profit: <strong style="color:#4ade80;">18 bulan</strong>
+                            Profit: <strong style="color:#4ade80;">19 bulan</strong>
                         </span>
                         <span style="display:flex; align-items:center; gap:6px;">
                             <span style="width:10px; height:10px; border-radius:3px; background:#475569;"></span>
                             No Activity: <strong style="color:#64748b;">0 bulan</strong>
                         </span>
                         <span>📊 Konsistensi: <strong style="color:#fbbf24;">100%</strong></span>
-                        <span>📈 Rata-rata: <strong style="color:#38bdf8;">+83.39%</strong> / bulan</span>
+                        <span>📈 Rata-rata: <strong style="color:#38bdf8;">+6,828.25%</strong> / bulan aktif</span>
                     </div>
 
                     <div style="margin-top:10px; font-size:12px; color:#64748b; text-align:right;">
@@ -1397,7 +1535,7 @@
                 <div class="advanced-stats">
                     <div class="stat-item">
                         <div class="stat-label">📊 Correlation (Profits, MFE)</div>
-                        <div class="stat-value">0.67</div>
+                        <div class="stat-value">0.74</div>
                         <div class="stat-desc">Hubungan profit dengan MFE cukup kuat</div>
                     </div>
                     <div class="stat-item">
@@ -1407,8 +1545,8 @@
                     </div>
                     <div class="stat-item">
                         <div class="stat-label">⚡ Z-Score (Probability)</div>
-                        <div class="stat-value">1.45 (85.29%)</div>
-                        <div class="stat-desc">Sistem memiliki edge statistik yang positif</div>
+                        <div class="stat-value">-1.58 (88.59%)</div>
+                        <div class="stat-desc">Sistem memiliki edge statistik yang kuat</div>
                     </div>
                 </div>
 
@@ -1649,15 +1787,15 @@
                 minute: '2-digit'
             });
 
-            // ---- DATA EQUITY CURVE (WAIVER 5) - 18 BULAN ----
+            // ---- DATA EQUITY CURVE (WAIVER 5) - 19 BULAN ----
             const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des',
-                'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'
+                'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul'
             ];
 
             const equityData = [
-                1000, 1217.40, 1621.21, 2316.87, 2847.44, 5493.94, 22645.37, 57611.25, 117181.01,
-                215753.24, 380438.06, 642583.65, 998933.08, 1480618.20, 2113583.03, 3315760.42,
-                4083349.90, 4848001.33, 5539799.22
+                1000, 1404.12, 2310.24, 3246.32, 4720.16, 9041.04, 12539.50, 15025.58,
+                20491.17, 47721.17, 86078.49, 145743.64, 228553.81, 298604.73, 480276.17,
+                1273528.16, 2544293.36, 4039358.30, 5403645.44, 5630987.41
             ];
 
             // ---- BUAT GRAFIK ----
@@ -1705,7 +1843,12 @@
                             cornerRadius: 10,
                             callbacks: {
                                 label: function(context) {
-                                    return '💰 $' + context.parsed.y.toLocaleString();
+                                    if (context.parsed.y >= 1000000) {
+                                        return '💰 $' + (context.parsed.y / 1000000).toFixed(2) + 'M';
+                                    } else if (context.parsed.y >= 1000) {
+                                        return '💰 $' + (context.parsed.y / 1000).toFixed(1) + 'K';
+                                    }
+                                    return '💰 $' + context.parsed.y.toFixed(2);
                                 }
                             }
                         }
