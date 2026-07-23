@@ -29,6 +29,27 @@
             padding: 30px 35px;
         }
 
+        /* ===== BACK BUTTON ===== */
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #1a3a5c;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 8px 16px;
+            border: 2px solid #1a3a5c;
+            border-radius: 8px;
+            transition: 0.2s;
+            margin-bottom: 12px;
+            background: transparent;
+        }
+        .back-home:hover {
+            background: #1a3a5c;
+            color: white;
+        }
+
         h1 {
             text-align: center;
             color: #1a3a5c;
@@ -1201,6 +1222,10 @@
             .tab-nav {
                 display: none !important;
             }
+
+            .back-home {
+                display: none !important;
+            }
         }
 
         /* ============================================================ */
@@ -1486,6 +1511,9 @@
 <body>
 
     <div class="container" id="appContainer">
+
+        <!-- ===== BACK BUTTON ===== -->
+        <a href="index.html" class="back-home no-print">← Kembali ke Beranda</a>
 
         <!-- ===== HEADER ===== -->
         <h1>🏦 Portal Asuransi Indonesia <span class="badge-ojk">OJK 2017</span></h1>
@@ -2040,7 +2068,7 @@
                         <button class="btn btn-sm btn-primary" id="refreshHistoryBtn">🔄 Refresh</button>
                     </div>
                     <div id="historyContent">
-                        <div class="history-empty">Belum ada riwayat perhitungan.</div>
+                        <div class="history-empty">Memuat data...</div>
                     </div>
                 </div>
             </div>
@@ -2566,11 +2594,12 @@
             }
 
             try {
+                // PASTIKAN EMAIL TERISI
                 const userDoc = await db.collection('users').doc(session.email).get();
                 const user = userDoc.exists ? userDoc.data() : null;
 
-                await db.collection('ass_calculations').add({
-                    email: session.email,
+                const dataToSave = {
+                    email: session.email,  // ← PASTIKAN INI
                     userName: user ? user.name : session.email,
                     type: type,
                     result: result,
@@ -2579,11 +2608,17 @@
                     created_at: new Date().toISOString(),
                     quota_used: true,
                     remaining_quota: remainingQuota !== undefined ? remainingQuota : null
-                });
+                };
+
+                console.log('💾 Menyimpan data untuk email:', session.email);
+                console.log('📊 Data:', dataToSave);
+
+                await db.collection('ass_calculations').add(dataToSave);
                 console.log('✅ Data perhitungan ' + type + ' tersimpan!');
                 return true;
             } catch (e) {
                 console.error('❌ Gagal simpan ke Firestore:', e);
+                showAlert('error', 'Gagal Simpan', 'Data tidak tersimpan. Error: ' + e.message);
                 return false;
             }
         }
@@ -2593,18 +2628,25 @@
         // ============================================================
         async function getUserHistory(email, type) {
             try {
+                console.log('📌 getUserHistory dipanggil dengan email:', email, 'type:', type);
+                
                 let queryRef = db.collection('ass_calculations').where('email', '==', email);
                 if (type) {
                     queryRef = queryRef.where('type', '==', type);
                 }
                 const snapshot = await queryRef.orderBy('created_at', 'desc').get();
+                
+                console.log('📊 Jumlah data ditemukan:', snapshot.size);
+                
                 const history = [];
                 snapshot.forEach((doc) => {
-                    history.push({ id: doc.id, ...doc.data() });
+                    const data = doc.data();
+                    console.log('📄 Data ditemukan:', doc.id, data);
+                    history.push({ id: doc.id, ...data });
                 });
                 return history;
             } catch (e) {
-                console.error('getUserHistory error:', e);
+                console.error('❌ getUserHistory error:', e);
                 return [];
             }
         }
@@ -2619,11 +2661,13 @@
             }
         }
 
-        async function deleteAllUserHistory(email) {
+        async function deleteAllUserHistory(email, type) {
             try {
-                const snapshot = await db.collection('ass_calculations')
-                    .where('email', '==', email)
-                    .get();
+                let queryRef = db.collection('ass_calculations').where('email', '==', email);
+                if (type) {
+                    queryRef = queryRef.where('type', '==', type);
+                }
+                const snapshot = await queryRef.get();
                 const batch = db.batch();
                 snapshot.forEach((doc) => {
                     batch.delete(doc.ref);
@@ -3057,8 +3101,7 @@
                 premi = jenisPertanggungan === 'comprehensive' ? 100000 : 50000;
             }
 
-            let extPremi = 0,
-                extList = [];
+            let extPremi = 0, extList = [];
             if (document.getElementById('extBanjirMobil').checked) {
                 extPremi += hitungBanjirGempa(harga, 'banjir');
                 extList.push('Banjir');
@@ -3379,8 +3422,7 @@
             premi = Math.round(premi / 1000) * 1000;
             if (premi < 50000) premi = 50000;
 
-            let extPremi = 0,
-                extList = [];
+            let extPremi = 0, extList = [];
             if (document.getElementById('extBanjirProperti').checked) { extPremi += nilai * 0.0015;
                 extList.push('Banjir'); }
             if (document.getElementById('extGempaProperti').checked) { extPremi += nilai * 0.0025;
@@ -4343,6 +4385,9 @@
             const typeLabel = document.getElementById('historyTypeLabel');
             const subText = document.getElementById('historySubText');
 
+            // Tampilkan loading
+            container.innerHTML = '<div class="history-empty">⏳ Memuat data...</div>';
+
             if (!session) {
                 container.innerHTML = '<div class="history-empty">🔐 Silakan login terlebih dahulu untuk melihat riwayat.</div>';
                 typeLabel.textContent = 'Semua';
@@ -4366,11 +4411,14 @@
             typeLabel.textContent = typeName;
             subText.textContent = 'Riwayat perhitungan ' + typeName + ' Anda.';
 
+            console.log('📌 loadHistory - session.email:', session.email);
+            console.log('📌 loadHistory - type:', type);
+
             const history = await getUserHistory(session.email, type);
 
             if (history.length === 0) {
                 container.innerHTML = '<div class="history-empty">📭 Belum ada riwayat perhitungan ' + typeName +
-                    '.</div>';
+                '.</div>';
                 return;
             }
 
@@ -4447,35 +4495,25 @@
             }
 
             let type = null;
+            let typeName = 'Semua';
             const activeTab = document.querySelector('.tab-content.active');
             if (activeTab) {
                 const id = activeTab.id;
-                if (id === 'tabMobil') type = 'mobil';
-                else if (id === 'tabProperti') type = 'properti';
-                else if (id === 'tabJiwa') type = 'jiwa';
-                else if (id === 'tabWealth') type = 'wealth';
+                if (id === 'tabMobil') { type = 'mobil';
+                    typeName = 'Mobil'; } else if (id === 'tabProperti') { type = 'properti';
+                    typeName = 'Properti'; } else if (id === 'tabJiwa') { type = 'jiwa';
+                    typeName = 'Jiwa'; } else if (id === 'tabWealth') { type = 'wealth';
+                    typeName = 'Wealth'; }
             }
-
-            const typeName = type ? type.charAt(0).toUpperCase() + type.slice(1) : 'Semua';
 
             showConfirm('Hapus Semua Riwayat', 'Yakin ingin menghapus semua riwayat ' + typeName +
                 '?', async function(result) {
                     if (result) {
-                        try {
-                            let queryRef = db.collection('ass_calculations').where('email', '==', session.email);
-                            if (type) {
-                                queryRef = queryRef.where('type', '==', type);
-                            }
-                            const snapshot = await queryRef.get();
-                            const batch = db.batch();
-                            snapshot.forEach((doc) => {
-                                batch.delete(doc.ref);
-                            });
-                            await batch.commit();
+                        const success = await deleteAllUserHistory(session.email, type);
+                        if (success) {
                             loadHistory();
                             showAlert('success', 'Berhasil', 'Semua riwayat ' + typeName + ' telah dihapus.');
-                        } catch (e) {
-                            console.error('deleteAll error:', e);
+                        } else {
                             showAlert('error', 'Gagal', 'Gagal menghapus riwayat.');
                         }
                     }
@@ -4581,6 +4619,12 @@
                 document.getElementById('sisaWaktuWealth').value = (usiaPensiun - usiaWealth) > 0 ? (usiaPensiun -
                     usiaWealth) + ' tahun' : '';
             }
+
+            // Load history jika tab history aktif
+            const activeTab = document.querySelector('.tab-content.active');
+            if (activeTab && activeTab.id === 'tabHistory') {
+                loadHistory();
+            }
         });
 
         document.addEventListener('visibilitychange', function() {
@@ -4597,6 +4641,7 @@
         console.log('📋 Riwayat per jenis (Mobil, Properti, Jiwa, Wealth)');
         console.log('🔄 Lihat history tidak mengurangi kuota');
         console.log('📱 Popup WA saat kuota habis');
+        console.log('🏠 Tombol "Kembali ke Beranda" tersedia');
     </script>
 
 </body>
