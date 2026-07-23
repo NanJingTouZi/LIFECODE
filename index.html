@@ -10,7 +10,7 @@
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔮</text></svg>" />
     
-    <title>Nanjing Investment</title>
+    <title>Nanjing Investment - Menu</title>
     
     <style>
         * {
@@ -29,185 +29,339 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        .splash-container {
-            max-width: 800px;
+        .menu-container {
+            max-width: 900px;
             width: 100%;
-            text-align: center;
-            animation: fadeInUp 0.8s ease;
+            animation: fadeInUp 0.6s ease;
         }
 
         @keyframes fadeInUp {
             0% {
                 opacity: 0;
-                transform: translateY(40px) scale(0.96);
+                transform: translateY(30px);
             }
             100% {
                 opacity: 1;
-                transform: translateY(0) scale(1);
+                transform: translateY(0);
             }
         }
 
-        .splash-image {
-            width: 100%;
-            height: auto;
-            display: block;
+        /* ===== HEADER ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header .logo {
+            font-size: 48px;
+            margin-bottom: 8px;
+        }
+
+        .header h1 {
+            color: #f5c842;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            color: #7e9bb5;
+            font-size: 15px;
+            margin-top: 6px;
+            opacity: 0.8;
+        }
+
+        /* ===== GRID CARD ===== */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .menu-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .menu-card {
+            background: linear-gradient(145deg, #122d44, #0d1f30);
             border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
-            margin-bottom: 28px;
+            padding: 30px 24px 24px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            text-decoration: none;
+            display: block;
+            position: relative;
+            overflow: hidden;
         }
 
-        .splash-image:hover {
-            transform: scale(1.01);
+        .menu-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
         }
 
-        .btn-lanjut {
-            background: linear-gradient(135deg, #f5c842, #dba62b);
-            border: none;
-            border-radius: 50px;
-            padding: 16px 60px;
+        .menu-card:active {
+            transform: translateY(-2px);
+        }
+
+        .menu-card .icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .menu-card .title {
             font-size: 20px;
             font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .menu-card .desc {
+            font-size: 13px;
+            color: #7e9bb5;
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+
+        .menu-card .btn-masuk {
+            display: inline-block;
+            padding: 8px 24px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            background: transparent;
+            border: 2px solid;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* ===== CARD 1: LifeCode (Hijau) ===== */
+        .menu-card.lifecode {
+            border-color: rgba(79, 138, 114, 0.3);
+        }
+        .menu-card.lifecode:hover {
+            border-color: #4f8a72;
+        }
+        .menu-card.lifecode .btn-masuk {
+            border-color: #4f8a72;
+            color: #4f8a72;
+        }
+        .menu-card.lifecode .btn-masuk:hover {
+            background: #4f8a72;
+            color: #ffffff;
+        }
+
+        /* ===== CARD 2: Financial (Emas) ===== */
+        .menu-card.financial {
+            border-color: rgba(201, 162, 74, 0.3);
+        }
+        .menu-card.financial:hover {
+            border-color: #c9a24a;
+        }
+        .menu-card.financial .btn-masuk {
+            border-color: #c9a24a;
+            color: #c9a24a;
+        }
+        .menu-card.financial .btn-masuk:hover {
+            background: #c9a24a;
             color: #0a1a2b;
+        }
+
+        /* ===== CARD 3: Portfolio Builder (Biru) - SEKARANG AKTIF ===== */
+        .menu-card.portfolio {
+            border-color: rgba(79, 130, 200, 0.3);
+        }
+        .menu-card.portfolio:hover {
+            border-color: #4f8ac9;
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+        }
+        .menu-card.portfolio .btn-masuk {
+            border-color: #4f8ac9;
+            color: #4f8ac9;
+        }
+        .menu-card.portfolio .btn-masuk:hover {
+            background: #4f8ac9;
+            color: #ffffff;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            color: #3a5a75;
+            font-size: 12px;
+            margin-top: 20px;
+            opacity: 0.6;
+        }
+
+        /* ===== INSTALL BUTTON ===== */
+        .btn-install {
+            display: none;
+            background: linear-gradient(135deg, #4f8a72, #3d705a);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 6px 0 #a07a1e, 0 10px 30px rgba(245, 200, 66, 0.3);
-            letter-spacing: 1px;
-            width: 100%;
-            max-width: 300px;
+            box-shadow: 0 4px 0 #2a4d3e, 0 8px 25px rgba(79, 138, 114, 0.3);
+            letter-spacing: 0.5px;
+            margin: 0 auto 20px;
         }
 
-        .btn-lanjut:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 0 #a07a1e, 0 15px 40px rgba(245, 200, 66, 0.4);
+        .btn-install.show {
+            display: inline-block;
         }
 
-        .btn-lanjut:active {
-            transform: translateY(4px);
-            box-shadow: 0 2px 0 #a07a1e;
+        .btn-install:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #2a4d3e, 0 12px 35px rgba(79, 138, 114, 0.4);
         }
 
-        .timer-info {
-            color: #7e9bb5;
-            font-size: 14px;
-            margin-top: 16px;
-            opacity: 0.7;
+        .btn-install:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #2a4d3e;
         }
 
-        .timer-info span {
-            color: #f5c842;
-            font-weight: 600;
-        }
-
-        @media (max-width: 600px) {
-            .btn-lanjut {
-                padding: 14px 40px;
-                font-size: 17px;
-                max-width: 100%;
-            }
-            
-            .splash-image {
-                border-radius: 12px;
-            }
+        .install-wrapper {
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <div class="splash-container" id="splashContainer">
-        
-        <!-- Gambar Iklan -->
-        <img 
-            src="nanjing1.jpeg" 
-            alt="Nanjing Investment" 
-            class="splash-image"
-            id="splashImage"
-        />
+    <div class="menu-container">
 
-        <!-- Tombol Lanjutkan -->
-        <button class="btn-lanjut" id="btnLanjut">
-            Lanjutkan →
-        </button>
-
-        <!-- Timer Info -->
-        <div class="timer-info">
-            ⏳ Redirect otomatis dalam <span id="counter">3</span> detik
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <div class="logo">🏦</div>
+            <h1>Nanjing Investment</h1>
+            <p>Pilih layanan yang Anda butuhkan di bawah ini</p>
         </div>
+
+        <!-- ===== INSTALL BUTTON ===== -->
+        <div class="install-wrapper">
+            <button class="btn-install" id="btnInstall">📱 Install Aplikasi</button>
+        </div>
+
+        <!-- ===== MENU GRID ===== -->
+        <div class="menu-grid">
+
+            <!-- Card 1: LifeCode -->
+            <a href="lifecode.html" class="menu-card lifecode">
+                <span class="icon">🔮</span>
+                <div class="title">LifeCode</div>
+                <div class="desc">Kalkulator Angka Kehidupan<br/>Profil Karakter &amp; Shio</div>
+                <span class="btn-masuk">Masuk →</span>
+            </a>
+
+            <!-- Card 2: Financial -->
+            <a href="ass.html" class="menu-card financial">
+                <span class="icon">📊</span>
+                <div class="title">Financial</div>
+                <div class="desc">Kalkulator Asuransi<br/>Mobil, Properti, Jiwa, Wealth</div>
+                <span class="btn-masuk">Masuk →</span>
+            </a>
+
+            <!-- Card 3: Portfolio Builder (AKTIF - Link ke Portfolio.html) -->
+            <a href="Portfolio.html" class="menu-card portfolio">
+                <span class="icon">💰</span>
+                <div class="title">Portfolio Builder</div>
+                <div class="desc">Perencanaan Investasi<br/>Portfolio Management</div>
+                <span class="btn-masuk">Masuk →</span>
+            </a>
+
+        </div>
+
+        <!-- ===== FOOTER ===== -->
+        <div class="footer">
+            © 2026 Nanjing Investment · All Rights Reserved
+        </div>
+
     </div>
 
     <script>
         // ============================================================
-        // FUNGSI MASUK KE MENU
+        // SERVICE WORKER REGISTRASI
         // ============================================================
-        function goToMenu() {
-            window.location.href = 'menu.html';
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/LIFECODE/sw.js')
+                .then(function(registration) {
+                    console.log('✅ Service Worker terdaftar!');
+                })
+                .catch(function(error) {
+                    console.log('❌ Service Worker gagal:', error);
+                });
         }
 
         // ============================================================
-        // VARIABEL
+        // TOMBOL INSTALL PWA
         // ============================================================
-        let countdown = 3;
-        let timer = null;
-        const counterElement = document.getElementById('counter');
-        const btnLanjut = document.getElementById('btnLanjut');
-        const splashImage = document.getElementById('splashImage');
+        let deferredPrompt = null;
+        let isInstallAvailable = false;
+        const btnInstall = document.getElementById('btnInstall');
 
-        // ============================================================
-        // FUNGSI START TIMER
-        // ============================================================
-        function startTimer() {
-            countdown = 3;
-            counterElement.textContent = countdown;
-            
-            if (timer) clearInterval(timer);
-            
-            timer = setInterval(function() {
-                countdown--;
-                counterElement.textContent = countdown;
+        window.addEventListener('beforeinstallprompt', function(e) {
+            e.preventDefault();
+            deferredPrompt = e;
+            isInstallAvailable = true;
+            btnInstall.classList.add('show');
+            console.log('✅ Tombol Install muncul!');
+        });
+
+        btnInstall.addEventListener('click', function() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
                 
-                if (countdown <= 0) {
-                    clearInterval(timer);
-                    goToMenu();
-                }
-            }, 1000);
-        }
-
-        // ============================================================
-        // MULAI TIMER
-        // ============================================================
-        startTimer();
-
-        // ============================================================
-        // EVENT LISTENER: KLIK TOMBOL LANJUT
-        // ============================================================
-        btnLanjut.addEventListener('click', function(e) {
-            e.stopPropagation();
-            clearInterval(timer);
-            goToMenu();
-        });
-
-        // ============================================================
-        // EVENT LISTENER: KLIK GAMBAR
-        // ============================================================
-        splashImage.addEventListener('click', function() {
-            clearInterval(timer);
-            goToMenu();
-        });
-
-        // ============================================================
-        // KEYBOARD
-        // ============================================================
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                clearInterval(timer);
-                goToMenu();
+                deferredPrompt.userChoice.then(function(choiceResult) {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('✅ User menerima install');
+                        btnInstall.classList.remove('show');
+                        isInstallAvailable = false;
+                    } else {
+                        console.log('❌ User menolak install');
+                    }
+                    deferredPrompt = null;
+                });
             }
         });
 
-        console.log('✅ Splash siap!');
-        console.log('⏳ Redirect ke menu.html dalam 3 detik');
+        // ============================================================
+        // CEK APAKAH SUDAH TERINSTALL (PWA)
+        // ============================================================
+        function isAppInstalled() {
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                return true;
+            }
+            if (window.navigator.standalone === true) {
+                return true;
+            }
+            return false;
+        }
+
+        // Jika sudah terinstall, sembunyikan tombol
+        if (isAppInstalled()) {
+            btnInstall.classList.remove('show');
+            console.log('✅ Aplikasi sudah terinstall. Tombol Install disembunyikan.');
+        }
+
+        console.log('✅ Menu siap!');
+        console.log('📌 Link: LifeCode → lifecode.html');
+        console.log('📌 Link: Financial → ass.html');
+        console.log('📌 Link: Portfolio Builder → Portfolio.html');
     </script>
 
 </body>
