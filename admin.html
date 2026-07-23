@@ -97,23 +97,25 @@ body{
 .pin-box .err{color:var(--cinnabar);font-size:13px;margin-top:10px;display:none;}
 
 .stats-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;
   margin-bottom:28px;
 }
 .stat-card{
   background:linear-gradient(180deg,var(--panel),var(--panel-2));
   border:1px solid var(--line);border-radius:12px;
-  padding:16px 20px;text-align:center;
+  padding:14px 16px;text-align:center;
 }
 .stat-card .num{
   font-family:'Cormorant Garamond',serif;
-  font-size:36px;font-weight:700;color:var(--gold-soft);
+  font-size:32px;font-weight:700;color:var(--gold-soft);
   line-height:1.2;
 }
 .stat-card .num.green{color:var(--jade-soft);}
 .stat-card .num.red{color:#e0968a;}
 .stat-card .num.orange{color:#f0b84d;}
-.stat-card .label{color:var(--paper-dim);font-size:12px;margin-top:2px;}
+.stat-card .num.blue{color:#7fb5c9;}
+.stat-card .num.purple{color:#b89fd4;}
+.stat-card .label{color:var(--paper-dim);font-size:11px;margin-top:2px;}
 
 .table-container{
   background:linear-gradient(180deg,var(--panel),var(--panel-2));
@@ -122,24 +124,24 @@ body{
 }
 .table-header{
   display:flex;justify-content:space-between;align-items:center;
-  padding:14px 20px;border-bottom:1px solid var(--line);flex-wrap:wrap;gap:10px;
+  padding:12px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap;gap:10px;
 }
 .table-header h3{
   font-family:'Cormorant Garamond',serif;
-  font-size:20px;color:var(--gold-soft);margin:0;
+  font-size:18px;color:var(--gold-soft);margin:0;
 }
 .table-header .badge{
   background:rgba(201,162,74,0.15);color:var(--gold-soft);
-  padding:2px 12px;border-radius:12px;font-size:12px;font-weight:600;
+  padding:2px 12px;border-radius:12px;font-size:11px;font-weight:600;
 }
 .table-controls{
   display:flex;gap:10px;align-items:center;flex-wrap:wrap;
 }
 .table-controls input, .table-controls select{
-  padding:8px 12px;border-radius:8px;
+  padding:6px 10px;border-radius:8px;
   border:1px solid rgba(201,162,74,0.2);
   background:rgba(0,0,0,0.25);
-  color:var(--paper);font-size:13px;font-family:'Inter',sans-serif;
+  color:var(--paper);font-size:12px;font-family:'Inter',sans-serif;
   outline:none;
 }
 .table-controls input:focus, .table-controls select:focus{
@@ -147,7 +149,7 @@ body{
 }
 .table-controls .btn-sm{
   background:transparent;border:1px solid var(--gold-soft);color:var(--gold-soft);
-  border-radius:8px;padding:8px 14px;font-size:12px;cursor:pointer;
+  border-radius:8px;padding:6px 12px;font-size:11px;cursor:pointer;
   font-family:'Inter',sans-serif;transition:background .15s;
 }
 .table-controls .btn-sm:hover{background:rgba(201,162,74,0.1);}
@@ -155,165 +157,51 @@ body{
   border-color:var(--jade);color:var(--jade-soft);
 }
 .table-controls .btn-sm.green:hover{background:rgba(79,138,114,0.15);}
+.table-controls .btn-sm.red{
+  border-color:var(--cinnabar);color:#e0968a;
+}
+.table-controls .btn-sm.red:hover{background:rgba(180,72,58,0.15);}
 .table-scroll{overflow-x:auto;}
-table{width:100%;border-collapse:collapse;font-size:13px;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
 table th{
-  text-align:left;padding:10px 14px;color:var(--paper-dim);
-  border-bottom:1px solid var(--line);font-weight:600;font-size:11px;
+  text-align:left;padding:8px 12px;color:var(--paper-dim);
+  border-bottom:1px solid var(--line);font-weight:600;font-size:10px;
   text-transform:uppercase;letter-spacing:0.06em;
   background:rgba(0,0,0,0.15);
   white-space:nowrap;
 }
-table td{padding:9px 14px;border-bottom:1px solid rgba(201,162,74,0.06);color:var(--paper);}
+table td{padding:7px 12px;border-bottom:1px solid rgba(201,162,74,0.06);color:var(--paper);}
 table tr:hover td{background:rgba(201,162,74,0.04);}
 table .status-active{color:var(--jade-soft);font-weight:600;}
 table .status-expired{color:#e0968a;font-weight:600;}
-table .status-blocked{color:var(--paper-dim);font-weight:600;}
 table .status-warning{color:#f0b84d;font-weight:600;}
 table .code-used{color:var(--paper-dim);}
 table .code-available{color:var(--jade-soft);font-weight:600;}
+
 .copy-btn{
   background:transparent;border:none;color:var(--gold-soft);cursor:pointer;
-  font-size:13px;padding:2px 6px;border-radius:4px;
+  font-size:12px;padding:2px 6px;border-radius:4px;
   transition:background .15s;
 }
 .copy-btn:hover{background:rgba(201,162,74,0.15);}
-.delete-btn{
-  background:transparent;border:none;color:#e0968a;cursor:pointer;
-  font-size:13px;padding:2px 6px;border-radius:4px;
-  transition:background .15s;
-}
-.delete-btn:hover{background:rgba(180,72,58,0.15);}
-.edit-btn, .save-btn, .cancel-btn{
-  background:transparent;border:none;
-  border-radius:4px;padding:2px 10px;font-size:11px;cursor:pointer;
+.view-btn{
+  background:transparent;border:1px solid var(--gold-soft);color:var(--gold-soft);
+  border-radius:4px;padding:2px 10px;font-size:10px;cursor:pointer;
   font-family:'Inter',sans-serif;transition:background .15s;
 }
-.edit-btn{
-  border:1px solid var(--gold-soft);color:var(--gold-soft);
-}
-.edit-btn:hover{background:rgba(201,162,74,0.15);}
-.save-btn{
-  border:1px solid var(--jade);color:var(--jade-soft);
-}
-.save-btn:hover{background:rgba(79,138,114,0.15);}
-.cancel-btn{
-  border:1px solid var(--paper-dim);color:var(--paper-dim);
-}
-.cancel-btn:hover{background:rgba(201,162,74,0.05);}
+.view-btn:hover{background:rgba(201,162,74,0.15);}
 .delete-btn-table{
   background:transparent;border:1px solid var(--cinnabar);color:#e0968a;
-  border-radius:4px;padding:2px 10px;font-size:11px;cursor:pointer;
+  border-radius:4px;padding:2px 10px;font-size:10px;cursor:pointer;
   font-family:'Inter',sans-serif;transition:background .15s;
 }
 .delete-btn-table:hover{background:rgba(180,72,58,0.15);}
 
-.inline-input{
-  background:rgba(0,0,0,0.25);
-  border:1px solid var(--gold);
-  border-radius:6px;
-  padding:4px 8px;
-  color:var(--paper);
-  font-size:13px;
-  font-family:'Inter',sans-serif;
-  outline:none;
-  width:100%;
-  max-width:100px;
-}
-.inline-input:focus{
-  box-shadow:0 0 0 3px rgba(201,162,74,0.15);
-}
-.inline-select{
-  background:rgba(0,0,0,0.25);
-  border:1px solid var(--gold);
-  border-radius:6px;
-  padding:4px 8px;
-  color:var(--paper);
-  font-size:13px;
-  font-family:'Inter',sans-serif;
-  outline:none;
-  width:100%;
-  max-width:120px;
-}
-.inline-select:focus{
-  box-shadow:0 0 0 3px rgba(201,162,74,0.15);
-}
-.inline-date{
-  background:rgba(0,0,0,0.25);
-  border:1px solid var(--gold);
-  border-radius:6px;
-  padding:4px 8px;
-  color:var(--paper);
-  font-size:13px;
-  font-family:'Inter',sans-serif;
-  outline:none;
-  width:100%;
-  max-width:130px;
-}
-.inline-date:focus{
-  box-shadow:0 0 0 3px rgba(201,162,74,0.15);
-}
-.inline-date::-webkit-calendar-picker-indicator{
-  filter:invert(1);
-  cursor:pointer;
-}
-
-.generate-section{
-  background:linear-gradient(180deg,var(--panel),var(--panel-2));
-  border:1px solid var(--line);border-radius:12px;
-  padding:20px 24px;margin-bottom:28px;
-}
-.generate-section h3{
-  font-family:'Cormorant Garamond',serif;
-  font-size:20px;color:var(--gold-soft);margin:0 0 12px;
-}
-.generate-form{
-  display:flex;gap:14px;flex-wrap:wrap;align-items:end;
-}
-.generate-form .form-group{flex:1;min-width:120px;}
-.generate-form .form-group label{
-  display:block;font-size:11px;text-transform:uppercase;
-  color:var(--paper-dim);margin-bottom:4px;letter-spacing:0.06em;
-}
-.generate-form .form-group input, .generate-form .form-group select{
-  width:100%;padding:8px 12px;border-radius:8px;
-  border:1px solid rgba(201,162,74,0.2);
-  background:rgba(0,0,0,0.25);
-  color:var(--paper);font-size:13px;font-family:'Inter',sans-serif;
-  outline:none;
-}
-.generate-form .form-group input:focus, .generate-form .form-group select:focus{
-  border-color:var(--gold);
-}
-.generate-form .btn{
-  background:linear-gradient(135deg,var(--jade),#3d705a);
-  color:#fff;border:none;border-radius:8px;
-  padding:10px 20px;font-size:14px;font-weight:600;cursor:pointer;
-  font-family:'Inter',sans-serif;transition:transform .12s, box-shadow .12s;
-  min-width:140px;
-}
-.generate-form .btn:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(79,138,114,0.3);}
-.generate-form .btn:disabled{opacity:0.5;cursor:not-allowed;}
-.generate-result{
-  margin-top:14px;padding:12px 16px;
-  background:rgba(0,0,0,0.2);border-radius:8px;
-  display:none;flex-wrap:wrap;gap:8px;
-}
-.generate-result .code-chip{
-  background:rgba(201,162,74,0.12);
-  border:1px solid rgba(201,162,74,0.2);
-  border-radius:6px;padding:4px 10px;
-  font-family:'Cormorant Garamond',serif;
-  font-size:14px;color:var(--gold-soft);
-  display:flex;align-items:center;gap:8px;
-}
-.generate-result .code-chip .copy-btn{font-size:14px;}
-
 .tabs{display:flex;gap:4px;margin-bottom:18px;flex-wrap:wrap;}
 .tabs .tab{
-  padding:8px 20px;border-radius:8px 8px 0 0;
+  padding:8px 18px;border-radius:8px 8px 0 0;
   background:transparent;border:none;color:var(--paper-dim);
-  font-size:13px;font-weight:600;cursor:pointer;
+  font-size:12px;font-weight:600;cursor:pointer;
   font-family:'Inter',sans-serif;transition:all .15s;
   border-bottom:2px solid transparent;
 }
@@ -324,6 +212,7 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
 .tab-content{display:none;}
 .tab-content.active{display:block;}
 
+/* CUSTOM POPUP */
 .custom-popup-overlay{
   display:none;
   position:fixed;
@@ -339,43 +228,47 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
   background:linear-gradient(180deg,var(--panel),var(--panel-2));
   border:1px solid var(--line);
   border-radius:20px;
-  padding:36px 40px 32px;
-  max-width:420px;
-  width:90%;
+  padding:30px 34px 28px;
+  max-width:500px;
+  width:92%;
   box-shadow:0 30px 80px rgba(0,0,0,0.6);
   animation:popupIn .3s ease;
-  text-align:center;
+  text-align:left;
+  max-height:90vh;
+  overflow-y:auto;
 }
 @keyframes popupIn{
   from{transform:scale(0.9) translateY(20px);opacity:0;}
   to{transform:scale(1) translateY(0);opacity:1;}
 }
-.custom-popup-overlay .popup-icon{font-size:52px;margin-bottom:6px;}
+.custom-popup-overlay .popup-icon{font-size:44px;text-align:center;margin-bottom:4px;}
 .custom-popup-overlay .popup-title{
   font-family:'Cormorant Garamond',serif;
-  font-size:22px;
+  font-size:20px;
   color:var(--gold-soft);
-  margin:0 0 6px;
+  margin:0 0 4px;
   font-weight:600;
+  text-align:center;
 }
 .custom-popup-overlay .popup-message{
   color:var(--paper-dim);
-  font-size:15px;
-  margin:0 0 20px;
+  font-size:13px;
+  margin:0 0 16px;
   line-height:1.6;
+  text-align:center;
 }
 .custom-popup-overlay .popup-btn{
   background:linear-gradient(135deg,var(--gold),#a9843a);
   color:#1a1408;
   border:none;
-  border-radius:10px;
-  padding:12px 32px;
-  font-size:15px;
+  border-radius:8px;
+  padding:10px 24px;
+  font-size:13px;
   font-weight:700;
   cursor:pointer;
   font-family:'Inter',sans-serif;
   transition:transform .12s, box-shadow .12s;
-  margin:0 6px;
+  margin:0 4px;
 }
 .custom-popup-overlay .popup-btn:hover{
   transform:translateY(-1px);
@@ -413,36 +306,86 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
 }
 .popup-input{
   width:100%;
-  padding:12px 14px;
-  border-radius:10px;
+  padding:10px 14px;
+  border-radius:8px;
   border:1px solid rgba(201,162,74,0.3);
   background:rgba(0,0,0,0.25);
   color:var(--paper);
-  font-size:18px;
+  font-size:16px;
   font-family:'Inter',sans-serif;
   outline:none;
   text-align:center;
   letter-spacing:4px;
-  margin:12px 0 16px;
+  margin:8px 0 14px;
 }
 .popup-input:focus{
   border-color:var(--gold);
   box-shadow:0 0 0 3px rgba(201,162,74,0.15);
 }
+.popup-data-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:4px 16px;
+  margin:8px 0 14px;
+  font-size:13px;
+}
+.popup-data-grid .pd-item{
+  display:flex;
+  justify-content:space-between;
+  padding:3px 0;
+  border-bottom:1px solid rgba(201,162,74,0.08);
+}
+.popup-data-grid .pd-item .pd-label{
+  color:var(--paper-dim);
+}
+.popup-data-grid .pd-item .pd-value{
+  color:var(--paper);
+  font-weight:600;
+}
+.popup-data-grid .pd-item .pd-value.gold{
+  color:var(--gold-soft);
+}
+.popup-data-grid .pd-item .pd-value.green{
+  color:var(--jade-soft);
+}
+.popup-data-grid .pd-item .pd-value.red{
+  color:#e0968a;
+}
+.popup-data-grid .pd-item .pd-value.purple{
+  color:#b89fd4;
+}
+.popup-section-title{
+  font-size:13px;
+  font-weight:700;
+  color:var(--gold-soft);
+  margin:10px 0 4px;
+  border-bottom:1px solid var(--line);
+  padding-bottom:4px;
+}
+
+.ass-type-badge{
+  display:inline-block;
+  padding:2px 10px;
+  border-radius:12px;
+  font-size:10px;
+  font-weight:600;
+}
+.ass-type-badge.mobil{background:rgba(79,138,114,0.2);color:var(--jade-soft);}
+.ass-type-badge.properti{background:rgba(201,162,74,0.2);color:var(--gold-soft);}
+.ass-type-badge.jiwa{background:rgba(180,72,58,0.2);color:#e0968a;}
+.ass-type-badge.wealth{background:rgba(107,63,160,0.2);color:#b89fd4;}
 
 @media (max-width:768px){
-  .generate-form{flex-direction:column;align-items:stretch;}
-  .generate-form .form-group{min-width:auto;}
-  .generate-form .btn{width:100%;}
-  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .stats-grid{grid-template-columns:repeat(3,1fr);}
+  .popup-data-grid{grid-template-columns:1fr;}
   .table-header{flex-direction:column;align-items:stretch;}
   .table-controls{flex-wrap:wrap;}
-  .inline-input, .inline-select, .inline-date{max-width:100%;}
 }
 @media (max-width:480px){
   .stats-grid{grid-template-columns:1fr 1fr;}
-  .header h1{font-size:22px;}
-  .pin-box{padding:28px 20px;}
+  .header h1{font-size:20px;}
+  .pin-box{padding:24px 18px;}
+  .popup-box{padding:20px 16px;}
 }
 </style>
 </head>
@@ -469,6 +412,7 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
     <div id="popupInputContainer" style="display:none;">
       <input class="popup-input" type="password" id="popupInput" placeholder="••••••" maxlength="6" inputmode="numeric">
     </div>
+    <div id="popupDetailContainer" style="display:none;"></div>
     <div class="popup-btns" id="popupButtons">
       <button class="popup-btn" id="popupBtnConfirm">OK</button>
     </div>
@@ -508,12 +452,12 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
       <div class="label">⚠️ Akan Habis (≤7 hari)</div>
     </div>
     <div class="stat-card">
-      <div class="num" id="statCodes">0</div>
+      <div class="num blue" id="statCodes">0</div>
       <div class="label">📦 Token Tersedia</div>
     </div>
     <div class="stat-card">
-      <div class="num" id="statHistory">0</div>
-      <div class="label">📊 Total Perhitungan</div>
+      <div class="num purple" id="statAssTotal">0</div>
+      <div class="label">📈 Total Perhitungan Asuransi</div>
     </div>
   </div>
 
@@ -523,6 +467,7 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
     <button class="tab" data-tab="licenses">📋 Lisensi</button>
     <button class="tab" data-tab="codes">🔑 Token</button>
     <button class="tab" data-tab="history">📊 Riwayat</button>
+    <button class="tab" data-tab="assurance">📈 Asuransi</button>
   </div>
 
   <!-- Tab: Users -->
@@ -531,7 +476,7 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
       <div class="table-header">
         <h3>👥 Daftar User</h3>
         <div class="table-controls">
-          <input type="text" id="userSearch" placeholder="Cari nama/email..." style="min-width:180px;">
+          <input type="text" id="userSearch" placeholder="Cari nama/email..." style="min-width:160px;">
           <select id="userFilter">
             <option value="all">Semua</option>
             <option value="active">✅ Aktif</option>
@@ -571,7 +516,7 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
       <div class="table-header">
         <h3>📋 Daftar Lisensi</h3>
         <div class="table-controls">
-          <input type="text" id="licenseSearch" placeholder="Cari email..." style="min-width:180px;">
+          <input type="text" id="licenseSearch" placeholder="Cari email..." style="min-width:160px;">
           <button class="btn-sm" id="refreshLicensesBtn">🔄 Refresh</button>
         </div>
       </div>
@@ -600,28 +545,6 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
 
   <!-- Tab: Codes / Token -->
   <div class="tab-content" id="tab-codes">
-    <div class="generate-section">
-      <h3>🔑 Generate Token Perpanjang</h3>
-      <div class="generate-form">
-        <div class="form-group">
-          <label>Jenis Token</label>
-          <select id="genType">
-            <option value="quota">📊 Kuota (+10 kali)</option>
-            <option value="quota3">📊 Kuota (+3 kali)</option>
-            <option value="both">📊+⏰ Kuota (+10) + Waktu (+30 hari)</option>
-            <option value="time">⏰ Waktu (+30 hari)</option>
-            <option value="time60">⏰ Waktu (+60 hari)</option>
-          </select>
-        </div>
-        <div class="form-group" style="min-width:100px;">
-          <label>Jumlah</label>
-          <input type="number" id="genCount" value="5" min="1" max="50">
-        </div>
-        <button class="btn" id="generateBtn">🚀 Generate Token</button>
-      </div>
-      <div class="generate-result" id="generateResult"></div>
-    </div>
-
     <div class="table-container">
       <div class="table-header">
         <h3>📦 Daftar Token</h3>
@@ -661,9 +584,9 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
   <div class="tab-content" id="tab-history">
     <div class="table-container">
       <div class="table-header">
-        <h3>📊 Riwayat Perhitungan</h3>
+        <h3>📊 Riwayat Perhitungan (Lifecode)</h3>
         <div class="table-controls">
-          <input type="text" id="historySearch" placeholder="Cari nama/email..." style="min-width:180px;">
+          <input type="text" id="historySearch" placeholder="Cari nama/email..." style="min-width:160px;">
           <button class="btn-sm" id="refreshHistoryBtn">🔄 Refresh</button>
           <button class="btn-sm green" id="exportHistoryBtn">📥 Export CSV</button>
         </div>
@@ -687,11 +610,74 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
     </div>
   </div>
 
+  <!-- Tab: ASURANSI (BARU) -->
+  <div class="tab-content" id="tab-assurance">
+    <div class="stats-grid" id="assStatsGrid" style="margin-bottom:18px;">
+      <div class="stat-card">
+        <div class="num blue" id="assStatMobil">0</div>
+        <div class="label">🚗 Mobil</div>
+      </div>
+      <div class="stat-card">
+        <div class="num gold" id="assStatProperti">0</div>
+        <div class="label">🏠 Properti</div>
+      </div>
+      <div class="stat-card">
+        <div class="num red" id="assStatJiwa">0</div>
+        <div class="label">📋 Jiwa</div>
+      </div>
+      <div class="stat-card">
+        <div class="num purple" id="assStatWealth">0</div>
+        <div class="label">💰 Wealth</div>
+      </div>
+      <div class="stat-card">
+        <div class="num green" id="assStatTotal">0</div>
+        <div class="label">📈 Total</div>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <div class="table-header">
+        <h3>📊 Data Perhitungan Asuransi</h3>
+        <div class="table-controls">
+          <select id="assTypeFilter">
+            <option value="all">📊 Semua</option>
+            <option value="mobil">🚗 Mobil</option>
+            <option value="properti">🏠 Properti</option>
+            <option value="jiwa">📋 Jiwa</option>
+            <option value="wealth">💰 Wealth</option>
+          </select>
+          <input type="text" id="assSearch" placeholder="Cari user..." style="min-width:140px;">
+          <button class="btn-sm" id="refreshAssBtn">🔄 Refresh</button>
+          <button class="btn-sm green" id="exportAssBtn">📥 Export Excel</button>
+          <button class="btn-sm red" id="clearAssBtn">🗑️ Hapus Semua</button>
+        </div>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>User</th>
+              <th>Jenis</th>
+              <th>Hasil</th>
+              <th>Ringkasan</th>
+              <th>Waktu</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="assTableBody">
+            <tr><td colspan="7" style="text-align:center;color:var(--paper-dim);padding:30px;">Memuat data...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<!-- ============================================================
-   JAVASCRIPT - FIREBASE
-   ============================================================ -->
+<!-- ============================================================ -->
+<!-- JAVASCRIPT - FIREBASE -->
+<!-- ============================================================ -->
 <script type="importmap">
 {
   "imports": {
@@ -722,7 +708,9 @@ import {
   query,
   where,
   addDoc,
-  deleteDoc as deleteFirestoreDoc
+  deleteDoc as deleteFirestoreDoc,
+  orderBy,
+  limit
 } from 'firebase/firestore';
 
 // ============================================================
@@ -748,9 +736,9 @@ const db = getFirestore(app);
 const ADMIN_PIN = '614931';
 
 // ============================================================
-// CUSTOM POPUP (Pengganti alert/confirm/prompt)
+// CUSTOM POPUP
 // ============================================================
-function showPopup(type, title, message, confirmText, cancelText, showInput, callback) {
+function showPopup(type, title, message, confirmText, cancelText, showInput, callback, detailData) {
     return new Promise((resolve) => {
         const overlay = document.getElementById('customPopup');
         const icon = document.getElementById('popupIcon');
@@ -758,6 +746,7 @@ function showPopup(type, title, message, confirmText, cancelText, showInput, cal
         const msgEl = document.getElementById('popupMessage');
         const btnContainer = document.getElementById('popupButtons');
         const inputContainer = document.getElementById('popupInputContainer');
+        const detailContainer = document.getElementById('popupDetailContainer');
         const inputEl = document.getElementById('popupInput');
         
         const icons = {
@@ -766,13 +755,15 @@ function showPopup(type, title, message, confirmText, cancelText, showInput, cal
             'warning': '⚠️',
             'info': 'ℹ️',
             'confirm': '❓',
-            'pin': '🔑'
+            'pin': '🔑',
+            'detail': '📄'
         };
         
         icon.textContent = icons[type] || 'ℹ️';
         titleEl.textContent = title || 'Informasi';
         msgEl.textContent = message || '';
         
+        // Handle input
         if (showInput) {
             inputContainer.style.display = 'block';
             inputEl.value = '';
@@ -781,6 +772,14 @@ function showPopup(type, title, message, confirmText, cancelText, showInput, cal
             setTimeout(() => inputEl.focus(), 100);
         } else {
             inputContainer.style.display = 'none';
+        }
+        
+        // Handle detail data
+        if (detailData) {
+            detailContainer.style.display = 'block';
+            detailContainer.innerHTML = detailData;
+        } else {
+            detailContainer.style.display = 'none';
         }
         
         btnContainer.innerHTML = '';
@@ -927,6 +926,46 @@ async function getAllHistory() {
     return history.sort((a, b) => new Date(b.calculated_at) - new Date(a.calculated_at));
 }
 
+// ===== ASURANSI FUNCTIONS =====
+async function getAllAssCalculations() {
+    try {
+        const querySnapshot = await getDocs(collection(db, 'ass_calculations'));
+        const data = [];
+        querySnapshot.forEach((doc) => {
+            data.push({ id: doc.id, ...doc.data() });
+        });
+        return data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    } catch (e) {
+        console.error('getAllAssCalculations error:', e);
+        return [];
+    }
+}
+
+async function deleteAssCalculation(id) {
+    try {
+        await deleteDoc(doc(db, 'ass_calculations', id));
+        return true;
+    } catch (e) {
+        console.error('deleteAssCalculation error:', e);
+        return false;
+    }
+}
+
+async function deleteAllAssCalculations() {
+    try {
+        const snapshot = await getDocs(collection(db, 'ass_calculations'));
+        const batch = db.batch();
+        snapshot.forEach((doc) => {
+            batch.delete(doc.ref);
+        });
+        await batch.commit();
+        return true;
+    } catch (e) {
+        console.error('deleteAllAssCalculations error:', e);
+        return false;
+    }
+}
+
 async function updateLicense(email, quota, expiryDate, isActive) {
     try {
         await updateDoc(doc(db, 'licenses', email), {
@@ -944,12 +983,10 @@ async function updateLicense(email, quota, expiryDate, isActive) {
 async function deleteUser(email) {
     try {
         await deleteDoc(doc(db, 'users', email));
-        
         const licenseDoc = await getDoc(doc(db, 'licenses', email));
         if (licenseDoc.exists()) {
             await deleteDoc(doc(db, 'licenses', email));
         }
-        
         const historySnapshot = await getDocs(
             query(collection(db, 'history'), where('email', '==', email))
         );
@@ -958,53 +995,11 @@ async function deleteUser(email) {
             batch.delete(doc.ref);
         });
         await batch.commit();
-        
         return true;
     } catch (error) {
         console.error('Delete user error:', error);
         return false;
     }
-}
-
-async function generateTokens(pin, type, count) {
-    if (pin !== ADMIN_PIN) {
-        return { success: false, message: 'PIN salah' };
-    }
-
-    const tokens = [];
-    const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-    
-    for (let i = 0; i < count; i++) {
-        const random = Math.random().toString(36).substring(2, 6).toUpperCase();
-        const key = 'EXTEND-' + date + '-' + random;
-        
-        let amount = null, duration = null;
-        if (type === 'quota') {
-            amount = 10;
-        } else if (type === 'quota3') {
-            amount = 3;
-        } else if (type === 'both') {
-            duration = 30;
-            amount = 10;
-        } else if (type === 'time') {
-            duration = 30;
-        } else if (type === 'time60') {
-            duration = 60;
-        }
-        
-        await setDoc(doc(db, 'codes', key), {
-            type: type,
-            amount: amount,
-            duration: duration,
-            used: false,
-            used_by: null,
-            used_at: null,
-            created_at: new Date().toISOString()
-        });
-        tokens.push(key);
-    }
-    
-    return { success: true, tokens: tokens };
 }
 
 // ============================================================
@@ -1041,7 +1036,7 @@ document.getElementById('pinInput').addEventListener('keydown', function(e) {
 });
 
 // ============================================================
-// CHECK SESSION SAAT LOAD
+// CHECK SESSION
 // ============================================================
 async function checkAdminSession() {
     const session = getAdminSession();
@@ -1097,7 +1092,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 // ============================================================
 // DATA STORE
 // ============================================================
-let DATA = { users: {}, licenses: {}, codes: {}, history: [] };
+let DATA = { users: {}, licenses: {}, codes: {}, history: [], assCalculations: [] };
 let editingRow = null;
 
 // ============================================================
@@ -1109,6 +1104,7 @@ async function loadData() {
         DATA.licenses = await getAllLicenses();
         DATA.codes = await getAllCodes();
         DATA.history = await getAllHistory();
+        DATA.assCalculations = await getAllAssCalculations();
         console.log('✅ Data loaded from Firebase');
         return true;
     } catch (error) {
@@ -1126,6 +1122,8 @@ function renderAll() {
     renderLicenses();
     renderCodes();
     renderHistory();
+    renderAssCalculations();
+    renderAssStats();
 }
 
 function renderStats() {
@@ -1133,6 +1131,7 @@ function renderStats() {
     const licenses = DATA.licenses || {};
     const codes = DATA.codes || {};
     const history = DATA.history || [];
+    const ass = DATA.assCalculations || [];
     
     const total = Object.keys(users).length;
     let active = 0, expired = 0, warning = 0;
@@ -1159,9 +1158,30 @@ function renderStats() {
     document.getElementById('statExpired').textContent = expired;
     document.getElementById('statWarning').textContent = warning;
     document.getElementById('statCodes').textContent = availableCodes;
-    document.getElementById('statHistory').textContent = history.length;
+    document.getElementById('statAssTotal').textContent = ass.length;
 }
 
+function renderAssStats() {
+    const ass = DATA.assCalculations || [];
+    let mobil = 0, properti = 0, jiwa = 0, wealth = 0;
+    
+    ass.forEach(item => {
+        if (item.type === 'mobil') mobil++;
+        else if (item.type === 'properti') properti++;
+        else if (item.type === 'jiwa') jiwa++;
+        else if (item.type === 'wealth') wealth++;
+    });
+    
+    document.getElementById('assStatMobil').textContent = mobil;
+    document.getElementById('assStatProperti').textContent = properti;
+    document.getElementById('assStatJiwa').textContent = jiwa;
+    document.getElementById('assStatWealth').textContent = wealth;
+    document.getElementById('assStatTotal').textContent = ass.length;
+}
+
+// ============================================================
+// RENDER USERS
+// ============================================================
 function renderUsers() {
     const users = DATA.users || {};
     const licenses = DATA.licenses || {};
@@ -1257,6 +1277,9 @@ function renderUsers() {
     });
 }
 
+// ============================================================
+// RENDER LICENSES
+// ============================================================
 function renderLicenses() {
     const licenses = DATA.licenses || {};
     const search = (document.getElementById('licenseSearch').value || '').toLowerCase();
@@ -1389,6 +1412,9 @@ function renderLicenses() {
     });
 }
 
+// ============================================================
+// RENDER CODES
+// ============================================================
 function renderCodes() {
     const codes = DATA.codes || {};
     const filter = document.getElementById('codeFilter').value;
@@ -1413,7 +1439,6 @@ function renderCodes() {
         let typeText = '-';
         if (code.type === 'time') typeText = '⏰ ' + (code.duration || 0) + ' hari';
         else if (code.type === 'quota') typeText = '📊 +' + (code.amount || 0) + ' kali';
-        else if (code.type === 'quota3') typeText = '📊 +' + (code.amount || 0) + ' kali';
         else if (code.type === 'both') typeText = '⏰ +' + (code.duration || 0) + 'h 📊 +' + (code.amount || 0) + 'x';
         
         html += '<tr>';
@@ -1449,6 +1474,9 @@ function renderCodes() {
     });
 }
 
+// ============================================================
+// RENDER HISTORY
+// ============================================================
 function renderHistory() {
     const history = DATA.history || [];
     const search = (document.getElementById('historySearch').value || '').toLowerCase();
@@ -1480,71 +1508,274 @@ function renderHistory() {
 }
 
 // ============================================================
-// GENERATE TOKEN - DENGAN CUSTOM POPUP PIN
+// RENDER ASURANSI
 // ============================================================
-document.getElementById('generateBtn').addEventListener('click', async function() {
-    const type = document.getElementById('genType').value;
-    const count = parseInt(document.getElementById('genCount').value) || 5;
-    const resultEl = document.getElementById('generateResult');
-    const btn = this;
+function renderAssCalculations() {
+    const ass = DATA.assCalculations || [];
+    const typeFilter = document.getElementById('assTypeFilter').value;
+    const search = (document.getElementById('assSearch').value || '').toLowerCase();
+    const tbody = document.getElementById('assTableBody');
     
-    btn.disabled = true;
-    btn.textContent = '⏳ Memproses...';
-    resultEl.style.display = 'none';
+    let html = '';
+    let no = 0;
     
-    try {
-        const pin = await showPopup('pin', '🔑 Verifikasi PIN Admin', 
-            'Masukkan PIN Admin untuk melanjutkan.', 'Verifikasi', 'Batal', true);
-        
-        if (!pin) {
-            btn.disabled = false;
-            btn.textContent = '🚀 Generate Token';
+    ass.forEach(item => {
+        if (typeFilter !== 'all' && item.type !== typeFilter) return;
+        if (search && !item.userName.toLowerCase().includes(search) && !item.email.toLowerCase().includes(search)) {
             return;
         }
         
-        const result = await generateTokens(pin, type, count);
+        no++;
+        const typeLabels = {
+            'mobil': '🚗 Mobil',
+            'properti': '🏠 Properti',
+            'jiwa': '📋 Jiwa',
+            'wealth': '💰 Wealth'
+        };
+        const typeBadge = {
+            'mobil': 'mobil',
+            'properti': 'properti',
+            'jiwa': 'jiwa',
+            'wealth': 'wealth'
+        };
         
-        if (!result.success) {
-            await showPopup('error', 'Gagal', result.message);
-            btn.disabled = false;
-            btn.textContent = '🚀 Generate Token';
-            return;
+        const result = item.result || {};
+        const resultDisplay = result.formatted || formatRupiah(result.total) || '-';
+        
+        let summary = '-';
+        if (item.type === 'mobil') {
+            summary = (item.input || {}).merk + ' ' + (item.input || {}).tipe || '-';
+        } else if (item.type === 'properti') {
+            summary = (item.input || {}).jenis || '-';
+        } else if (item.type === 'jiwa') {
+            summary = 'Kebutuhan: ' + resultDisplay;
+        } else if (item.type === 'wealth') {
+            summary = 'Dana Pensiun: ' + resultDisplay;
         }
         
-        await loadData();
-        renderAll();
+        const date = item.created_at ? new Date(item.created_at) : new Date();
+        const dateStr = date.toLocaleDateString('id-ID') + ' ' + date.toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
         
-        resultEl.style.display = 'flex';
-        let html = '';
-        result.tokens.forEach(key => {
-            html += '<span class="code-chip">' + esc(key) + ' <button class="copy-btn" data-code="' + esc(key) + '">📋</button></span>';
+        html += '<tr>';
+        html += '<td>' + no + '</td>';
+        html += '<td>' + esc(item.userName) + '<br><span style="font-size:10px;color:var(--paper-dim);">' + esc(item.email) + '</span></td>';
+        html += '<td><span class="ass-type-badge ' + typeBadge[item.type] + '">' + typeLabels[item.type] + '</span></td>';
+        html += '<td style="font-weight:600;color:var(--gold-soft);">' + resultDisplay + '</td>';
+        html += '<td style="font-size:11px;color:var(--paper-dim);">' + esc(summary) + '</td>';
+        html += '<td style="font-size:11px;">' + dateStr + '</td>';
+        html += '<td>';
+        html += '<button class="view-btn" data-id="' + item.id + '">👁️ Detail</button> ';
+        html += '<button class="delete-btn-table" data-id="' + item.id + '">🗑️</button>';
+        html += '</td>';
+        html += '</tr>';
+    });
+    
+    if (no === 0) {
+        html = '<tr><td colspan="7" style="text-align:center;color:var(--paper-dim);padding:30px;">Tidak ada data perhitungan asuransi.</td></tr>';
+    }
+    tbody.innerHTML = html;
+    
+    // View Detail
+    tbody.querySelectorAll('.view-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const id = this.dataset.id;
+            const item = DATA.assCalculations.find(d => d.id === id);
+            if (item) {
+                showAssDetail(item);
+            }
         });
-        html += '<span style="color:var(--jade-soft);font-size:12px;margin-left:8px;">✅ ' + count + ' token berhasil dibuat di Firebase!</span>';
-        resultEl.innerHTML = html;
-        
-        resultEl.querySelectorAll('.copy-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const code = this.dataset.code;
-                navigator.clipboard.writeText(code).then(() => {
-                    this.textContent = '✅';
-                    setTimeout(() => { this.textContent = '📋'; }, 2000);
-                });
-            });
+    });
+    
+    // Delete
+    tbody.querySelectorAll('.delete-btn-table').forEach(btn => {
+        btn.addEventListener('click', async function() {
+            const id = this.dataset.id;
+            const item = DATA.assCalculations.find(d => d.id === id);
+            const name = item ? item.userName : 'data ini';
+            
+            const confirmDelete = await showPopup('confirm', '⚠️ Hapus Data', 
+                'Yakin ingin menghapus data perhitungan dari <strong>' + esc(name) + '</strong>?', 
+                'Hapus', 'Batal');
+            
+            if (confirmDelete) {
+                const result = await deleteAssCalculation(id);
+                if (result) {
+                    await loadData();
+                    renderAll();
+                    await showPopup('success', 'Berhasil', 'Data berhasil dihapus.');
+                } else {
+                    await showPopup('error', 'Gagal', 'Gagal menghapus data.');
+                }
+            }
         });
+    });
+}
+
+// ============================================================
+// SHOW ASS DETAIL
+// ============================================================
+function showAssDetail(item) {
+    const typeLabels = {
+        'mobil': '🚗 Asuransi Mobil',
+        'properti': '🏠 Asuransi Properti',
+        'jiwa': '📋 Asuransi Jiwa',
+        'wealth': '💰 Wealth Management'
+    };
+    
+    const input = item.input || {};
+    const result = item.result || {};
+    const detail = item.detail || {};
+    
+    let detailHtml = '';
+    detailHtml += '<div class="popup-section-title">📋 Data Input</div>';
+    detailHtml += '<div class="popup-data-grid">';
+    
+    for (const key in input) {
+        const label = key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ');
+        const value = input[key];
+        if (value !== undefined && value !== null && value !== '') {
+            detailHtml += '<div class="pd-item"><span class="pd-label">' + esc(label) + '</span>';
+            if (typeof value === 'number' && key.toLowerCase().includes('harga') || 
+                key.toLowerCase().includes('nilai') || key.toLowerCase().includes('biaya')) {
+                detailHtml += '<span class="pd-value gold">' + formatRupiah(value) + '</span>';
+            } else if (typeof value === 'number') {
+                detailHtml += '<span class="pd-value">' + value + '</span>';
+            } else {
+                detailHtml += '<span class="pd-value">' + esc(value) + '</span>';
+            }
+            detailHtml += '</div>';
+        }
+    }
+    detailHtml += '</div>';
+    
+    detailHtml += '<div class="popup-section-title">💰 Hasil Perhitungan</div>';
+    detailHtml += '<div class="popup-data-grid">';
+    for (const key in result) {
+        if (key === 'formatted') continue;
+        const label = key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ');
+        const value = result[key];
+        if (value !== undefined && value !== null && value !== '') {
+            detailHtml += '<div class="pd-item"><span class="pd-label">' + esc(label) + '</span>';
+            if (typeof value === 'number') {
+                detailHtml += '<span class="pd-value gold">' + formatRupiah(value) + '</span>';
+            } else {
+                detailHtml += '<span class="pd-value">' + esc(value) + '</span>';
+            }
+            detailHtml += '</div>';
+        }
+    }
+    detailHtml += '</div>';
+    
+    if (Object.keys(detail).length > 0) {
+        detailHtml += '<div class="popup-section-title">📊 Detail Perhitungan</div>';
+        detailHtml += '<div class="popup-data-grid">';
+        for (const key in detail) {
+            const label = key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ');
+            const value = detail[key];
+            if (value !== undefined && value !== null && value !== '') {
+                detailHtml += '<div class="pd-item"><span class="pd-label">' + esc(label) + '</span>';
+                if (typeof value === 'number') {
+                    detailHtml += '<span class="pd-value gold">' + formatRupiah(value) + '</span>';
+                } else {
+                    detailHtml += '<span class="pd-value">' + esc(value) + '</span>';
+                }
+                detailHtml += '</div>';
+            }
+        }
+        detailHtml += '</div>';
+    }
+    
+    const date = item.created_at ? new Date(item.created_at) : new Date();
+    const dateStr = date.toLocaleDateString('id-ID') + ' ' + date.toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
+    
+    detailHtml += '<div style="margin-top:12px;font-size:11px;color:var(--paper-dim);text-align:center;">';
+    detailHtml += 'User: ' + esc(item.userName) + ' (' + esc(item.email) + ') | Waktu: ' + dateStr;
+    detailHtml += '</div>';
+    
+    showPopup('detail', typeLabels[item.type] || '📄 Detail Perhitungan', '', 'Tutup', null, false, null, detailHtml);
+}
+
+// ============================================================
+// EXPORT ASURANSI
+// ============================================================
+document.getElementById('exportAssBtn').addEventListener('click', function() {
+    const ass = DATA.assCalculations || [];
+    const typeFilter = document.getElementById('assTypeFilter').value;
+    
+    let filtered = ass;
+    if (typeFilter !== 'all') {
+        filtered = ass.filter(item => item.type === typeFilter);
+    }
+    
+    let csv = 'No,User,Email,Jenis,Hasil,Ringkasan,Waktu\n';
+    filtered.forEach((item, index) => {
+        const result = item.result || {};
+        const resultDisplay = result.formatted || formatRupiah(result.total) || '-';
+        const typeLabels = { 'mobil': 'Mobil', 'properti': 'Properti', 'jiwa': 'Jiwa', 'wealth': 'Wealth' };
+        const date = item.created_at ? new Date(item.created_at) : new Date();
+        const dateStr = date.toLocaleDateString('id-ID') + ' ' + date.toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
         
-        await showPopup('success', 'Berhasil', count + ' token berhasil dibuat!');
+        let summary = '-';
+        if (item.type === 'mobil') {
+            summary = (item.input || {}).merk + ' ' + (item.input || {}).tipe || '-';
+        } else if (item.type === 'properti') {
+            summary = (item.input || {}).jenis || '-';
+        } else if (item.type === 'jiwa') {
+            summary = 'Kebutuhan: ' + resultDisplay;
+        } else if (item.type === 'wealth') {
+            summary = 'Dana Pensiun: ' + resultDisplay;
+        }
         
-    } catch (error) {
-        console.error('❌ Gagal membuat token:', error);
-        await showPopup('error', 'Gagal', 'Gagal membuat token: ' + error.message);
-    } finally {
-        btn.disabled = false;
-        btn.textContent = '🚀 Generate Token';
+        csv += (index + 1) + ',' + 
+               '"' + (item.userName || '') + '",' +
+               '"' + (item.email || '') + '",' +
+               '"' + (typeLabels[item.type] || item.type) + '",' +
+               '"' + resultDisplay + '",' +
+               '"' + summary + '",' +
+               '"' + dateStr + '"\n';
+    });
+    
+    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.href = url;
+    link.download = 'data_asuransi_' + getTodayStr() + '.csv';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    
+    showPopup('success', 'Berhasil', 'Data asuransi berhasil diexport!');
+});
+
+// ============================================================
+// CLEAR ALL ASURANSI
+// ============================================================
+document.getElementById('clearAssBtn').addEventListener('click', async function() {
+    const ass = DATA.assCalculations || [];
+    if (ass.length === 0) {
+        await showPopup('warning', 'Info', 'Tidak ada data untuk dihapus.');
+        return;
+    }
+    
+    const confirmDelete = await showPopup('confirm', '⚠️ Hapus Semua Data Asuransi', 
+        'Yakin ingin menghapus semua ' + ass.length + ' data perhitungan asuransi?<br><br><strong>Ini tidak bisa dibatalkan!</strong>', 
+        'Hapus Semua', 'Batal');
+    
+    if (confirmDelete) {
+        const result = await deleteAllAssCalculations();
+        if (result) {
+            await loadData();
+            renderAll();
+            await showPopup('success', 'Berhasil', 'Semua data asuransi berhasil dihapus.');
+        } else {
+            await showPopup('error', 'Gagal', 'Gagal menghapus data.');
+        }
     }
 });
 
 // ============================================================
-// EXPORT FUNCTIONS
+// EXPORT FUNCTIONS (User, History)
 // ============================================================
 document.getElementById('exportExcelBtn').addEventListener('click', function() {
     const users = DATA.users || {};
@@ -1636,6 +1867,14 @@ document.getElementById('exportHistoryBtn').addEventListener('click', function()
 function esc(s) { if (!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function getTodayStr() { return new Date().toISOString().slice(0,10); }
 
+function formatRupiah(angka) {
+    if (!angka || isNaN(angka)) return 'Rp 0';
+    if (angka >= 1000000000000) return 'Rp ' + (angka / 1000000000000).toFixed(2) + ' Triliun';
+    if (angka >= 1000000000) return 'Rp ' + (angka / 1000000000).toFixed(2) + ' Miliar';
+    if (angka >= 1000000) return 'Rp ' + (angka / 1000000).toFixed(0) + ' Juta';
+    return 'Rp ' + Math.round(angka).toLocaleString('id-ID');
+}
+
 // ============================================================
 // REFRESH BUTTONS
 // ============================================================
@@ -1657,6 +1896,11 @@ document.getElementById('refreshHistoryBtn').addEventListener('click', async fun
     await loadData();
     renderHistory();
 });
+document.getElementById('refreshAssBtn').addEventListener('click', async function() {
+    await loadData();
+    renderAssCalculations();
+    renderAssStats();
+});
 
 // Search & Filter
 document.getElementById('userSearch').addEventListener('input', renderUsers);
@@ -1664,6 +1908,8 @@ document.getElementById('userFilter').addEventListener('change', renderUsers);
 document.getElementById('licenseSearch').addEventListener('input', renderLicenses);
 document.getElementById('codeFilter').addEventListener('change', renderCodes);
 document.getElementById('historySearch').addEventListener('input', renderHistory);
+document.getElementById('assTypeFilter').addEventListener('change', renderAssCalculations);
+document.getElementById('assSearch').addEventListener('input', renderAssCalculations);
 
 // ============================================================
 // AUTH STATE OBSERVER
@@ -1680,6 +1926,7 @@ onAuthStateChanged(auth, (user) => {
 console.log('🔐 Admin Dashboard siap!');
 console.log('📌 Mode: FIREBASE');
 console.log('🔑 PIN: ' + ADMIN_PIN);
+console.log('📊 Tab Asuransi: ' + (document.getElementById('tab-assurance') ? '✅ aktif' : '❌ tidak ada'));
 console.log('💡 Session tersimpan, refresh tidak logout!');
 
 checkAdminSession();
