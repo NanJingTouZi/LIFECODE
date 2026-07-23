@@ -563,81 +563,84 @@
         }
 
         /* ============================================================ */
-        /*                    PRINT STYLING                             */
+        /*                    PRINT STYLING - PERBAIKAN                 */
         /* ============================================================ */
         @media print {
+            /* Reset semua body */
             body {
-                background: white;
-                padding: 0.2in;
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
             }
 
-            .container {
-                box-shadow: none;
-                padding: 10px;
-                border-radius: 0;
-            }
-
-            .no-print {
+            /* Sembunyikan semua elemen di container kecuali proposal */
+            .container > *:not(.proposal-wrapper) {
                 display: none !important;
             }
 
-            .result-box {
-                border: 1px solid #ccc;
-                background: #f9f9f9;
-                break-inside: avoid;
-            }
-
-            .premi-value {
-                border: 1px solid #333;
-            }
-
-            .detail-item {
-                border: 1px solid #ccc;
-            }
-
-            .breakdown {
-                border: 1px solid #ccc;
-            }
-
-            .proposal-wrapper {
-                display: block !important;
-                border-top: none;
-                padding-top: 0;
-                margin-top: 0;
-            }
-
-            .proposal-container {
-                box-shadow: none;
-                border: none;
-                padding: 10px 20px;
-            }
-
-            .proposal-container .premium-table th {
-                background: #f0f3f8 !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-
-            .proposal-container .premium-table .highlight-row td {
-                background: #f7f9fc !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-
-            .proposal-actions {
-                display: none !important;
-            }
-
+            /* Sembunyikan elemen yang tidak perlu di proposal */
             .proposal-wrapper .no-print {
                 display: none !important;
             }
             
-            .print-instruction {
+            .proposal-wrapper .print-instruction {
                 display: none !important;
             }
-            
-            .data-status {
-                display: none !important;
+
+            /* Tampilkan proposal wrapper */
+            .proposal-wrapper {
+                display: block !important;
+                border-top: none !important;
+                padding-top: 0 !important;
+                margin-top: 0 !important;
+                background: white !important;
+            }
+
+            /* Style proposal container untuk print */
+            .proposal-container {
+                max-width: 100% !important;
+                padding: 20px 25px !important;
+                border: none !important;
+                border-radius: 0 !important;
+                background: white !important;
+                box-shadow: none !important;
+                margin: 0 !important;
+            }
+
+            /* Pastikan tabel tetap rapi */
+            .proposal-container .data-table td {
+                padding: 4px 8px 4px 0 !important;
+                border-bottom: 1px solid #eef1f6 !important;
+            }
+
+            .proposal-container .premium-table th {
+                background: #f0f3f8 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .proposal-container .premium-table .highlight-row td {
+                background: #f7f9fc !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            /* Header dan footer print */
+            .proposal-container .header {
+                border-bottom: 3px double #1a2a4a !important;
+            }
+
+            .proposal-container .signature-area {
+                border-top: 2px solid #eef1f6 !important;
+            }
+
+            .proposal-container .footer-notes {
+                border-top: 1px solid #e0e5ed !important;
+            }
+
+            /* Page break */
+            .proposal-container {
+                page-break-after: avoid;
             }
         }
 
@@ -837,7 +840,7 @@
         </div>
 
         <!-- ===== HASIL PREMI ===== -->
-        <div class="result-box" id="resultBox">
+        <div class="result-box no-print" id="resultBox">
             <h3>💰 Hasil Perhitungan Premi</h3>
             <div class="premi-value" id="premiValue">Rp 0</div>
             <div class="premi-detail">
@@ -1032,11 +1035,11 @@
     </div>
 
     <!-- ============================================================ -->
-    <!--                    JAVASCRIPT                                 -->
+    <!--                    JAVASCRIPT (SAMA SEPERTI SEBELUMNYA)      -->
     <!-- ============================================================ -->
     <script>
         // ============================================================
-        //  DATA TARIF OJK 2017 (tetap di HTML karena data kecil)
+        //  DATA TARIF OJK 2017
         // ============================================================
 
         const TARIF_COMP = {
@@ -1087,13 +1090,11 @@
             statusEl.textContent = '⏳ Memuat data kendaraan...';
 
             try {
-                // Coba load dari cache dulu
                 const cached = localStorage.getItem('dataKendaraan');
                 const cacheTime = localStorage.getItem('dataKendaraanTime');
                 const now = Date.now();
                 const cacheAge = cacheTime ? now - parseInt(cacheTime) : Infinity;
 
-                // Cache berlaku 1 hari
                 if (cached && cacheAge < 24 * 60 * 60 * 1000) {
                     dataKendaraan = JSON.parse(cached);
                     isDataLoaded = true;
@@ -1106,7 +1107,6 @@
                     return;
                 }
 
-                // Load dari file JSON
                 const response = await fetch('data-kendaraan.json');
                 if (!response.ok) {
                     throw new Error('HTTP ' + response.status + ' - ' + response.statusText);
@@ -1115,7 +1115,6 @@
                 dataKendaraan = await response.json();
                 isDataLoaded = true;
 
-                // Simpan ke cache
                 localStorage.setItem('dataKendaraan', JSON.stringify(dataKendaraan));
                 localStorage.setItem('dataKendaraanTime', String(now));
 
@@ -1129,7 +1128,6 @@
             } catch (error) {
                 console.error('❌ Gagal load data kendaraan:', error);
                 
-                // Coba pakai cache meskipun expired
                 const cached = localStorage.getItem('dataKendaraan');
                 if (cached) {
                     try {
@@ -1144,7 +1142,6 @@
                     } catch(e) {}
                 }
 
-                // Fallback ke data minimal
                 dataKendaraan = getMinimalData();
                 isDataLoaded = true;
                 loadingEl.classList.remove('show');
@@ -1202,21 +1199,17 @@
         // ============================================================
 
         function initForm() {
-            // Set default values
             document.getElementById('nama').value = 'Ali Suwito';
             document.getElementById('noHp').value = '0812 6558 1588';
             document.getElementById('jenis').value = 'nonbus';
             document.getElementById('tahun').value = '2022';
             document.getElementById('harga').value = '240000000';
             
-            // Update merek berdasarkan jenis
             updateMerk();
             
-            // Set default merek dan tipe
             setTimeout(() => {
                 const merkSelect = document.getElementById('merk');
                 if (merkSelect.options.length > 0) {
-                    // Cari Toyota
                     for (let i = 0; i < merkSelect.options.length; i++) {
                         if (merkSelect.options[i].value === 'Toyota') {
                             merkSelect.value = 'Toyota';
@@ -1300,20 +1293,16 @@
             const tipeSelect = document.getElementById('tipe');
             const tipeManual = document.getElementById('tipeManual');
 
-            // Reset tipe
             tipeSelect.innerHTML = '<option value="">-- Pilih Tipe --</option>';
             tipeSelect.value = '';
             tipeManual.value = '';
             tipeManual.style.display = 'none';
 
-            // Clear current merk
             merkSelect.innerHTML = '<option value="">-- Pilih Merek --</option>';
 
-            // Get data for selected jenis
             const dataJenis = dataKendaraan[jenis];
             if (!dataJenis) return;
 
-            // Add merk options
             const mereks = Object.keys(dataJenis).sort();
             for (let merk of mereks) {
                 const option = document.createElement('option');
@@ -1322,13 +1311,11 @@
                 merkSelect.appendChild(option);
             }
 
-            // Add "Lainnya" option
             const optionLain = document.createElement('option');
             optionLain.value = 'lainnya';
             optionLain.textContent = '🔧 Lainnya (isi manual)';
             merkSelect.appendChild(optionLain);
 
-            // Reset manual input
             merkManual.value = '';
             merkManual.style.display = 'none';
         }
@@ -1344,7 +1331,6 @@
 
             const selectedMerk = merkSelect.value;
 
-            // Handle "Lainnya" option
             if (selectedMerk === 'lainnya') {
                 merkManual.style.display = 'block';
                 merkManual.placeholder = 'Masukkan merek kendaraan...';
@@ -1361,14 +1347,12 @@
                 merkManual.style.display = 'none';
             }
 
-            // Get data for selected jenis and merk
             const dataJenis = dataKendaraan[jenis];
             if (!dataJenis) return;
 
             const tipeList = dataJenis[selectedMerk] || [];
             tipeSelect.innerHTML = '<option value="">-- Pilih Tipe --</option>';
 
-            // Add tipe options
             for (let tipe of tipeList.sort()) {
                 const option = document.createElement('option');
                 option.value = tipe;
@@ -1376,7 +1360,6 @@
                 tipeSelect.appendChild(option);
             }
 
-            // Add "Lainnya" option
             const optionLain = document.createElement('option');
             optionLain.value = 'lainnya';
             optionLain.textContent = '🔧 Lainnya (isi manual)';
@@ -1385,13 +1368,11 @@
             tipeManual.value = '';
             tipeManual.style.display = 'none';
 
-            // Auto-select first tipe if available
             if (tipeList.length > 0) {
                 tipeSelect.value = tipeList[0];
             }
         }
 
-        // Handle manual input untuk tipe
         document.getElementById('tipe').addEventListener('change', function() {
             const tipeManual = document.getElementById('tipeManual');
             if (this.value === 'lainnya') {
@@ -1405,7 +1386,6 @@
             }
         });
 
-        // Handle manual input untuk merk
         document.getElementById('merk').addEventListener('change', function() {
             const merkManual = document.getElementById('merkManual');
             if (this.value === 'lainnya') {
@@ -1451,7 +1431,6 @@
                 return;
             }
 
-            // Ambil data
             const nama = document.getElementById('nama').value.trim();
             const noHp = document.getElementById('noHp').value.trim();
             const merk = getNamaMerk();
@@ -1462,14 +1441,12 @@
             const wilayah = parseInt(document.getElementById('wilayah').value);
             const jenisPertanggungan = document.getElementById('jenisPertanggungan').value;
 
-            // Validasi wajib
             if (!nama) { alert('⚠️ Mohon isi Nama Lengkap terlebih dahulu!'); return; }
             if (!noHp) { alert('⚠️ Mohon isi No. HP / Telepon terlebih dahulu!'); return; }
             if (!merk) { alert('⚠️ Mohon pilih/isi Merek Kendaraan terlebih dahulu!'); return; }
             if (!tipe) { alert('⚠️ Mohon pilih/isi Tipe Kendaraan terlebih dahulu!'); return; }
             if (harga <= 0) { alert('⚠️ Mohon isi Harga Kendaraan yang valid!'); return; }
 
-            // Pilih data tarif
             const dataMapComp = { nonbus: TARIF_COMP.nonbus, truk: TARIF_COMP.truk, bus: TARIF_COMP.bus, roda2: TARIF_COMP
                     .roda2 };
             const dataMapTlo = { nonbus: TARIF_TLO.nonbus, truk: TARIF_TLO.truk, bus: TARIF_TLO.bus, roda2: TARIF_TLO
@@ -1495,7 +1472,6 @@
                 premi = jenisPertanggungan === 'comprehensive' ? 100000 : 50000;
             }
 
-            // Perluasan
             let extPremi = 0;
             let extList = [];
             if (document.getElementById('extBanjir').checked) {
@@ -1524,7 +1500,6 @@
             const biayaPolis = 52000;
             const totalBayar = totalPremi + biayaPolis;
 
-            // Simpan hasil
             hasilTerakhir = {
                 nama,
                 noHp,
@@ -1549,7 +1524,6 @@
                 wilayahText: getWilayahText('wilayah')
             };
 
-            // Tampilkan hasil
             const resultBox = document.getElementById('resultBox');
             resultBox.classList.add('show');
 
@@ -1567,10 +1541,7 @@
             document.getElementById('bBiayaPolis').textContent = formatRupiah(biayaPolis);
             document.getElementById('bTotalBayar').innerHTML = '<strong>' + formatRupiah(totalBayar) + '</strong>';
 
-            // Aktifkan tombol cetak
             document.getElementById('btnCetak').disabled = false;
-
-            // Scroll ke hasil
             resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
@@ -1586,7 +1557,6 @@
 
             const h = hasilTerakhir;
 
-            // Set data ke proposal
             document.getElementById('pNama').textContent = h.nama;
             document.getElementById('pNoHp').textContent = h.noHp;
             document.getElementById('pMerk').innerHTML = '<strong>' + h.merk + '</strong>';
@@ -1599,7 +1569,6 @@
             document.getElementById('pJenisPertanggungan').innerHTML = '<strong>' + h.jenisPertanggungan + '</strong>';
             document.getElementById('pExt').textContent = h.extList.length > 0 ? h.extList.join(', ') : 'Tidak ada';
 
-            // Tanggal
             const now = new Date();
             const tgl = now.getDate() + ' ' + ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus',
                 'September', 'Oktober', 'November', 'Desember'
@@ -1607,12 +1576,10 @@
             document.getElementById('pTanggal').textContent = tgl;
             document.getElementById('pKotaTanggal').textContent = tgl;
 
-            // No Proposal
             const noProposal = 'AVR/PROP/' + now.getFullYear() + '/' + String(now.getMonth() + 1).padStart(2, '0') +
                 String(now.getDate()).padStart(2, '0') + String(Math.floor(Math.random() * 1000)).padStart(3, '0');
             document.getElementById('pNoProposal').textContent = noProposal;
 
-            // Perhitungan Premi
             const rateDisplay = (h.rate * 100).toFixed(2) + '%';
             document.getElementById('pRateUtama').textContent = rateDisplay;
             document.getElementById('pPremiUtama').textContent = formatRupiah(h.premi);
@@ -1621,16 +1588,11 @@
             document.getElementById('pBiayaPolis').textContent = formatRupiah(h.biayaPolis);
             document.getElementById('pTotalBayar').innerHTML = '<strong>' + formatRupiah(h.totalBayar) + '</strong>';
 
-            // Tampilkan proposal
             document.getElementById('proposalWrapper').classList.add('show');
-            
-            // Sembunyikan petunjuk print
             document.getElementById('printInstruction').classList.remove('show');
 
-            // Scroll ke proposal
             document.getElementById('proposalWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-            // Tampilkan notifikasi
             const btn = document.getElementById('btnCetak');
             const originalText = btn.textContent;
             btn.textContent = '✅ Proposal Siap!';
@@ -1680,7 +1642,6 @@
             document.getElementById('jenisPertanggungan').value = 'comprehensive';
             document.querySelectorAll('input[type="checkbox"]').forEach(c => c.checked = false);
 
-            // Reset merek dan tipe
             updateMerk();
             document.getElementById('merkManual').value = '';
             document.getElementById('merkManual').style.display = 'none';
@@ -1706,17 +1667,12 @@
         });
 
         // ============================================================
-        //  INIT - LOAD DATA KENDARAAN
+        //  INIT
         // ============================================================
 
-        // Load data kendaraan saat halaman dimuat
         document.addEventListener('DOMContentLoaded', function() {
             loadDataKendaraan();
         });
-        
-        // ============================================================
-        //  EVENT LISTENER UNTUK MENUTUP PETUNJUK SAAT PRINT DIALOG TUTUP
-        // ============================================================
         
         document.addEventListener('visibilitychange', function() {
             if (!document.hidden) {
