@@ -156,7 +156,8 @@
         }
 
         input,
-        select {
+        select,
+        textarea {
             width: 100%;
             padding: 10px 14px;
             border: 1.5px solid #dce3ec;
@@ -168,10 +169,16 @@
         }
 
         input:focus,
-        select:focus {
+        select:focus,
+        textarea:focus {
             outline: none;
             border-color: #2b6c9e;
             box-shadow: 0 0 0 3px rgba(43, 108, 158, 0.15);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 70px;
         }
 
         .row {
@@ -1038,6 +1045,14 @@
                     </div>
                 </div>
 
+                <!-- ===== ALAMAT PROPERTI (TEXTAREA) ===== -->
+                <div class="form-group">
+                    <label>Alamat Properti <span class="required">*</span></label>
+                    <textarea id="alamatProperti" rows="3" 
+                        placeholder="Contoh: Jl. Merdeka No. 123, RT 05/RW 03, Kel. Kebon Jeruk, Kec. Kebon Jeruk, Jakarta Barat 11530"
+                        style="width:100%; padding:10px 14px; border:1.5px solid #dce3ec; border-radius:10px; font-size:15px; font-family:inherit; resize:vertical;"></textarea>
+                </div>
+
                 <div class="form-group">
                     <label style="margin-bottom:8px;">Perluasan Jaminan</label>
                     <div style="display:flex; gap:14px; flex-wrap:wrap;">
@@ -1217,6 +1232,8 @@
                 const idx = ['mobil', 'properti', 'jiwa', 'wealth'].indexOf(tab);
                 if (idx >= 0 && idx < btns.length) btns[idx].classList.add('active');
             }
+            // Tutup proposal saat pindah tab
+            tutupProposal();
         }
 
         // ============================================================
@@ -1264,14 +1281,13 @@
         };
 
         // ============================================================
-        //  VARIABEL GLOBAL MOBIL
+        //  VARIABEL GLOBAL
         // ============================================================
 
         let dataKendaraan = {};
         let hasilTerakhirMobil = null;
         let hasilTerakhirProperti = null;
         let isDataLoaded = false;
-        let proposalType = 'mobil'; // 'mobil' atau 'properti'
 
         // ============================================================
         //  FUNGSI BANTU
@@ -1676,16 +1692,13 @@
                 alert('⚠️ Silakan hitung premi terlebih dahulu!');
                 return;
             }
-            proposalType = 'mobil';
             tampilkanProposalMobil(hasilTerakhirMobil);
         }
 
         function tampilkanProposalMobil(h) {
-            // Set header
             document.getElementById('proposalSubTitle').textContent = 'KENDARAAN BERMOTOR';
             document.getElementById('proposalDesc').textContent = 'Dokumen Penawaran Perlindungan Kendaraan';
 
-            // Data
             document.getElementById('pNama').textContent = h.nama;
             document.getElementById('pNoHp').textContent = h.noHp;
 
@@ -1701,11 +1714,9 @@
             `;
             document.getElementById('proposalDataContent').innerHTML = dataHTML;
 
-            // Kondisi pertanggungan
             document.getElementById('pJenisPertanggungan').innerHTML = '<strong>' + h.jenisPertanggungan + '</strong>';
             document.getElementById('pExt').textContent = h.extList.length > 0 ? h.extList.join(', ') : 'Tidak ada';
 
-            // Tanggal
             const now = new Date();
             const tgl = now.getDate() + ' ' + ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus',
                 'September', 'Oktober', 'November', 'Desember'][now.getMonth()] + ' ' + now.getFullYear();
@@ -1716,7 +1727,6 @@
                 String(now.getDate()).padStart(2, '0') + String(Math.floor(Math.random() * 1000)).padStart(3, '0');
             document.getElementById('pNoProposal').textContent = noProposal;
 
-            // Perhitungan
             const rateDisplay = (h.rate * 100).toFixed(2) + '%';
             document.getElementById('pRateUtama').textContent = rateDisplay;
             document.getElementById('pPremiUtama').textContent = formatRupiah(h.premi);
@@ -1725,7 +1735,6 @@
             document.getElementById('pBiayaPolis').textContent = formatRupiah(h.biayaPolis);
             document.getElementById('pTotalBayar').innerHTML = '<strong>' + formatRupiah(h.totalBayar) + '</strong>';
 
-            // Deductible
             let deductHTML = `
                 <table class="data-table">
                     <tr><td class="label">Kerugian Sebagian/Total / Pencurian</td><td class="value"><strong>Rp 300.000</strong> per kejadian</td></tr>
@@ -1735,7 +1744,6 @@
             `;
             document.getElementById('proposalDeductibleContent').innerHTML = deductHTML;
 
-            // Tampilkan proposal
             document.getElementById('proposalWrapper').classList.add('show');
             document.getElementById('printInstruction').classList.remove('show');
             document.getElementById('proposalWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1767,7 +1775,7 @@
         }
 
         // ============================================================
-        //  FUNGSI PROPERTI
+        //  FUNGSI PROPERTI (DENGAN ALAMAT)
         // ============================================================
 
         function hitungPremiProperti() {
@@ -1778,11 +1786,13 @@
             const nilai = parseFloat(document.getElementById('nilaiProperti').value) || 0;
             const luas = parseFloat(document.getElementById('luasProperti').value) || 0;
             const tahun = parseInt(document.getElementById('tahunProperti').value) || 2020;
+            const alamat = document.getElementById('alamatProperti').value.trim();
             const jenisPertanggungan = document.getElementById('jenisPertanggunganProperti').value;
 
             if (!nama) { alert('⚠️ Mohon isi Nama Lengkap terlebih dahulu!'); return; }
             if (!noHp) { alert('⚠️ Mohon isi No. HP / Telepon terlebih dahulu!'); return; }
             if (nilai <= 0) { alert('⚠️ Mohon isi Nilai Properti yang valid!'); return; }
+            if (!alamat) { alert('⚠️ Mohon isi Alamat Properti terlebih dahulu!'); return; }
 
             const tarifData = TARIF_PROPERTI[jenis] || TARIF_PROPERTI['lainnya'];
             let rate = tarifData.wilayah[wilayah] || tarifData.base || 0.20;
@@ -1849,7 +1859,7 @@
             };
 
             hasilTerakhirProperti = {
-                nama, noHp, jenis, wilayah, nilai, luas, tahun,
+                nama, noHp, jenis, wilayah, nilai, luas, tahun, alamat,
                 jenisPertanggungan: pertanggunganMap[jenisPertanggungan] || jenisPertanggungan,
                 jenisPertanggunganKey: jenisPertanggungan,
                 rate, premi, extPremi, extList, totalPremi, biayaPolis, totalBayar,
@@ -1882,7 +1892,6 @@
                 alert('⚠️ Silakan hitung premi terlebih dahulu!');
                 return;
             }
-            proposalType = 'properti';
             tampilkanProposalProperti(hasilTerakhirProperti);
         }
 
@@ -1896,6 +1905,7 @@
             let dataHTML = `
                 <table class="data-table">
                     <tr><td class="label">Jenis Properti</td><td class="value"><strong>${h.jenisText}</strong></td></tr>
+                    <tr><td class="label">Alamat Properti</td><td class="value"><strong>${h.alamat}</strong></td></tr>
                     <tr><td class="label">Nilai Properti</td><td class="value"><strong>${formatRupiah(h.nilai)}</strong></td></tr>
                     <tr><td class="label">Luas Bangunan</td><td class="value"><strong>${h.luas} m²</strong></td></tr>
                     <tr><td class="label">Tahun Dibangun</td><td class="value"><strong>${h.tahun}</strong></td></tr>
@@ -1952,6 +1962,7 @@
             document.getElementById('nilaiProperti').value = '500000000';
             document.getElementById('luasProperti').value = '100';
             document.getElementById('tahunProperti').value = '2015';
+            document.getElementById('alamatProperti').value = '';
             document.getElementById('jenisPertanggunganProperti').value = 'comprehensive';
             document.querySelectorAll('#formProperti input[type="checkbox"]').forEach(c => c.checked = false);
             document.getElementById('resultProperti').classList.remove('show');
@@ -1979,9 +1990,9 @@
         //  ENTER KEY UNTUK HITUNG
         // ============================================================
 
-        document.querySelectorAll('#formMobil input, #formMobil select, #formProperti input, #formProperti select').forEach(el => {
+        document.querySelectorAll('#formMobil input, #formMobil select, #formProperti input, #formProperti select, #formProperti textarea').forEach(el => {
             el.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
+                if (e.key === 'Enter' && !this.closest('textarea')) {
                     if (this.closest('#formMobil')) {
                         hitungPremiMobil();
                     } else if (this.closest('#formProperti')) {
