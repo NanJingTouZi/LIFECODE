@@ -38,6 +38,34 @@
         }
 
         /* ============================================================
+                   TOMBOL BACK
+                   ============================================================ */
+        .back-button-wrap {
+            margin-bottom: 20px;
+        }
+
+        .back-button-wrap .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 18px;
+            background: #1e293b;
+            border-radius: 30px;
+            border: 1px solid #334155;
+            transition: all 0.3s;
+        }
+
+        .back-button-wrap .btn-back:hover {
+            color: #f1f5f9;
+            border-color: #38bdf8;
+            background: #2a3a52;
+            transform: translateX(-3px);
+        }
+
+        /* ============================================================
                    HEADER
                    ============================================================ */
         .main-header {
@@ -1059,6 +1087,11 @@
             .advanced-stats {
                 grid-template-columns: 1fr;
             }
+
+            .back-button-wrap .btn-back {
+                font-size: 13px;
+                padding: 6px 14px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1203,12 +1236,26 @@
                 font-size: 13px;
                 padding: 12px 14px;
             }
+
+            .back-button-wrap .btn-back {
+                font-size: 12px;
+                padding: 5px 12px;
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
+
+        <!-- ============================================================
+        TOMBOL BACK
+        ============================================================ -->
+        <div class="back-button-wrap">
+            <a href="portfolio.html" class="btn-back">
+                ← Kembali ke Portfolio
+            </a>
+        </div>
 
         <!-- ============================================================
         HEADER
