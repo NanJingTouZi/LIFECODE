@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#0a1a2b" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔮</text></svg>" />
+    
+    <title>Nanjing Investment - Menu</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a1a2b;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .menu-container {
+            max-width: 900px;
+            width: 100%;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header .logo {
+            font-size: 48px;
+            margin-bottom: 8px;
+        }
+
+        .header h1 {
+            color: #f5c842;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            color: #7e9bb5;
+            font-size: 15px;
+            margin-top: 6px;
+            opacity: 0.8;
+        }
+
+        /* ===== GRID CARD ===== */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .menu-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .menu-card {
+            background: linear-gradient(145deg, #122d44, #0d1f30);
+            border-radius: 16px;
+            padding: 30px 24px 24px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .menu-card:active {
+            transform: translateY(-2px);
+        }
+
+        .menu-card .icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .menu-card .title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .menu-card .desc {
+            font-size: 13px;
+            color: #7e9bb5;
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+
+        .menu-card .btn-masuk {
+            display: inline-block;
+            padding: 8px 24px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            background: transparent;
+            border: 2px solid;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* ===== CARD 1: LifeCode (Hijau) ===== */
+        .menu-card.lifecode {
+            border-color: rgba(79, 138, 114, 0.3);
+        }
+        .menu-card.lifecode:hover {
+            border-color: #4f8a72;
+        }
+        .menu-card.lifecode .btn-masuk {
+            border-color: #4f8a72;
+            color: #4f8a72;
+        }
+        .menu-card.lifecode .btn-masuk:hover {
+            background: #4f8a72;
+            color: #ffffff;
+        }
+
+        /* ===== CARD 2: Financial (Emas) ===== */
+        .menu-card.financial {
+            border-color: rgba(201, 162, 74, 0.3);
+        }
+        .menu-card.financial:hover {
+            border-color: #c9a24a;
+        }
+        .menu-card.financial .btn-masuk {
+            border-color: #c9a24a;
+            color: #c9a24a;
+        }
+        .menu-card.financial .btn-masuk:hover {
+            background: #c9a24a;
+            color: #0a1a2b;
+        }
+
+        /* ===== CARD 3: Portfolio Builder (Biru) ===== */
+        .menu-card.portfolio {
+            border-color: rgba(79, 130, 200, 0.3);
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .menu-card.portfolio:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        .menu-card.portfolio .btn-masuk {
+            border-color: #4a7fa0;
+            color: #4a7fa0;
+            opacity: 0.5;
+        }
+        .menu-card.portfolio .badge-soon {
+            display: inline-block;
+            background: rgba(79, 130, 200, 0.2);
+            color: #6da3c9;
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            color: #3a5a75;
+            font-size: 12px;
+            margin-top: 20px;
+            opacity: 0.6;
+        }
+
+        /* ===== INSTALL BUTTON ===== */
+        .btn-install {
+            display: none;
+            background: linear-gradient(135deg, #4f8a72, #3d705a);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 0 #2a4d3e, 0 8px 25px rgba(79, 138, 114, 0.3);
+            letter-spacing: 0.5px;
+            margin: 0 auto 20px;
+            display: none;
+        }
+
+        .btn-install.show {
+            display: inline-block;
+        }
+
+        .btn-install:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #2a4d3e, 0 12px 35px rgba(79, 138, 114, 0.4);
+        }
+
+        .btn-install:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #2a4d3e;
+        }
+
+        .install-wrapper {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu-container">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <div class="logo">🏦</div>
+            <h1>Nanjing Investment</h1>
+            <p>Pilih layanan yang Anda butuhkan di bawah ini</p>
+        </div>
+
+        <!-- ===== INSTALL BUTTON ===== -->
+        <div class="install-wrapper">
+            <button class="btn-install" id="btnInstall">📱 Install Aplikasi</button>
+        </div>
+
+        <!-- ===== MENU GRID ===== -->
+        <div class="menu-grid">
+
+            <!-- Card 1: LifeCode -->
+            <a href="lifecode.html" class="menu-card lifecode">
+                <span class="icon">🔮</span>
+                <div class="title">LifeCode</div>
+                <div class="desc">Kalkulator Angka Kehidupan<br/>Profil Karakter &amp; Shio</div>
+                <span class="btn-masuk">Masuk →</span>
+            </a>
+
+            <!-- Card 2: Financial -->
+            <a href="ass.html" class="menu-card financial">
+                <span class="icon">📊</span>
+                <div class="title">Financial</div>
+                <div class="desc">Kalkulator Asuransi<br/>Mobil, Properti, Jiwa, Wealth</div>
+                <span class="btn-masuk">Masuk →</span>
+            </a>
+
+            <!-- Card 3: Portfolio Builder (Coming Soon) -->
+            <div class="menu-card portfolio">
+                <span class="icon">💰</span>
+                <div class="title">Portfolio Builder</div>
+                <div class="desc">Perencanaan Investasi<br/>Portfolio Management</div>
+                <span class="badge-soon">🔒 Coming Soon</span>
+            </div>
+
+        </div>
+
+        <!-- ===== FOOTER ===== -->
+        <div class="footer">
+            © 2026 Nanjing Investment · All Rights Reserved
+        </div>
+
+    </div>
+
+    <script>
+        // ============================================================
+        // SERVICE WORKER REGISTRASI
+        // ============================================================
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/LIFECODE/sw.js')
+                .then(function(registration) {
+                    console.log('✅ Service Worker terdaftar!');
+                })
+                .catch(function(error) {
+                    console.log('❌ Service Worker gagal:', error);
+                });
+        }
+
+        // ============================================================
+        // TOMBOL INSTALL PWA
+        // ============================================================
+        let deferredPrompt = null;
+        let isInstallAvailable = false;
+        const btnInstall = document.getElementById('btnInstall');
+
+        window.addEventListener('beforeinstallprompt', function(e) {
+            e.preventDefault();
+            deferredPrompt = e;
+            isInstallAvailable = true;
+            btnInstall.classList.add('show');
+            console.log('✅ Tombol Install muncul!');
+        });
+
+        btnInstall.addEventListener('click', function() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                
+                deferredPrompt.userChoice.then(function(choiceResult) {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('✅ User menerima install');
+                        btnInstall.classList.remove('show');
+                        isInstallAvailable = false;
+                    } else {
+                        console.log('❌ User menolak install');
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        });
+
+        // ============================================================
+        // CEK APAKAH SUDAH TERINSTALL (PWA)
+        // ============================================================
+        function isAppInstalled() {
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                return true;
+            }
+            if (window.navigator.standalone === true) {
+                return true;
+            }
+            return false;
+        }
+
+        // Jika sudah terinstall, sembunyikan tombol
+        if (isAppInstalled()) {
+            btnInstall.classList.remove('show');
+            console.log('✅ Aplikasi sudah terinstall. Tombol Install disembunyikan.');
+        }
+
+        console.log('✅ Menu siap!');
+    </script>
+
+</body>
+</html>
