@@ -98,6 +98,18 @@
         .tab-btn .icon {
             font-size: 18px;
         }
+        .tab-btn .badge-soon {
+            font-size: 9px;
+            background: #dce3ec;
+            padding: 2px 8px;
+            border-radius: 12px;
+            color: #5e7a93;
+            font-weight: 400;
+        }
+        .tab-btn.active .badge-soon {
+            background: rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.8);
+        }
 
         .tab-content {
             display: none;
@@ -222,15 +234,6 @@
         }
         .btn-success:hover {
             background: #15622a;
-            transform: translateY(-1px);
-        }
-
-        .btn-warning {
-            background: #b45309;
-            color: white;
-        }
-        .btn-warning:hover {
-            background: #92400e;
             transform: translateY(-1px);
         }
 
@@ -820,11 +823,11 @@
             </button>
             <button class="tab-btn" onclick="switchTab('jiwa')" style="opacity:0.6; cursor:not-allowed;">
                 <span class="icon">📋</span> Asuransi Jiwa
-                <span style="font-size:10px; background:#dce3ec; padding:2px 8px; border-radius:12px;">Soon</span>
+                <span class="badge-soon">Soon</span>
             </button>
             <button class="tab-btn" onclick="switchTab('wealth')" style="opacity:0.6; cursor:not-allowed;">
                 <span class="icon">💰</span> Wealth Management
-                <span style="font-size:10px; background:#dce3ec; padding:2px 8px; border-radius:12px;">Soon</span>
+                <span class="badge-soon">Soon</span>
             </button>
         </div>
 
@@ -966,115 +969,12 @@
                     💡 Risiko sendiri (deductible) minimum Rp300.000 per kejadian (roda 2: Rp150.000).
                 </p>
             </div>
-
-            <!-- PROPOSAL MOBIL -->
-            <div class="proposal-wrapper" id="proposalMobil">
-                <div class="proposal-container">
-                    <div class="header">
-                        <div class="title-main">PROPOSAL ASURANSI</div>
-                        <div class="title-sub">KENDARAAN BERMOTOR</div>
-                        <div class="title-desc">Dokumen Penawaran Perlindungan Kendaraan</div>
-                    </div>
-
-                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:24px; font-size:14px; flex-wrap:wrap; gap:10px;">
-                        <div>
-                            <strong>Kepada Yth.</strong><br />
-                            Bapak / Ibu <strong id="pNamaMobil">-</strong><br />
-                            <span style="font-size:13px; color:#4a5a72;">No. HP: <span id="pNoHpMobil">-</span></span>
-                        </div>
-                        <div style="background:#f0f3f8; padding:5px 14px; border-radius:20px; font-weight:600; color:#1a2a4a; font-size:13px; white-space:nowrap;">
-                            No. Proposal: <strong id="pNoProposalMobil">AVR/PROP/2026/001</strong>
-                        </div>
-                    </div>
-
-                    <div class="section-title section-title-first">A. DATA KENDARAAN</div>
-                    <table class="data-table">
-                        <tr><td class="label">Merek Kendaraan</td><td class="value" id="pMerkMobil"><strong>-</strong></td></tr>
-                        <tr><td class="label">Tipe Kendaraan</td><td class="value" id="pTipeMobil"><strong>-</strong></td></tr>
-                        <tr><td class="label">Tahun Pembuatan</td><td class="value" id="pTahunMobil"><strong>-</strong></td></tr>
-                        <tr><td class="label">Jenis / Kategori</td><td class="value" id="pJenisMobil">-</td></tr>
-                        <tr><td class="label">Wilayah / Zone</td><td class="value" id="pWilayahMobil">-</td></tr>
-                        <tr><td class="label">Perkiraan Harga</td><td class="value" id="pHargaMobil"><strong>-</strong></td></tr>
-                    </table>
-
-                    <div class="section-title">B. KONDISI PERTANGGUNGAN</div>
-                    <table class="data-table">
-                        <tr><td class="label">Jenis Pertanggungan</td><td class="value" id="pJenisPertanggunganMobil"><strong>-</strong></td></tr>
-                        <tr><td class="label">Perluasan Jaminan</td><td class="value" id="pExtMobil">Tidak ada</td></tr>
-                        <tr><td class="label">Tanggal Proposal</td><td class="value" id="pTanggalMobil">-</td></tr>
-                    </table>
-
-                    <div class="section-title">C. PERHITUNGAN PREMI</div>
-                    <table class="premium-table">
-                        <thead><tr><th style="width:60%;">Komponen</th><th style="width:20%;text-align:right;">Rate</th><th style="width:20%;text-align:right;">Premi (Rp)</th></tr></thead>
-                        <tbody id="pPremiumBodyMobil">
-                            <tr><td>Jaminan Utama</td><td style="text-align:right;" id="pRateUtamaMobil">-</td><td style="text-align:right;" id="pPremiUtamaMobil">-</td></tr>
-                            <tr><td>Perluasan Jaminan</td><td style="text-align:right;">-</td><td style="text-align:right;" id="pPremiExtMobil">Rp 0</td></tr>
-                            <tr class="highlight-row"><td><strong>Total Premi</strong></td><td style="text-align:right;"></td><td style="text-align:right;" id="pTotalPremiMobil"><strong>-</strong></td></tr>
-                            <tr><td>Biaya Polis &amp; Materai</td><td style="text-align:right;"></td><td style="text-align:right;" id="pBiayaPolisMobil">Rp 52.000</td></tr>
-                            <tr style="border-top:2px solid #1a2a4a;">
-                                <td class="total-label" style="font-size:15px;">TOTAL PREMI YANG HARUS DIBAYAR</td>
-                                <td style="text-align:right;"></td>
-                                <td class="total-value" style="text-align:right;font-size:17px;color:#1a2a4a;" id="pTotalBayarMobil"><strong>-</strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div class="section-title">D. KETENTUAN RISIKO SENDIRI (DEDUCTIBLE)</div>
-                    <table class="data-table">
-                        <tr><td class="label">Kerugian Sebagian/Total / Pencurian</td><td class="value"><strong>Rp 300.000</strong> per kejadian</td></tr>
-                        <tr><td class="label">Huru Hara / Terorisme / Banjir / Gempa</td><td class="value">10% dari klaim, min Rp 500.000</td></tr>
-                        <tr><td class="label">Tanggung Jawab Hukum Pihak Ketiga</td><td class="value"><strong>Nihil</strong></td></tr>
-                    </table>
-
-                    <div class="section-title">E. PERNYATAAN &amp; PERSETUJUAN</div>
-                    <p style="font-size:14px; color:#1e2f4a; line-height:1.6; margin-bottom:14px;">
-                        Dengan ini saya menyatakan bahwa data dan keterangan yang saya berikan adalah benar dan dapat
-                        dipertanggungjawabkan. Saya telah membaca, memahami, dan menyetujui ketentuan-ketentuan yang berlaku.
-                    </p>
-
-                    <div class="signature-area">
-                        <div class="signature-box"><div class="label">Tanda Tangan Pemohon</div><div class="line">&nbsp;</div><div class="city-date" id="pKotaTanggalMobil">-</div></div>
-                        <div class="signature-box" style="text-align:right;"><div class="label">Penerima / Agen</div><div class="line">&nbsp;</div><div class="city-date">&nbsp;</div></div>
-                    </div>
-
-                    <div class="footer-notes">
-                        <ul>
-                            <li><strong>Catatan:</strong> Perhitungan premi ini adalah perkiraan awal berdasarkan data yang diberikan.</li>
-                            <li>Premi final dapat berubah setelah verifikasi data kendaraan dan dokumen pendukung.</li>
-                            <li style="margin-top:4px; font-size:11px; color:#7a8a9f;">
-                                Dokumen ini adalah proposal / penawaran awal. Perlindungan asuransi akan berlaku setelah premi diterima penuh dan polis diterbitkan.
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="proposal-actions no-print">
-                        <button class="btn btn-success" onclick="downloadPDFMobil()">📥 Download PDF</button>
-                        <button class="btn btn-danger" onclick="tutupProposalMobil()">✖️ Tutup Proposal</button>
-                    </div>
-                    <div class="print-instruction no-print" id="printInstructionMobil">
-                        <h4>📋 Cara Menyimpan sebagai PDF:</h4>
-                        <ol>
-                            <li>Klik tombol <span class="highlight-step">"Download PDF"</span> di atas</li>
-                            <li>Pada jendela print yang muncul, pilih <span class="highlight-step">"Save as PDF"</span> atau <span class="highlight-step">"Microsoft Print to PDF"</span></li>
-                            <li>Klik tombol <span class="highlight-step">"Save"</span> atau <span class="highlight-step">"Print"</span></li>
-                            <li>Pilih lokasi penyimpanan dan beri nama file</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- ============================================================ -->
         <!-- ===== TAB 2: ASURANSI PROPERTI ===== -->
         <!-- ============================================================ -->
         <div id="tabProperti" class="tab-content">
-
-            <!-- LOADING PROPERTI -->
-            <div class="loading" id="loadingProperti" style="display:none;">
-                <div class="spinner"></div>
-                <p>Memuat data properti...</p>
-            </div>
 
             <!-- FORM PROPERTI -->
             <div id="formProperti">
@@ -1196,100 +1096,104 @@
                     💡 Risiko sendiri (deductible) minimum Rp500.000 per kejadian untuk properti.
                 </p>
             </div>
+        </div>
 
-            <!-- PROPOSAL PROPERTI -->
-            <div class="proposal-wrapper" id="proposalProperti">
-                <div class="proposal-container">
-                    <div class="header">
-                        <div class="title-main">PROPOSAL ASURANSI</div>
-                        <div class="title-sub">PROPERTI & BANGUNAN</div>
-                        <div class="title-desc">Dokumen Penawaran Perlindungan Properti</div>
+        <!-- ============================================================ -->
+        <!-- ===== PROPOSAL (UNIFIED - SATU UNTUK SEMUA) ===== -->
+        <!-- ============================================================ -->
+        <div class="proposal-wrapper" id="proposalWrapper">
+            <div class="proposal-container" id="proposalContainer">
+
+                <!-- Header -->
+                <div class="header">
+                    <div class="title-main">PROPOSAL ASURANSI</div>
+                    <div class="title-sub" id="proposalSubTitle">KENDARAAN BERMOTOR</div>
+                    <div class="title-desc" id="proposalDesc">Dokumen Penawaran Perlindungan Kendaraan</div>
+                </div>
+
+                <!-- Kepada -->
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:24px; font-size:14px; flex-wrap:wrap; gap:10px;">
+                    <div>
+                        <strong>Kepada Yth.</strong><br />
+                        Bapak / Ibu <strong id="pNama">-</strong><br />
+                        <span style="font-size:13px; color:#4a5a72;">No. HP: <span id="pNoHp">-</span></span>
                     </div>
-
-                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:24px; font-size:14px; flex-wrap:wrap; gap:10px;">
-                        <div>
-                            <strong>Kepada Yth.</strong><br />
-                            Bapak / Ibu <strong id="pNamaProperti">-</strong><br />
-                            <span style="font-size:13px; color:#4a5a72;">No. HP: <span id="pNoHpProperti">-</span></span>
-                        </div>
-                        <div style="background:#f0f3f8; padding:5px 14px; border-radius:20px; font-weight:600; color:#1a2a4a; font-size:13px; white-space:nowrap;">
-                            No. Proposal: <strong id="pNoProposalProperti">AVR/PROP/2026/001</strong>
-                        </div>
+                    <div style="background:#f0f3f8; padding:5px 14px; border-radius:20px; font-weight:600; color:#1a2a4a; font-size:13px; white-space:nowrap;">
+                        No. Proposal: <strong id="pNoProposal">AVR/PROP/2026/001</strong>
                     </div>
+                </div>
 
-                    <div class="section-title section-title-first">A. DATA PROPERTI</div>
-                    <table class="data-table">
-                        <tr><td class="label">Jenis Properti</td><td class="value" id="pJenisProperti"><strong>-</strong></td></tr>
-                        <tr><td class="label">Nilai Properti</td><td class="value" id="pNilaiProperti"><strong>-</strong></td></tr>
-                        <tr><td class="label">Luas Bangunan</td><td class="value" id="pLuasProperti"><strong>-</strong></td></tr>
-                        <tr><td class="label">Tahun Dibangun</td><td class="value" id="pTahunProperti"><strong>-</strong></td></tr>
-                        <tr><td class="label">Lokasi / Wilayah</td><td class="value" id="pWilayahProperti">-</td></tr>
-                    </table>
+                <!-- A. DATA -->
+                <div class="section-title section-title-first">A. DATA PERTANGGUNGAN</div>
+                <div id="proposalDataContent">
+                    <!-- Isi akan diisi oleh JavaScript -->
+                </div>
 
-                    <div class="section-title">B. KONDISI PERTANGGUNGAN</div>
-                    <table class="data-table">
-                        <tr><td class="label">Jenis Pertanggungan</td><td class="value" id="pJenisPertanggunganProperti"><strong>-</strong></td></tr>
-                        <tr><td class="label">Perluasan Jaminan</td><td class="value" id="pExtProperti">Tidak ada</td></tr>
-                        <tr><td class="label">Tanggal Proposal</td><td class="value" id="pTanggalProperti">-</td></tr>
-                    </table>
+                <!-- B. KONDISI PERTANGGUNGAN -->
+                <div class="section-title">B. KONDISI PERTANGGUNGAN</div>
+                <table class="data-table">
+                    <tr><td class="label">Jenis Pertanggungan</td><td class="value" id="pJenisPertanggungan"><strong>-</strong></td></tr>
+                    <tr><td class="label">Perluasan Jaminan</td><td class="value" id="pExt">Tidak ada</td></tr>
+                    <tr><td class="label">Tanggal Proposal</td><td class="value" id="pTanggal">-</td></tr>
+                </table>
 
-                    <div class="section-title">C. PERHITUNGAN PREMI</div>
-                    <table class="premium-table">
-                        <thead><tr><th style="width:60%;">Komponen</th><th style="width:20%;text-align:right;">Rate</th><th style="width:20%;text-align:right;">Premi (Rp)</th></tr></thead>
-                        <tbody id="pPremiumBodyProperti">
-                            <tr><td>Jaminan Utama</td><td style="text-align:right;" id="pRateUtamaProperti">-</td><td style="text-align:right;" id="pPremiUtamaProperti">-</td></tr>
-                            <tr><td>Perluasan Jaminan</td><td style="text-align:right;">-</td><td style="text-align:right;" id="pPremiExtProperti">Rp 0</td></tr>
-                            <tr class="highlight-row"><td><strong>Total Premi</strong></td><td style="text-align:right;"></td><td style="text-align:right;" id="pTotalPremiProperti"><strong>-</strong></td></tr>
-                            <tr><td>Biaya Polis &amp; Materai</td><td style="text-align:right;"></td><td style="text-align:right;" id="pBiayaPolisProperti">Rp 52.000</td></tr>
-                            <tr style="border-top:2px solid #1a2a4a;">
-                                <td class="total-label" style="font-size:15px;">TOTAL PREMI YANG HARUS DIBAYAR</td>
-                                <td style="text-align:right;"></td>
-                                <td class="total-value" style="text-align:right;font-size:17px;color:#1a2a4a;" id="pTotalBayarProperti"><strong>-</strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <!-- C. PERHITUNGAN PREMI -->
+                <div class="section-title">C. PERHITUNGAN PREMI</div>
+                <table class="premium-table">
+                    <thead><tr><th style="width:60%;">Komponen</th><th style="width:20%;text-align:right;">Rate</th><th style="width:20%;text-align:right;">Premi (Rp)</th></tr></thead>
+                    <tbody id="pPremiumBody">
+                        <tr><td>Jaminan Utama</td><td style="text-align:right;" id="pRateUtama">-</td><td style="text-align:right;" id="pPremiUtama">-</td></tr>
+                        <tr><td>Perluasan Jaminan</td><td style="text-align:right;">-</td><td style="text-align:right;" id="pPremiExt">Rp 0</td></tr>
+                        <tr class="highlight-row"><td><strong>Total Premi</strong></td><td style="text-align:right;"></td><td style="text-align:right;" id="pTotalPremi"><strong>-</strong></td></tr>
+                        <tr><td>Biaya Polis &amp; Materai</td><td style="text-align:right;"></td><td style="text-align:right;" id="pBiayaPolis">Rp 52.000</td></tr>
+                        <tr style="border-top:2px solid #1a2a4a;">
+                            <td class="total-label" style="font-size:15px;">TOTAL PREMI YANG HARUS DIBAYAR</td>
+                            <td style="text-align:right;"></td>
+                            <td class="total-value" style="text-align:right;font-size:17px;color:#1a2a4a;" id="pTotalBayar"><strong>-</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
 
-                    <div class="section-title">D. KETENTUAN RISIKO SENDIRI (DEDUCTIBLE)</div>
-                    <table class="data-table">
-                        <tr><td class="label">Kerugian Sebagian/Total</td><td class="value"><strong>Rp 500.000</strong> per kejadian</td></tr>
-                        <tr><td class="label">Banjir / Gempa / Kebakaran</td><td class="value">10% dari klaim, min Rp 1.000.000</td></tr>
-                        <tr><td class="label">Tanggung Jawab Hukum Pihak Ketiga</td><td class="value"><strong>Rp 1.000.000</strong></td></tr>
-                    </table>
+                <!-- D. KETENTUAN RISIKO SENDIRI -->
+                <div class="section-title">D. KETENTUAN RISIKO SENDIRI (DEDUCTIBLE)</div>
+                <div id="proposalDeductibleContent">
+                    <!-- Isi akan diisi oleh JavaScript -->
+                </div>
 
-                    <div class="section-title">E. PERNYATAAN &amp; PERSETUJUAN</div>
-                    <p style="font-size:14px; color:#1e2f4a; line-height:1.6; margin-bottom:14px;">
-                        Dengan ini saya menyatakan bahwa data dan keterangan yang saya berikan adalah benar dan dapat
-                        dipertanggungjawabkan. Saya telah membaca, memahami, dan menyetujui ketentuan-ketentuan yang berlaku.
-                    </p>
+                <!-- E. PERNYATAAN -->
+                <div class="section-title">E. PERNYATAAN &amp; PERSETUJUAN</div>
+                <p style="font-size:14px; color:#1e2f4a; line-height:1.6; margin-bottom:14px;">
+                    Dengan ini saya menyatakan bahwa data dan keterangan yang saya berikan adalah benar dan dapat
+                    dipertanggungjawabkan. Saya telah membaca, memahami, dan menyetujui ketentuan-ketentuan yang berlaku.
+                </p>
 
-                    <div class="signature-area">
-                        <div class="signature-box"><div class="label">Tanda Tangan Pemohon</div><div class="line">&nbsp;</div><div class="city-date" id="pKotaTanggalProperti">-</div></div>
-                        <div class="signature-box" style="text-align:right;"><div class="label">Penerima / Agen</div><div class="line">&nbsp;</div><div class="city-date">&nbsp;</div></div>
-                    </div>
+                <div class="signature-area">
+                    <div class="signature-box"><div class="label">Tanda Tangan Pemohon</div><div class="line">&nbsp;</div><div class="city-date" id="pKotaTanggal">-</div></div>
+                    <div class="signature-box" style="text-align:right;"><div class="label">Penerima / Agen</div><div class="line">&nbsp;</div><div class="city-date">&nbsp;</div></div>
+                </div>
 
-                    <div class="footer-notes">
-                        <ul>
-                            <li><strong>Catatan:</strong> Perhitungan premi ini adalah perkiraan awal berdasarkan data yang diberikan.</li>
-                            <li>Premi final dapat berubah setelah verifikasi data properti dan dokumen pendukung.</li>
-                            <li style="margin-top:4px; font-size:11px; color:#7a8a9f;">
-                                Dokumen ini adalah proposal / penawaran awal. Perlindungan asuransi akan berlaku setelah premi diterima penuh dan polis diterbitkan.
-                            </li>
-                        </ul>
-                    </div>
+                <div class="footer-notes">
+                    <ul>
+                        <li><strong>Catatan:</strong> Perhitungan premi ini adalah perkiraan awal berdasarkan data yang diberikan.</li>
+                        <li>Premi final dapat berubah setelah verifikasi data dan dokumen pendukung.</li>
+                        <li style="margin-top:4px; font-size:11px; color:#7a8a9f;">
+                            Dokumen ini adalah proposal / penawaran awal. Perlindungan asuransi akan berlaku setelah premi diterima penuh dan polis diterbitkan.
+                        </li>
+                    </ul>
+                </div>
 
-                    <div class="proposal-actions no-print">
-                        <button class="btn btn-success" onclick="downloadPDFProperti()">📥 Download PDF</button>
-                        <button class="btn btn-danger" onclick="tutupProposalProperti()">✖️ Tutup Proposal</button>
-                    </div>
-                    <div class="print-instruction no-print" id="printInstructionProperti">
-                        <h4>📋 Cara Menyimpan sebagai PDF:</h4>
-                        <ol>
-                            <li>Klik tombol <span class="highlight-step">"Download PDF"</span> di atas</li>
-                            <li>Pada jendela print yang muncul, pilih <span class="highlight-step">"Save as PDF"</span></li>
-                            <li>Klik tombol <span class="highlight-step">"Save"</span></li>
-                            <li>Pilih lokasi penyimpanan dan beri nama file</li>
-                        </ol>
-                    </div>
+                <div class="proposal-actions no-print">
+                    <button class="btn btn-success" onclick="downloadPDF()">📥 Download PDF</button>
+                    <button class="btn btn-danger" onclick="tutupProposal()">✖️ Tutup Proposal</button>
+                </div>
+                <div class="print-instruction no-print" id="printInstruction">
+                    <h4>📋 Cara Menyimpan sebagai PDF:</h4>
+                    <ol>
+                        <li>Klik tombol <span class="highlight-step">"Download PDF"</span> di atas</li>
+                        <li>Pada jendela print yang muncul, pilih <span class="highlight-step">"Save as PDF"</span></li>
+                        <li>Klik tombol <span class="highlight-step">"Save"</span></li>
+                        <li>Pilih lokasi penyimpanan dan beri nama file</li>
+                    </ol>
                 </div>
             </div>
         </div>
@@ -1304,21 +1208,14 @@
         //  TAB NAVIGATION
         // ============================================================
         function switchTab(tab) {
-            // Sembunyikan semua tab
-            document.querySelectorAll('.tab-content').forEach(el => {
-                el.classList.remove('active');
-            });
-            // Nonaktifkan semua tombol
-            document.querySelectorAll('.tab-btn').forEach(el => {
-                el.classList.remove('active');
-            });
-            // Tampilkan tab yang dipilih
-            document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
-            // Aktifkan tombol yang dipilih
-            const btns = document.querySelectorAll('.tab-btn');
-            const tabMap = { 'mobil': 0, 'properti': 1, 'jiwa': 2, 'wealth': 3 };
-            if (tabMap[tab] !== undefined) {
-                btns[tabMap[tab]].classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            const tabMap = { 'mobil': 'tabMobil', 'properti': 'tabProperti', 'jiwa': 'tabMobil', 'wealth': 'tabMobil' };
+            if (tabMap[tab]) {
+                document.getElementById(tabMap[tab]).classList.add('active');
+                const btns = document.querySelectorAll('.tab-btn');
+                const idx = ['mobil', 'properti', 'jiwa', 'wealth'].indexOf(tab);
+                if (idx >= 0 && idx < btns.length) btns[idx].classList.add('active');
             }
         }
 
@@ -1372,7 +1269,63 @@
 
         let dataKendaraan = {};
         let hasilTerakhirMobil = null;
+        let hasilTerakhirProperti = null;
         let isDataLoaded = false;
+        let proposalType = 'mobil'; // 'mobil' atau 'properti'
+
+        // ============================================================
+        //  FUNGSI BANTU
+        // ============================================================
+
+        function formatRupiah(angka) {
+            if (!angka || isNaN(angka)) return 'Rp 0';
+            return 'Rp ' + Math.round(angka).toLocaleString('id-ID');
+        }
+
+        function getKategori(nilai, data) {
+            const keys = Object.keys(data);
+            for (let k of keys) {
+                const d = data[k];
+                if (nilai >= d[0] && nilai < d[1]) return k;
+            }
+            return keys[keys.length - 1];
+        }
+
+        function getRate(nilai, wilayah, data) {
+            const kategori = getKategori(nilai, data);
+            const d = data[kategori];
+            let idx = 2 + (wilayah - 1) * 2;
+            const rate = d[idx] / 100;
+            return { rate, kategori, data: d };
+        }
+
+        function getFaktorUsia(tahun) {
+            const usia = 2026 - tahun;
+            if (usia <= 2) return 1.0;
+            if (usia <= 5) return 1.05;
+            if (usia <= 10) return 1.10;
+            if (usia <= 15) return 1.20;
+            return 1.30;
+        }
+
+        function getJenisText(id) {
+            const el = document.getElementById(id);
+            return el ? el.options[el.selectedIndex].text : '-';
+        }
+
+        function getWilayahText(id) {
+            const el = document.getElementById(id);
+            return el ? el.options[el.selectedIndex].text : '-';
+        }
+
+        function hitungBanjirGempa(up, tipe) {
+            let rate = 0.0015;
+            if (tipe === 'gempa') rate = 0.0025;
+            let premi = up * rate;
+            premi = Math.round(premi / 1000) * 1000;
+            if (premi < 50000) premi = 50000;
+            return premi;
+        }
 
         // ============================================================
         //  LOAD DATA KENDARAAN
@@ -1456,74 +1409,14 @@
                     "Daihatsu": ["Xenia", "Terios", "Sigra", "Ayla", "Gran Max", "Luxio", "Rocky"],
                     "Mitsubishi": ["Pajero Sport", "Xpander", "Xforce", "Eclipse Cross", "Mirage"]
                 },
-                "truk": {
-                    "Hino": ["Dutro", "Ranger", "Profia", "FK", "FM"],
-                    "Isuzu": ["Elf", "Giga", "N Series", "F Series", "Traviz"]
-                },
-                "bus": {
-                    "Hino": ["RK8", "RN8", "RM8", "RF8"],
-                    "Mercedes-Benz": ["OH 1526", "OH 1626", "OC 500", "O 500"]
-                },
+                "truk": { "Hino": ["Dutro", "Ranger", "Profia"], "Isuzu": ["Elf", "Giga", "N Series"] },
+                "bus": { "Hino": ["RK8", "RN8", "RM8"], "Mercedes-Benz": ["OH 1526", "OH 1626"] },
                 "roda2": {
-                    "Honda": ["Beat", "Vario", "PCX", "CBR", "Supra X", "Revo", "Scoopy", "Genio"],
-                    "Yamaha": ["Mio", "NMAX", "R15", "XMAX", "Vixion", "Lexi", "Aerox"],
-                    "Suzuki": ["Satria", "GSX", "Address", "Smash", "Nex", "Shogun"]
+                    "Honda": ["Beat", "Vario", "PCX", "CBR", "Supra X"],
+                    "Yamaha": ["Mio", "NMAX", "R15", "XMAX"],
+                    "Suzuki": ["Satria", "GSX", "Address"]
                 }
             };
-        }
-
-        // ============================================================
-        //  FUNGSI BANTU MOBIL
-        // ============================================================
-
-        function formatRupiah(angka) {
-            if (!angka || isNaN(angka)) return 'Rp 0';
-            return 'Rp ' + Math.round(angka).toLocaleString('id-ID');
-        }
-
-        function getKategori(nilai, data) {
-            const keys = Object.keys(data);
-            for (let k of keys) {
-                const d = data[k];
-                if (nilai >= d[0] && nilai < d[1]) return k;
-            }
-            return keys[keys.length - 1];
-        }
-
-        function getRate(nilai, wilayah, data) {
-            const kategori = getKategori(nilai, data);
-            const d = data[kategori];
-            let idx = 2 + (wilayah - 1) * 2;
-            const rate = d[idx] / 100;
-            return { rate, kategori, data: d };
-        }
-
-        function getFaktorUsia(tahun) {
-            const usia = 2026 - tahun;
-            if (usia <= 2) return 1.0;
-            if (usia <= 5) return 1.05;
-            if (usia <= 10) return 1.10;
-            if (usia <= 15) return 1.20;
-            return 1.30;
-        }
-
-        function getJenisText(id) {
-            const el = document.getElementById(id);
-            return el ? el.options[el.selectedIndex].text : '-';
-        }
-
-        function getWilayahText(id) {
-            const el = document.getElementById(id);
-            return el ? el.options[el.selectedIndex].text : '-';
-        }
-
-        function hitungBanjirGempa(up, tipe) {
-            let rate = 0.0015;
-            if (tipe === 'gempa') rate = 0.0025;
-            let premi = up * rate;
-            premi = Math.round(premi / 1000) * 1000;
-            if (premi < 50000) premi = 50000;
-            return premi;
         }
 
         // ============================================================
@@ -1596,7 +1489,6 @@
             const selectedMerk = merkSelect.value;
             if (selectedMerk === 'lainnya') {
                 merkManual.style.display = 'block';
-                merkManual.placeholder = 'Masukkan merek kendaraan...';
                 tipeSelect.innerHTML = '<option value="">-- Pilih Tipe --</option>';
                 const optionLain = document.createElement('option');
                 optionLain.value = 'lainnya';
@@ -1784,57 +1676,74 @@
                 alert('⚠️ Silakan hitung premi terlebih dahulu!');
                 return;
             }
-            const h = hasilTerakhirMobil;
+            proposalType = 'mobil';
+            tampilkanProposalMobil(hasilTerakhirMobil);
+        }
 
-            document.getElementById('pNamaMobil').textContent = h.nama;
-            document.getElementById('pNoHpMobil').textContent = h.noHp;
-            document.getElementById('pMerkMobil').innerHTML = '<strong>' + h.merk + '</strong>';
-            document.getElementById('pTipeMobil').innerHTML = '<strong>' + h.tipe + '</strong>';
-            document.getElementById('pTahunMobil').innerHTML = '<strong>' + h.tahun + '</strong>';
-            document.getElementById('pJenisMobil').textContent = h.jenisText;
-            document.getElementById('pWilayahMobil').textContent = h.wilayahText;
-            document.getElementById('pHargaMobil').innerHTML = '<strong>' + formatRupiah(h.harga) + '</strong>';
+        function tampilkanProposalMobil(h) {
+            // Set header
+            document.getElementById('proposalSubTitle').textContent = 'KENDARAAN BERMOTOR';
+            document.getElementById('proposalDesc').textContent = 'Dokumen Penawaran Perlindungan Kendaraan';
 
-            document.getElementById('pJenisPertanggunganMobil').innerHTML = '<strong>' + h.jenisPertanggungan + '</strong>';
-            document.getElementById('pExtMobil').textContent = h.extList.length > 0 ? h.extList.join(', ') : 'Tidak ada';
+            // Data
+            document.getElementById('pNama').textContent = h.nama;
+            document.getElementById('pNoHp').textContent = h.noHp;
 
+            let dataHTML = `
+                <table class="data-table">
+                    <tr><td class="label">Merek Kendaraan</td><td class="value"><strong>${h.merk}</strong></td></tr>
+                    <tr><td class="label">Tipe Kendaraan</td><td class="value"><strong>${h.tipe}</strong></td></tr>
+                    <tr><td class="label">Tahun Pembuatan</td><td class="value"><strong>${h.tahun}</strong></td></tr>
+                    <tr><td class="label">Jenis / Kategori</td><td class="value">${h.jenisText}</td></tr>
+                    <tr><td class="label">Wilayah / Zone</td><td class="value">${h.wilayahText}</td></tr>
+                    <tr><td class="label">Perkiraan Harga</td><td class="value"><strong>${formatRupiah(h.harga)}</strong></td></tr>
+                </table>
+            `;
+            document.getElementById('proposalDataContent').innerHTML = dataHTML;
+
+            // Kondisi pertanggungan
+            document.getElementById('pJenisPertanggungan').innerHTML = '<strong>' + h.jenisPertanggungan + '</strong>';
+            document.getElementById('pExt').textContent = h.extList.length > 0 ? h.extList.join(', ') : 'Tidak ada';
+
+            // Tanggal
             const now = new Date();
             const tgl = now.getDate() + ' ' + ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus',
                 'September', 'Oktober', 'November', 'Desember'][now.getMonth()] + ' ' + now.getFullYear();
-            document.getElementById('pTanggalMobil').textContent = tgl;
-            document.getElementById('pKotaTanggalMobil').textContent = tgl;
+            document.getElementById('pTanggal').textContent = tgl;
+            document.getElementById('pKotaTanggal').textContent = tgl;
 
             const noProposal = 'AVR/PROP/' + now.getFullYear() + '/' + String(now.getMonth() + 1).padStart(2, '0') +
                 String(now.getDate()).padStart(2, '0') + String(Math.floor(Math.random() * 1000)).padStart(3, '0');
-            document.getElementById('pNoProposalMobil').textContent = noProposal;
+            document.getElementById('pNoProposal').textContent = noProposal;
 
+            // Perhitungan
             const rateDisplay = (h.rate * 100).toFixed(2) + '%';
-            document.getElementById('pRateUtamaMobil').textContent = rateDisplay;
-            document.getElementById('pPremiUtamaMobil').textContent = formatRupiah(h.premi);
-            document.getElementById('pPremiExtMobil').textContent = h.extPremi > 0 ? formatRupiah(h.extPremi) : 'Rp 0';
-            document.getElementById('pTotalPremiMobil').innerHTML = '<strong>' + formatRupiah(h.totalPremi) + '</strong>';
-            document.getElementById('pBiayaPolisMobil').textContent = formatRupiah(h.biayaPolis);
-            document.getElementById('pTotalBayarMobil').innerHTML = '<strong>' + formatRupiah(h.totalBayar) + '</strong>';
+            document.getElementById('pRateUtama').textContent = rateDisplay;
+            document.getElementById('pPremiUtama').textContent = formatRupiah(h.premi);
+            document.getElementById('pPremiExt').textContent = h.extPremi > 0 ? formatRupiah(h.extPremi) : 'Rp 0';
+            document.getElementById('pTotalPremi').innerHTML = '<strong>' + formatRupiah(h.totalPremi) + '</strong>';
+            document.getElementById('pBiayaPolis').textContent = formatRupiah(h.biayaPolis);
+            document.getElementById('pTotalBayar').innerHTML = '<strong>' + formatRupiah(h.totalBayar) + '</strong>';
 
-            document.getElementById('proposalMobil').classList.add('show');
-            document.getElementById('printInstructionMobil').classList.remove('show');
-            document.getElementById('proposalMobil').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Deductible
+            let deductHTML = `
+                <table class="data-table">
+                    <tr><td class="label">Kerugian Sebagian/Total / Pencurian</td><td class="value"><strong>Rp 300.000</strong> per kejadian</td></tr>
+                    <tr><td class="label">Huru Hara / Terorisme / Banjir / Gempa</td><td class="value">10% dari klaim, min Rp 500.000</td></tr>
+                    <tr><td class="label">Tanggung Jawab Hukum Pihak Ketiga</td><td class="value"><strong>Nihil</strong></td></tr>
+                </table>
+            `;
+            document.getElementById('proposalDeductibleContent').innerHTML = deductHTML;
+
+            // Tampilkan proposal
+            document.getElementById('proposalWrapper').classList.add('show');
+            document.getElementById('printInstruction').classList.remove('show');
+            document.getElementById('proposalWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
             const btn = document.getElementById('btnCetakMobil');
             const originalText = btn.textContent;
             btn.textContent = '✅ Proposal Siap!';
             setTimeout(() => { btn.textContent = originalText; }, 2000);
-        }
-
-        function downloadPDFMobil() {
-            document.getElementById('proposalMobil').classList.add('show');
-            document.getElementById('printInstructionMobil').classList.add('show');
-            setTimeout(function() { window.print(); }, 500);
-        }
-
-        function tutupProposalMobil() {
-            document.getElementById('proposalMobil').classList.remove('show');
-            document.getElementById('printInstructionMobil').classList.remove('show');
         }
 
         function resetFormMobil() {
@@ -1853,16 +1762,13 @@
             document.getElementById('tipeManualMobil').style.display = 'none';
             document.getElementById('resultMobil').classList.remove('show');
             document.getElementById('btnCetakMobil').disabled = true;
-            document.getElementById('proposalMobil').classList.remove('show');
-            document.getElementById('printInstructionMobil').classList.remove('show');
             hasilTerakhirMobil = null;
+            tutupProposal();
         }
 
         // ============================================================
         //  FUNGSI PROPERTI
         // ============================================================
-
-        let hasilTerakhirProperti = null;
 
         function hitungPremiProperti() {
             const nama = document.getElementById('namaProperti').value.trim();
@@ -1878,12 +1784,10 @@
             if (!noHp) { alert('⚠️ Mohon isi No. HP / Telepon terlebih dahulu!'); return; }
             if (nilai <= 0) { alert('⚠️ Mohon isi Nilai Properti yang valid!'); return; }
 
-            // Dapatkan tarif berdasarkan jenis properti
             const tarifData = TARIF_PROPERTI[jenis] || TARIF_PROPERTI['lainnya'];
             let rate = tarifData.wilayah[wilayah] || tarifData.base || 0.20;
-            rate = rate / 100; // Konversi ke desimal
+            rate = rate / 100;
 
-            // Faktor usia bangunan
             const usia = 2026 - tahun;
             let faktorUsia = 1.0;
             if (usia <= 5) faktorUsia = 1.0;
@@ -1891,26 +1795,22 @@
             else if (usia <= 20) faktorUsia = 1.10;
             else faktorUsia = 1.20;
 
-            // Faktor luas (diskon untuk luas besar)
             let faktorLuas = 1.0;
             if (luas > 1000) faktorLuas = 0.85;
             else if (luas > 500) faktorLuas = 0.90;
             else if (luas > 200) faktorLuas = 0.95;
 
-            // Hitung premi dasar
             let premi = nilai * rate * faktorUsia * faktorLuas;
             
-            // Penyesuaian berdasarkan jenis pertanggungan
             if (jenisPertanggungan === 'tlo') {
-                premi = premi * 0.7; // TLO 70% dari All Risk
+                premi = premi * 0.7;
             } else if (jenisPertanggungan === 'kebakaran') {
-                premi = premi * 0.4; // Kebakaran only 40% dari All Risk
+                premi = premi * 0.4;
             }
 
             premi = Math.round(premi / 1000) * 1000;
             if (premi < 50000) premi = 50000;
 
-            // Perluasan
             let extPremi = 0;
             let extList = [];
             if (document.getElementById('extBanjirProperti').checked) {
@@ -1930,7 +1830,7 @@
                 extList.push('Pencurian');
             }
             if (document.getElementById('extTanggungJawabProperti').checked) {
-                extPremi += 250000; // Flat rate untuk tanggung jawab hukum
+                extPremi += 250000;
                 extList.push('Tanggung Jawab Hukum');
             }
             extPremi = Math.round(extPremi / 1000) * 1000;
@@ -1942,9 +1842,16 @@
             const jenisText = document.getElementById('jenisProperti').options[document.getElementById('jenisProperti').selectedIndex].text;
             const wilayahText = document.getElementById('wilayahProperti').options[document.getElementById('wilayahProperti').selectedIndex].text;
 
+            const pertanggunganMap = {
+                'comprehensive': 'Comprehensive (All Risk)',
+                'tlo': 'Total Loss Only (TLO)',
+                'kebakaran': 'Kebakaran Only'
+            };
+
             hasilTerakhirProperti = {
                 nama, noHp, jenis, wilayah, nilai, luas, tahun,
-                jenisPertanggungan,
+                jenisPertanggungan: pertanggunganMap[jenisPertanggungan] || jenisPertanggungan,
+                jenisPertanggunganKey: jenisPertanggungan,
                 rate, premi, extPremi, extList, totalPremi, biayaPolis, totalBayar,
                 jenisText, wilayahText
             };
@@ -1975,61 +1882,66 @@
                 alert('⚠️ Silakan hitung premi terlebih dahulu!');
                 return;
             }
-            const h = hasilTerakhirProperti;
+            proposalType = 'properti';
+            tampilkanProposalProperti(hasilTerakhirProperti);
+        }
 
-            document.getElementById('pNamaProperti').textContent = h.nama;
-            document.getElementById('pNoHpProperti').textContent = h.noHp;
-            document.getElementById('pJenisProperti').innerHTML = '<strong>' + h.jenisText + '</strong>';
-            document.getElementById('pNilaiProperti').innerHTML = '<strong>' + formatRupiah(h.nilai) + '</strong>';
-            document.getElementById('pLuasProperti').innerHTML = '<strong>' + h.luas + ' m²</strong>';
-            document.getElementById('pTahunProperti').innerHTML = '<strong>' + h.tahun + '</strong>';
-            document.getElementById('pWilayahProperti').textContent = h.wilayahText;
+        function tampilkanProposalProperti(h) {
+            document.getElementById('proposalSubTitle').textContent = 'PROPERTI & BANGUNAN';
+            document.getElementById('proposalDesc').textContent = 'Dokumen Penawaran Perlindungan Properti';
 
-            const pertanggunganMap = {
-                'comprehensive': 'Comprehensive (All Risk)',
-                'tlo': 'Total Loss Only (TLO)',
-                'kebakaran': 'Kebakaran Only'
-            };
-            document.getElementById('pJenisPertanggunganProperti').innerHTML = '<strong>' + (pertanggunganMap[h.jenisPertanggungan] || h.jenisPertanggungan) + '</strong>';
-            document.getElementById('pExtProperti').textContent = h.extList.length > 0 ? h.extList.join(', ') : 'Tidak ada';
+            document.getElementById('pNama').textContent = h.nama;
+            document.getElementById('pNoHp').textContent = h.noHp;
+
+            let dataHTML = `
+                <table class="data-table">
+                    <tr><td class="label">Jenis Properti</td><td class="value"><strong>${h.jenisText}</strong></td></tr>
+                    <tr><td class="label">Nilai Properti</td><td class="value"><strong>${formatRupiah(h.nilai)}</strong></td></tr>
+                    <tr><td class="label">Luas Bangunan</td><td class="value"><strong>${h.luas} m²</strong></td></tr>
+                    <tr><td class="label">Tahun Dibangun</td><td class="value"><strong>${h.tahun}</strong></td></tr>
+                    <tr><td class="label">Lokasi / Wilayah</td><td class="value">${h.wilayahText}</td></tr>
+                </table>
+            `;
+            document.getElementById('proposalDataContent').innerHTML = dataHTML;
+
+            document.getElementById('pJenisPertanggungan').innerHTML = '<strong>' + h.jenisPertanggungan + '</strong>';
+            document.getElementById('pExt').textContent = h.extList.length > 0 ? h.extList.join(', ') : 'Tidak ada';
 
             const now = new Date();
             const tgl = now.getDate() + ' ' + ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus',
                 'September', 'Oktober', 'November', 'Desember'][now.getMonth()] + ' ' + now.getFullYear();
-            document.getElementById('pTanggalProperti').textContent = tgl;
-            document.getElementById('pKotaTanggalProperti').textContent = tgl;
+            document.getElementById('pTanggal').textContent = tgl;
+            document.getElementById('pKotaTanggal').textContent = tgl;
 
             const noProposal = 'AVR/PROP/' + now.getFullYear() + '/' + String(now.getMonth() + 1).padStart(2, '0') +
                 String(now.getDate()).padStart(2, '0') + String(Math.floor(Math.random() * 1000)).padStart(3, '0');
-            document.getElementById('pNoProposalProperti').textContent = noProposal;
+            document.getElementById('pNoProposal').textContent = noProposal;
 
             const rateDisplay = (h.rate * 100).toFixed(2) + '%';
-            document.getElementById('pRateUtamaProperti').textContent = rateDisplay;
-            document.getElementById('pPremiUtamaProperti').textContent = formatRupiah(h.premi);
-            document.getElementById('pPremiExtProperti').textContent = h.extPremi > 0 ? formatRupiah(h.extPremi) : 'Rp 0';
-            document.getElementById('pTotalPremiProperti').innerHTML = '<strong>' + formatRupiah(h.totalPremi) + '</strong>';
-            document.getElementById('pBiayaPolisProperti').textContent = formatRupiah(h.biayaPolis);
-            document.getElementById('pTotalBayarProperti').innerHTML = '<strong>' + formatRupiah(h.totalBayar) + '</strong>';
+            document.getElementById('pRateUtama').textContent = rateDisplay;
+            document.getElementById('pPremiUtama').textContent = formatRupiah(h.premi);
+            document.getElementById('pPremiExt').textContent = h.extPremi > 0 ? formatRupiah(h.extPremi) : 'Rp 0';
+            document.getElementById('pTotalPremi').innerHTML = '<strong>' + formatRupiah(h.totalPremi) + '</strong>';
+            document.getElementById('pBiayaPolis').textContent = formatRupiah(h.biayaPolis);
+            document.getElementById('pTotalBayar').innerHTML = '<strong>' + formatRupiah(h.totalBayar) + '</strong>';
 
-            document.getElementById('proposalProperti').classList.add('show');
-            document.getElementById('printInstructionProperti').classList.remove('show');
-            document.getElementById('proposalProperti').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            let deductHTML = `
+                <table class="data-table">
+                    <tr><td class="label">Kerugian Sebagian/Total</td><td class="value"><strong>Rp 500.000</strong> per kejadian</td></tr>
+                    <tr><td class="label">Banjir / Gempa / Kebakaran</td><td class="value">10% dari klaim, min Rp 1.000.000</td></tr>
+                    <tr><td class="label">Tanggung Jawab Hukum Pihak Ketiga</td><td class="value"><strong>Rp 1.000.000</strong></td></tr>
+                </table>
+            `;
+            document.getElementById('proposalDeductibleContent').innerHTML = deductHTML;
+
+            document.getElementById('proposalWrapper').classList.add('show');
+            document.getElementById('printInstruction').classList.remove('show');
+            document.getElementById('proposalWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
             const btn = document.getElementById('btnCetakProperti');
             const originalText = btn.textContent;
             btn.textContent = '✅ Proposal Siap!';
             setTimeout(() => { btn.textContent = originalText; }, 2000);
-        }
-
-        function downloadPDFProperti() {
-            document.getElementById('proposalProperti').classList.add('show');
-            document.getElementById('printInstructionProperti').classList.add('show');
-            setTimeout(function() { window.print(); }, 500);
-        }
-
-        function tutupProposalProperti() {
-            document.getElementById('proposalProperti').classList.remove('show');
-            document.getElementById('printInstructionProperti').classList.remove('show');
         }
 
         function resetFormProperti() {
@@ -2044,9 +1956,23 @@
             document.querySelectorAll('#formProperti input[type="checkbox"]').forEach(c => c.checked = false);
             document.getElementById('resultProperti').classList.remove('show');
             document.getElementById('btnCetakProperti').disabled = true;
-            document.getElementById('proposalProperti').classList.remove('show');
-            document.getElementById('printInstructionProperti').classList.remove('show');
             hasilTerakhirProperti = null;
+            tutupProposal();
+        }
+
+        // ============================================================
+        //  FUNGSI PROPOSAL GLOBAL
+        // ============================================================
+
+        function downloadPDF() {
+            document.getElementById('proposalWrapper').classList.add('show');
+            document.getElementById('printInstruction').classList.add('show');
+            setTimeout(function() { window.print(); }, 500);
+        }
+
+        function tutupProposal() {
+            document.getElementById('proposalWrapper').classList.remove('show');
+            document.getElementById('printInstruction').classList.remove('show');
         }
 
         // ============================================================
@@ -2076,9 +2002,7 @@
         document.addEventListener('visibilitychange', function() {
             if (!document.hidden) {
                 setTimeout(function() {
-                    document.querySelectorAll('.print-instruction').forEach(el => {
-                        el.classList.remove('show');
-                    });
+                    document.getElementById('printInstruction').classList.remove('show');
                 }, 2000);
             }
         });
