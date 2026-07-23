@@ -68,7 +68,7 @@
 
         .tab-btn {
             flex: 1;
-            min-width: 110px;
+            min-width: 100px;
             padding: 12px 16px;
             border: none;
             border-radius: 10px;
@@ -199,6 +199,33 @@
             display: block;
         }
 
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 20px;
+            align-items: center;
+            padding-top: 4px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 400;
+            cursor: pointer;
+            font-size: 14px;
+            color: #1a3a5c;
+            margin-bottom: 0;
+            flex: 0 0 auto;
+        }
+
+        .checkbox-group label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
         .btn-group {
             display: flex;
             gap: 12px;
@@ -217,6 +244,7 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            flex-shrink: 0;
         }
 
         .btn-primary {
@@ -409,7 +437,7 @@
             border-top: 2px solid #1a3a5c;
         }
 
-        /* ===== SUMMARY CARDS (Wealth & Jiwa) ===== */
+        /* ===== SUMMARY CARDS ===== */
         .summary-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -796,34 +824,75 @@
         /* ============================================================ */
         /*                    RESPONSIVE                                 */
         /* ============================================================ */
-        @media (max-width: 700px) {
+        @media (max-width: 768px) {
             .container {
-                padding: 18px 16px;
+                padding: 20px 16px;
             }
 
             .row {
                 grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .checkbox-group {
+                gap: 8px 14px;
+            }
+
+            .checkbox-group label {
+                font-size: 13px;
+                flex: 0 0 auto;
+            }
+
+            .checkbox-group label input[type="checkbox"] {
+                width: 16px;
+                height: 16px;
+            }
+
+            .btn-group {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+
+            .tab-nav {
+                gap: 4px;
+                padding: 4px;
+            }
+
+            .tab-btn {
+                min-width: 60px;
+                padding: 8px 10px;
+                font-size: 11px;
+                flex: 1;
+            }
+
+            .tab-btn .icon {
+                font-size: 14px;
             }
 
             .premi-detail {
                 grid-template-columns: 1fr 1fr;
-            }
-
-            .summary-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            h1 {
-                font-size: 20px;
+                gap: 8px;
             }
 
             .premi-value {
                 font-size: 24px;
-                padding: 8px 16px;
+                padding: 10px 18px;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
             }
 
             .proposal-container {
-                padding: 20px 16px;
+                padding: 16px;
             }
 
             .proposal-container .data-table td {
@@ -845,37 +914,91 @@
                 border-bottom: 1px dashed #eef1f6;
             }
 
+            .proposal-container .premium-table th,
+            .proposal-container .premium-table td {
+                font-size: 12px;
+                padding: 6px 8px;
+            }
+
             .proposal-container .signature-box .line {
                 width: 120px;
-            }
-
-            .btn {
-                padding: 10px 18px;
-                font-size: 14px;
-                width: 100%;
-                justify-content: center;
-            }
-
-            .btn-group {
-                flex-direction: column;
             }
 
             .proposal-actions {
                 flex-direction: column;
             }
+        }
 
-            .form-group-with-manual {
-                flex-direction: column;
+        @media (max-width: 600px) {
+            .tab-btn {
+                font-size: 10px;
+                padding: 6px 8px;
+                min-width: 50px;
             }
 
-            .tab-btn {
-                min-width: 70px;
-                font-size: 11px;
-                padding: 10px 12px;
+            .tab-btn .icon {
+                font-size: 12px;
+            }
+
+            .premi-detail {
+                grid-template-columns: 1fr 1fr;
+                gap: 6px;
+            }
+
+            .premi-value {
+                font-size: 20px;
+                padding: 8px 12px;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 6px;
+            }
+
+            .summary-card .value {
+                font-size: 15px;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+
+            .detail-item .value {
+                font-size: 13px;
+            }
+
+            .checkbox-group {
+                gap: 6px 10px;
+            }
+
+            .checkbox-group label {
+                font-size: 12px;
+            }
+
+            .checkbox-group label input[type="checkbox"] {
+                width: 15px;
+                height: 15px;
+            }
+
+            .proposal-container .header .title-main {
+                font-size: 18px;
+            }
+            .proposal-container .header .title-sub {
+                font-size: 14px;
+            }
+            .proposal-container .section-title {
+                font-size: 14px;
             }
         }
 
         @media (max-width: 480px) {
+            .container {
+                padding: 12px 10px;
+            }
+
             .premi-detail {
                 grid-template-columns: 1fr;
             }
@@ -884,18 +1007,80 @@
                 grid-template-columns: 1fr;
             }
 
+            .tab-btn {
+                font-size: 9px;
+                padding: 5px 6px;
+                min-width: 40px;
+                gap: 3px;
+            }
+
+            .tab-btn .icon {
+                font-size: 11px;
+            }
+
+            h1 {
+                font-size: 18px;
+            }
+
+            .subtitle {
+                font-size: 11px;
+            }
+
+            .badge-ojk {
+                font-size: 9px;
+                padding: 1px 8px;
+            }
+
             .premi-value {
-                font-size: 20px;
+                font-size: 18px;
                 padding: 6px 12px;
             }
-            
-            .tab-btn .icon {
-                font-size: 14px;
+
+            .detail-item .value {
+                font-size: 13px;
             }
-            .tab-btn {
-                font-size: 10px;
-                padding: 8px 10px;
-                min-width: 55px;
+
+            .checkbox-group {
+                gap: 4px 8px;
+            }
+
+            .checkbox-group label {
+                font-size: 11px;
+            }
+
+            .checkbox-group label input[type="checkbox"] {
+                width: 14px;
+                height: 14px;
+            }
+
+            .btn {
+                font-size: 13px;
+                padding: 10px 16px;
+            }
+
+            .proposal-container {
+                padding: 12px 10px;
+            }
+
+            .proposal-container .header .title-main {
+                font-size: 16px;
+            }
+            .proposal-container .header .title-sub {
+                font-size: 13px;
+            }
+            .proposal-container .section-title {
+                font-size: 13px;
+                padding-left: 8px;
+            }
+            .proposal-container .data-table td {
+                font-size: 12px;
+            }
+
+            .result-box h3 {
+                font-size: 16px;
+            }
+            .result-box {
+                padding: 16px;
             }
         }
     </style>
@@ -928,14 +1113,12 @@
         <!-- ===== TAB 1: ASURANSI MOBIL ===== -->
         <!-- ============================================================ -->
         <div id="tabMobil" class="tab-content active">
-            <!-- LOADING -->
             <div class="loading" id="loadingMobil">
                 <div class="spinner"></div>
                 <p>Memuat data kendaraan...</p>
             </div>
             <div class="data-status" id="dataStatusMobil"></div>
 
-            <!-- FORM MOBIL -->
             <div id="formMobil" style="display:none;">
                 <div class="row">
                     <div class="form-group">
@@ -1008,19 +1191,14 @@
                             <option value="tlo">Total Loss Only (TLO)</option>
                         </select>
                     </div>
-                    <div class="form-group" style="display:flex; align-items:flex-end; gap:14px; flex-wrap:wrap;">
-                        <label style="display:flex; align-items:center; gap:6px; font-weight:400; cursor:pointer;">
-                            <input type="checkbox" id="extBanjirMobil" /> Banjir
-                        </label>
-                        <label style="display:flex; align-items:center; gap:6px; font-weight:400; cursor:pointer;">
-                            <input type="checkbox" id="extGempaMobil" /> Gempa
-                        </label>
-                        <label style="display:flex; align-items:center; gap:6px; font-weight:400; cursor:pointer;">
-                            <input type="checkbox" id="extSRCCMobil" /> SRCC
-                        </label>
-                        <label style="display:flex; align-items:center; gap:6px; font-weight:400; cursor:pointer;">
-                            <input type="checkbox" id="extTerorMobil" /> Teror
-                        </label>
+                    <div class="form-group">
+                        <label>Perluasan Jaminan</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" id="extBanjirMobil" /> Banjir</label>
+                            <label><input type="checkbox" id="extGempaMobil" /> Gempa</label>
+                            <label><input type="checkbox" id="extSRCCMobil" /> SRCC</label>
+                            <label><input type="checkbox" id="extTerorMobil" /> Teror</label>
+                        </div>
                     </div>
                 </div>
 
@@ -1031,7 +1209,6 @@
                 </div>
             </div>
 
-            <!-- HASIL MOBIL -->
             <div class="result-box no-print" id="resultMobil">
                 <h3>💰 Hasil Perhitungan Premi Mobil</h3>
                 <div class="premi-value" id="premiValueMobil">Rp 0</div>
@@ -1137,22 +1314,12 @@
 
                 <div class="form-group">
                     <label style="margin-bottom:8px;">Perluasan Jaminan</label>
-                    <div style="display:flex; gap:14px; flex-wrap:wrap;">
-                        <label style="display:flex; align-items:center; gap:6px; font-weight:400; cursor:pointer;">
-                            <input type="checkbox" id="extBanjirProperti" /> Banjir
-                        </label>
-                        <label style="display:flex; align-items:center; gap:6px; font-weight:400; cursor:pointer;">
-                            <input type="checkbox" id="extGempaProperti" /> Gempa
-                        </label>
-                        <label style="display:flex; align-items:center; gap:6px; font-weight:400; cursor:pointer;">
-                            <input type="checkbox" id="extKebakaranProperti" /> Kebakaran
-                        </label>
-                        <label style="display:flex; align-items:center; gap:6px; font-weight:400; cursor:pointer;">
-                            <input type="checkbox" id="extPencurianProperti" /> Pencurian
-                        </label>
-                        <label style="display:flex; align-items:center; gap:6px; font-weight:400; cursor:pointer;">
-                            <input type="checkbox" id="extTanggungJawabProperti" /> Tanggung Jawab Hukum
-                        </label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" id="extBanjirProperti" /> Banjir</label>
+                        <label><input type="checkbox" id="extGempaProperti" /> Gempa</label>
+                        <label><input type="checkbox" id="extKebakaranProperti" /> Kebakaran</label>
+                        <label><input type="checkbox" id="extPencurianProperti" /> Pencurian</label>
+                        <label><input type="checkbox" id="extTanggungJawabProperti" /> Tanggung Jawab Hukum</label>
                     </div>
                 </div>
 
@@ -1600,7 +1767,7 @@
         }
 
         // ============================================================
-        //  DATA TARIF OJK 2017 (MOBIL) - DISEDERHANAKAN UNTUK RUANG
+        //  DATA TARIF OJK 2017 (MOBIL)
         // ============================================================
 
         const TARIF_COMP = {
