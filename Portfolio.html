@@ -46,6 +46,27 @@
       z-index: 1;
     }
 
+    /* ===== BACK BUTTON (SAMA SEPERTI LIFECODE) ===== */
+    .back-home {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--gold-soft, #e4c988);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        padding: 8px 16px;
+        border: 2px solid var(--gold-soft, #e4c988);
+        border-radius: 8px;
+        transition: 0.2s;
+        margin-bottom: 12px;
+        background: transparent;
+    }
+    .back-home:hover {
+        background: var(--gold-soft, #e4c988);
+        color: var(--ink, #12181a);
+    }
+
     /* --- Header Mewah --- */
     .page-header {
       text-align: center;
@@ -126,7 +147,6 @@
       overflow: hidden;
     }
 
-    /* Efek glow di pojok kartu */
     .portfolio-card::before {
       content: '';
       position: absolute;
@@ -209,10 +229,6 @@
       position: relative;
       z-index: 1;
       letter-spacing: 0.02em;
-    }
-
-    .card-title .gold-accent {
-      color: #d4af37;
     }
 
     .card-stats {
@@ -333,6 +349,11 @@
 <body>
   <div class="container">
 
+    <!-- ============================================================
+         BACK BUTTON (SAMA SEPERTI LIFECODE)
+         ============================================================ -->
+    <a href="index.html" class="back-home">← Kembali ke Beranda</a>
+
     <!-- HEADER -->
     <header class="page-header">
       <h1>✦ Nanjing Portfolio ✦</h1>
@@ -348,7 +369,7 @@
     <!-- FOOTER -->
     <footer class="page-footer">
       <p>
-        <a href="https://nanjingtouzi.github.io/LIFECODE/" target="_blank">← Kembali ke Beranda</a>
+        <a href="index.html">← Kembali ke Beranda</a>
         &nbsp;·&nbsp; 
         <span id="yearFooter"></span> Nanjing Investasi
       </p>
