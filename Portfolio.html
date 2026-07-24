@@ -46,28 +46,28 @@
       z-index: 1;
     }
 
-    /* ===== BACK BUTTON (SAMA SEPERTI LIFECODE) ===== */
+    /* ===== BACK BUTTON ===== */
     .back-home {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        color: var(--gold-soft, #e4c988);
+        color: #e4c988;
         text-decoration: none;
         font-weight: 600;
         font-size: 14px;
         padding: 8px 16px;
-        border: 2px solid var(--gold-soft, #e4c988);
+        border: 2px solid #e4c988;
         border-radius: 8px;
         transition: 0.2s;
         margin-bottom: 12px;
         background: transparent;
     }
     .back-home:hover {
-        background: var(--gold-soft, #e4c988);
-        color: var(--ink, #12181a);
+        background: #e4c988;
+        color: #12181a;
     }
 
-    /* --- Header Mewah --- */
+    /* --- Header Mewah dengan Logo --- */
     .page-header {
       text-align: center;
       margin-bottom: 3rem;
@@ -86,6 +86,44 @@
       background: linear-gradient(90deg, transparent, #d4af37, transparent);
     }
 
+    /* ===== LOGO / ICON DI ATAS ===== */
+    .header-logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .header-logo img {
+      height: 64px;
+      width: auto;
+      filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3));
+      transition: transform 0.3s ease;
+      border-radius: 8px;
+    }
+
+    .header-logo img:hover {
+      transform: scale(1.05);
+    }
+
+    .header-logo .logo-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #d4af37;
+      letter-spacing: 0.1em;
+      text-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
+    }
+
+    .header-logo .logo-divider {
+      width: 2px;
+      height: 40px;
+      background: linear-gradient(180deg, transparent, #d4af37, transparent);
+      opacity: 0.3;
+    }
+
     .page-header h1 {
       font-size: 2.8rem;
       font-weight: 700;
@@ -96,6 +134,7 @@
       color: transparent;
       text-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
       display: inline-block;
+      margin-top: 0;
     }
 
     .page-header .subtitle {
@@ -343,6 +382,9 @@
       .portfolio-grid { gap: 1.2rem; }
       .card-stats { grid-template-columns: 1fr; }
       .portfolio-card { padding: 1.2rem; }
+      .header-logo img { height: 40px; }
+      .header-logo .logo-text { font-size: 1.2rem; }
+      .header-logo .logo-divider { height: 24px; }
     }
   </style>
 </head>
@@ -350,13 +392,21 @@
   <div class="container">
 
     <!-- ============================================================
-         BACK BUTTON (SAMA SEPERTI LIFECODE)
+         BACK BUTTON
          ============================================================ -->
     <a href="index.html" class="back-home">← Kembali ke Beranda</a>
 
-    <!-- HEADER -->
+    <!-- ============================================================
+         HEADER DENGAN LOGO
+         ============================================================ -->
     <header class="page-header">
-      <h1>✦ Nanjing Portfolio ✦</h1>
+      <div class="header-logo">
+        <!-- Logo dengan nama nanjing-ico1.png -->
+        <img src="https://nanjingtouzi.github.io/LIFECODE/nanjing-ico1.png" alt="Nanjing Logo" onerror="this.style.display='none'">
+        <span class="logo-divider"></span>
+        <span class="logo-text">✦ Nanjing Investasi ✦</span>
+      </div>
+      <h1>✦ Portfolio Gallery ✦</h1>
       <span class="subtitle">Trading System &amp; Strategy Gallery</span>
       <div class="badge-count" id="portfolioCount">Memuat...</div>
     </header>
@@ -379,20 +429,16 @@
 
   <script>
     // ============================================================
-    // 1. DATA SEMUA PORTOFOLIO (Tambah/Edit di sini!)
+    // 1. DATA SEMUA PORTOFOLIO (16 Portofolio)
     // ============================================================
     const portfolios = [
+      // === WAIVER SERIES ===
       {
         id: 1,
         title: "WAIVER 1",
         status: "active",
         updated: "2026-07-24",
-        stats: {
-          return: "+571.47%",
-          winRate: "90.61%",
-          drawdown: "2.57%",
-          profitFactor: "8.88"
-        },
+        stats: { return: "+571.47%", winRate: "90.61%", drawdown: "2.57%", profitFactor: "8.88" },
         fileName: "waiver1.html"
       },
       {
@@ -400,25 +446,16 @@
         title: "WAIVER 5",
         status: "active",
         updated: "2026-07-24",
-        stats: {
-          return: "+562,998.74%",
-          winRate: "90.33%",
-          drawdown: "13.83%",
-          profitFactor: "5.56"
-        },
+        stats: { return: "+562,998.74%", winRate: "90.33%", drawdown: "13.83%", profitFactor: "5.56" },
         fileName: "waiver10.html"
       },
+      // === AXION SERIES ===
       {
         id: 3,
         title: "AXION 1",
         status: "active",
         updated: "2026-07-24",
-        stats: {
-          return: "+258.63%",
-          winRate: "97.12%",
-          drawdown: "3.80%",
-          profitFactor: "8.91"
-        },
+        stats: { return: "+258.63%", winRate: "97.12%", drawdown: "3.80%", profitFactor: "8.91" },
         fileName: "AXION1.html"
       },
       {
@@ -426,25 +463,16 @@
         title: "AXION 10",
         status: "active",
         updated: "2026-07-24",
-        stats: {
-          return: "+16,233.66%",
-          winRate: "97.12%",
-          drawdown: "16.95%",
-          profitFactor: "3.18"
-        },
+        stats: { return: "+16,233.66%", winRate: "97.12%", drawdown: "16.95%", profitFactor: "3.18" },
         fileName: "AXION10.html"
       },
+      // === CAPE SERIES ===
       {
         id: 5,
         title: "CAPE 1",
         status: "active",
         updated: "2026-07-24",
-        stats: {
-          return: "+44.94%",
-          winRate: "98.03%",
-          drawdown: "2.18%",
-          profitFactor: "8.38"
-        },
+        stats: { return: "+44.94%", winRate: "98.03%", drawdown: "2.18%", profitFactor: "8.38" },
         fileName: "CAPE1.html"
       },
       {
@@ -452,17 +480,94 @@
         title: "CAPE 10",
         status: "active",
         updated: "2026-07-24",
-        stats: {
-          return: "+449.40%",
-          winRate: "98.03%",
-          drawdown: "21.80%",
-          profitFactor: "8.38"
-        },
+        stats: { return: "+4,309.08%", winRate: "98.03%", drawdown: "19.96%", profitFactor: "3.94" },
         fileName: "CAPE10.html"
+      },
+      // === SEAL SERIES ===
+      {
+        id: 7,
+        title: "SEAL 1",
+        status: "active",
+        updated: "2026-07-24",
+        stats: { return: "+47.53%", winRate: "76.84%", drawdown: "5.26%", profitFactor: "2.12" },
+        fileName: "SEAL1.html"
+      },
+      {
+        id: 8,
+        title: "SEAL 10",
+        status: "active",
+        updated: "2026-07-24",
+        stats: { return: "+475.30%", winRate: "76.84%", drawdown: "52.60%", profitFactor: "2.12" },
+        fileName: "SEAL10.html"
+      },
+      // === TRICK & HOLE ===
+      {
+        id: 9,
+        title: "TRICK 7",
+        status: "active",
+        updated: "2026-07-24",
+        stats: { return: "+355.26%", winRate: "78.95%", drawdown: "19.56%", profitFactor: "3.82" },
+        fileName: "TRICK7.html"
+      },
+      {
+        id: 10,
+        title: "HOLE 7",
+        status: "active",
+        updated: "2026-07-24",
+        stats: { return: "+394.08%", winRate: "80.26%", drawdown: "32.00%", profitFactor: "3.29" },
+        fileName: "HOLE7.html"
+      },
+      // === ZEUS SERIES ===
+      {
+        id: 11,
+        title: "ZEUS 10",
+        status: "active",
+        updated: "2026-07-24",
+        stats: { return: "+277.67%", winRate: "82.50%", drawdown: "25.14%", profitFactor: "2.34" },
+        fileName: "ZEUS10.html"
+      },
+      {
+        id: 12,
+        title: "ZEUS 50",
+        status: "active",
+        updated: "2026-07-24",
+        stats: { return: "+1,388.35%", winRate: "82.50%", drawdown: "125.70%", profitFactor: "2.34" },
+        fileName: "ZEUS50.html"
+      },
+      // === ATHENA SERIES ===
+      {
+        id: 13,
+        title: "ATHENA 10",
+        status: "active",
+        updated: "2026-07-24",
+        stats: { return: "+205.40%", winRate: "80.97%", drawdown: "9.26%", profitFactor: "5.45" },
+        fileName: "ATHENA10.html"
+      },
+      {
+        id: 14,
+        title: "ATHENA 50",
+        status: "active",
+        updated: "2026-07-24",
+        stats: { return: "+24,390.66%", winRate: "82.95%", drawdown: "37.10%", profitFactor: "5.79" },
+        fileName: "ATHENA50.html"
+      },
+      // === ODIN SERIES ===
+      {
+        id: 15,
+        title: "ODIN 10",
+        status: "active",
+        updated: "2026-07-24",
+        stats: { return: "+206.73%", winRate: "82.73%", drawdown: "21.41%", profitFactor: "2.80" },
+        fileName: "ODIN10.html"
+      },
+      {
+        id: 16,
+        title: "ODIN 50",
+        status: "active",
+        updated: "2026-07-24",
+        stats: { return: "+8,977.92%", winRate: "82.64%", drawdown: "84.13%", profitFactor: "1.27" },
+        fileName: "ODIN50.html"
       }
-      // ============================================================
-      // >> TAMBAHKAN PORTOFOLIO BARU DI SINI <<
-      // ============================================================
     ];
 
     // ============================================================
@@ -508,7 +613,7 @@
         const pfVal = stats.profitFactor || '—';
 
         cardsHTML += `
-          <div class="portfolio-card" style="animation-delay: ${index * 0.08}s">
+          <div class="portfolio-card" style="animation-delay: ${index * 0.04}s">
             <div class="card-header">
               <span class="card-number">#${String(p.id).padStart(2, '0')}</span>
               <span class="status-badge ${statusClass}">${statusText}</span>
