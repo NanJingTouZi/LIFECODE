@@ -316,100 +316,6 @@
             display: block;
         }
 
-        /* ===== PERLUASAN JAMINAN - GRID ===== */
-        .perluasan-grid {
-            background: #f8fafc;
-            padding: 14px 18px;
-            border-radius: 8px;
-            border: 1px solid #dce3ec;
-        }
-
-        .perluasan-row {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 12px 24px;
-            margin-bottom: 6px;
-        }
-
-        .perluasan-row:last-child {
-            margin-bottom: 0;
-        }
-
-        .perluasan-row label {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-weight: 500;
-            font-size: 14px;
-            color: #1a3a5c;
-            cursor: pointer;
-            margin-bottom: 0;
-        }
-
-        .perluasan-row label input[type="checkbox"] {
-            width: 17px;
-            height: 17px;
-            accent-color: #1a5fb4;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-
-        /* ===== TJH INLINE FIELDS (muncul saat dicentang) ===== */
-        .tjh-fields {
-            display: none;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px 14px;
-            margin-left: 4px;
-            transition: all 0.2s ease;
-        }
-
-        .tjh-fields.show {
-            display: inline-flex;
-        }
-
-        .tjh-fields .field-group {
-            display: flex;
-            align-items: center;
-            gap: 4px 8px;
-            flex-wrap: wrap;
-        }
-
-        .tjh-fields .field-group label {
-            font-weight: 500;
-            font-size: 13px;
-            color: #1a3a5c;
-            margin-bottom: 0;
-        }
-
-        .tjh-fields .field-group input {
-            padding: 6px 10px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            font-size: 13px;
-            width: 110px;
-            background: white;
-            transition: border 0.2s;
-        }
-
-        .tjh-fields .field-group input:focus {
-            border-color: #1a5fb4;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(26, 95, 180, 0.12);
-        }
-
-        .tjh-fields .field-group input.small {
-            width: 65px;
-        }
-
-        .tjh-fields .field-group .currency-prefix {
-            font-weight: 600;
-            color: #1a3a5c;
-            font-size: 14px;
-        }
-
-        /* ===== CHECKBOX GROUP (LAMA) - TETAP UNTUK PROPERTI ===== */
         .checkbox-group {
             display: flex;
             flex-wrap: wrap;
@@ -435,6 +341,57 @@
             height: 18px;
             cursor: pointer;
             flex-shrink: 0;
+        }
+
+        /* ===== TJH CONTAINER ===== */
+        .tjh-container {
+            display: none;
+            margin-top: 8px;
+            padding: 14px 16px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #dce3ec;
+        }
+        .tjh-container.show {
+            display: block;
+        }
+        .tjh-container .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        .tjh-container .form-group {
+            margin-bottom: 0;
+        }
+        .tjh-container label {
+            font-size: 13px;
+        }
+
+        /* ===== RINCIAN PERLUASAN ===== */
+        .rincian-perluasan {
+            margin-top: 6px;
+            padding: 8px 0;
+        }
+        .rincian-perluasan .rp-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 3px 0;
+            font-size: 13px;
+            border-bottom: 1px dashed #edf2f7;
+        }
+        .rincian-perluasan .rp-item:last-child {
+            border-bottom: none;
+        }
+        .rincian-perluasan .rp-item .rp-nama {
+            color: #2c3e6b;
+        }
+        .rincian-perluasan .rp-item .rp-rate {
+            color: #5e7a93;
+            font-size: 12px;
+        }
+        .rincian-perluasan .rp-item .rp-premi {
+            font-weight: 600;
+            color: #1a3a5c;
         }
 
         .btn-group {
@@ -742,6 +699,10 @@
             color: #1a3a5c;
             border-top: 2px solid #1a3a5c;
             font-size: 16px;
+        }
+
+        .detail-table .total td {
+            padding-top: 12px;
         }
 
         .detail-table .grand-total td {
@@ -1466,23 +1427,9 @@
                 padding: 6px 8px;
             }
 
-            .perluasan-row {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 6px;
-            }
-
-            .tjh-fields {
-                margin-left: 0;
-                flex-wrap: wrap;
-            }
-
-            .tjh-fields .field-group input {
-                width: 100px;
-            }
-
-            .tjh-fields .field-group input.small {
-                width: 60px;
+            .tjh-container .row {
+                grid-template-columns: 1fr;
+                gap: 10px;
             }
         }
 
@@ -1550,18 +1497,11 @@
                 font-size: 14px;
             }
 
-            .perluasan-row label {
-                font-size: 13px;
+            .tjh-container {
+                padding: 10px 12px;
             }
-
-            .tjh-fields .field-group input {
-                width: 80px;
+            .tjh-container label {
                 font-size: 12px;
-                padding: 4px 8px;
-            }
-
-            .tjh-fields .field-group input.small {
-                width: 50px;
             }
         }
 
@@ -1662,22 +1602,12 @@
                 padding: 4px 6px;
             }
 
-            .perluasan-row {
-                gap: 4px;
+            .tjh-container {
+                padding: 8px 10px;
             }
-
-            .perluasan-row label {
-                font-size: 12px;
-            }
-
-            .tjh-fields .field-group input {
-                width: 70px;
-                font-size: 11px;
-                padding: 4px 6px;
-            }
-
-            .tjh-fields .field-group input.small {
-                width: 45px;
+            .tjh-container input {
+                font-size: 13px;
+                padding: 8px 10px;
             }
         }
     </style>
@@ -1809,48 +1739,34 @@
                     </div>
                     <div class="form-group">
                         <label>Perluasan Jaminan</label>
-                        <div class="perluasan-grid">
-                            <!-- Baris 1: Banjir, Gempa, SRCC, Teror -->
-                            <div class="perluasan-row">
-                                <label>
-                                    <input type="checkbox" class="cb-perluasan" data-rate="0.075" data-label="Banjir" checked />
-                                    Banjir (0.075%)
-                                </label>
-                                <label>
-                                    <input type="checkbox" class="cb-perluasan" data-rate="0.120" data-label="Gempa" checked />
-                                    Gempa (0.120%)
-                                </label>
-                                <label>
-                                    <input type="checkbox" class="cb-perluasan" data-rate="0.050" data-label="SRCC" checked />
-                                    SRCC (0.050%)
-                                </label>
-                                <label>
-                                    <input type="checkbox" class="cb-perluasan" data-rate="0.050" data-label="Teror" />
-                                    Teror (0.050%)
-                                </label>
-                            </div>
-                            <!-- Baris 2: TJH dengan inline fields -->
-                            <div class="perluasan-row">
-                                <label style="display:flex; align-items:center; flex-wrap:wrap; gap:6px 10px;">
-                                    <input type="checkbox" id="tjhAktifMobil" class="cb-perluasan" data-rate="1.00" data-label="TJH" />
-                                    TJH (1.00%)
-                                    <span class="tjh-fields" id="tjhFieldsMobil">
-                                        <span class="field-group">
-                                            <label>Nilai:</label>
-                                            <span class="currency-prefix">Rp</span>
-                                            <input type="number" id="tjhNilaiMobil" value="10000000" min="0" step="1000" />
-                                        </span>
-                                        <span class="field-group">
-                                            <label>Rate:</label>
-                                            <input type="number" id="tjhRateMobil" class="small" value="1.0" min="0" step="0.1" />
-                                            <span style="font-weight:500;font-size:13px;color:#1a3a5c;">%</span>
-                                        </span>
-                                    </span>
-                                </label>
-                            </div>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" id="extBanjirMobil" /> Banjir</label>
+                            <label><input type="checkbox" id="extGempaMobil" /> Gempa</label>
+                            <label><input type="checkbox" id="extSRCCMobil" /> SRCC</label>
+                            <label><input type="checkbox" id="extTerorMobil" /> Teror</label>
                         </div>
-                        <div class="input-hint" style="margin-top:4px; font-size:11px; color:#7a8fa5;">
-                            ☑ Centang untuk menambahkan perluasan jaminan
+                    </div>
+                </div>
+
+                <!-- ===== TJH Pihak Ketiga ===== -->
+                <div class="form-group" style="margin-top:4px;">
+                    <label style="display:flex; align-items:center; gap:10px; cursor:pointer; font-weight:600; color:#1a3a5c;">
+                        <input type="checkbox" id="tjhAktifMobil" onchange="toggleTJH()" />
+                        <span>☑ Tanggung Jawab Hukum Pihak Ketiga (TJH)</span>
+                        <span style="font-size:11px; font-weight:400; color:#5e7a93; margin-left:4px;">(1% dari nilai pertanggungan)</span>
+                    </label>
+                    <div class="tjh-container" id="tjhContainerMobil">
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Nilai Pertanggungan TJH (Rp)</label>
+                                <input type="number" id="tjhNilaiMobil" value="10000000" step="1000000" min="0" />
+                                <span style="font-size:11px; color:#7a8fa5;">Default: Rp 10.000.000</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Rate TJH (%)</label>
+                                <input type="number" id="tjhRateMobil" value="1.0" step="0.1" min="0" max="10" readonly />
+                                <span style="font-size:11px; color:#7a8fa5;">Default: 1%</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1992,14 +1908,7 @@
                 <div class="breakdown" id="breakdownProperti">
                     <table>
                         <tbody id="breakdownBodyProperti">
-                            <tr><td>Premi Dasar</td><td class="right" id="bPremiDasarProperti">-</td></tr>
-                            <tr><td>Perluasan Jaminan</td><td class="right" id="bExtPremiProperti">Rp 0</td></tr>
-                            <tr class="total"><td><strong>Total Premi</strong></td><td class="right" id="bTotalPremiProperti"><strong>-</strong></td></tr>
-                            <tr><td>Biaya Polis &amp; Materai</td><td class="right" id="bBiayaPolisProperti">Rp 52.000</td></tr>
-                            <tr class="total" style="border-top:2px solid #1a2a4a;">
-                                <td style="font-size:15px;"><strong>Total Yang Harus Dibayar</strong></td>
-                                <td class="right" style="font-size:15px; font-weight:700; color:#1a3a5c;" id="bTotalBayarProperti"><strong>-</strong></td>
-                            </tr>
+                            <!-- Isi akan di-generate oleh JavaScript -->
                         </tbody>
                     </table>
                 </div>
@@ -2625,7 +2534,7 @@
         }
 
         // ============================================================
-        // SHOW QUOTA MODAL
+        // SHOW QUOTA MODAL (TETAP ADA UNTUK REFERENSI)
         // ============================================================
         async function showQuotaModal() {
             const session = getSession();
@@ -3068,13 +2977,12 @@
         }
 
         // ============================================================
-        // FUNGSI TOGGLE TJH - UNTUK MOBIL
+        // FUNGSI TOGGLE TJH
         // ============================================================
-        function toggleTjhMobil() {
-            const cb = document.getElementById('tjhAktifMobil');
-            if (!cb) return;
-            const container = document.getElementById('tjhFieldsMobil');
-            if (cb.checked) {
+        function toggleTJH() {
+            const checked = document.getElementById('tjhAktifMobil').checked;
+            const container = document.getElementById('tjhContainerMobil');
+            if (checked) {
                 container.classList.add('show');
             } else {
                 container.classList.remove('show');
@@ -3383,7 +3291,7 @@
         }
 
         // ============================================================
-        // HITUNG PREMI MOBIL - PAKAI TABEL BARU
+        // HITUNG PREMI MOBIL - PAKAI TABEL BARU (TANPA KURANGI KUOTA)
         // ============================================================
 
         async function hitungPremiMobil() {
@@ -3405,9 +3313,8 @@
             const wilayah = parseInt(document.getElementById('wilayahMobil').value);
             const jenisPertanggungan = document.getElementById('jenisPertanggunganMobil').value;
 
-            // ===== AMBIL DATA TJH DENGAN NULL CHECK =====
-            const cbTjh = document.querySelector('#formMobil #tjhAktifMobil');
-            const tjhAktif = cbTjh ? cbTjh.checked : false;
+            // Ambil data TJH
+            const tjhAktif = document.getElementById('tjhAktifMobil').checked;
             const tjhNilai = parseFloat(document.getElementById('tjhNilaiMobil').value) || 0;
             const tjhRate = parseFloat(document.getElementById('tjhRateMobil').value) || 1.0;
 
@@ -3581,11 +3488,10 @@
 
             // Set TJH dari data
             const tjhData = detail.tjh || {};
-            const cbTjh = document.querySelector('#formMobil #tjhAktifMobil');
-            if (cbTjh) cbTjh.checked = tjhData.aktif || false;
+            document.getElementById('tjhAktifMobil').checked = tjhData.aktif || false;
             document.getElementById('tjhNilaiMobil').value = tjhData.nilai || 0;
             document.getElementById('tjhRateMobil').value = tjhData.rate || 1.0;
-            toggleTjhMobil();
+            toggleTJH();
 
             const detailPerluasan = detail.detailPerluasan || [];
 
@@ -3764,23 +3670,13 @@
             document.getElementById('tahunMobil').value = '2020';
             document.getElementById('hargaMobil').value = '350000000';
             document.getElementById('jenisPertanggunganMobil').value = 'comprehensive';
-            
-            // Reset checkbox perluasan (termasuk TJH)
-            document.querySelectorAll('#formMobil .perluasan-row input[type="checkbox"]').forEach(c => {
-                const label = c.dataset.label;
-                if (label === 'TJH') {
-                    c.checked = false;
-                } else if (label === 'Banjir' || label === 'Gempa' || label === 'SRCC') {
-                    c.checked = true;
-                } else if (label === 'Teror') {
-                    c.checked = false;
-                }
-            });
+            document.querySelectorAll('#formMobil input[type="checkbox"]').forEach(c => c.checked = false);
             
             // Reset TJH
+            document.getElementById('tjhAktifMobil').checked = false;
             document.getElementById('tjhNilaiMobil').value = '10000000';
             document.getElementById('tjhRateMobil').value = '1.0';
-            document.getElementById('tjhFieldsMobil').classList.remove('show');
+            document.getElementById('tjhContainerMobil').classList.remove('show');
             
             updateMerk();
             document.getElementById('merkManualMobil').value = '';
@@ -3796,7 +3692,7 @@
         }
 
         // ============================================================
-        // FUNGSI PROPERTI, JIWA, WEALTH (SAMA PERSIS SEPERTI SEBELUMNYA)
+        // FUNGSI PROPERTI (DENGAN RINCIAN PERLUASAN)
         // ============================================================
 
         // ===== DATA TARIF PROPERTI =====
@@ -3850,18 +3746,48 @@
             premi = Math.round(premi / 1000) * 1000;
             if (premi < 50000) premi = 50000;
 
-            let extPremi = 0, extList = [];
-            if (document.getElementById('extBanjirProperti').checked) { extPremi += nilai * 0.0015;
-                extList.push('Banjir'); }
-            if (document.getElementById('extGempaProperti').checked) { extPremi += nilai * 0.0025;
-                extList.push('Gempa'); }
-            if (document.getElementById('extKebakaranProperti').checked) { extPremi += nilai * 0.0010;
-                extList.push('Kebakaran'); }
-            if (document.getElementById('extPencurianProperti').checked) { extPremi += nilai * 0.0008;
-                extList.push('Pencurian'); }
-            if (document.getElementById('extTanggungJawabProperti').checked) { extPremi += 250000;
-                extList.push('Tanggung Jawab Hukum'); }
-            extPremi = Math.round(extPremi / 1000) * 1000;
+            // ===== RINCIAN PERLUASAN PROPERTI =====
+            let detailPerluasan = [];
+            let extPremi = 0;
+
+            // Banjir (0.15%)
+            if (document.getElementById('extBanjirProperti').checked) {
+                const banjirRate = 0.0015;
+                const banjirPremi = Math.round(nilai * banjirRate / 1000) * 1000;
+                detailPerluasan.push({ nama: 'Banjir', rate: (banjirRate * 100).toFixed(2) + '%', premi: banjirPremi });
+                extPremi += banjirPremi;
+            }
+
+            // Gempa (0.25%)
+            if (document.getElementById('extGempaProperti').checked) {
+                const gempaRate = 0.0025;
+                const gempaPremi = Math.round(nilai * gempaRate / 1000) * 1000;
+                detailPerluasan.push({ nama: 'Gempa', rate: (gempaRate * 100).toFixed(2) + '%', premi: gempaPremi });
+                extPremi += gempaPremi;
+            }
+
+            // Kebakaran (0.10%)
+            if (document.getElementById('extKebakaranProperti').checked) {
+                const kebakaranRate = 0.0010;
+                const kebakaranPremi = Math.round(nilai * kebakaranRate / 1000) * 1000;
+                detailPerluasan.push({ nama: 'Kebakaran', rate: (kebakaranRate * 100).toFixed(2) + '%', premi: kebakaranPremi });
+                extPremi += kebakaranPremi;
+            }
+
+            // Pencurian (0.08%)
+            if (document.getElementById('extPencurianProperti').checked) {
+                const pencurianRate = 0.0008;
+                const pencurianPremi = Math.round(nilai * pencurianRate / 1000) * 1000;
+                detailPerluasan.push({ nama: 'Pencurian', rate: (pencurianRate * 100).toFixed(2) + '%', premi: pencurianPremi });
+                extPremi += pencurianPremi;
+            }
+
+            // Tanggung Jawab Hukum (fixed Rp 250.000)
+            if (document.getElementById('extTanggungJawabProperti').checked) {
+                const tjhPremi = 250000;
+                detailPerluasan.push({ nama: 'Tanggung Jawab Hukum', rate: 'fixed', premi: tjhPremi });
+                extPremi += tjhPremi;
+            }
 
             const totalPremi = premi + extPremi;
             const biayaPolis = 52000;
@@ -3879,15 +3805,18 @@
             hasilTerakhirProperti = {
                 nama, noHp, jenis, wilayah, nilai, luas, tahun, alamat,
                 jenisPertanggungan: pertanggunganMap[jenisPertanggungan] || jenisPertanggungan,
-                rate, premi, extPremi, extList, totalPremi, biayaPolis, totalBayar,
-                jenisText, wilayahText
+                rate, premi, extPremi, totalPremi, biayaPolis, totalBayar,
+                jenisText, wilayahText,
+                detailPerluasan: detailPerluasan
             };
 
+            // ===== TAMPILKAN HASIL DENGAN RINCIAN =====
             const resultBox = document.getElementById('resultProperti');
             const viewIndicator = document.getElementById('viewIndicatorProperti');
             viewIndicator.classList.remove('show');
             isViewingHistory = false;
             resultBox.classList.add('show');
+
             document.getElementById('premiValueProperti').textContent = formatRupiah(totalPremi);
             document.getElementById('rJenisProperti').textContent = hasilTerakhirProperti.jenisText;
             document.getElementById('rWilayahProperti').textContent = hasilTerakhirProperti.wilayahText;
@@ -3895,38 +3824,84 @@
             document.getElementById('rLuasProperti').textContent = luas + ' m²';
             document.getElementById('rTahunProperti').textContent = tahun;
             document.getElementById('rRateProperti').textContent = (rate * 100).toFixed(2) + '%';
-            document.getElementById('bPremiDasarProperti').textContent = formatRupiahFull(premi);
-            document.getElementById('bExtPremiProperti').textContent = extPremi > 0 ? formatRupiahFull(extPremi) : 'Rp 0';
-            document.getElementById('bTotalPremiProperti').innerHTML = '<strong>' + formatRupiahFull(totalPremi) +
-            '</strong>';
-            document.getElementById('bBiayaPolisProperti').textContent = formatRupiahFull(biayaPolis);
-            document.getElementById('bTotalBayarProperti').innerHTML = '<strong>' + formatRupiahFull(totalBayar) +
-            '</strong>';
+
+            // ===== BREAKDOWN DENGAN RINCIAN PERLUASAN =====
+            const breakdownBody = document.getElementById('breakdownBodyProperti');
+            let rincianHTML = '';
+            let totalPerluasan = 0;
+
+            if (detailPerluasan && detailPerluasan.length > 0) {
+                detailPerluasan.forEach(item => {
+                    rincianHTML += `
+                        <tr>
+                            <td style="padding-left:20px; font-size:13px; color:#2c3e6b;">
+                                ${item.nama}
+                                <span style="color:#5e7a93; font-size:11px; margin-left:8px;">(${item.rate})</span>
+                            </td>
+                            <td class="right" style="font-size:13px;">${formatRupiahFull(item.premi)}</td>
+                        </tr>
+                    `;
+                    totalPerluasan += item.premi;
+                });
+            } else {
+                rincianHTML = `<tr><td style="padding-left:20px; color:#5e7a93; font-size:13px;" colspan="2">Tidak ada perluasan</td></tr>`;
+            }
+
+            let newHTML = `
+                <tr><td>Premi Dasar</td><td class="right">${formatRupiahFull(premi)}</td></tr>
+                <tr><td style="font-weight:600; padding-top:8px; color:#2c3e6b;" colspan="2">Rincian Perluasan Jaminan:</td></tr>
+                ${rincianHTML}
+                <tr style="border-top:1px solid #dce3ec; padding-top:4px;">
+                    <td style="font-weight:600; color:#1a3a5c;">Total Perluasan</td>
+                    <td class="right" style="font-weight:600; color:#1a3a5c;">${formatRupiahFull(totalPerluasan)}</td>
+                </tr>
+                <tr class="total">
+                    <td><strong>Total Premi</strong></td>
+                    <td class="right"><strong>${formatRupiahFull(totalPremi)}</strong></td>
+                </tr>
+                <tr>
+                    <td>Biaya Polis &amp; Materai</td>
+                    <td class="right">${formatRupiahFull(biayaPolis)}</td>
+                </tr>
+                <tr class="total" style="border-top:2px solid #1a2a4a;">
+                    <td style="font-size:15px;"><strong>Total Yang Harus Dibayar</strong></td>
+                    <td class="right" style="font-size:15px; font-weight:700; color:#1a3a5c;">${formatRupiahFull(totalBayar)}</td>
+                </tr>
+            `;
+            breakdownBody.innerHTML = newHTML;
+
             document.getElementById('btnCetakProperti').disabled = false;
             resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
+            // Simpan ke Firestore
             const result = {
                 total: totalBayar,
                 formatted: formatRupiahFull(totalBayar),
                 premiDasar: premi,
                 premiPerluasan: extPremi,
                 totalPremi: totalPremi,
-                biayaPolis: biayaPolis
+                biayaPolis: biayaPolis,
+                rate: rate * 100
             };
             const input = {
                 nama: nama, noHp: noHp, jenis: jenisText, wilayah: wilayahText,
                 nilai: nilai, luas: luas, tahun: tahun, alamat: alamat,
                 jenisPertanggungan: pertanggunganMap[jenisPertanggungan] || jenisPertanggungan,
-                perluasan: extList.join(', ') || 'Tidak ada'
+                perluasan: detailPerluasan.map(d => d.nama).join(', ') || 'Tidak ada'
             };
             const detail = {
                 rate: (rate * 100).toFixed(2) + '%',
                 faktorUsia: faktorUsia.toFixed(2),
-                faktorLuas: faktorLuas.toFixed(2)
+                faktorLuas: faktorLuas.toFixed(2),
+                detailPerluasan: detailPerluasan
             };
             await saveCalculation('properti', result, input, detail, remainingQuota);
             updateStatusBar();
         }
+
+        // ============================================================
+        // VIEW HISTORY PROPERTI (TANPA KURANGI KUOTA)
+        // ============================================================
 
         function viewHistoryProperti(item) {
             const data = item;
@@ -3936,6 +3911,8 @@
 
             document.getElementById('namaProperti').value = input.nama || '';
             document.getElementById('noHpProperti').value = input.noHp || '';
+
+            const detailPerluasan = detail.detailPerluasan || [];
 
             const resultBox = document.getElementById('resultProperti');
             const viewIndicator = document.getElementById('viewIndicatorProperti');
@@ -3950,14 +3927,52 @@
             document.getElementById('rLuasProperti').textContent = (input.luas || 0) + ' m²';
             document.getElementById('rTahunProperti').textContent = input.tahun || '-';
             document.getElementById('rRateProperti').textContent = detail.rate || '-';
-            document.getElementById('bPremiDasarProperti').textContent = formatRupiahFull(result.premiDasar) || '-';
-            document.getElementById('bExtPremiProperti').textContent = result.premiPerluasan > 0 ? formatRupiahFull(result
-                .premiPerluasan) : 'Rp 0';
-            document.getElementById('bTotalPremiProperti').innerHTML = '<strong>' + formatRupiahFull(result.totalPremi) +
-                '</strong>';
-            document.getElementById('bBiayaPolisProperti').textContent = formatRupiahFull(result.biayaPolis) || 'Rp 52.000';
-            document.getElementById('bTotalBayarProperti').innerHTML = '<strong>' + formatRupiahFull(result.total) +
-                '</strong>';
+
+            // ===== BREAKDOWN DENGAN RINCIAN PERLUASAN =====
+            const breakdownBody = document.getElementById('breakdownBodyProperti');
+            let rincianHTML = '';
+            let totalPerluasan = 0;
+
+            if (detailPerluasan && detailPerluasan.length > 0) {
+                detailPerluasan.forEach(item => {
+                    rincianHTML += `
+                        <tr>
+                            <td style="padding-left:20px; font-size:13px; color:#2c3e6b;">
+                                ${item.nama}
+                                <span style="color:#5e7a93; font-size:11px; margin-left:8px;">(${item.rate})</span>
+                            </td>
+                            <td class="right" style="font-size:13px;">${formatRupiahFull(item.premi)}</td>
+                        </tr>
+                    `;
+                    totalPerluasan += item.premi;
+                });
+            } else {
+                rincianHTML = `<tr><td style="padding-left:20px; color:#5e7a93; font-size:13px;" colspan="2">Tidak ada perluasan</td></tr>`;
+            }
+
+            let newHTML = `
+                <tr><td>Premi Dasar</td><td class="right">${formatRupiahFull(result.premiDasar)}</td></tr>
+                <tr><td style="font-weight:600; padding-top:8px; color:#2c3e6b;" colspan="2">Rincian Perluasan Jaminan:</td></tr>
+                ${rincianHTML}
+                <tr style="border-top:1px solid #dce3ec; padding-top:4px;">
+                    <td style="font-weight:600; color:#1a3a5c;">Total Perluasan</td>
+                    <td class="right" style="font-weight:600; color:#1a3a5c;">${formatRupiahFull(totalPerluasan)}</td>
+                </tr>
+                <tr class="total">
+                    <td><strong>Total Premi</strong></td>
+                    <td class="right"><strong>${formatRupiahFull(result.totalPremi)}</strong></td>
+                </tr>
+                <tr>
+                    <td>Biaya Polis &amp; Materai</td>
+                    <td class="right">${formatRupiahFull(result.biayaPolis)}</td>
+                </tr>
+                <tr class="total" style="border-top:2px solid #1a2a4a;">
+                    <td style="font-size:15px;"><strong>Total Yang Harus Dibayar</strong></td>
+                    <td class="right" style="font-size:15px; font-weight:700; color:#1a3a5c;">${formatRupiahFull(result.total)}</td>
+                </tr>
+            `;
+            breakdownBody.innerHTML = newHTML;
+
             document.getElementById('btnCetakProperti').disabled = false;
 
             hasilTerakhirProperti = {
@@ -3973,14 +3988,18 @@
                 rate: parseFloat(detail.rate) || 0,
                 premi: result.premiDasar || 0,
                 extPremi: result.premiPerluasan || 0,
-                extList: input.perluasan ? input.perluasan.split(', ') : [],
                 totalPremi: result.totalPremi || 0,
                 biayaPolis: result.biayaPolis || 52000,
-                totalBayar: result.total || 0
+                totalBayar: result.total || 0,
+                detailPerluasan: detailPerluasan
             };
 
             resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+
+        // ============================================================
+        // CETAK PROPOSAL PROPERTI (DENGAN RINCIAN PERLUASAN)
+        // ============================================================
 
         function cetakProposalProperti() {
             if (!hasilTerakhirProperti) { showAlert('warning', 'Info', 'Hitung premi dahulu!'); return; }
@@ -4014,7 +4033,52 @@
             `;
 
             document.getElementById('pJenisPertanggungan').innerHTML = '<strong>' + h.jenisPertanggungan + '</strong>';
-            document.getElementById('pExt').textContent = h.extList.length > 0 ? h.extList.join(', ') : 'Tidak ada';
+
+            // Ext list
+            const extNames = h.detailPerluasan ? h.detailPerluasan.map(d => d.nama).join(', ') : 'Tidak ada';
+            document.getElementById('pExt').textContent = extNames;
+
+            // Rincian Perluasan di Proposal
+            let rincianHTML = '';
+            if (h.detailPerluasan && h.detailPerluasan.length > 0) {
+                rincianHTML = `
+                    <div class="section-title" style="font-size:14px; margin-top:10px;">Rincian Perluasan Jaminan</div>
+                    <table class="data-table">
+                        <thead>
+                            <tr><th style="width:60%;">Jenis Perluasan</th><th style="width:20%;text-align:right;">Rate</th><th style="width:20%;text-align:right;">Premi (Rp)</th></tr>
+                        </thead>
+                        <tbody>
+                `;
+                let totalExt = 0;
+                h.detailPerluasan.forEach(item => {
+                    rincianHTML += `
+                        <tr>
+                            <td>${item.nama}</td>
+                            <td style="text-align:right;">${item.rate}</td>
+                            <td style="text-align:right;">${formatRupiahFull(item.premi)}</td>
+                        </tr>
+                    `;
+                    totalExt += item.premi;
+                });
+                rincianHTML += `
+                        <tr style="border-top:2px solid #1a2a4a; font-weight:700;">
+                            <td>TOTAL PERLUASAN</td>
+                            <td style="text-align:right;"></td>
+                            <td style="text-align:right;">${formatRupiahFull(totalExt)}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                `;
+            }
+
+            // Sisipkan rincian sebelum footer
+            const rincianContainer = document.createElement('div');
+            rincianContainer.id = 'rincianPerluasanProposalProperti';
+            rincianContainer.innerHTML = rincianHTML;
+            const footerNotes = document.getElementById('footerNotes');
+            if (footerNotes) {
+                footerNotes.parentNode.insertBefore(rincianContainer, footerNotes);
+            }
 
             const now = new Date();
             const tgl = formatTanggal(now.toISOString().split('T')[0]);
@@ -4076,7 +4140,7 @@
         }
 
         // ============================================================
-        // FUNGSI JIWA
+        // FUNGSI JIWA (SAMA PERSIS)
         // ============================================================
 
         document.getElementById('tanggalLahirJiwa').addEventListener('change', function() {
@@ -4413,7 +4477,7 @@
         }
 
         // ============================================================
-        // FUNGSI WEALTH
+        // FUNGSI WEALTH (SAMA PERSIS)
         // ============================================================
 
         document.getElementById('tanggalLahirWealth').addEventListener('change', function() {
@@ -4953,18 +5017,6 @@
             loadDataKendaraan();
             updateStatusBar();
 
-            // ===== INISIALISASI TJH MOBIL =====
-            const cbTjhMobil = document.querySelector('#formMobil #tjhAktifMobil');
-            if (cbTjhMobil) {
-                cbTjhMobil.addEventListener('change', toggleTjhMobil);
-                // Pastikan state awal benar
-                if (cbTjhMobil.checked) {
-                    document.getElementById('tjhFieldsMobil').classList.add('show');
-                } else {
-                    document.getElementById('tjhFieldsMobil').classList.remove('show');
-                }
-            }
-
             const defaultDate = '1990-03-15';
             document.getElementById('tanggalLahirJiwa').value = defaultDate;
             const usiaJiwa = hitungUsia(defaultDate);
@@ -5001,8 +5053,8 @@
         console.log('📱 Popup WA saat kuota habis (untuk info)');
         console.log('🏠 Tombol "Kembali ke Beranda" tersedia');
         console.log('📊 TARIF MOBIL: Pakai tabel baru (Comprehensive & TLO) untuk Non Bus');
-        console.log('📌 Tanggung Jawab Hukum Pihak Ketiga: 1% dari UP (opsional) - SEKARANG DI DALAM GRUP PERLUASAN');
-        console.log('📌 Rincian Perluasan Jaminan ditampilkan detail');
+        console.log('📌 Tanggung Jawab Hukum Pihak Ketiga: 1% dari UP (opsional)');
+        console.log('📌 Rincian Perluasan Jaminan ditampilkan detail untuk Mobil dan Properti');
         console.log('🖨️ PRINT: Subbab tidak terpotong (pindah ke halaman berikutnya jika tidak muat)');
     </script>
 
