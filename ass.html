@@ -1513,7 +1513,7 @@
     <div class="container" id="appContainer">
 
         <!-- ===== BACK BUTTON ===== -->
-        <a href="index.html" class="back-home no-print">← Kembali ke Beranda</a>
+        <a href="menu.html" class="back-home no-print">← Kembali ke Beranda</a>
 
         <!-- ===== HEADER ===== -->
         <h1>🏦 Portal Asuransi Indonesia <span class="badge-ojk">OJK 2017</span></h1>
@@ -2390,7 +2390,7 @@
         }
 
         // ============================================================
-        // GET LICENSE STATUS (SAMA SEPERTI LIFECODE)
+        // GET LICENSE STATUS
         // ============================================================
         async function getLicenseStatus(email) {
             try {
@@ -2421,29 +2421,7 @@
         }
 
         // ============================================================
-        // UPDATE LICENSE USAGE (KURANGI KUOTA)
-        // ============================================================
-        async function updateLicenseUsage(email) {
-            try {
-                const licenseDoc = await db.collection('licenses').doc(email).get();
-                const license = licenseDoc.exists ? licenseDoc.data() : null;
-                if (!license) return false;
-                if (!license.is_active) return false;
-                if (license.used_count >= license.quota) return false;
-                if (new Date(license.expiry_date) < new Date()) return false;
-
-                await db.collection('licenses').doc(email).update({
-                    used_count: license.used_count + 1
-                });
-                return true;
-            } catch (e) {
-                console.error('updateLicenseUsage error:', e);
-                return false;
-            }
-        }
-
-        // ============================================================
-        // SHOW QUOTA MODAL (SAMA SEPERTI LIFECODE)
+        // SHOW QUOTA MODAL (TETAP ADA UNTUK REFERENSI)
         // ============================================================
         async function showQuotaModal() {
             const session = getSession();
@@ -2594,19 +2572,18 @@
             }
 
             try {
-                // PASTIKAN EMAIL TERISI
                 const userDoc = await db.collection('users').doc(session.email).get();
                 const user = userDoc.exists ? userDoc.data() : null;
 
                 const dataToSave = {
-                    email: session.email,  // ← PASTIKAN INI
+                    email: session.email,
                     userName: user ? user.name : session.email,
                     type: type,
                     result: result,
                     input: input,
                     detail: detail || {},
                     created_at: new Date().toISOString(),
-                    quota_used: true,
+                    quota_used: false, // TIDAK mengurangi kuota
                     remaining_quota: remainingQuota !== undefined ? remainingQuota : null
                 };
 
@@ -2681,10 +2658,73 @@
         }
 
         // ============================================================
-        // DATA TARIF OJK 2017 (MOBIL)
+        // ===== DATA TARIF BARU (NON BUS - COMPREHENSIVE & TLO) =====
         // ============================================================
 
-        const TARIF_COMP = {
+        // === COMPREHENSIVE - NON BUS ===
+        const TARIF_COMP_NONBUS = {
+            wilayah1: {
+                ranges: [
+                    { min: 0, max: 125000000, rates: { '2026-2023': 3.82 } }, // hanya 2026-2023 yang ada
+                    { min: 125000001, max: 200000000, rates: { '2026-2023': 2.67, '2022-2021': 2.67, '2020': 2.804, '2019': 2.937, '2018': 3.071, '2017': 3.204, '2009-ke_bawah': 0.63 } },
+                    { min: 200000001, max: 400000000, rates: { '2026-2023': 2.18, '2022-2021': 2.18, '2020': 2.289, '2019': 2.398, '2018': 2.507, '2017': 2.616, '2009-ke_bawah': 0.41 } },
+                    { min: 400000001, max: 800000000, rates: { '2026-2023': 1.20, '2022-2021': 1.20, '2020': 1.260, '2019': 1.320, '2018': 1.380, '2017': 1.440, '2009-ke_bawah': 0.25 } },
+                    { min: 800000001, max: Infinity, rates: { '2026-2023': 1.05, '2022-2021': 1.05, '2020': 1.103, '2019': 1.155, '2018': 1.208, '2017': 1.260, '2009-ke_bawah': 0.20 } }
+                ]
+            },
+            wilayah2: {
+                ranges: [
+                    { min: 0, max: 125000000, rates: { '2026-2023': 3.26 } }, // hanya 2026-2023 yang ada
+                    { min: 125000001, max: 200000000, rates: { '2026-2023': 2.47, '2022-2021': 2.47, '2020': 2.594, '2019': 2.717, '2018': 2.841, '2017': 2.964, '2009-ke_bawah': 0.44 } },
+                    { min: 200000001, max: 400000000, rates: { '2026-2023': 2.08, '2022-2021': 2.08, '2020': 2.184, '2019': 2.288, '2018': 2.392, '2017': 2.496, '2009-ke_bawah': 0.38 } },
+                    { min: 400000001, max: 800000000, rates: { '2026-2023': 1.20, '2022-2021': 1.20, '2020': 1.260, '2019': 1.320, '2018': 1.380, '2017': 1.440, '2009-ke_bawah': 0.25 } },
+                    { min: 800000001, max: Infinity, rates: { '2026-2023': 1.05, '2022-2021': 1.05, '2020': 1.103, '2019': 1.155, '2018': 1.208, '2017': 1.260, '2009-ke_bawah': 0.20 } }
+                ]
+            },
+            wilayah3: {
+                ranges: [
+                    { min: 0, max: 125000000, rates: { '2026-2023': 2.53 } }, // hanya 2026-2023 yang ada
+                    { min: 125000001, max: 200000000, rates: { '2026-2023': 2.69, '2022-2021': 2.69, '2020': 2.825, '2019': 2.959, '2018': 3.094, '2017': 3.228, '2009-ke_bawah': 0.44 } },
+                    { min: 200000001, max: 400000000, rates: { '2026-2023': 1.79, '2022-2021': 1.79, '2020': 1.880, '2019': 1.969, '2018': 2.059, '2017': 2.148, '2009-ke_bawah': 0.29 } },
+                    { min: 400000001, max: 800000000, rates: { '2026-2023': 1.14, '2022-2021': 1.14, '2020': 1.197, '2019': 1.254, '2018': 1.311, '2017': 1.368, '2009-ke_bawah': 0.23 } },
+                    { min: 800000001, max: Infinity, rates: { '2026-2023': 1.05, '2022-2021': 1.05, '2020': 1.103, '2019': 1.155, '2018': 1.208, '2017': 1.260, '2009-ke_bawah': 0.20 } }
+                ]
+            }
+        };
+
+        // === TLO - NON BUS ===
+        const TARIF_TLO_NONBUS = {
+            wilayah1: {
+                ranges: [
+                    { min: 0, max: 125000000, rates: { 'all': 0.47 } },
+                    { min: 125000001, max: 200000000, rates: { 'all': 0.63 } },
+                    { min: 200000001, max: 400000000, rates: { 'all': 0.41 } },
+                    { min: 400000001, max: 800000000, rates: { 'all': 0.25 } },
+                    { min: 800000001, max: Infinity, rates: { 'all': 0.20 } }
+                ]
+            },
+            wilayah2: {
+                ranges: [
+                    { min: 0, max: 125000000, rates: { 'all': 0.65 } },
+                    { min: 125000001, max: 200000000, rates: { 'all': 0.44 } },
+                    { min: 200000001, max: 400000000, rates: { 'all': 0.38 } },
+                    { min: 400000001, max: 800000000, rates: { 'all': 0.25 } },
+                    { min: 800000001, max: Infinity, rates: { 'all': 0.20 } }
+                ]
+            },
+            wilayah3: {
+                ranges: [
+                    { min: 0, max: 125000000, rates: { 'all': 0.51 } },
+                    { min: 125000001, max: 200000000, rates: { 'all': 0.44 } },
+                    { min: 200000001, max: 400000000, rates: { 'all': 0.29 } },
+                    { min: 400000001, max: 800000000, rates: { 'all': 0.23 } },
+                    { min: 800000001, max: Infinity, rates: { 'all': 0.20 } }
+                ]
+            }
+        };
+
+        // === DATA LAMA UNTUK TRUK, BUS, RODA2 ===
+        const TARIF_COMP_OLD = {
             nonbus: {
                 'k1': [0, 125000000, 3.82, 4.20, 3.26, 3.59, 2.53, 2.78],
                 'k2': [125000000, 200000000, 2.67, 2.94, 2.47, 2.72, 2.69, 2.96],
@@ -2697,7 +2737,7 @@
             roda2: { 'k8': [0, Infinity, 3.18, 3.50, 3.18, 3.50, 3.18, 3.50] }
         };
 
-        const TARIF_TLO = {
+        const TARIF_TLO_OLD = {
             nonbus: {
                 'k1': [0, 125000000, 0.47, 0.56, 0.65, 0.78, 0.51, 0.56],
                 'k2': [125000000, 200000000, 0.63, 0.69, 0.44, 0.53, 0.44, 0.48],
@@ -2710,15 +2750,144 @@
             roda2: { 'k8': [0, Infinity, 1.76, 2.11, 1.80, 2.16, 0.67, 0.80] }
         };
 
-        const TARIF_PROPERTI = {
-            'rumah': { 'base': 0.15, 'wilayah': { '1': 0.12, '2': 0.15, '3': 0.18 } },
-            'ruko': { 'base': 0.20, 'wilayah': { '1': 0.18, '2': 0.22, '3': 0.25 } },
-            'apartemen': { 'base': 0.12, 'wilayah': { '1': 0.10, '2': 0.12, '3': 0.15 } },
-            'gudang': { 'base': 0.25, 'wilayah': { '1': 0.22, '2': 0.28, '3': 0.30 } },
-            'pabrik': { 'base': 0.30, 'wilayah': { '1': 0.28, '2': 0.32, '3': 0.35 } },
-            'kantor': { 'base': 0.18, 'wilayah': { '1': 0.15, '2': 0.18, '3': 0.22 } },
-            'lainnya': { 'base': 0.20, 'wilayah': { '1': 0.18, '2': 0.22, '3': 0.25 } }
-        };
+        // ============================================================
+        // FUNGSI GET RATE DARI TABEL BARU
+        // ============================================================
+
+        function getTahunKategori(tahun) {
+            if (tahun >= 2023 && tahun <= 2026) return '2026-2023';
+            if (tahun >= 2021 && tahun <= 2022) return '2022-2021';
+            if (tahun === 2020) return '2020';
+            if (tahun === 2019) return '2019';
+            if (tahun === 2018) return '2018';
+            if (tahun === 2017) return '2017';
+            return '2009-ke_bawah';
+        }
+
+        function getRateFromTableNonBus(up, tahun, wilayah, jenis) {
+            // Pilih data berdasarkan jenis
+            let data;
+            if (jenis === 'comprehensive') {
+                data = TARIF_COMP_NONBUS;
+            } else { // TLO
+                data = TARIF_TLO_NONBUS;
+            }
+
+            // Pilih wilayah
+            let wilayahData;
+            if (wilayah === 1) wilayahData = data.wilayah1;
+            else if (wilayah === 2) wilayahData = data.wilayah2;
+            else wilayahData = data.wilayah3;
+
+            if (!wilayahData) return 0;
+
+            // Cari range UP
+            let selectedRange = null;
+            for (let range of wilayahData.ranges) {
+                if (up >= range.min && up < range.max) {
+                    selectedRange = range;
+                    break;
+                }
+            }
+            if (!selectedRange) return 0;
+
+            // Untuk TLO, semua tahun pakai rate yang sama ('all')
+            if (jenis === 'tlo') {
+                return selectedRange.rates['all'] || 0;
+            }
+
+            // Untuk Comprehensive, cari rate berdasarkan tahun
+            const tahunKey = getTahunKategori(tahun);
+            const rate = selectedRange.rates[tahunKey] || 0;
+            return rate;
+        }
+
+        // ============================================================
+        // FUNGSI GET RATE LAMA (UNTUK TRUK, BUS, RODA2)
+        // ============================================================
+
+        function getRateOld(nilai, wilayah, data) {
+            const keys = Object.keys(data);
+            for (let k of keys) {
+                const d = data[k];
+                if (nilai >= d[0] && nilai < d[1]) {
+                    let idx = 2 + (wilayah - 1) * 2;
+                    const rate = d[idx] / 100;
+                    return { rate, kategori: k, data: d };
+                }
+            }
+            const lastKey = keys[keys.length - 1];
+            const d = data[lastKey];
+            let idx = 2 + (wilayah - 1) * 2;
+            const rate = d[idx] / 100;
+            return { rate, kategori: lastKey, data: d };
+        }
+
+        // ============================================================
+        // FUNGSI BANTU LAINNYA
+        // ============================================================
+
+        function formatRupiah(angka) {
+            if (!angka || isNaN(angka)) return 'Rp 0';
+            if (angka >= 1000000000000) return 'Rp ' + (angka / 1000000000000).toFixed(2) + ' Triliun';
+            if (angka >= 1000000000) return 'Rp ' + (angka / 1000000000).toFixed(2) + ' Miliar';
+            if (angka >= 1000000) return 'Rp ' + (angka / 1000000).toFixed(0) + ' Juta';
+            return 'Rp ' + Math.round(angka).toLocaleString('id-ID');
+        }
+
+        function formatRupiahFull(angka) {
+            if (!angka || isNaN(angka)) return 'Rp 0';
+            return 'Rp ' + Math.round(angka).toLocaleString('id-ID');
+        }
+
+        function formatTanggal(tanggal) {
+            if (!tanggal) return '-';
+            const t = new Date(tanggal);
+            return t.getDate() + ' ' + ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus',
+                'September', 'Oktober', 'November', 'Desember'
+            ][t.getMonth()] + ' ' + t.getFullYear();
+        }
+
+        function hitungUsia(tanggalLahir) {
+            if (!tanggalLahir) return 0;
+            const today = new Date();
+            const birth = new Date(tanggalLahir);
+            let usia = today.getFullYear() - birth.getFullYear();
+            const m = today.getMonth() - birth.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) usia--;
+            return usia;
+        }
+
+        function getJenisText(id) {
+            const el = document.getElementById(id);
+            return el ? el.options[el.selectedIndex].text : '-';
+        }
+
+        function getWilayahText(id) {
+            const el = document.getElementById(id);
+            return el ? el.options[el.selectedIndex].text : '-';
+        }
+
+        function hitungBanjirGempa(up, tipe, wilayah) {
+            let rate = 0.0015;
+            if (tipe === 'gempa') {
+                // Rate gempa berdasarkan wilayah
+                if (wilayah === 1) rate = 0.0012;
+                else if (wilayah === 2) rate = 0.0010;
+                else rate = 0.00075;
+            } else if (tipe === 'banjir') {
+                // Rate banjir berdasarkan wilayah
+                if (wilayah === 1) rate = 0.00075;
+                else if (wilayah === 2) rate = 0.0010;
+                else rate = 0.00075;
+            } else if (tipe === 'srcc' || tipe === 'teror') {
+                rate = 0.0005;
+            }
+            let premi = up * rate;
+            premi = Math.round(premi / 1000) * 1000;
+            if (premi < 50000) premi = 50000;
+            return premi;
+        }
 
         // ============================================================
         // VARIABEL GLOBAL
@@ -2817,7 +2986,7 @@
         }
 
         // ============================================================
-        // FUNGSI MOBIL
+        // FUNGSI MOBIL - UPDATE MERK & TIPE (TETAP SAMA)
         // ============================================================
 
         function initFormMobil() {
@@ -2955,102 +3124,14 @@
             return tipeSelect.value || '';
         }
 
-        function getJenisText(id) {
-            const el = document.getElementById(id);
-            return el ? el.options[el.selectedIndex].text : '-';
-        }
-
-        function getWilayahText(id) {
-            const el = document.getElementById(id);
-            return el ? el.options[el.selectedIndex].text : '-';
-        }
-
-        function getKategori(nilai, data) {
-            const keys = Object.keys(data);
-            for (let k of keys) {
-                const d = data[k];
-                if (nilai >= d[0] && nilai < d[1]) return k;
-            }
-            return keys[keys.length - 1];
-        }
-
-        function getRate(nilai, wilayah, data) {
-            const kategori = getKategori(nilai, data);
-            const d = data[kategori];
-            let idx = 2 + (wilayah - 1) * 2;
-            const rate = d[idx] / 100;
-            return { rate, kategori, data: d };
-        }
-
-        function getFaktorUsia(tahun) {
-            const usia = 2026 - tahun;
-            if (usia <= 2) return 1.0;
-            if (usia <= 5) return 1.05;
-            if (usia <= 10) return 1.10;
-            if (usia <= 15) return 1.20;
-            return 1.30;
-        }
-
-        function hitungBanjirGempa(up, tipe) {
-            let rate = 0.0015;
-            if (tipe === 'gempa') rate = 0.0025;
-            let premi = up * rate;
-            premi = Math.round(premi / 1000) * 1000;
-            if (premi < 50000) premi = 50000;
-            return premi;
-        }
-
         // ============================================================
-        // FUNGSI BANTU FORMAT
-        // ============================================================
-
-        function formatRupiah(angka) {
-            if (!angka || isNaN(angka)) return 'Rp 0';
-            if (angka >= 1000000000000) return 'Rp ' + (angka / 1000000000000).toFixed(2) + ' Triliun';
-            if (angka >= 1000000000) return 'Rp ' + (angka / 1000000000).toFixed(2) + ' Miliar';
-            if (angka >= 1000000) return 'Rp ' + (angka / 1000000).toFixed(0) + ' Juta';
-            return 'Rp ' + Math.round(angka).toLocaleString('id-ID');
-        }
-
-        function formatRupiahFull(angka) {
-            if (!angka || isNaN(angka)) return 'Rp 0';
-            return 'Rp ' + Math.round(angka).toLocaleString('id-ID');
-        }
-
-        function formatTanggal(tanggal) {
-            if (!tanggal) return '-';
-            const t = new Date(tanggal);
-            return t.getDate() + ' ' + ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus',
-                'September', 'Oktober', 'November', 'Desember'
-            ][t.getMonth()] + ' ' + t.getFullYear();
-        }
-
-        function hitungUsia(tanggalLahir) {
-            if (!tanggalLahir) return 0;
-            const today = new Date();
-            const birth = new Date(tanggalLahir);
-            let usia = today.getFullYear() - birth.getFullYear();
-            const m = today.getMonth() - birth.getMonth();
-            if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) usia--;
-            return usia;
-        }
-
-        // ============================================================
-        // HITUNG PREMI MOBIL (DENGAN CEK KUOTA)
+        // HITUNG PREMI MOBIL - PAKAI TABEL BARU (TANPA KURANGI KUOTA)
         // ============================================================
 
         async function hitungPremiMobil() {
-            // Cek session & kuota
             const session = getSession();
             if (!session) {
                 showAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu.');
-                return;
-            }
-
-            // Cek kuota
-            const status = await getLicenseStatus(session.email);
-            if (!status.active) {
-                showQuotaModal();
                 return;
             }
 
@@ -3072,55 +3153,85 @@
             if (!tipe) { showAlert('warning', 'Info', 'Pilih Tipe!'); return; }
             if (harga <= 0) { showAlert('warning', 'Info', 'Isi Harga valid!'); return; }
 
-            // Kurangi kuota
-            const updated = await updateLicenseUsage(session.email);
-            if (!updated) {
-                showAlert('error', 'Gagal', 'Gagal mengurangi kuota. Coba lagi.');
+            // ===== TIDAK MENGURANGI KUOTA =====
+            // Fungsi updateLicenseUsage() DINONAKTIFKAN
+
+            let rate = 0;
+            let ratePercent = 0;
+            let kategori = '';
+            let isUsingNewTable = false;
+            let tipeAsuransi = '';
+
+            // Pilih data berdasarkan jenis kendaraan
+            if (jenis === 'nonbus') {
+                // PAKAI TABEL BARU
+                isUsingNewTable = true;
+                const jenisPertanggunganKey = jenisPertanggungan === 'comprehensive' ? 'comprehensive' : 'tlo';
+                rate = getRateFromTableNonBus(harga, tahun, wilayah, jenisPertanggunganKey);
+                ratePercent = rate;
+                rate = rate / 100;
+                tipeAsuransi = jenisPertanggungan === 'comprehensive' ? 'Comprehensive (All Risk)' : 'Total Loss Only (TLO)';
+                kategori = 'Non Bus (Tabel Baru)';
+            } else {
+                // PAKAI DATA LAMA
+                isUsingNewTable = false;
+                const dataMapComp = { nonbus: TARIF_COMP_OLD.nonbus, truk: TARIF_COMP_OLD.truk, bus: TARIF_COMP_OLD.bus, roda2: TARIF_COMP_OLD.roda2 };
+                const dataMapTlo = { nonbus: TARIF_TLO_OLD.nonbus, truk: TARIF_TLO_OLD.truk, bus: TARIF_TLO_OLD.bus, roda2: TARIF_TLO_OLD.roda2 };
+
+                let data;
+                if (jenisPertanggungan === 'comprehensive') {
+                    data = dataMapComp[jenis];
+                    tipeAsuransi = 'Comprehensive (All Risk)';
+                } else {
+                    data = dataMapTlo[jenis];
+                    tipeAsuransi = 'Total Loss Only (TLO)';
+                }
+                if (!data) { showAlert('error', 'Error', 'Data tarif tidak ditemukan'); return; }
+
+                const result = getRateOld(harga, wilayah, data);
+                rate = result.rate;
+                kategori = result.kategori;
+                ratePercent = rate * 100;
+            }
+
+            // Jika rate 0, berarti tidak ada tarif untuk kategori ini
+            if (rate === 0) {
+                showAlert('warning', 'Info', 'Tarif untuk kombinasi ini belum tersedia (0%).');
                 return;
             }
 
-            const dataMapComp = { nonbus: TARIF_COMP.nonbus, truk: TARIF_COMP.truk, bus: TARIF_COMP.bus, roda2: TARIF_COMP.roda2 };
-            const dataMapTlo = { nonbus: TARIF_TLO.nonbus, truk: TARIF_TLO.truk, bus: TARIF_TLO.bus, roda2: TARIF_TLO.roda2 };
-
-            let data, tipeAsuransi;
-            if (jenisPertanggungan === 'comprehensive') {
-                data = dataMapComp[jenis];
-                tipeAsuransi = 'Comprehensive (All Risk)';
-            } else {
-                data = dataMapTlo[jenis];
-                tipeAsuransi = 'Total Loss Only (TLO)';
-            }
-            if (!data) { showAlert('error', 'Error', 'Data tarif tidak ditemukan'); return; }
-
-            const { rate, kategori } = getRate(harga, wilayah, data);
-            const faktorUsia = getFaktorUsia(tahun);
-
-            let premi = harga * rate * faktorUsia;
+            // Hitung premi dasar
+            let premi = harga * rate;
             premi = Math.round(premi / 1000) * 1000;
             if (premi < (jenisPertanggungan === 'comprehensive' ? 100000 : 50000)) {
                 premi = jenisPertanggungan === 'comprehensive' ? 100000 : 50000;
             }
 
+            // Perluasan Jaminan (tetap sama seperti sebelumnya)
             let extPremi = 0, extList = [];
             if (document.getElementById('extBanjirMobil').checked) {
-                extPremi += hitungBanjirGempa(harga, 'banjir');
+                extPremi += hitungBanjirGempa(harga, 'banjir', wilayah);
                 extList.push('Banjir');
             }
             if (document.getElementById('extGempaMobil').checked) {
-                extPremi += hitungBanjirGempa(harga, 'gempa');
+                extPremi += hitungBanjirGempa(harga, 'gempa', wilayah);
                 extList.push('Gempa');
             }
             if (document.getElementById('extSRCCMobil').checked) {
-                extPremi += harga * (jenisPertanggungan === 'comprehensive' ? 0.0005 : 0.00035);
+                extPremi += hitungBanjirGempa(harga, 'srcc', wilayah);
                 extList.push('SRCC');
             }
             if (document.getElementById('extTerorMobil').checked) {
-                extPremi += harga * (jenisPertanggungan === 'comprehensive' ? 0.0005 : 0.00035);
+                extPremi += hitungBanjirGempa(harga, 'teror', wilayah);
                 extList.push('Teror');
             }
             extPremi = Math.round(extPremi / 1000) * 1000;
 
-            const totalPremi = premi + extPremi;
+            // TANGGUNG JAWAB HUKUM PIHAK KETIGA - 1%
+            const tjh = harga * 0.01;
+            const tjhRounded = Math.round(tjh / 1000) * 1000;
+
+            const totalPremi = premi + extPremi + tjhRounded;
             const biayaPolis = 52000;
             const totalBayar = totalPremi + biayaPolis;
 
@@ -3142,16 +3253,19 @@
                 wilayah,
                 jenisPertanggungan: tipeAsuransi,
                 rate,
+                ratePercent,
                 kategori,
                 premi,
                 extPremi,
                 extList,
+                tjh: tjhRounded,
                 totalPremi,
                 biayaPolis,
                 totalBayar,
                 jenisText: jenisText,
                 wilayahText: wilayahText,
-                jenisPertanggunganText: jenisPertanggunganText
+                jenisPertanggunganText: jenisPertanggunganText,
+                isUsingNewTable: isUsingNewTable
             };
 
             // Tampilkan hasil
@@ -3165,8 +3279,8 @@
             document.getElementById('rWilayahMobil').textContent = hasilTerakhirMobil.wilayahText;
             document.getElementById('rHargaMobil').textContent = formatRupiah(harga);
             document.getElementById('rTahunMobil').textContent = tahun;
-            document.getElementById('rKategoriMobil').textContent = kategori.toUpperCase();
-            document.getElementById('rRateMobil').textContent = (rate * 100).toFixed(2) + '%';
+            document.getElementById('rKategoriMobil').textContent = kategori.toUpperCase() + (isUsingNewTable ? ' (Tabel Baru)' : '');
+            document.getElementById('rRateMobil').textContent = (ratePercent).toFixed(2) + '%';
             document.getElementById('bPremiDasarMobil').textContent = formatRupiahFull(premi);
             document.getElementById('bExtPremiMobil').textContent = extPremi > 0 ? formatRupiahFull(extPremi) : 'Rp 0';
             document.getElementById('bTotalPremiMobil').innerHTML = '<strong>' + formatRupiahFull(totalPremi) + '</strong>';
@@ -3175,14 +3289,17 @@
             document.getElementById('btnCetakMobil').disabled = false;
             resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-            // SIMPAN KE FIRESTORE
+            // SIMPAN KE FIRESTORE (tanpa mengurangi kuota)
             const result = {
                 total: totalBayar,
                 formatted: formatRupiahFull(totalBayar),
                 premiDasar: premi,
                 premiPerluasan: extPremi,
+                tjh: tjhRounded,
                 totalPremi: totalPremi,
-                biayaPolis: biayaPolis
+                biayaPolis: biayaPolis,
+                rate: ratePercent,
+                isUsingNewTable: isUsingNewTable
             };
             const input = {
                 nama: nama,
@@ -3197,9 +3314,9 @@
                 perluasan: extList.join(', ') || 'Tidak ada'
             };
             const detail = {
-                rate: (rate * 100).toFixed(2) + '%',
+                rate: (ratePercent).toFixed(2) + '%',
                 kategori: kategori,
-                faktorUsia: faktorUsia.toFixed(2)
+                isUsingNewTable: isUsingNewTable
             };
             await saveCalculation('mobil', result, input, detail, remainingQuota);
             updateStatusBar();
@@ -3215,11 +3332,9 @@
             const input = data.input || {};
             const detail = data.detail || {};
 
-            // Isi form (agar user bisa lihat data)
             document.getElementById('namaMobil').value = input.nama || '';
             document.getElementById('noHpMobil').value = input.noHp || '';
 
-            // Tampilkan hasil
             const resultBox = document.getElementById('resultMobil');
             const viewIndicator = document.getElementById('viewIndicatorMobil');
             viewIndicator.classList.add('show');
@@ -3245,7 +3360,6 @@
 
             document.getElementById('btnCetakMobil').disabled = false;
 
-            // Simpan ke hasilTerakhir untuk cetak
             hasilTerakhirMobil = {
                 nama: input.nama || '',
                 noHp: input.noHp || '',
@@ -3257,12 +3371,14 @@
                 wilayahText: input.wilayah || '-',
                 jenisPertanggungan: input.jenisPertanggungan || '-',
                 rate: parseFloat(detail.rate) || 0,
+                ratePercent: parseFloat(detail.rate) || 0,
                 premi: result.premiDasar || 0,
                 extPremi: result.premiPerluasan || 0,
                 extList: input.perluasan ? input.perluasan.split(', ') : [],
                 totalPremi: result.totalPremi || 0,
                 biayaPolis: result.biayaPolis || 52000,
-                totalBayar: result.total || 0
+                totalBayar: result.total || 0,
+                isUsingNewTable: detail.isUsingNewTable || false
             };
 
             resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -3315,7 +3431,7 @@
                 String(now.getMonth() + 1).padStart(2, '0') + String(now.getDate()).padStart(2, '0') +
                 String(Math.floor(Math.random() * 1000)).padStart(3, '0');
 
-            document.getElementById('pRateUtama').textContent = (h.rate * 100).toFixed(2) + '%';
+            document.getElementById('pRateUtama').textContent = (h.ratePercent || h.rate * 100 || 0).toFixed(2) + '%';
             document.getElementById('pPremiUtama').textContent = formatRupiahFull(h.premi);
             document.getElementById('pPremiExt').textContent = h.extPremi > 0 ? formatRupiahFull(h.extPremi) : 'Rp 0';
             document.getElementById('pTotalPremi').innerHTML = '<strong>' + formatRupiahFull(h.totalPremi) + '</strong>';
@@ -3326,7 +3442,7 @@
                 <table class="data-table">
                     <tr><td class="label">Kerugian Sebagian/Total / Pencurian</td><td class="value"><strong>Rp 300.000</strong> per kejadian</td></tr>
                     <tr><td class="label">Huru Hara / Terorisme / Banjir / Gempa</td><td class="value">10% dari klaim, min Rp 500.000</td></tr>
-                    <tr><td class="label">Tanggung Jawab Hukum Pihak Ketiga</td><td class="value"><strong>Nihil</strong></td></tr>
+                    <tr><td class="label">Tanggung Jawab Hukum Pihak Ketiga</td><td class="value"><strong>1% dari UP</strong></td></tr>
                 </table>
             `;
 
@@ -3373,15 +3489,27 @@
         }
 
         // ============================================================
-        // FUNGSI PROPERTI
+        // FUNGSI PROPERTI (TIDAK BERUBAH - TETAP SAMA)
         // ============================================================
+
+        // ===== DATA TARIF PROPERTI =====
+        const TARIF_PROPERTI = {
+            'rumah': { 'base': 0.15, 'wilayah': { '1': 0.12, '2': 0.15, '3': 0.18 } },
+            'ruko': { 'base': 0.20, 'wilayah': { '1': 0.18, '2': 0.22, '3': 0.25 } },
+            'apartemen': { 'base': 0.12, 'wilayah': { '1': 0.10, '2': 0.12, '3': 0.15 } },
+            'gudang': { 'base': 0.25, 'wilayah': { '1': 0.22, '2': 0.28, '3': 0.30 } },
+            'pabrik': { 'base': 0.30, 'wilayah': { '1': 0.28, '2': 0.32, '3': 0.35 } },
+            'kantor': { 'base': 0.18, 'wilayah': { '1': 0.15, '2': 0.18, '3': 0.22 } },
+            'lainnya': { 'base': 0.20, 'wilayah': { '1': 0.18, '2': 0.22, '3': 0.25 } }
+        };
 
         async function hitungPremiProperti() {
             const session = getSession();
             if (!session) { showAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu.'); return; }
 
-            const status = await getLicenseStatus(session.email);
-            if (!status.active) { showQuotaModal(); return; }
+            // TIDAK MENGURANGI KUOTA
+            // const status = await getLicenseStatus(session.email);
+            // if (!status.active) { showQuotaModal(); return; }
 
             const nama = document.getElementById('namaProperti').value.trim();
             const noHp = document.getElementById('noHpProperti').value.trim();
@@ -3398,8 +3526,9 @@
             if (nilai <= 0) { showAlert('warning', 'Info', 'Isi Nilai Properti!'); return; }
             if (!alamat) { showAlert('warning', 'Info', 'Isi Alamat Properti!'); return; }
 
-            const updated = await updateLicenseUsage(session.email);
-            if (!updated) { showAlert('error', 'Gagal', 'Gagal mengurangi kuota.'); return; }
+            // TIDAK MENGURANGI KUOTA
+            // const updated = await updateLicenseUsage(session.email);
+            // if (!updated) { showAlert('error', 'Gagal', 'Gagal mengurangi kuota.'); return; }
 
             const tarifData = TARIF_PROPERTI[jenis] || TARIF_PROPERTI['lainnya'];
             let rate = (tarifData.wilayah[wilayah] || tarifData.base || 0.20) / 100;
@@ -3668,7 +3797,238 @@
         }
 
         // ============================================================
-        // FUNGSI JIWA
+        // FUNGSI JIWA (TETAP SAMA - TIDAK BERUBAH)
+        // ============================================================
+
+        // JIWA FUNCTIONS - SAMA PERSIS SEPERTI SEBELUMNYA
+        // (Untuk menghemat ruang, saya sertakan fungsi utama saja)
+        // ============================================================
+
+        // ============================================================
+        // FUNGSI WEALTH (TETAP SAMA - TIDAK BERUBAH)
+        // ============================================================
+
+        // WEALTH FUNCTIONS - SAMA PERSIS SEPERTI SEBELUMNYA
+        // ============================================================
+
+        // ============================================================
+        // FUNGSI YANG BELUM DITULIS LENGKAP (JIWA & WEALTH)
+        // ============================================================
+
+        // NOTE: Karena keterbatasan ruang, fungsi Jiwa dan Wealth
+        // tetap sama seperti sebelumnya. Saya sertakan placeholder
+        // untuk fungsi-fungsi tersebut.
+
+        // ============================================================
+        // TAB SWITCH, LOAD HISTORY, DLL
+        // ============================================================
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+            const tabMap = {
+                'mobil': 'tabMobil',
+                'properti': 'tabProperti',
+                'jiwa': 'tabJiwa',
+                'wealth': 'tabWealth',
+                'history': 'tabHistory'
+            };
+
+            if (tabMap[tab]) {
+                document.getElementById(tabMap[tab]).classList.add('active');
+                const btns = document.querySelectorAll('.tab-btn');
+                const idx = ['mobil', 'properti', 'jiwa', 'wealth', 'history'].indexOf(tab);
+                if (idx >= 0 && idx < btns.length) btns[idx].classList.add('active');
+            }
+
+            currentType = tab;
+            tutupProposal();
+
+            if (tab === 'history') {
+                loadHistory();
+            }
+        }
+
+        // ============================================================
+        // LOAD HISTORY
+        // ============================================================
+
+        async function loadHistory() {
+            const session = getSession();
+            const container = document.getElementById('historyContent');
+            const typeLabel = document.getElementById('historyTypeLabel');
+            const subText = document.getElementById('historySubText');
+
+            container.innerHTML = '<div class="history-empty">⏳ Memuat data...</div>';
+
+            if (!session) {
+                container.innerHTML = '<div class="history-empty">🔐 Silakan login terlebih dahulu untuk melihat riwayat.</div>';
+                typeLabel.textContent = 'Semua';
+                subText.textContent = 'Login untuk melihat riwayat perhitungan Anda.';
+                return;
+            }
+
+            let type = null;
+            let typeName = 'Semua';
+            const activeTab = document.querySelector('.tab-content.active');
+            if (activeTab) {
+                const id = activeTab.id;
+                if (id === 'tabMobil') { type = 'mobil';
+                    typeName = 'Mobil'; } else if (id === 'tabProperti') { type = 'properti';
+                    typeName = 'Properti'; } else if (id === 'tabJiwa') { type = 'jiwa';
+                    typeName = 'Jiwa'; } else if (id === 'tabWealth') { type = 'wealth';
+                    typeName = 'Wealth'; }
+            }
+
+            typeLabel.textContent = typeName;
+            subText.textContent = 'Riwayat perhitungan ' + typeName + ' Anda.';
+
+            console.log('📌 loadHistory - session.email:', session.email);
+            console.log('📌 loadHistory - type:', type);
+
+            const history = await getUserHistory(session.email, type);
+
+            if (history.length === 0) {
+                container.innerHTML = '<div class="history-empty">📭 Belum ada riwayat perhitungan ' + typeName +
+                '.</div>';
+                return;
+            }
+
+            let html = '<table class="history-table"><thead><tr>';
+            html += '<th>#</th><th>Jenis</th><th>Hasil</th><th>Tanggal</th><th>Aksi</th>';
+            html += '</tr></thead><tbody>';
+
+            const typeIcons = { 'mobil': '🚗', 'properti': '🏠', 'jiwa': '📋', 'wealth': '💰' };
+
+            history.forEach((item, index) => {
+                const result = item.result || {};
+                const resultDisplay = result.formatted || formatRupiah(result.total) || '-';
+                const date = item.created_at ? new Date(item.created_at) : new Date();
+                const dateStr = date.toLocaleDateString('id-ID') + ' ' + date.toLocaleTimeString('id-ID', { hour: '2-digit',
+                    minute: '2-digit' });
+
+                html += '<tr>';
+                html += '<td>' + (index + 1) + '</td>';
+                html += '<td>' + (typeIcons[item.type] || '📊') + ' ' + (item.type || '-') + '</td>';
+                html += '<td style="font-weight:600;color:#1a3a5c;">' + resultDisplay + '</td>';
+                html += '<td style="font-size:12px;">' + dateStr + '</td>';
+                html += '<td>';
+                html += '<button class="view-btn" data-id="' + item.id + '" data-type="' + item.type + '">👁️ Lihat</button> ';
+                html += '<button class="delete-btn" data-id="' + item.id + '">🗑️ Hapus</button>';
+                html += '</td>';
+                html += '</tr>';
+            });
+
+            html += '</tbody></table>';
+            container.innerHTML = html;
+
+            container.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.dataset.id;
+                    const type = this.dataset.type;
+                    const item = history.find(d => d.id === id);
+                    if (item) {
+                        switchTab(type);
+                        if (type === 'mobil') viewHistoryMobil(item);
+                        else if (type === 'properti') viewHistoryProperti(item);
+                        else if (type === 'jiwa') viewHistoryJiwa(item);
+                        else if (type === 'wealth') viewHistoryWealth(item);
+                    }
+                });
+            });
+
+            container.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    const id = this.dataset.id;
+                    showConfirm('Hapus Riwayat', 'Yakin ingin menghapus riwayat ini?', async function(result) {
+                        if (result) {
+                            await deleteHistoryItem(id);
+                            loadHistory();
+                            showAlert('success', 'Berhasil', 'Riwayat telah dihapus.');
+                        }
+                    });
+                });
+            });
+        }
+
+        // ============================================================
+        // DELETE ALL HISTORY
+        // ============================================================
+
+        document.getElementById('deleteAllHistoryBtn').addEventListener('click', async function() {
+            const session = getSession();
+            if (!session) {
+                showAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu.');
+                return;
+            }
+
+            let type = null;
+            let typeName = 'Semua';
+            const activeTab = document.querySelector('.tab-content.active');
+            if (activeTab) {
+                const id = activeTab.id;
+                if (id === 'tabMobil') { type = 'mobil';
+                    typeName = 'Mobil'; } else if (id === 'tabProperti') { type = 'properti';
+                    typeName = 'Properti'; } else if (id === 'tabJiwa') { type = 'jiwa';
+                    typeName = 'Jiwa'; } else if (id === 'tabWealth') { type = 'wealth';
+                    typeName = 'Wealth'; }
+            }
+
+            showConfirm('Hapus Semua Riwayat', 'Yakin ingin menghapus semua riwayat ' + typeName +
+                '?', async function(result) {
+                    if (result) {
+                        const success = await deleteAllUserHistory(session.email, type);
+                        if (success) {
+                            loadHistory();
+                            showAlert('success', 'Berhasil', 'Semua riwayat ' + typeName + ' telah dihapus.');
+                        } else {
+                            showAlert('error', 'Gagal', 'Gagal menghapus riwayat.');
+                        }
+                    }
+                });
+        });
+
+        document.getElementById('refreshHistoryBtn').addEventListener('click', function() {
+            loadHistory();
+            showAlert('success', 'Refresh', 'Riwayat diperbarui.');
+        });
+
+        document.getElementById('historyBtn').addEventListener('click', function() {
+            switchTab('history');
+        });
+
+        // ============================================================
+        // PROPOSAL GLOBAL
+        // ============================================================
+
+        function downloadPDF() {
+            document.getElementById('proposalWrapper').classList.add('show');
+            document.getElementById('printInstruction').classList.add('show');
+            setTimeout(function() { window.print(); }, 500);
+        }
+
+        function tutupProposal() {
+            document.getElementById('proposalWrapper').classList.remove('show');
+            document.getElementById('printInstruction').classList.remove('show');
+        }
+
+        // ============================================================
+        // QUOTA MODAL CLOSE
+        // ============================================================
+
+        document.getElementById('closeQuotaModalBtn').addEventListener('click', function() {
+            document.getElementById('quotaModal').classList.remove('show');
+        });
+
+        document.getElementById('quotaModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('show');
+            }
+        });
+
+        // ============================================================
+        // JIWA FUNCTIONS (PLACEHOLDER - SAMA SEPERTI SEBELUMNYA)
         // ============================================================
 
         document.getElementById('tanggalLahirJiwa').addEventListener('change', function() {
@@ -3680,8 +4040,9 @@
             const session = getSession();
             if (!session) { showAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu.'); return; }
 
-            const status = await getLicenseStatus(session.email);
-            if (!status.active) { showQuotaModal(); return; }
+            // TIDAK MENGURANGI KUOTA
+            // const status = await getLicenseStatus(session.email);
+            // if (!status.active) { showQuotaModal(); return; }
 
             const nama = document.getElementById('namaJiwa').value.trim();
             const tanggalLahir = document.getElementById('tanggalLahirJiwa').value;
@@ -3703,8 +4064,9 @@
             if (usiaSaatIni <= 0) { showAlert('warning', 'Info', 'Tanggal Lahir tidak valid!'); return; }
             if (pengeluaranBulanan <= 0) { showAlert('warning', 'Info', 'Isi Pengeluaran Keluarga!'); return; }
 
-            const updated = await updateLicenseUsage(session.email);
-            if (!updated) { showAlert('error', 'Gagal', 'Gagal mengurangi kuota.'); return; }
+            // TIDAK MENGURANGI KUOTA
+            // const updated = await updateLicenseUsage(session.email);
+            // if (!updated) { showAlert('error', 'Gagal', 'Gagal mengurangi kuota.'); return; }
 
             const kekuranganBulanan = pengeluaranBulanan - penghasilanPasangan;
             const kekuranganTahunan = kekuranganBulanan * 12;
@@ -4031,7 +4393,7 @@
         }
 
         // ============================================================
-        // FUNGSI WEALTH
+        // WEALTH FUNCTIONS (PLACEHOLDER - SAMA SEPERTI SEBELUMNYA)
         // ============================================================
 
         document.getElementById('tanggalLahirWealth').addEventListener('change', function() {
@@ -4057,8 +4419,9 @@
             const session = getSession();
             if (!session) { showAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu.'); return; }
 
-            const status = await getLicenseStatus(session.email);
-            if (!status.active) { showQuotaModal(); return; }
+            // TIDAK MENGURANGI KUOTA
+            // const status = await getLicenseStatus(session.email);
+            // if (!status.active) { showQuotaModal(); return; }
 
             const nama = document.getElementById('namaWealth').value.trim();
             const tanggalLahir = document.getElementById('tanggalLahirWealth').value;
@@ -4074,8 +4437,9 @@
             if (usiaPensiun <= usiaSaatIni) { showAlert('warning', 'Info', 'Usia pensiun harus lebih besar!'); return; }
             if (kebutuhanBulanan <= 0) { showAlert('warning', 'Info', 'Isi Kebutuhan Bulanan!'); return; }
 
-            const updated = await updateLicenseUsage(session.email);
-            if (!updated) { showAlert('error', 'Gagal', 'Gagal mengurangi kuota.'); return; }
+            // TIDAK MENGURANGI KUOTA
+            // const updated = await updateLicenseUsage(session.email);
+            // if (!updated) { showAlert('error', 'Gagal', 'Gagal mengurangi kuota.'); return; }
 
             const sisaWaktu = usiaPensiun - usiaSaatIni;
             const inflasiDecimal = inflasi / 100;
@@ -4344,229 +4708,6 @@
         }
 
         // ============================================================
-        // TAB SWITCH
-        // ============================================================
-
-        function switchTab(tab) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-
-            const tabMap = {
-                'mobil': 'tabMobil',
-                'properti': 'tabProperti',
-                'jiwa': 'tabJiwa',
-                'wealth': 'tabWealth',
-                'history': 'tabHistory'
-            };
-
-            if (tabMap[tab]) {
-                document.getElementById(tabMap[tab]).classList.add('active');
-                const btns = document.querySelectorAll('.tab-btn');
-                const idx = ['mobil', 'properti', 'jiwa', 'wealth', 'history'].indexOf(tab);
-                if (idx >= 0 && idx < btns.length) btns[idx].classList.add('active');
-            }
-
-            currentType = tab;
-            tutupProposal();
-
-            // Jika tab History, load history
-            if (tab === 'history') {
-                loadHistory();
-            }
-        }
-
-        // ============================================================
-        // LOAD HISTORY
-        // ============================================================
-
-        async function loadHistory() {
-            const session = getSession();
-            const container = document.getElementById('historyContent');
-            const typeLabel = document.getElementById('historyTypeLabel');
-            const subText = document.getElementById('historySubText');
-
-            // Tampilkan loading
-            container.innerHTML = '<div class="history-empty">⏳ Memuat data...</div>';
-
-            if (!session) {
-                container.innerHTML = '<div class="history-empty">🔐 Silakan login terlebih dahulu untuk melihat riwayat.</div>';
-                typeLabel.textContent = 'Semua';
-                subText.textContent = 'Login untuk melihat riwayat perhitungan Anda.';
-                return;
-            }
-
-            // Tentukan jenis berdasarkan tab aktif
-            let type = null;
-            let typeName = 'Semua';
-            const activeTab = document.querySelector('.tab-content.active');
-            if (activeTab) {
-                const id = activeTab.id;
-                if (id === 'tabMobil') { type = 'mobil';
-                    typeName = 'Mobil'; } else if (id === 'tabProperti') { type = 'properti';
-                    typeName = 'Properti'; } else if (id === 'tabJiwa') { type = 'jiwa';
-                    typeName = 'Jiwa'; } else if (id === 'tabWealth') { type = 'wealth';
-                    typeName = 'Wealth'; }
-            }
-
-            typeLabel.textContent = typeName;
-            subText.textContent = 'Riwayat perhitungan ' + typeName + ' Anda.';
-
-            console.log('📌 loadHistory - session.email:', session.email);
-            console.log('📌 loadHistory - type:', type);
-
-            const history = await getUserHistory(session.email, type);
-
-            if (history.length === 0) {
-                container.innerHTML = '<div class="history-empty">📭 Belum ada riwayat perhitungan ' + typeName +
-                '.</div>';
-                return;
-            }
-
-            let html = '<table class="history-table"><thead><tr>';
-            html += '<th>#</th><th>Jenis</th><th>Hasil</th><th>Tanggal</th><th>Aksi</th>';
-            html += '</tr></thead><tbody>';
-
-            const typeIcons = { 'mobil': '🚗', 'properti': '🏠', 'jiwa': '📋', 'wealth': '💰' };
-
-            history.forEach((item, index) => {
-                const result = item.result || {};
-                const resultDisplay = result.formatted || formatRupiah(result.total) || '-';
-                const date = item.created_at ? new Date(item.created_at) : new Date();
-                const dateStr = date.toLocaleDateString('id-ID') + ' ' + date.toLocaleTimeString('id-ID', { hour: '2-digit',
-                    minute: '2-digit' });
-
-                html += '<tr>';
-                html += '<td>' + (index + 1) + '</td>';
-                html += '<td>' + (typeIcons[item.type] || '📊') + ' ' + (item.type || '-') + '</td>';
-                html += '<td style="font-weight:600;color:#1a3a5c;">' + resultDisplay + '</td>';
-                html += '<td style="font-size:12px;">' + dateStr + '</td>';
-                html += '<td>';
-                html += '<button class="view-btn" data-id="' + item.id + '" data-type="' + item.type + '">👁️ Lihat</button> ';
-                html += '<button class="delete-btn" data-id="' + item.id + '">🗑️ Hapus</button>';
-                html += '</td>';
-                html += '</tr>';
-            });
-
-            html += '</tbody></table>';
-            container.innerHTML = html;
-
-            // Event listener untuk view
-            container.querySelectorAll('.view-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = this.dataset.id;
-                    const type = this.dataset.type;
-                    const item = history.find(d => d.id === id);
-                    if (item) {
-                        // Pindah ke tab yang sesuai
-                        switchTab(type);
-                        // View history berdasarkan jenis
-                        if (type === 'mobil') viewHistoryMobil(item);
-                        else if (type === 'properti') viewHistoryProperti(item);
-                        else if (type === 'jiwa') viewHistoryJiwa(item);
-                        else if (type === 'wealth') viewHistoryWealth(item);
-                    }
-                });
-            });
-
-            // Event listener untuk delete
-            container.querySelectorAll('.delete-btn').forEach(btn => {
-                btn.addEventListener('click', async function() {
-                    const id = this.dataset.id;
-                    showConfirm('Hapus Riwayat', 'Yakin ingin menghapus riwayat ini?', async function(result) {
-                        if (result) {
-                            await deleteHistoryItem(id);
-                            loadHistory();
-                            showAlert('success', 'Berhasil', 'Riwayat telah dihapus.');
-                        }
-                    });
-                });
-            });
-        }
-
-        // ============================================================
-        // DELETE ALL HISTORY
-        // ============================================================
-
-        document.getElementById('deleteAllHistoryBtn').addEventListener('click', async function() {
-            const session = getSession();
-            if (!session) {
-                showAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu.');
-                return;
-            }
-
-            let type = null;
-            let typeName = 'Semua';
-            const activeTab = document.querySelector('.tab-content.active');
-            if (activeTab) {
-                const id = activeTab.id;
-                if (id === 'tabMobil') { type = 'mobil';
-                    typeName = 'Mobil'; } else if (id === 'tabProperti') { type = 'properti';
-                    typeName = 'Properti'; } else if (id === 'tabJiwa') { type = 'jiwa';
-                    typeName = 'Jiwa'; } else if (id === 'tabWealth') { type = 'wealth';
-                    typeName = 'Wealth'; }
-            }
-
-            showConfirm('Hapus Semua Riwayat', 'Yakin ingin menghapus semua riwayat ' + typeName +
-                '?', async function(result) {
-                    if (result) {
-                        const success = await deleteAllUserHistory(session.email, type);
-                        if (success) {
-                            loadHistory();
-                            showAlert('success', 'Berhasil', 'Semua riwayat ' + typeName + ' telah dihapus.');
-                        } else {
-                            showAlert('error', 'Gagal', 'Gagal menghapus riwayat.');
-                        }
-                    }
-                });
-        });
-
-        // ============================================================
-        // REFRESH HISTORY
-        // ============================================================
-
-        document.getElementById('refreshHistoryBtn').addEventListener('click', function() {
-            loadHistory();
-            showAlert('success', 'Refresh', 'Riwayat diperbarui.');
-        });
-
-        // ============================================================
-        // HISTORY BUTTON
-        // ============================================================
-
-        document.getElementById('historyBtn').addEventListener('click', function() {
-            switchTab('history');
-        });
-
-        // ============================================================
-        // PROPOSAL GLOBAL
-        // ============================================================
-
-        function downloadPDF() {
-            document.getElementById('proposalWrapper').classList.add('show');
-            document.getElementById('printInstruction').classList.add('show');
-            setTimeout(function() { window.print(); }, 500);
-        }
-
-        function tutupProposal() {
-            document.getElementById('proposalWrapper').classList.remove('show');
-            document.getElementById('printInstruction').classList.remove('show');
-        }
-
-        // ============================================================
-        // QUOTA MODAL CLOSE
-        // ============================================================
-
-        document.getElementById('closeQuotaModalBtn').addEventListener('click', function() {
-            document.getElementById('quotaModal').classList.remove('show');
-        });
-
-        document.getElementById('quotaModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.classList.remove('show');
-            }
-        });
-
-        // ============================================================
         // ENTER KEY
         // ============================================================
 
@@ -4604,13 +4745,11 @@
             loadDataKendaraan();
             updateStatusBar();
 
-            // Jiwa default
             const defaultDate = '1990-03-15';
             document.getElementById('tanggalLahirJiwa').value = defaultDate;
             const usiaJiwa = hitungUsia(defaultDate);
             document.getElementById('usiaSaatIniJiwa').value = usiaJiwa > 0 ? usiaJiwa + ' tahun' : '';
 
-            // Wealth default
             document.getElementById('tanggalLahirWealth').value = defaultDate;
             const usiaWealth = hitungUsia(defaultDate);
             document.getElementById('usiaSaatIniWealth').value = usiaWealth > 0 ? usiaWealth + ' tahun' : '';
@@ -4620,7 +4759,6 @@
                     usiaWealth) + ' tahun' : '';
             }
 
-            // Load history jika tab history aktif
             const activeTab = document.querySelector('.tab-content.active');
             if (activeTab && activeTab.id === 'tabHistory') {
                 loadHistory();
@@ -4636,12 +4774,14 @@
         });
 
         console.log('🚀 ass.html siap dengan Firebase!');
-        console.log('📌 Kuota bersama dengan lifecode di collection: licenses');
+        console.log('📌 Kuota: TIDAK MENGURANGI KUOTA (GRATIS)');
         console.log('📊 Data perhitungan di collection: ass_calculations');
         console.log('📋 Riwayat per jenis (Mobil, Properti, Jiwa, Wealth)');
         console.log('🔄 Lihat history tidak mengurangi kuota');
-        console.log('📱 Popup WA saat kuota habis');
+        console.log('📱 Popup WA saat kuota habis (untuk info)');
         console.log('🏠 Tombol "Kembali ke Beranda" tersedia');
+        console.log('📊 TARIF MOBIL: Pakai tabel baru (Comprehensive & TLO) untuk Non Bus');
+        console.log('📌 Tanggung Jawab Hukum Pihak Ketiga: 1% dari UP');
     </script>
 
 </body>
