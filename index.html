@@ -62,10 +62,9 @@
             box-shadow: 0 2px 0 #a07a1e;
         }
 
-        .btn-lanjut:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none !important;
+        /* Hilangkan countdown badge karena tidak auto-redirect */
+        .countdown-badge {
+            display: none;
         }
 
         .timer-info {
@@ -170,16 +169,6 @@
             transform: scale(0.95);
         }
 
-        /* Countdown timer di tombol */
-        .countdown-badge {
-            display: inline-block;
-            background: rgba(10, 26, 43, 0.2);
-            border-radius: 30px;
-            padding: 2px 12px;
-            margin-left: 8px;
-            font-size: 16px;
-        }
-
         /* Responsive */
         @media (max-width: 600px) {
             .btn-lanjut {
@@ -221,12 +210,11 @@
             id="splashImage"
         />
 
-        <!-- Tombol Lanjutkan dengan Countdown -->
+        <!-- Tombol Lanjutkan (TANPA COUNTDOWN) -->
         <button class="btn-lanjut" id="btnLanjut">
-            Lanjutkan <span class="countdown-badge" id="countdownDisplay">3</span>
+            Lanjutkan →
         </button>
 
-        <!-- Timer Info -->
         <div class="timer-info">
             ⏱️ Akan muncul kembali jika <span>1 jam</span> tidak mengunjungi aplikasi
         </div>
@@ -252,26 +240,38 @@
         const ONE_HOUR = 60 * 60 * 1000;
         const STORAGE_KEY = 'nanjing_last_visit_lifecode';
         const INSTALL_KEY = 'nanjing_app_installed';
+        const SESSION_KEY = 'nanjing_just_from_menu';
 
         // ============================================================
-        // 2. CEK WAKTU KUNJUNGAN (SAMA SEPERTI SEBELUMNYA)
+        // 2. CEK WAKTU KUNJUNGAN
         // ============================================================
         function checkLastVisit() {
             const lastVisit = localStorage.getItem(STORAGE_KEY);
             const currentTime = Date.now();
+            
+            // CEK APAKAH BARU SAJA DARI MENU (SESSION)
+            const justFromMenu = sessionStorage.getItem(SESSION_KEY);
+
+            if (justFromMenu === 'true') {
+                // Hapus penanda agar tidak loop
+                sessionStorage.removeItem(SESSION_KEY);
+                console.log('🔄 Kembali dari menu, tampilkan splash (harus klik)');
+                return false; // Tampilkan splash
+            }
 
             if (lastVisit) {
                 const timeDiff = currentTime - parseInt(lastVisit, 10);
+                
                 if (timeDiff < ONE_HOUR) {
                     console.log('⏳ Masih dalam 1 jam, langsung ke menu...');
                     window.location.href = TARGET_URL;
                     return true;
                 } else {
-                    console.log('⏰ Sudah lebih dari 1 jam, tampilkan splash...');
+                    console.log('⏰ Sudah lebih dari 1 jam, tampilkan splash (harus klik)');
                     return false;
                 }
             } else {
-                console.log('🆕 Pertama kali buka, tampilkan splash...');
+                console.log('🆕 Pertama kali buka, tampilkan splash (harus klik)');
                 return false;
             }
         }
@@ -282,28 +282,26 @@
         function goToMenu() {
             const currentTime = Date.now();
             localStorage.setItem(STORAGE_KEY, currentTime.toString());
-            console.log('💾 Waktu kunjungan disimpan:', new Date(currentTime).toLocaleString());
+            
+            // TANDAI bahwa kita sedang menuju menu
+            sessionStorage.setItem(SESSION_KEY, 'true');
+            
+            console.log('💾 Waktu kunjungan disimpan, menuju menu...');
             window.location.href = TARGET_URL;
         }
 
         // ============================================================
-        // 4. INSTALL APP (PWA / Web App)
+        // 4. INSTALL APP
         // ============================================================
         let deferredPrompt = null;
 
-        // Deteksi apakah sudah terinstall (berdasarkan localStorage + standalone mode)
         function isAppInstalled() {
-            // Cek localStorage
             const installed = localStorage.getItem(INSTALL_KEY) === 'true';
-            // Cek standalone mode (PWA sudah di-install)
             const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-            // Cek iOS standalone
             const isIOSStandalone = window.navigator.standalone === true;
-
             return installed || isStandalone || isIOSStandalone;
         }
 
-        // Tampilkan/sembunyikan install banner
         function updateInstallBanner() {
             const banner = document.getElementById('installBanner');
             if (isAppInstalled()) {
@@ -315,10 +313,8 @@
             }
         }
 
-        // Handle install prompt
         function handleInstall() {
             if (deferredPrompt) {
-                // Chrome/Android - tampilkan prompt
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
@@ -331,11 +327,9 @@
                     deferredPrompt = null;
                 });
             } else {
-                // Fallback: simpan status install
                 localStorage.setItem(INSTALL_KEY, 'true');
                 updateInstallBanner();
                 alert('✅ Aplikasi telah disimpan. Untuk pengalaman terbaik, buka melalui browser dan pilih "Add to Home Screen" atau "Install App".');
-                console.log('📲 Install disimulasikan (fallback)');
             }
         }
 
@@ -345,15 +339,12 @@
         const isRedirected = checkLastVisit();
 
         if (!isRedirected) {
-            // ===== Ambil elemen =====
             const btnLanjut = document.getElementById('btnLanjut');
-            const countdownDisplay = document.getElementById('countdownDisplay');
             const splashImage = document.getElementById('splashImage');
             const container = document.querySelector('.splash-container');
             const btnInstall = document.getElementById('btnInstall');
 
             // ===== INSTALL BANNER =====
-            // Cek event beforeinstallprompt (PWA)
             window.addEventListener('beforeinstallprompt', (e) => {
                 e.preventDefault();
                 deferredPrompt = e;
@@ -361,65 +352,29 @@
                 updateInstallBanner();
             });
 
-            // App installed event
             window.addEventListener('appinstalled', () => {
                 localStorage.setItem(INSTALL_KEY, 'true');
                 updateInstallBanner();
                 console.log('✅ App berhasil diinstall!');
             });
 
-            // Cek status install saat load
             updateInstallBanner();
 
-            // Tombol Install
             btnInstall.addEventListener('click', function(e) {
                 e.stopPropagation();
                 handleInstall();
             });
 
-            // ===== COUNTDOWN 3 DETIK =====
-            let countdown = 3;
-            let countdownInterval = null;
-            let isRedirecting = false;
-
-            function startCountdown() {
-                countdownInterval = setInterval(() => {
-                    countdown -= 1;
-                    countdownDisplay.textContent = countdown;
-
-                    if (countdown <= 0) {
-                        clearInterval(countdownInterval);
-                        countdownDisplay.textContent = '🚀';
-                        btnLanjut.disabled = true;
-                        // Redirect setelah 3 detik
-                        if (!isRedirecting) {
-                            isRedirecting = true;
-                            console.log('⏰ Auto-redirect setelah 3 detik...');
-                            goToMenu();
-                        }
-                    }
-                }, 1000);
-            }
-
-            // Mulai countdown
-            startCountdown();
-
-            // ===== TOMBOL LANJUT =====
+            // ===== TOMBOL LANJUT (HARUS KLIK) =====
             btnLanjut.addEventListener('click', function(e) {
                 e.preventDefault();
-                if (isRedirecting) return;
-                isRedirecting = true;
-                clearInterval(countdownInterval);
-                console.log('👆 User klik tombol, redirect sekarang...');
+                console.log('👆 User klik tombol, redirect ke menu...');
                 goToMenu();
             });
 
             // ===== KLIK GAMBAR =====
             splashImage.addEventListener('click', function() {
-                if (isRedirecting) return;
-                isRedirecting = true;
-                clearInterval(countdownInterval);
-                console.log('🖼️ Klik gambar, redirect sekarang...');
+                console.log('🖼️ Klik gambar, redirect ke menu...');
                 goToMenu();
             });
             splashImage.style.cursor = 'pointer';
@@ -429,10 +384,8 @@
                 if (e.target === btnLanjut || e.target.closest('.btn-lanjut')) return;
                 if (e.target === btnInstall || e.target.closest('.btn-install')) return;
                 if (e.target.closest('.install-banner')) return;
-                if (isRedirecting) return;
-                isRedirecting = true;
-                clearInterval(countdownInterval);
-                console.log('📦 Klik container, redirect sekarang...');
+                
+                console.log('📦 Klik container, redirect ke menu...');
                 goToMenu();
             });
 
@@ -440,15 +393,13 @@
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    if (isRedirecting) return;
-                    isRedirecting = true;
-                    clearInterval(countdownInterval);
-                    console.log('⌨️ Keyboard trigger, redirect sekarang...');
+                    console.log('⌨️ Keyboard trigger, redirect ke menu...');
                     goToMenu();
                 }
             });
 
-            console.log('✅ Splash siap. Auto-redirect dalam 3 detik atau klik untuk masuk ke menu.');
+            console.log('✅ Splash siap. User HARUS KLIK untuk masuk ke menu.');
+            console.log('📌 Tidak ada auto-redirect!');
         }
 
         // ============================================================
