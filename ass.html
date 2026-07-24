@@ -437,33 +437,6 @@
             flex-shrink: 0;
         }
 
-        /* ===== RINCIAN PERLUASAN ===== */
-        .rincian-perluasan {
-            margin-top: 6px;
-            padding: 8px 0;
-        }
-        .rincian-perluasan .rp-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 3px 0;
-            font-size: 13px;
-            border-bottom: 1px dashed #edf2f7;
-        }
-        .rincian-perluasan .rp-item:last-child {
-            border-bottom: none;
-        }
-        .rincian-perluasan .rp-item .rp-nama {
-            color: #2c3e6b;
-        }
-        .rincian-perluasan .rp-item .rp-rate {
-            color: #5e7a93;
-            font-size: 12px;
-        }
-        .rincian-perluasan .rp-item .rp-premi {
-            font-weight: 600;
-            color: #1a3a5c;
-        }
-
         .btn-group {
             display: flex;
             gap: 12px;
@@ -917,7 +890,6 @@
             padding-left: 12px;
             margin-top: 22px;
             margin-bottom: 12px;
-            /* ===== INI PENTING UNTUK PRINT ===== */
             page-break-after: avoid;
         }
 
@@ -930,7 +902,6 @@
             border-collapse: collapse;
             font-size: 14px;
             margin-bottom: 4px;
-            /* ===== INI PENTING UNTUK PRINT ===== */
             page-break-inside: avoid;
         }
 
@@ -956,7 +927,6 @@
             border-collapse: collapse;
             font-size: 14px;
             margin-top: 4px;
-            /* ===== INI PENTING UNTUK PRINT ===== */
             page-break-inside: avoid;
         }
 
@@ -999,7 +969,6 @@
             border-top: 2px solid #eef1f6;
             flex-wrap: wrap;
             gap: 30px;
-            /* ===== INI PENTING UNTUK PRINT ===== */
             page-break-inside: avoid;
         }
 
@@ -1034,7 +1003,6 @@
             border-top: 1px solid #e0e5ed;
             padding-top: 14px;
             line-height: 1.6;
-            /* ===== INI PENTING UNTUK PRINT ===== */
             page-break-inside: avoid;
         }
 
@@ -1329,13 +1297,11 @@
                 page-break-inside: avoid !important;
             }
 
-            /* Pastikan setiap section tidak terpotong */
             .proposal-container .data-table tr,
             .proposal-container .premium-table tr {
                 page-break-inside: avoid !important;
             }
 
-            /* Tambahan untuk menjaga konten tetap utuh */
             .proposal-container .header,
             .proposal-container .signature-area,
             .proposal-container .footer-notes,
@@ -1842,7 +1808,6 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <!-- ===== PERLUASAN JAMINAN (DENGAN TJH DI DALAM GRUP) ===== -->
                         <label>Perluasan Jaminan</label>
                         <div class="perluasan-grid">
                             <!-- Baris 1: Banjir, Gempa, SRCC, Teror -->
@@ -1864,10 +1829,10 @@
                                     Teror (0.050%)
                                 </label>
                             </div>
-                            <!-- Baris 2: TJH dengan inline fields (di dalam grup!) -->
+                            <!-- Baris 2: TJH dengan inline fields -->
                             <div class="perluasan-row">
                                 <label style="display:flex; align-items:center; flex-wrap:wrap; gap:6px 10px;">
-                                    <input type="checkbox" id="cbTjhMobil" class="cb-perluasan" data-rate="1.00" data-label="TJH" />
+                                    <input type="checkbox" id="tjhAktifMobil" class="cb-perluasan" data-rate="1.00" data-label="TJH" />
                                     TJH (1.00%)
                                     <span class="tjh-fields" id="tjhFieldsMobil">
                                         <span class="field-group">
@@ -2049,7 +2014,6 @@
         <!-- ============================================================ -->
         <div id="tabJiwa" class="tab-content">
             <div id="formJiwa">
-                <!-- Form Jiwa (sama seperti sebelumnya) -->
                 <div class="row">
                     <div class="form-group">
                         <label>Nama Lengkap <span class="required">*</span></label>
@@ -3107,7 +3071,7 @@
         // FUNGSI TOGGLE TJH - UNTUK MOBIL
         // ============================================================
         function toggleTjhMobil() {
-            const checked = document.getElementById('cbTjhMobil').checked;
+            const checked = document.getElementById('tjhAktifMobil').checked;
             const container = document.getElementById('tjhFieldsMobil');
             if (checked) {
                 container.classList.add('show');
@@ -3440,9 +3404,9 @@
             const wilayah = parseInt(document.getElementById('wilayahMobil').value);
             const jenisPertanggungan = document.getElementById('jenisPertanggunganMobil').value;
 
-            // Ambil data TJH (sekarang dari cbTjhMobil)
-            const cbTjh = document.getElementById('cbTjhMobil');
-            const tjhAktif = cbTjh.checked;
+            // Ambil data TJH dengan NULL CHECK
+            const cbTjh = document.getElementById('tjhAktifMobil');
+            const tjhAktif = cbTjh ? cbTjh.checked : false;
             const tjhNilai = parseFloat(document.getElementById('tjhNilaiMobil').value) || 0;
             const tjhRate = parseFloat(document.getElementById('tjhRateMobil').value) || 1.0;
 
@@ -3536,7 +3500,7 @@
                 extPremi += terorPremi;
             }
 
-            // ===== TJH (sekarang dari cbTjhMobil) =====
+            // ===== TJH =====
             let tjhPremi = 0;
             if (tjhAktif && tjhNilai > 0) {
                 tjhPremi = Math.round(tjhNilai * (tjhRate / 100) / 1000) * 1000;
@@ -3616,8 +3580,8 @@
 
             // Set TJH dari data
             const tjhData = detail.tjh || {};
-            const cbTjh = document.getElementById('cbTjhMobil');
-            cbTjh.checked = tjhData.aktif || false;
+            const cbTjh = document.getElementById('tjhAktifMobil');
+            if (cbTjh) cbTjh.checked = tjhData.aktif || false;
             document.getElementById('tjhNilaiMobil').value = tjhData.nilai || 0;
             document.getElementById('tjhRateMobil').value = tjhData.rate || 1.0;
             toggleTjhMobil();
@@ -3831,7 +3795,7 @@
         }
 
         // ============================================================
-        // FUNGSI PROPERTI (SAMA PERSIS SEPERTI SEBELUMNYA)
+        // FUNGSI PROPERTI, JIWA, WEALTH (SAMA PERSIS SEPERTI SEBELUMNYA)
         // ============================================================
 
         // ===== DATA TARIF PROPERTI =====
@@ -4111,7 +4075,7 @@
         }
 
         // ============================================================
-        // FUNGSI JIWA (SAMA PERSIS SEPERTI SEBELUMNYA)
+        // FUNGSI JIWA
         // ============================================================
 
         document.getElementById('tanggalLahirJiwa').addEventListener('change', function() {
@@ -4448,7 +4412,7 @@
         }
 
         // ============================================================
-        // FUNGSI WEALTH (SAMA PERSIS SEPERTI SEBELUMNYA)
+        // FUNGSI WEALTH
         // ============================================================
 
         document.getElementById('tanggalLahirWealth').addEventListener('change', function() {
@@ -4988,9 +4952,17 @@
             loadDataKendaraan();
             updateStatusBar();
 
-            // Inisialisasi TJH toggle untuk mobil
-            const cbTjhMobil = document.getElementById('cbTjhMobil');
-            cbTjhMobil.addEventListener('change', toggleTjhMobil);
+            // ===== INISIALISASI TJH MOBIL =====
+            const cbTjhMobil = document.getElementById('tjhAktifMobil');
+            if (cbTjhMobil) {
+                cbTjhMobil.addEventListener('change', toggleTjhMobil);
+                // Pastikan state awal benar
+                if (cbTjhMobil.checked) {
+                    document.getElementById('tjhFieldsMobil').classList.add('show');
+                } else {
+                    document.getElementById('tjhFieldsMobil').classList.remove('show');
+                }
+            }
 
             const defaultDate = '1990-03-15';
             document.getElementById('tanggalLahirJiwa').value = defaultDate;
