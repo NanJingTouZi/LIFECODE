@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CAPE 1 — Portfolio Trading</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+    </script>
+
+    <style>
+        /* ============================================================
+                   RESET & GLOBAL
+                   ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0b1120;
+            color: #e2e8f0;
+            line-height: 1.7;
+            padding: 24px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* ============================================================
+                   TOMBOL BACK
+                   ============================================================ */
+        .back-button-wrap {
+            margin-bottom: 20px;
+        }
+
+        .back-button-wrap .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 18px;
+            background: #1e293b;
+            border-radius: 30px;
+            border: 1px solid #334155;
+            transition: all 0.3s;
+        }
+
+        .back-button-wrap .btn-back:hover {
+            color: #f1f5f9;
+            border-color: #38bdf8;
+            background: #2a3a52;
+            transform: translateX(-3px);
+        }
+
+        /* ============================================================
+                   HEADER
+                   ============================================================ */
+        .main-header {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            padding: 32px 30px 28px;
+            border-radius: 20px;
+            margin-bottom: 36px;
+            border: 1px solid #2a3a52;
+            text-align: center;
+        }
+
+        .main-header .badge-top {
+            display: inline-block;
+            background: #38bdf8;
+            color: #0f172a;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 18px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .main-header h1 {
+            font-size: 38px;
+            font-weight: 800;
+            color: #f1f5f9;
+        }
+
+        .main-header h1 span {
+            color: #38bdf8;
+        }
+
+        .main-header p {
+            color: #94a3b8;
+            font-size: 17px;
+            margin-top: 4px;
+        }
+
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #1e293b;
+        }
+
+        .header-stats .hs-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .header-stats .hs-item strong {
+            color: #f1f5f9;
+        }
+
+        .header-stats .live-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse-dot 1.8s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.4;
+                transform: scale(0.75);
+            }
+        }
+
+        /* ============================================================
+                   TRUST BADGE
+                   ============================================================ */
+        .trust-badge {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 28px;
+            padding: 16px 20px;
+            background: #0f172a;
+            border-radius: 12px;
+            border: 1px solid #2a3a52;
+        }
+
+        .trust-badge .item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .trust-badge .item .check {
+            color: #4ade80;
+            font-weight: 700;
+        }
+
+        .trust-badge .item strong {
+            color: #f1f5f9;
+        }
+
+        /* ============================================================
+                   PORTFOLIO CARD
+                   ============================================================ */
+        .portfolio-card {
+            background: #141e2e;
+            border-radius: 20px;
+            border: 1px solid #2a3a52;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 22px 30px;
+            background: linear-gradient(135deg, #1a2639, #0f172a);
+            border-bottom: 2px solid #38bdf8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .card-header .left h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #f1f5f9;
+        }
+
+        .card-header .left h2 span {
+            color: #38bdf8;
+        }
+
+        .card-header .left .sub {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .card-header .right {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .status-badge {
+            padding: 5px 18px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-badge.live {
+            background: rgba(34, 197, 94, 0.18);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .status-badge.backtest {
+            background: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.25);
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        /* ============================================================
+                   SECTION LABEL
+                   ============================================================ */
+        .section-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #64748b;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #1e293b;
+        }
+
+        /* ============================================================
+                   METRIK RINGKASAN
+                   ============================================================ */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .metric-box {
+            background: #1a2639;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border-left: 3px solid #38bdf8;
+            transition: transform 0.2s;
+        }
+
+        .metric-box:hover {
+            transform: translateY(-2px);
+        }
+
+        .metric-box .label {
+            font-size: 11px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .metric-box .value {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        .metric-box .value.green {
+            color: #4ade80;
+        }
+        .metric-box .value.blue {
+            color: #38bdf8;
+        }
+        .metric-box .value.gold {
+            color: #fbbf24;
+        }
+        .metric-box .value.pink {
+            color: #f472b6;
+        }
+        .metric-box .value.purple {
+            color: #a78bfa;
+        }
+        .metric-box .value.orange {
+            color: #fb923c;
+        }
+        .metric-box .value.cyan {
+            color: #22d3ee;
+        }
+
+        /* ============================================================
+                   GRAFIK EQUITY CURVE
+                   ============================================================ */
+        .chart-section {
+            background: #1a2639;
+            border-radius: 14px;
+            padding: 20px 20px 10px;
+            margin-bottom: 28px;
+        }
+
+        .chart-section .chart-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .chart-section .chart-title h3 {
+            font-size: 16px;
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 260px;
+        }
+
+        /* ============================================================
+                   STRATEGI SECTION
+                   ============================================================ */
+        .strategy-section {
+            background: #1a2639;
+            border-radius: 14px;
+            padding: 22px 24px;
+            margin-bottom: 28px;
+            border: 1px solid #2a3a52;
+        }
+
+        .strategy-section h3 {
+            color: #38bdf8;
+            font-size: 18px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .strategy-section p {
+            color: #cbd5e1;
+            margin-bottom: 6px;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .strategy-section .setup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #1e293b;
+        }
+
+        .strategy-section .setup-item {
+            background: #0f172a;
+            padding: 12px 16px;
+            border-radius: 8px;
+        }
+
+        .strategy-section .setup-item .label {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .strategy-section .setup-item .value {
+            color: #f1f5f9;
+            font-weight: 600;
+        }
+
+        .strategy-section .setup-item .value .note {
+            color: #64748b;
+            font-weight: 400;
+        }
+
+        /* ============================================================
+                   TABEL PROFIT BULANAN (BACKTEST)
+                   ============================================================ */
+        .monthly-table-wrap {
+            background: #1a2639;
+            border-radius: 14px;
+            padding: 20px 22px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .monthly-table-wrap .table-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .monthly-table-wrap .table-title small {
+            font-weight: 400;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .monthly-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            min-width: 700px;
+        }
+
+        .monthly-table th {
+            padding: 8px 4px;
+            color: #94a3b8;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            text-align: center;
+            border-bottom: 2px solid #2a3a52;
+        }
+
+        .monthly-table td {
+            padding: 7px 4px;
+            text-align: center;
+            border-bottom: 1px solid #1e293b;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .monthly-table td.positive {
+            color: #4ade80;
+        }
+
+        .monthly-table td.negative {
+            color: #f87171;
+        }
+
+        .monthly-table td.empty {
+            color: #475569;
+        }
+
+        .monthly-table td.year-total {
+            color: #38bdf8;
+            font-weight: 600;
+        }
+
+        .monthly-table .total-row td {
+            padding-top: 12px;
+            border-top: 2px solid #2a3a52;
+            font-weight: 700;
+            color: #f1f5f9;
+        }
+
+        .monthly-table .total-row .year-total {
+            color: #fbbf24;
+        }
+
+        /* ============================================================
+                   LINK KE BACKTEST
+                   ============================================================ */
+        .link-backtest-wrap {
+            text-align: center;
+            margin-bottom: 32px;
+            padding: 16px;
+            background: #0f172a;
+            border-radius: 12px;
+            border: 1px solid #1e293b;
+        }
+
+        /* ============================================================
+                   LIVE FORWARD TEST SECTION
+                   ============================================================ */
+        .live-section {
+            border-top: 2px solid #22c55e;
+            padding-top: 28px;
+            margin-top: 8px;
+        }
+
+        .live-section .live-section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #4ade80;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .live-section .live-section-title .live-dot-lg {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse-dot 1.8s infinite;
+        }
+
+        /* ============================================================
+                   FORWARD TEST SUMMARY
+                   ============================================================ */
+        .forward-summary {
+            background: linear-gradient(135deg, #0f172a, #1a2639);
+            border-radius: 14px;
+            padding: 22px 24px;
+            margin-bottom: 20px;
+            border: 1px solid #2a3a52;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .forward-summary::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.05), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .forward-summary .fs-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .forward-summary .fs-header .live-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse-dot 1.8s infinite;
+        }
+
+        .forward-summary .fs-header h3 {
+            font-size: 18px;
+            color: #f1f5f9;
+            font-weight: 600;
+        }
+
+        .forward-summary .fs-header .verif {
+            font-size: 12px;
+            color: #4ade80;
+            background: rgba(34, 197, 94, 0.12);
+            padding: 2px 14px;
+            border-radius: 30px;
+            border: 1px solid rgba(34, 197, 94, 0.15);
+        }
+
+        .insight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .insight-item {
+            background: #0f172a;
+            padding: 12px 16px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid #1e293b;
+        }
+
+        .insight-item .icon {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .insight-item .text {
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+
+        .insight-item .text strong {
+            color: #f1f5f9;
+        }
+
+        .insight-item .text .highlight-green {
+            color: #4ade80;
+        }
+        .insight-item .text .highlight-blue {
+            color: #38bdf8;
+        }
+        .insight-item .text .highlight-gold {
+            color: #fbbf24;
+        }
+        .insight-item .text .highlight-pink {
+            color: #f472b6;
+        }
+
+        .smart-insight {
+            background: #0f172a;
+            border-radius: 10px;
+            padding: 14px 18px;
+            font-size: 14px;
+            color: #cbd5e1;
+            border-left: 3px solid #fbbf24;
+            margin-top: 4px;
+        }
+
+        .smart-insight strong {
+            color: #fbbf24;
+        }
+
+        /* ============================================================
+                   TABEL PROFIT BULANAN (LIVE FORWARD TEST)
+                   ============================================================ */
+        .live-table-wrap {
+            background: #1a2639;
+            border-radius: 14px;
+            padding: 20px 22px;
+            margin-bottom: 20px;
+            border: 1px solid #2a3a52;
+            overflow: hidden;
+        }
+
+        .live-table-wrap .table-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #4ade80;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .live-table-wrap .table-title .live-dot-sm {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse-dot 1.8s infinite;
+        }
+
+        .live-table-wrap .table-title small {
+            font-weight: 400;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .live-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            min-width: 500px;
+        }
+
+        .live-table th {
+            padding: 8px 4px;
+            color: #94a3b8;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            text-align: center;
+            border-bottom: 2px solid #2a3a52;
+        }
+
+        .live-table td {
+            padding: 7px 4px;
+            text-align: center;
+            border-bottom: 1px solid #1e293b;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .live-table td.positive {
+            color: #4ade80;
+        }
+
+        .live-table td.empty {
+            color: #475569;
+        }
+
+        .live-table td.year-total {
+            color: #38bdf8;
+            font-weight: 600;
+        }
+
+        .live-table .total-row td {
+            padding-top: 12px;
+            border-top: 2px solid #2a3a52;
+            font-weight: 700;
+            color: #f1f5f9;
+        }
+
+        .live-table .total-row .year-total {
+            color: #fbbf24;
+        }
+
+        /* ============================================================
+                   LINK KE FORWARD TEST
+                   ============================================================ */
+        .link-forward-wrap {
+            text-align: center;
+            margin-bottom: 32px;
+            padding: 16px;
+            background: #0f172a;
+            border-radius: 12px;
+            border: 1px solid #1e293b;
+        }
+
+        .link-forward-wrap .btn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: #22c55e;
+            color: #0f172a;
+            border: 1px solid #22c55e;
+            cursor: pointer;
+        }
+
+        .link-forward-wrap .btn-link:hover {
+            background: #4ade80;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(34, 197, 94, 0.25);
+        }
+
+        /* ============================================================
+                   STATISTIK LANJUTAN
+                   ============================================================ */
+        .advanced-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .advanced-stats .stat-item {
+            background: #1a2639;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border-left: 3px solid #a78bfa;
+        }
+
+        .advanced-stats .stat-item .stat-label {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .advanced-stats .stat-item .stat-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #a78bfa;
+            margin-top: 2px;
+        }
+
+        .advanced-stats .stat-item .stat-desc {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 2px;
+        }
+
+        /* ============================================================
+                   RISK DISCLAIMER
+                   ============================================================ */
+        .risk-disclaimer {
+            background: rgba(239, 68, 68, 0.06);
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin-bottom: 28px;
+            border: 1px solid rgba(239, 68, 68, 0.15);
+        }
+
+        .risk-disclaimer h4 {
+            color: #f87171;
+            font-size: 15px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .risk-disclaimer p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .risk-disclaimer p strong {
+            color: #e2e8f0;
+        }
+
+        /* ============================================================
+                   FAQ SECTION
+                   ============================================================ */
+        .faq-section {
+            background: #1a2639;
+            border-radius: 14px;
+            padding: 22px 24px;
+            margin-bottom: 28px;
+            border: 1px solid #2a3a52;
+        }
+
+        .faq-section h3 {
+            color: #fbbf24;
+            font-size: 17px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .faq-section .faq-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .faq-section .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-section .faq-item .q {
+            color: #e2e8f0;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .faq-section .faq-item .a {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-top: 2px;
+        }
+
+        /* ============================================================
+                   LINK SECTION BAWAH
+                   ============================================================ */
+        .links-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 10px;
+            justify-content: center;
+        }
+
+        .btn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: #1e293b;
+            color: #e2e8f0;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+
+        .btn-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-link.primary {
+            background: #38bdf8;
+            color: #0f172a;
+            border-color: #38bdf8;
+        }
+
+        .btn-link.primary:hover {
+            background: #7dd3fc;
+            box-shadow: 0 8px 30px rgba(56, 189, 248, 0.25);
+        }
+
+        .btn-link.success {
+            background: #22c55e;
+            color: #0f172a;
+            border-color: #22c55e;
+        }
+
+        .btn-link.success:hover {
+            background: #4ade80;
+            box-shadow: 0 8px 30px rgba(34, 197, 94, 0.25);
+        }
+
+        .btn-link.outline {
+            background: transparent;
+            border-color: #334155;
+            color: #94a3b8;
+        }
+
+        .btn-link.outline:hover {
+            border-color: #38bdf8;
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.05);
+        }
+
+        .update-info {
+            font-size: 13px;
+            color: #64748b;
+            text-align: right;
+            padding-top: 8px;
+            border-top: 1px solid #1e293b;
+            margin-top: 12px;
+        }
+
+        /* ============================================================
+                   FOOTER
+                   ============================================================ */
+        .footer-note {
+            text-align: center;
+            padding: 28px 0 8px;
+            color: #475569;
+            font-size: 14px;
+            border-top: 1px solid #1e293b;
+            margin-top: 36px;
+        }
+
+        .footer-note .warning {
+            font-size: 13px;
+            color: #475569;
+            margin-top: 4px;
+        }
+
+        /* ============================================================
+                   RESPONSIVE
+                   ============================================================ */
+        @media (max-width: 768px) {
+            body {
+                padding: 16px;
+            }
+
+            .main-header h1 {
+                font-size: 28px;
+            }
+
+            .main-header .header-stats {
+                gap: 16px;
+                font-size: 13px;
+            }
+
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 18px 20px;
+            }
+
+            .card-header .left h2 {
+                font-size: 22px;
+            }
+
+            .card-body {
+                padding: 20px;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .metric-box .value {
+                font-size: 17px;
+            }
+
+            .chart-wrapper {
+                height: 200px;
+            }
+
+            .insight-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .forward-summary {
+                padding: 18px;
+            }
+
+            .links-section {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-link {
+                justify-content: center;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .monthly-table-wrap,
+            .live-table-wrap,
+            .strategy-section,
+            .faq-section {
+                padding: 14px 16px;
+            }
+
+            .monthly-table,
+            .live-table {
+                font-size: 11px;
+                min-width: 500px;
+            }
+
+            .monthly-table th,
+            .monthly-table td,
+            .live-table th,
+            .live-table td {
+                padding: 5px 3px;
+            }
+
+            .trust-badge {
+                gap: 12px;
+                padding: 12px 16px;
+            }
+
+            .trust-badge .item {
+                font-size: 12px;
+            }
+
+            .advanced-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .back-button-wrap .btn-back {
+                font-size: 13px;
+                padding: 6px 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            .main-header h1 {
+                font-size: 22px;
+            }
+
+            .main-header .header-stats {
+                flex-direction: column;
+                align-items: center;
+                gap: 6px;
+                font-size: 12px;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .metric-box .value {
+                font-size: 16px;
+            }
+
+            .metric-box {
+                padding: 10px 14px;
+            }
+
+            .insight-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-header .right {
+                width: 100%;
+            }
+
+            .status-badge {
+                font-size: 11px;
+                padding: 4px 12px;
+            }
+
+            .monthly-table,
+            .live-table {
+                font-size: 10px;
+                min-width: 400px;
+            }
+
+            .monthly-table th,
+            .monthly-table td,
+            .live-table th,
+            .live-table td {
+                padding: 4px 2px;
+            }
+
+            .link-backtest-wrap .btn-link,
+            .link-forward-wrap .btn-link {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .strategy-section .setup-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-badge {
+                flex-direction: column;
+                align-items: center;
+                gap: 6px;
+                padding: 10px 14px;
+            }
+
+            .trust-badge .item {
+                font-size: 12px;
+            }
+
+            .strategy-section {
+                padding: 14px 16px;
+            }
+
+            .strategy-section p {
+                font-size: 14px;
+                text-align: justify;
+            }
+
+            .forward-summary {
+                padding: 16px;
+            }
+
+            .chart-wrapper {
+                height: 180px;
+            }
+
+            .links-section {
+                gap: 10px;
+            }
+
+            .btn-link {
+                font-size: 13px;
+                padding: 10px 20px;
+                max-width: 100%;
+            }
+
+            .live-table-wrap,
+            .monthly-table-wrap,
+            .faq-section {
+                padding: 12px 14px;
+            }
+
+            .faq-section .faq-item .q {
+                font-size: 13px;
+            }
+
+            .faq-section .faq-item .a {
+                font-size: 13px;
+            }
+
+            .risk-disclaimer {
+                padding: 14px 16px;
+            }
+
+            .risk-disclaimer p {
+                font-size: 13px;
+            }
+
+            .update-info {
+                font-size: 12px;
+            }
+
+            .footer-note {
+                font-size: 13px;
+            }
+
+            .smart-insight {
+                font-size: 13px;
+                padding: 12px 14px;
+            }
+
+            .back-button-wrap .btn-back {
+                font-size: 12px;
+                padding: 5px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ============================================================
+        TOMBOL BACK
+        ============================================================ -->
+        <div class="back-button-wrap">
+            <a href="https://nanjingtouzi.github.io/LIFECODE/Portfolio.html" class="btn-back">
+                ← Kembali ke Portfolio
+            </a>
+        </div>
+
+        <!-- ============================================================
+        HEADER
+        ============================================================ -->
+        <header class="main-header">
+            <div class="badge-top">⚡ Live Portfolio</div>
+            <h1>CAPE <span>1</span></h1>
+            <p>Expert Advisor — XAUUSDc (Gold) • 1:500 Leverage</p>
+
+            <div class="header-stats">
+                <span class="hs-item">
+                    <span class="live-dot"></span> <strong>Live Forward Test</strong>
+                </span>
+                <span class="hs-item">📅 Backtest: <strong>Jan 2025 - Jul 2026</strong></span>
+                <span class="hs-item">🏦 Broker: <strong>Exness MT5</strong></span>
+                <span class="hs-item">🤖 <strong>100% Autotrading</strong></span>
+            </div>
+        </header>
+
+        <!-- ============================================================
+        TRUST BADGE
+        ============================================================ -->
+        <div class="trust-badge">
+            <span class="item"><span class="check">✅</span> <strong>Demo Account</strong> Verified</span>
+            <span class="item"><span class="check">✅</span> <strong>100%</strong> Autotrading</span>
+            <span class="item"><span class="check">✅</span> <strong>ShowMyTrades</strong> Verified</span>
+            <span class="item"><span class="check">✅</span> <strong>19 Months</strong> Backtest</span>
+            <span class="item"><span class="check">✅</span> <strong>98%</strong> History Quality</span>
+        </div>
+
+        <!-- ============================================================
+        PORTFOLIO CARD
+        ============================================================ -->
+        <div class="portfolio-card">
+
+            <!-- CARD HEADER -->
+            <div class="card-header">
+                <div class="left">
+                    <h2>🔹 <span>CAPE 1</span> — XAUUSDc</h2>
+                    <div class="sub">Expert Advisor • Risk 1% per trade</div>
+                </div>
+                <div class="right">
+                    <span class="status-badge live">● Live Forward Test</span>
+                    <span class="status-badge backtest">● Backtest Selesai</span>
+                </div>
+            </div>
+
+            <!-- CARD BODY -->
+            <div class="card-body">
+
+                <!-- ============================================================
+                SECTION 1: BACKTEST
+                ============================================================ -->
+
+                <!-- ---- RINGKASAN BACKTEST ---- -->
+                <div class="section-label">📊 Ringkasan Backtest — MetaTrader 5</div>
+
+                <div class="metrics-grid">
+                    <div class="metric-box">
+                        <div class="label">Total Net Profit</div>
+                        <div class="value green">+$4,493.99</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Total Return</div>
+                        <div class="value gold">+44.94%</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Profit Factor</div>
+                        <div class="value blue">8.38</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Win Rate</div>
+                        <div class="value gold">98.03%</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Max Drawdown (Equity)</div>
+                        <div class="value pink">2.18%</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Sharpe Ratio</div>
+                        <div class="value purple">17.79</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Total Trades</div>
+                        <div class="value cyan">304</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Recovery Factor</div>
+                        <div class="value orange">14.02</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Expected Payoff</div>
+                        <div class="value green">+$14.78</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Initial Deposit</div>
+                        <div class="value blue">$10,000</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Final Balance</div>
+                        <div class="value green">$14,493.99</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Periode</div>
+                        <div class="value cyan">19 Bulan</div>
+                    </div>
+                </div>
+
+                <!-- ---- GRAFIK EQUITY CURVE ---- -->
+                <div class="chart-section">
+                    <div class="chart-title">
+                        <h3>📈 Equity Curve — Backtest Real</h3>
+                        <span style="font-size:12px; color:#64748b;">304 trades • 98% quality</span>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="chartCAPE1"></canvas>
+                    </div>
+                </div>
+
+                <!-- ---- TABEL PROFIT BULANAN (BACKTEST) ---- -->
+                <div class="monthly-table-wrap">
+                    <div class="table-title">
+                        📋 Profit Bulanan — Backtest (Compounding)
+                        <small>— (Profit Bulan Ini ÷ Modal Awal Bulan) × 100%</small>
+                    </div>
+
+                    <div style="overflow-x:auto;">
+                        <table class="monthly-table">
+                            <thead>
+                                <tr>
+                                    <th>Year</th>
+                                    <th>Jan</th>
+                                    <th>Feb</th>
+                                    <th>Mar</th>
+                                    <th>Apr</th>
+                                    <th>May</th>
+                                    <th>Jun</th>
+                                    <th>Jul</th>
+                                    <th>Aug</th>
+                                    <th>Sep</th>
+                                    <th>Oct</th>
+                                    <th>Nov</th>
+                                    <th>Dec</th>
+                                    <th>Year</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 2025 -->
+                                <tr>
+                                    <td><strong>2025</strong></td>
+                                    <td class="positive">+0.14%</td>
+                                    <td class="positive">+0.13%</td>
+                                    <td class="positive">+0.13%</td>
+                                    <td class="positive">+0.14%</td>
+                                    <td class="positive">+0.14%</td>
+                                    <td class="positive">+0.14%</td>
+                                    <td class="positive">+0.13%</td>
+                                    <td class="positive">+0.14%</td>
+                                    <td class="positive">+0.14%</td>
+                                    <td class="positive">+0.13%</td>
+                                    <td class="positive">+0.14%</td>
+                                    <td class="positive">+0.14%</td>
+                                    <td class="year-total"><strong>+1.70%</strong></td>
+                                </tr>
+
+                                <!-- 2026 -->
+                                <tr>
+                                    <td><strong>2026</strong></td>
+                                    <td class="positive">+0.17%</td>
+                                    <td class="positive">+0.14%</td>
+                                    <td class="positive">+0.15%</td>
+                                    <td class="positive">+0.15%</td>
+                                    <td class="positive">+0.14%</td>
+                                    <td class="negative">-0.74%</td>
+                                    <td class="positive">+0.15%</td>
+                                    <td class="empty">—</td>
+                                    <td class="empty">—</td>
+                                    <td class="empty">—</td>
+                                    <td class="empty">—</td>
+                                    <td class="empty">—</td>
+                                    <td class="year-total"><strong>+42.53%</strong></td>
+                                </tr>
+
+                                <!-- TOTAL -->
+                                <tr class="total-row">
+                                    <td><strong>TOTAL</strong></td>
+                                    <td colspan="12" style="text-align:center; color:#94a3b8;">
+                                        Total Return: <strong style="color:#fbbf24;">+44.94%</strong>
+                                    </td>
+                                    <td class="year-total"><strong>+44.94%</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="display:flex; gap:20px; flex-wrap:wrap; margin-top:14px; padding-top:14px; border-top:1px solid #1e293b; font-size:13px; color:#94a3b8;">
+                        <span style="display:flex; align-items:center; gap:6px;">
+                            <span style="width:10px; height:10px; border-radius:3px; background:#4ade80;"></span>
+                            Profit: <strong style="color:#4ade80;">18 bulan</strong>
+                        </span>
+                        <span style="display:flex; align-items:center; gap:6px;">
+                            <span style="width:10px; height:10px; border-radius:3px; background:#f87171;"></span>
+                            Loss: <strong style="color:#f87171;">1 bulan</strong>
+                        </span>
+                        <span style="display:flex; align-items:center; gap:6px;">
+                            <span style="width:10px; height:10px; border-radius:3px; background:#475569;"></span>
+                            No Activity: <strong style="color:#64748b;">0 bulan</strong>
+                        </span>
+                        <span>📊 Konsistensi: <strong style="color:#fbbf24;">94.7%</strong></span>
+                        <span>📈 Rata-rata: <strong style="color:#38bdf8;">+2.37%</strong> / bulan</span>
+                    </div>
+
+                    <div style="margin-top:10px; font-size:12px; color:#64748b; text-align:right;">
+                        * Compounding: (Profit bulan ini ÷ Modal awal bulan) × 100%
+                    </div>
+                </div>
+
+                <!-- ---- LINK KE DETAIL BACKTEST ---- -->
+                <div class="link-backtest-wrap">
+                    <a href="https://nanjingtouzi.github.io/WAIVER1/" target="_blank" class="btn-link primary" style="display:inline-flex;">
+                        📊 Lihat Detail Backtest
+                    </a>
+                    <span style="display:block; font-size:12px; color:#64748b; margin-top:6px;">
+                        ℹ️ Halaman Strategy Tester Report dari MetaTrader 5
+                    </span>
+                </div>
+
+                <!-- ============================================================
+                SECTION 2: STRATEGI TRADING
+                ============================================================ -->
+                <div class="strategy-section">
+                    <h3>🧠 Strategi Trading — CAPE 1</h3>
+
+                    <p>
+                        <strong>CAPE 1</strong> adalah Expert Advisor berbasis <strong>scalping dengan akurasi tinggi</strong>
+                        yang dirancang khusus untuk <strong>XAUUSD (Gold)</strong>. Strategi ini menggunakan
+                        <strong>momentum jangka pendek</strong> dengan konfirmasi <strong>multiple time frame analysis</strong>
+                        untuk entry dan exit yang presisi.
+                    </p>
+
+                    <p style="color: #f1f5f9; font-weight: 500; margin-top: 10px; margin-bottom: 4px;">
+                        🔍 Mekanisme Trading:
+                    </p>
+
+                    <p style="margin-bottom: 4px;">
+                        ✅ Identifikasi <strong>momentum kuat</strong> pada timeframe H1 + konfirmasi M15
+                    </p>
+                    <p style="margin-bottom: 4px;">
+                        ✅ <strong>Entry</strong> berdasarkan <strong>breakout volume</strong> tinggi di level kunci
+                    </p>
+                    <p style="margin-bottom: 4px;">
+                        ✅ <strong>Exit</strong> menggunakan <strong>trailing stop</strong> dinamis untuk optimasi profit
+                    </p>
+                    <p style="margin-bottom: 4px;">
+                        ✅ Risk per trade konsisten <strong style="color:#fbbf24;">1%</strong> dari equity
+                    </p>
+                    <p style="margin-bottom: 14px;">
+                        ✅ Hanya trading pada sesi <strong>London</strong> dan <strong>New York</strong>
+                    </p>
+
+                    <div class="setup-grid">
+                        <div class="setup-item">
+                            <div class="label">Minimal Deposit</div>
+                            <div class="value">$10,000 <span class="note">(optimal $20,000+)</span></div>
+                        </div>
+                        <div class="setup-item">
+                            <div class="label">Leverage</div>
+                            <div class="value">1:500</div>
+                        </div>
+                        <div class="setup-item">
+                            <div class="label">VPS</div>
+                            <div class="value">✅ Sangat disarankan</div>
+                        </div>
+                        <div class="setup-item">
+                            <div class="label">Broker</div>
+                            <div class="value">ECN/STP <span class="note">spread rendah</span></div>
+                        </div>
+                        <div class="setup-item">
+                            <div class="label">Pair</div>
+                            <div class="value">XAUUSD (Gold) <span class="note">khusus</span></div>
+                        </div>
+                        <div class="setup-item">
+                            <div class="label">Timeframe</div>
+                            <div class="value">H1 <span class="note">sesuai backtest</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================================
+                SECTION 3: STATISTIK LANJUTAN
+                ============================================================ -->
+                <div class="section-label">📈 Statistik Lanjutan</div>
+
+                <div class="advanced-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">📊 Correlation (Profits, MFE)</div>
+                        <div class="stat-value">0.60</div>
+                        <div class="stat-desc">Hubungan profit dengan MFE cukup kuat</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">📈 LR Correlation</div>
+                        <div class="stat-value">0.99</div>
+                        <div class="stat-desc">Trend equity sangat konsisten dan linear</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">⚡ Z-Score (Probability)</div>
+                        <div class="stat-value">1.14 (74.57%)</div>
+                        <div class="stat-desc">Sistem memiliki edge statistik yang positif</div>
+                    </div>
+                </div>
+
+                <!-- ============================================================
+                SECTION 4: LIVE FORWARD TEST
+                ============================================================ -->
+                <div class="live-section">
+                    <div class="live-section-title">
+                        <span class="live-dot-lg"></span>
+                        Live Forward Test — Demo Account
+                    </div>
+
+                    <!-- ---- FORWARD TEST SUMMARY ---- -->
+                    <div class="forward-summary">
+                        <div class="fs-header">
+                            <span class="live-dot"></span>
+                            <h3>Ringkasan Performa Live</h3>
+                            <span class="verif">✅ Demo Account Terverifikasi</span>
+                        </div>
+
+                        <div class="insight-grid">
+                            <div class="insight-item">
+                                <span class="icon">📈</span>
+                                <span class="text"><strong>Gain (TWR):</strong> <span class="highlight-green">+1.39%</span></span>
+                            </div>
+                            <div class="insight-item">
+                                <span class="icon">💰</span>
+                                <span class="text"><strong>Profit:</strong> <span class="highlight-green">+$139.20</span></span>
+                            </div>
+                            <div class="insight-item">
+                                <span class="icon">🛡️</span>
+                                <span class="text"><strong>Max Drawdown:</strong> <span class="highlight-pink">1.08%</span></span>
+                            </div>
+                            <div class="insight-item">
+                                <span class="icon">🎯</span>
+                                <span class="text"><strong>Win Rate:</strong> <span class="highlight-gold">81.8%</span></span>
+                            </div>
+                            <div class="insight-item">
+                                <span class="icon">⚡</span>
+                                <span class="text"><strong>Profit Factor:</strong> <span class="highlight-blue">1.64</span></span>
+                            </div>
+                            <div class="insight-item">
+                                <span class="icon">📅</span>
+                                <span class="text"><strong>Avg Monthly:</strong> <span class="highlight-gold">1.39%</span></span>
+                            </div>
+                            <div class="insight-item">
+                                <span class="icon">🏦</span>
+                                <span class="text"><strong>Balance:</strong> <span class="highlight-green">$10,139.20</span></span>
+                            </div>
+                            <div class="insight-item">
+                                <span class="icon">🤖</span>
+                                <span class="text"><strong>Autotrading:</strong> <span class="highlight-blue">100%</span></span>
+                            </div>
+                        </div>
+
+                        <div class="smart-insight">
+                            <strong>💡 Smart Insights:</strong> Outstanding win rate (81.8%) • Strong positive expectancy ($12.66/trade) • Very low drawdown (1.08%) • Both long (100%) and short (71%) profitable
+                        </div>
+                    </div>
+
+                    <!-- ---- TABEL PROFIT BULANAN (LIVE FORWARD TEST) ---- -->
+                    <div class="live-table-wrap">
+                        <div class="table-title">
+                            <span class="live-dot-sm"></span>
+                            Profit Bulanan — Live Forward Test
+                            <small>— Data dari ShowMyTrades (Demo Account)</small>
+                        </div>
+
+                        <div style="overflow-x:auto;">
+                            <table class="live-table">
+                                <thead>
+                                    <tr>
+                                        <th>Year</th>
+                                        <th>Jan</th>
+                                        <th>Feb</th>
+                                        <th>Mar</th>
+                                        <th>Apr</th>
+                                        <th>May</th>
+                                        <th>Jun</th>
+                                        <th>Jul</th>
+                                        <th>Aug</th>
+                                        <th>Sep</th>
+                                        <th>Oct</th>
+                                        <th>Nov</th>
+                                        <th>Dec</th>
+                                        <th>Year</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- 2026 (Live) -->
+                                    <tr>
+                                        <td><strong>2026</strong></td>
+                                        <td class="empty">—</td>
+                                        <td class="empty">—</td>
+                                        <td class="empty">—</td>
+                                        <td class="empty">—</td>
+                                        <td class="empty">—</td>
+                                        <td class="positive">+0.00%</td>
+                                        <td class="positive">+1.39%</td>
+                                        <td class="empty">—</td>
+                                        <td class="empty">—</td>
+                                        <td class="empty">—</td>
+                                        <td class="empty">—</td>
+                                        <td class="empty">—</td>
+                                        <td class="year-total"><strong>+1.39%</strong></td>
+                                    </tr>
+
+                                    <!-- TOTAL -->
+                                    <tr class="total-row">
+                                        <td><strong>TOTAL</strong></td>
+                                        <td colspan="12" style="text-align:center; color:#94a3b8;">
+                                            Total Gain: <strong style="color:#fbbf24;">+1.39%</strong>
+                                        </td>
+                                        <td class="year-total"><strong>+1.39%</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div style="display:flex; gap:20px; flex-wrap:wrap; margin-top:14px; padding-top:14px; border-top:1px solid #1e293b; font-size:13px; color:#94a3b8;">
+                            <span style="display:flex; align-items:center; gap:6px;">
+                                <span style="width:10px; height:10px; border-radius:3px; background:#4ade80;"></span>
+                                Profit: <strong style="color:#4ade80;">1 bulan</strong>
+                            </span>
+                            <span style="display:flex; align-items:center; gap:6px;">
+                                <span style="width:10px; height:10px; border-radius:3px; background:#475569;"></span>
+                                No Activity: <strong style="color:#64748b;">11 bulan</strong>
+                            </span>
+                            <span>📊 Rata-rata return: <strong style="color:#38bdf8;">+0.70%</strong> / bulan aktif</span>
+                            <span>📅 Data terakhir: <strong style="color:#f1f5f9;">Juli 2026</strong></span>
+                            <span>📊 Total Trades: <strong style="color:#f1f5f9;">11</strong></span>
+                        </div>
+
+                        <div style="margin-top:10px; font-size:12px; color:#64748b; text-align:right;">
+                            * Data diambil dari <a href="https://showmytrades.com/account/nanjing-cape-risk-1" target="_blank" style="color:#38bdf8;">ShowMyTrades</a>
+                        </div>
+                    </div>
+
+                    <!-- ---- LINK KE SHOWMYTRADES ---- -->
+                    <div class="link-forward-wrap">
+                        <a href="https://showmytrades.com/account/nanjing-cape-risk-1" target="_blank" class="btn-link" style="display:inline-flex;">
+                            📈 Lihat Data Terbaru di ShowMyTrades
+                        </a>
+                        <span style="display:block; font-size:12px; color:#64748b; margin-top:6px;">
+                            🔄 Data diperbarui secara real-time oleh ShowMyTrades
+                        </span>
+                    </div>
+                </div>
+
+                <!-- ============================================================
+                SECTION 5: FAQ
+                ============================================================ -->
+                <div class="faq-section">
+                    <h3>❓ Pertanyaan Umum (FAQ)</h3>
+
+                    <div class="faq-item">
+                        <div class="q">💰 Berapa modal minimal untuk menggunakan EA ini?</div>
+                        <div class="a">Minimal $10,000, namun untuk hasil optimal disarankan $20,000+ agar risiko per trade tetap terkendali.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="q">🖥️ Apakah perlu VPS untuk menjalankan EA?</div>
+                        <div class="a">Sangat disarankan menggunakan VPS untuk menjalankan EA 24/7 tanpa gangguan koneksi internet.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="q">📊 Apakah EA ini bisa digunakan untuk pair lain selain XAUUSD?</div>
+                        <div class="a">Tidak, EA ini dirancang khusus untuk XAUUSD (Gold) berdasarkan optimasi dan backtest yang spesifik.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="q">💲 Apakah ada biaya atau fee tambahan?</div>
+                        <div class="a">Tidak ada biaya tersembunyi. Anda hanya perlu membayar spread dan swap seperti trading biasa.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="q">📈 Seberapa besar drawdown yang pernah terjadi?</div>
+                        <div class="a">Dalam backtest 19 bulan, max equity drawdown hanya 2.18%. Pada akun live, max drawdown 1.08%.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="q">⚠️ Mengapa modal minimal lebih besar dari EA lainnya?</div>
+                        <div class="a">Karena CAPE 1 menggunakan initial deposit $10,000 dengan risk 1% per trade. Ini dirancang untuk trading dengan risiko rendah dan konservatif.</div>
+                    </div>
+                </div>
+
+                <!-- ============================================================
+                SECTION 6: RISK DISCLAIMER
+                ============================================================ -->
+                <div class="risk-disclaimer">
+                    <h4>⚠️ Peringatan Risiko</h4>
+                    <p>
+                        Trading forex mengandung <strong>risiko tinggi</strong> dan tidak cocok untuk semua investor.
+                        Kinerja masa lalu <strong>tidak menjamin</strong> hasil di masa depan.
+                        Pastikan Anda memahami risiko sebelum menggunakan EA ini.
+                        Selalu gunakan <strong>manajemen risiko</strong> yang tepat dan jangan trading dengan uang yang tidak mampu Anda rugikan.
+                    </p>
+                </div>
+
+                <!-- ============================================================
+                LINK SECTION BAWAH (OPSIONAL)
+                ============================================================ -->
+                <div class="links-section">
+                    <a href="https://nanjingtouzi.github.io/WAIVER1/" target="_blank" class="btn-link primary">
+                        📊 Detail Backtest
+                    </a>
+                    <a href="https://showmytrades.com/account/nanjing-cape-risk-1" target="_blank" class="btn-link success">
+                        📈 Forward Test Live
+                    </a>
+                    <a href="#" class="btn-link outline" onclick="window.print(); return false;">
+                        🖨️ Cetak / PDF
+                    </a>
+                </div>
+
+                <div class="update-info">
+                    📅 Data forward test terakhir diperbarui: <span id="updateTime">memuat...</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ============================================================
+        FOOTER
+        ============================================================ -->
+        <div class="footer-note">
+            <p>© 2026 CAPE 1 — Portfolio Trading Forex</p>
+            <p class="warning">⚠️ Kinerja masa lalu tidak menjamin hasil di masa depan. Selalu lakukan riset sendiri.</p>
+        </div>
+
+    </div>
+
+    <!-- ============================================================
+    SCRIPT
+    ============================================================ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // ---- TANGGAL UPDATE ----
+            document.getElementById('updateTime').textContent = new Date().toLocaleString('id-ID', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            // ---- DATA EQUITY CURVE (CAPE 1) - 19 BULAN ----
+            // Berdasarkan data dari index.html (CAPE1)
+            const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des',
+                'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul'
+            ];
+
+            const equityData = [
+                10000.00, 10014.10, 10027.00, 10041.10, 10054.09, 10066.97, 10080.97, 10095.07,
+                10109.07, 10123.07, 10137.07, 10147.72, 10157.25, 10171.35, 10185.35, 10199.35,
+                10213.35, 10227.45, 10241.45, 10255.45, 10269.55, 10282.53, 10296.53, 10310.53,
+                10324.53, 10338.53, 10351.54, 10365.54, 10379.54, 10393.54, 10407.64, 10420.62,
+                10434.72, 10447.63, 10461.63, 10475.63, 10489.73, 10503.73, 10514.54, 10525.26,
+                10538.14, 10552.24, 10566.24, 10580.24, 10604.64, 10618.64, 10632.74, 10646.74,
+                10660.74, 10674.74, 10603.24, 10617.24, 10631.34, 10647.94, 10661.94, 10676.04,
+                10690.14, 10704.14, 10718.14, 10732.24, 10746.24, 10760.24, 10774.24, 10788.24,
+                10802.24, 10816.24, 10830.24, 10844.34, 10858.34, 10872.44, 10886.44, 10899.35,
+                10913.35, 10927.45, 10941.45, 10955.55, 10969.65, 10983.65, 10997.65, 11011.65,
+                11025.65, 11039.65, 11053.65, 11067.75, 11081.85, 11095.95, 11110.05, 11131.25,
+                11144.23, 11158.23, 11172.23, 11186.23, 11200.23, 11213.11, 11225.99, 11239.99,
+                11253.99, 11267.99, 11281.99, 11295.99, 11310.09, 11324.09, 11338.09, 11352.19,
+                11366.29, 11376.94, 11390.94, 11401.69, 11415.69, 11428.57, 11442.67, 11455.56,
+                11469.56, 11483.56, 11497.56, 11510.44, 11523.32, 11537.42, 11551.52, 11565.52,
+                11579.52, 11593.52, 11606.41, 11620.41, 11634.41, 11648.51, 11662.51, 11676.61,
+                11690.61, 11704.61, 11718.71, 11732.71, 11746.71, 11760.81, 11774.91, 11788.91,
+                11802.91, 11816.91, 11830.91, 11844.91, 11858.91, 11872.91, 11886.91, 11901.01,
+                11915.01, 11929.11, 11943.11, 11957.11, 11971.11, 11985.21, 11999.21, 12013.21,
+                12027.21, 12041.31, 12055.31, 12069.31, 12083.31, 12097.41, 12111.41, 12125.51,
+                12139.51, 12153.51, 12167.51, 12181.61, 12195.61, 12209.71, 12223.71, 12237.71,
+                12251.71, 12265.71, 12279.81, 12289.44, 12303.54, 12317.54, 12331.64, 12345.64,
+                12359.64, 12373.74, 12386.64, 12400.64, 12414.64, 12428.64, 12442.74, 12456.74,
+                12470.74, 12483.63, 12497.63, 12511.63, 12530.95, 12552.05, 12573.05, 12465.95,
+                12479.95, 12494.05, 12508.05, 12529.05, 12550.15, 12571.15, 12592.25, 12613.25,
+                12634.35, 12655.45, 12676.45, 12697.55, 12718.55, 12739.65, 12760.75, 12781.75,
+                12802.85, 12823.85, 12845.05, 12866.05, 12887.15, 12908.15, 12929.25, 12950.35,
+                12971.35, 12992.45, 13197.55, 13218.55, 13239.55, 13260.65, 13281.65, 13302.75,
+                13323.75, 13344.75, 13365.75, 13386.85, 13407.85, 13429.05, 13450.15, 13471.15,
+                13492.25, 13513.35, 13534.45, 13555.45, 13576.55, 13597.55, 13618.75, 13639.75,
+                13660.85, 13681.85, 13702.95, 13724.05, 13745.15, 13766.25, 13787.35, 13808.45,
+                13829.55, 13850.55, 13871.55, 13892.85, 13913.95, 13934.95, 13955.95, 13976.95,
+                13997.95, 14019.05, 14040.05, 14061.15, 14082.15, 14103.25, 14124.45, 14145.45,
+                14166.55, 14187.55, 14208.65, 14230.25, 14251.45, 14272.55, 14293.75, 14314.95,
+                14335.95, 14357.05, 14378.15, 14399.25, 14420.45, 14441.45, 14462.55, 14483.65,
+                14504.75, 14525.85, 14546.95, 14568.05, 14589.15, 14610.15, 14631.25, 14652.35,
+                14673.35, 14694.35, 14585.47, 14606.57, 14499.37, 14520.47, 14413.27, 14434.27,
+                14453.59, 14474.59, 14495.69, 14516.79, 14537.89, 14558.89, 14451.69, 14472.99,
+                14493.99
+            ];
+
+            // ---- BUAT GRAFIK ----
+            const ctx = document.getElementById('chartCAPE1').getContext('2d');
+            const gradient = ctx.createLinearGradient(0, 0, 0, 260);
+            gradient.addColorStop(0, 'rgba(74, 222, 128, 0.25)');
+            gradient.addColorStop(0.5, 'rgba(74, 222, 128, 0.08)');
+            gradient.addColorStop(1, 'rgba(74, 222, 128, 0)');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Equity (USD)',
+                        data: equityData,
+                        borderColor: '#4ade80',
+                        backgroundColor: gradient,
+                        fill: true,
+                        tension: 0.15,
+                        pointBackgroundColor: '#4ade80',
+                        pointBorderColor: '#0b1120',
+                        pointBorderWidth: 1.5,
+                        pointRadius: 1.5,
+                        pointHoverRadius: 6,
+                        pointHoverBackgroundColor: '#f1f5f9',
+                        borderWidth: 2.5,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#94a3b8', font: { size: 12 }, boxWidth: 12, boxHeight: 12,
+                                usePointStyle: true, pointStyle: 'circle' }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.92)',
+                            titleColor: '#f1f5f9',
+                            bodyColor: '#e2e8f0',
+                            borderColor: '#2a3a52',
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 10,
+                            callbacks: {
+                                label: function(context) {
+                                    return '💰 $' + context.parsed.y.toFixed(2);
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#1e293b', drawBorder: false },
+                            ticks: { color: '#64748b', maxTicksLimit: 19, font: { size: 9 } }
+                        },
+                        y: {
+                            grid: { color: '#1e293b', drawBorder: false },
+                            ticks: {
+                                color: '#64748b',
+                                font: { size: 11 },
+                                callback: function(value) {
+                                    if (value >= 1000) {
+                                        return '$' + (value / 1000).toFixed(0) + 'K';
+                                    }
+                                    return '$' + value.toFixed(0);
+                                }
+                            },
+                            beginAtZero: false,
+                            min: 9000
+                        }
+                    },
+                    interaction: { intersect: false, mode: 'index' }
+                }
+            });
+
+        });
+    </script>
+
+</body>
+</html>
