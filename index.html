@@ -2,16 +2,8 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="theme-color" content="#0a1a2b" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    
-    <link rel="manifest" href="manifest.json" />
-    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔮</text></svg>" />
-    
-    <title>Nanjing Investment - Menu</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nanjing Investment</title>
     <style>
         * {
             margin: 0;
@@ -26,342 +18,455 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
         }
 
-        .menu-container {
-            max-width: 900px;
+        .splash-container {
+            max-width: 800px;
             width: 100%;
-            animation: fadeInUp 0.6s ease;
+            text-align: center;
         }
 
-        @keyframes fadeInUp {
-            0% {
+        .splash-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+            margin-bottom: 30px;
+        }
+
+        .btn-lanjut {
+            background: linear-gradient(135deg, #f5c842, #dba62b);
+            border: none;
+            border-radius: 50px;
+            padding: 16px 60px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #0a1a2b;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 0 #a07a1e, 0 10px 30px rgba(245, 200, 66, 0.3);
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-lanjut:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 0 #a07a1e, 0 15px 40px rgba(245, 200, 66, 0.4);
+        }
+
+        .btn-lanjut:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #a07a1e;
+        }
+
+        .btn-lanjut:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .timer-info {
+            color: #7e9bb5;
+            font-size: 13px;
+            margin-top: 16px;
+            opacity: 0.7;
+        }
+
+        .timer-info span {
+            color: #f5c842;
+            font-weight: 600;
+        }
+
+        /* ===== INSTALL BANNER ===== */
+        .install-banner {
+            background: linear-gradient(135deg, #1a2f44, #0d1f30);
+            border: 1px solid #f5c842;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-top: 20px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            box-shadow: 0 8px 30px rgba(245, 200, 66, 0.1);
+            animation: slideUp 0.5s ease;
+        }
+
+        .install-banner.show {
+            display: flex;
+        }
+
+        @keyframes slideUp {
+            from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
-            100% {
+            to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        /* ===== HEADER ===== */
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
+        .install-banner .icon-text {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #e8edf3;
         }
 
-        .header .logo {
-            font-size: 48px;
-            margin-bottom: 8px;
-        }
-
-        .header h1 {
-            color: #f5c842;
+        .install-banner .icon-text .icon {
             font-size: 28px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        .header p {
-            color: #7e9bb5;
-            font-size: 15px;
-            margin-top: 6px;
-            opacity: 0.8;
-        }
-
-        /* ===== GRID CARD ===== */
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        @media (max-width: 768px) {
-            .menu-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (max-width: 500px) {
-            .menu-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .menu-card {
-            background: linear-gradient(145deg, #122d44, #0d1f30);
-            border-radius: 16px;
-            padding: 30px 24px 24px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            text-decoration: none;
-            display: block;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .menu-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .menu-card:active {
-            transform: translateY(-2px);
-        }
-
-        .menu-card .icon {
-            font-size: 48px;
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .menu-card .title {
-            font-size: 20px;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 6px;
-        }
-
-        .menu-card .desc {
-            font-size: 13px;
-            color: #7e9bb5;
-            line-height: 1.5;
-            margin-bottom: 14px;
-        }
-
-        .menu-card .btn-masuk {
-            display: inline-block;
-            padding: 8px 24px;
-            border-radius: 25px;
-            font-size: 13px;
-            font-weight: 600;
-            background: transparent;
-            border: 2px solid;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        /* ===== CARD 1: LifeCode (Hijau) ===== */
-        .menu-card.lifecode {
-            border-color: rgba(79, 138, 114, 0.3);
-        }
-        .menu-card.lifecode:hover {
-            border-color: #4f8a72;
-        }
-        .menu-card.lifecode .btn-masuk {
-            border-color: #4f8a72;
-            color: #4f8a72;
-        }
-        .menu-card.lifecode .btn-masuk:hover {
-            background: #4f8a72;
-            color: #ffffff;
-        }
-
-        /* ===== CARD 2: Financial (Emas) ===== */
-        .menu-card.financial {
-            border-color: rgba(201, 162, 74, 0.3);
-        }
-        .menu-card.financial:hover {
-            border-color: #c9a24a;
-        }
-        .menu-card.financial .btn-masuk {
-            border-color: #c9a24a;
-            color: #c9a24a;
-        }
-        .menu-card.financial .btn-masuk:hover {
-            background: #c9a24a;
+            background: #f5c842;
             color: #0a1a2b;
-        }
-
-        /* ===== CARD 3: Portfolio Builder (Biru) - SEKARANG AKTIF ===== */
-        .menu-card.portfolio {
-            border-color: rgba(79, 130, 200, 0.3);
-        }
-        .menu-card.portfolio:hover {
-            border-color: #4f8ac9;
-            transform: translateY(-6px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-        }
-        .menu-card.portfolio .btn-masuk {
-            border-color: #4f8ac9;
-            color: #4f8ac9;
-        }
-        .menu-card.portfolio .btn-masuk:hover {
-            background: #4f8ac9;
-            color: #ffffff;
-        }
-
-        /* ===== FOOTER ===== */
-        .footer {
-            text-align: center;
-            color: #3a5a75;
-            font-size: 12px;
-            margin-top: 20px;
-            opacity: 0.6;
-        }
-
-        /* ===== INSTALL BUTTON ===== */
-        .btn-install {
-            display: none;
-            background: linear-gradient(135deg, #4f8a72, #3d705a);
-            border: none;
-            border-radius: 50px;
-            padding: 12px 30px;
-            font-size: 14px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
             font-weight: 700;
-            color: #ffffff;
+        }
+
+        .install-banner .icon-text .text {
+            text-align: left;
+        }
+
+        .install-banner .icon-text .text strong {
+            color: #f5c842;
+            display: block;
+            font-size: 15px;
+        }
+
+        .install-banner .icon-text .text small {
+            font-size: 12px;
+            color: #7e9bb5;
+        }
+
+        .btn-install {
+            background: #f5c842;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 28px;
+            font-weight: 700;
+            font-size: 14px;
+            color: #0a1a2b;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 0 #2a4d3e, 0 8px 25px rgba(79, 138, 114, 0.3);
-            letter-spacing: 0.5px;
-            margin: 0 auto 20px;
-        }
-
-        .btn-install.show {
-            display: inline-block;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(245, 200, 66, 0.3);
+            flex-shrink: 0;
         }
 
         .btn-install:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 0 #2a4d3e, 0 12px 35px rgba(79, 138, 114, 0.4);
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(245, 200, 66, 0.5);
         }
 
         .btn-install:active {
-            transform: translateY(3px);
-            box-shadow: 0 2px 0 #2a4d3e;
+            transform: scale(0.95);
         }
 
-        .install-wrapper {
-            text-align: center;
+        /* Countdown timer di tombol */
+        .countdown-badge {
+            display: inline-block;
+            background: rgba(10, 26, 43, 0.2);
+            border-radius: 30px;
+            padding: 2px 12px;
+            margin-left: 8px;
+            font-size: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .btn-lanjut {
+                padding: 14px 40px;
+                font-size: 17px;
+                width: 100%;
+            }
+
+            .install-banner {
+                flex-direction: column;
+                text-align: center;
+                padding: 16px;
+            }
+
+            .install-banner .icon-text {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .install-banner .icon-text .text {
+                text-align: center;
+            }
+
+            .btn-install {
+                width: 100%;
+                padding: 12px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="menu-container">
+    <div class="splash-container">
+        <!-- Gambar Iklan -->
+        <img 
+            src="nanjing1.jpeg" 
+            alt="Nanjing Investment" 
+            class="splash-image"
+            id="splashImage"
+        />
 
-        <!-- ===== HEADER ===== -->
-        <div class="header">
-            <div class="logo">🏦</div>
-            <h1>Nanjing Investment</h1>
-            <p>Pilih layanan yang Anda butuhkan di bawah ini</p>
+        <!-- Tombol Lanjutkan dengan Countdown -->
+        <button class="btn-lanjut" id="btnLanjut">
+            Lanjutkan <span class="countdown-badge" id="countdownDisplay">3</span>
+        </button>
+
+        <!-- Timer Info -->
+        <div class="timer-info">
+            ⏱️ Akan muncul kembali jika <span>1 jam</span> tidak mengunjungi aplikasi
         </div>
 
-        <!-- ===== INSTALL BUTTON ===== -->
-        <div class="install-wrapper">
-            <button class="btn-install" id="btnInstall">📱 Install Aplikasi</button>
+        <!-- ===== INSTALL BANNER ===== -->
+        <div class="install-banner" id="installBanner">
+            <div class="icon-text">
+                <div class="icon">📲</div>
+                <div class="text">
+                    <strong>Install Aplikasi Nanjing</strong>
+                    <small>Pasang untuk akses lebih cepat &amp; pengalaman terbaik</small>
+                </div>
+            </div>
+            <button class="btn-install" id="btnInstall">Install Sekarang</button>
         </div>
-
-        <!-- ===== MENU GRID ===== -->
-        <div class="menu-grid">
-
-            <!-- Card 1: LifeCode -->
-            <a href="lifecode.html" class="menu-card lifecode">
-                <span class="icon">🔮</span>
-                <div class="title">LifeCode</div>
-                <div class="desc">Kalkulator Angka Kehidupan<br/>Profil Karakter &amp; Shio</div>
-                <span class="btn-masuk">Masuk →</span>
-            </a>
-
-            <!-- Card 2: Financial -->
-            <a href="ass.html" class="menu-card financial">
-                <span class="icon">📊</span>
-                <div class="title">Financial</div>
-                <div class="desc">Kalkulator Asuransi<br/>Mobil, Properti, Jiwa, Wealth</div>
-                <span class="btn-masuk">Masuk →</span>
-            </a>
-
-            <!-- Card 3: Portfolio Builder (AKTIF - Link ke Portfolio.html) -->
-            <a href="Portfolio.html" class="menu-card portfolio">
-                <span class="icon">💰</span>
-                <div class="title">Portfolio Builder</div>
-                <div class="desc">Perencanaan Investasi<br/>Portfolio Management</div>
-                <span class="btn-masuk">Masuk →</span>
-            </a>
-
-        </div>
-
-        <!-- ===== FOOTER ===== -->
-        <div class="footer">
-            © 2026 Nanjing Investment · All Rights Reserved
-        </div>
-
     </div>
 
     <script>
         // ============================================================
-        // SERVICE WORKER REGISTRASI
+        // 1. KONFIGURASI
         // ============================================================
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/LIFECODE/sw.js')
-                .then(function(registration) {
-                    console.log('✅ Service Worker terdaftar!');
-                })
-                .catch(function(error) {
-                    console.log('❌ Service Worker gagal:', error);
-                });
+        const TARGET_URL = 'https://nanjingtouzi.github.io/LIFECODE/menu.html';
+        const ONE_HOUR = 60 * 60 * 1000;
+        const STORAGE_KEY = 'nanjing_last_visit_lifecode';
+        const INSTALL_KEY = 'nanjing_app_installed';
+
+        // ============================================================
+        // 2. CEK WAKTU KUNJUNGAN (SAMA SEPERTI SEBELUMNYA)
+        // ============================================================
+        function checkLastVisit() {
+            const lastVisit = localStorage.getItem(STORAGE_KEY);
+            const currentTime = Date.now();
+
+            if (lastVisit) {
+                const timeDiff = currentTime - parseInt(lastVisit, 10);
+                if (timeDiff < ONE_HOUR) {
+                    console.log('⏳ Masih dalam 1 jam, langsung ke menu...');
+                    window.location.href = TARGET_URL;
+                    return true;
+                } else {
+                    console.log('⏰ Sudah lebih dari 1 jam, tampilkan splash...');
+                    return false;
+                }
+            } else {
+                console.log('🆕 Pertama kali buka, tampilkan splash...');
+                return false;
+            }
         }
 
         // ============================================================
-        // TOMBOL INSTALL PWA
+        // 3. FUNGSI REDIRECT KE MENU
+        // ============================================================
+        function goToMenu() {
+            const currentTime = Date.now();
+            localStorage.setItem(STORAGE_KEY, currentTime.toString());
+            console.log('💾 Waktu kunjungan disimpan:', new Date(currentTime).toLocaleString());
+            window.location.href = TARGET_URL;
+        }
+
+        // ============================================================
+        // 4. INSTALL APP (PWA / Web App)
         // ============================================================
         let deferredPrompt = null;
-        let isInstallAvailable = false;
-        const btnInstall = document.getElementById('btnInstall');
 
-        window.addEventListener('beforeinstallprompt', function(e) {
-            e.preventDefault();
-            deferredPrompt = e;
-            isInstallAvailable = true;
-            btnInstall.classList.add('show');
-            console.log('✅ Tombol Install muncul!');
-        });
+        // Deteksi apakah sudah terinstall (berdasarkan localStorage + standalone mode)
+        function isAppInstalled() {
+            // Cek localStorage
+            const installed = localStorage.getItem(INSTALL_KEY) === 'true';
+            // Cek standalone mode (PWA sudah di-install)
+            const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+            // Cek iOS standalone
+            const isIOSStandalone = window.navigator.standalone === true;
 
-        btnInstall.addEventListener('click', function() {
+            return installed || isStandalone || isIOSStandalone;
+        }
+
+        // Tampilkan/sembunyikan install banner
+        function updateInstallBanner() {
+            const banner = document.getElementById('installBanner');
+            if (isAppInstalled()) {
+                banner.classList.remove('show');
+                console.log('✅ App sudah terinstall, banner disembunyikan');
+            } else {
+                banner.classList.add('show');
+                console.log('📲 App belum terinstall, banner ditampilkan');
+            }
+        }
+
+        // Handle install prompt
+        function handleInstall() {
             if (deferredPrompt) {
+                // Chrome/Android - tampilkan prompt
                 deferredPrompt.prompt();
-                
-                deferredPrompt.userChoice.then(function(choiceResult) {
+                deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
                         console.log('✅ User menerima install');
-                        btnInstall.classList.remove('show');
-                        isInstallAvailable = false;
+                        localStorage.setItem(INSTALL_KEY, 'true');
+                        updateInstallBanner();
                     } else {
                         console.log('❌ User menolak install');
                     }
                     deferredPrompt = null;
                 });
+            } else {
+                // Fallback: simpan status install
+                localStorage.setItem(INSTALL_KEY, 'true');
+                updateInstallBanner();
+                alert('✅ Aplikasi telah disimpan. Untuk pengalaman terbaik, buka melalui browser dan pilih "Add to Home Screen" atau "Install App".');
+                console.log('📲 Install disimulasikan (fallback)');
             }
-        });
-
-        // ============================================================
-        // CEK APAKAH SUDAH TERINSTALL (PWA)
-        // ============================================================
-        function isAppInstalled() {
-            if (window.matchMedia('(display-mode: standalone)').matches) {
-                return true;
-            }
-            if (window.navigator.standalone === true) {
-                return true;
-            }
-            return false;
         }
 
-        // Jika sudah terinstall, sembunyikan tombol
-        if (isAppInstalled()) {
-            btnInstall.classList.remove('show');
-            console.log('✅ Aplikasi sudah terinstall. Tombol Install disembunyikan.');
+        // ============================================================
+        // 5. EKSEKUSI UTAMA
+        // ============================================================
+        const isRedirected = checkLastVisit();
+
+        if (!isRedirected) {
+            // ===== Ambil elemen =====
+            const btnLanjut = document.getElementById('btnLanjut');
+            const countdownDisplay = document.getElementById('countdownDisplay');
+            const splashImage = document.getElementById('splashImage');
+            const container = document.querySelector('.splash-container');
+            const btnInstall = document.getElementById('btnInstall');
+
+            // ===== INSTALL BANNER =====
+            // Cek event beforeinstallprompt (PWA)
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                console.log('📲 beforeinstallprompt terdeteksi');
+                updateInstallBanner();
+            });
+
+            // App installed event
+            window.addEventListener('appinstalled', () => {
+                localStorage.setItem(INSTALL_KEY, 'true');
+                updateInstallBanner();
+                console.log('✅ App berhasil diinstall!');
+            });
+
+            // Cek status install saat load
+            updateInstallBanner();
+
+            // Tombol Install
+            btnInstall.addEventListener('click', function(e) {
+                e.stopPropagation();
+                handleInstall();
+            });
+
+            // ===== COUNTDOWN 3 DETIK =====
+            let countdown = 3;
+            let countdownInterval = null;
+            let isRedirecting = false;
+
+            function startCountdown() {
+                countdownInterval = setInterval(() => {
+                    countdown -= 1;
+                    countdownDisplay.textContent = countdown;
+
+                    if (countdown <= 0) {
+                        clearInterval(countdownInterval);
+                        countdownDisplay.textContent = '🚀';
+                        btnLanjut.disabled = true;
+                        // Redirect setelah 3 detik
+                        if (!isRedirecting) {
+                            isRedirecting = true;
+                            console.log('⏰ Auto-redirect setelah 3 detik...');
+                            goToMenu();
+                        }
+                    }
+                }, 1000);
+            }
+
+            // Mulai countdown
+            startCountdown();
+
+            // ===== TOMBOL LANJUT =====
+            btnLanjut.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (isRedirecting) return;
+                isRedirecting = true;
+                clearInterval(countdownInterval);
+                console.log('👆 User klik tombol, redirect sekarang...');
+                goToMenu();
+            });
+
+            // ===== KLIK GAMBAR =====
+            splashImage.addEventListener('click', function() {
+                if (isRedirecting) return;
+                isRedirecting = true;
+                clearInterval(countdownInterval);
+                console.log('🖼️ Klik gambar, redirect sekarang...');
+                goToMenu();
+            });
+            splashImage.style.cursor = 'pointer';
+
+            // ===== KLIK CONTAINER (kecuali tombol) =====
+            container.addEventListener('click', function(e) {
+                if (e.target === btnLanjut || e.target.closest('.btn-lanjut')) return;
+                if (e.target === btnInstall || e.target.closest('.btn-install')) return;
+                if (e.target.closest('.install-banner')) return;
+                if (isRedirecting) return;
+                isRedirecting = true;
+                clearInterval(countdownInterval);
+                console.log('📦 Klik container, redirect sekarang...');
+                goToMenu();
+            });
+
+            // ===== KEYBOARD =====
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    if (isRedirecting) return;
+                    isRedirecting = true;
+                    clearInterval(countdownInterval);
+                    console.log('⌨️ Keyboard trigger, redirect sekarang...');
+                    goToMenu();
+                }
+            });
+
+            console.log('✅ Splash siap. Auto-redirect dalam 3 detik atau klik untuk masuk ke menu.');
         }
 
-        console.log('✅ Menu siap!');
-        console.log('📌 Link: LifeCode → lifecode.html');
-        console.log('📌 Link: Financial → ass.html');
-        console.log('📌 Link: Portfolio Builder → Portfolio.html');
+        // ============================================================
+        // 6. INFO CONSOLE
+        // ============================================================
+        const lastVisit = localStorage.getItem(STORAGE_KEY);
+        if (lastVisit) {
+            const date = new Date(parseInt(lastVisit, 10));
+            console.log('📅 Terakhir akses menu:', date.toLocaleString());
+            const diff = Date.now() - parseInt(lastVisit, 10);
+            const hours = Math.floor(diff / (60 * 60 * 1000));
+            const minutes = Math.floor((diff % (60 * 60 * 1000)) / (60 * 1000));
+            console.log(`⏱️ Selisih: ${hours} jam ${minutes} menit`);
+        } else {
+            console.log('📅 Belum pernah akses menu sebelumnya');
+        }
+
+        console.log('📲 Status Install:', isAppInstalled() ? '✅ Terinstall' : '❌ Belum install');
     </script>
 
 </body>
