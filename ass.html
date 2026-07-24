@@ -3071,9 +3071,10 @@
         // FUNGSI TOGGLE TJH - UNTUK MOBIL
         // ============================================================
         function toggleTjhMobil() {
-            const checked = document.getElementById('tjhAktifMobil').checked;
+            const cb = document.getElementById('tjhAktifMobil');
+            if (!cb) return;
             const container = document.getElementById('tjhFieldsMobil');
-            if (checked) {
+            if (cb.checked) {
                 container.classList.add('show');
             } else {
                 container.classList.remove('show');
@@ -3404,8 +3405,8 @@
             const wilayah = parseInt(document.getElementById('wilayahMobil').value);
             const jenisPertanggungan = document.getElementById('jenisPertanggunganMobil').value;
 
-            // Ambil data TJH dengan NULL CHECK
-            const cbTjh = document.getElementById('tjhAktifMobil');
+            // ===== AMBIL DATA TJH DENGAN NULL CHECK =====
+            const cbTjh = document.querySelector('#formMobil #tjhAktifMobil');
             const tjhAktif = cbTjh ? cbTjh.checked : false;
             const tjhNilai = parseFloat(document.getElementById('tjhNilaiMobil').value) || 0;
             const tjhRate = parseFloat(document.getElementById('tjhRateMobil').value) || 1.0;
@@ -3580,7 +3581,7 @@
 
             // Set TJH dari data
             const tjhData = detail.tjh || {};
-            const cbTjh = document.getElementById('tjhAktifMobil');
+            const cbTjh = document.querySelector('#formMobil #tjhAktifMobil');
             if (cbTjh) cbTjh.checked = tjhData.aktif || false;
             document.getElementById('tjhNilaiMobil').value = tjhData.nilai || 0;
             document.getElementById('tjhRateMobil').value = tjhData.rate || 1.0;
@@ -4953,7 +4954,7 @@
             updateStatusBar();
 
             // ===== INISIALISASI TJH MOBIL =====
-            const cbTjhMobil = document.getElementById('tjhAktifMobil');
+            const cbTjhMobil = document.querySelector('#formMobil #tjhAktifMobil');
             if (cbTjhMobil) {
                 cbTjhMobil.addEventListener('change', toggleTjhMobil);
                 // Pastikan state awal benar
