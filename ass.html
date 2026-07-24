@@ -1823,19 +1823,19 @@
                             <!-- Baris 1: Banjir, Gempa, SRCC, Teror -->
                             <div class="perluasan-row">
                                 <label>
-                                    <input type="checkbox" class="cb-perluasan" data-rate="0.075" data-label="Banjir" checked />
+                                    <input type="checkbox" id="extBanjirMobil" class="cb-perluasan" data-rate="0.075" data-label="Banjir" checked />
                                     Banjir (0.075%)
                                 </label>
                                 <label>
-                                    <input type="checkbox" class="cb-perluasan" data-rate="0.120" data-label="Gempa" checked />
+                                    <input type="checkbox" id="extGempaMobil" class="cb-perluasan" data-rate="0.120" data-label="Gempa" checked />
                                     Gempa (0.120%)
                                 </label>
                                 <label>
-                                    <input type="checkbox" class="cb-perluasan" data-rate="0.050" data-label="SRCC" checked />
+                                    <input type="checkbox" id="extSRCCMobil" class="cb-perluasan" data-rate="0.050" data-label="SRCC" checked />
                                     SRCC (0.050%)
                                 </label>
                                 <label>
-                                    <input type="checkbox" class="cb-perluasan" data-rate="0.050" data-label="Teror" />
+                                    <input type="checkbox" id="extTerorMobil" class="cb-perluasan" data-rate="0.050" data-label="Teror" />
                                     Teror (0.050%)
                                 </label>
                             </div>
@@ -3409,7 +3409,7 @@
             const wilayah = parseInt(document.getElementById('wilayahMobil').value);
             const jenisPertanggungan = document.getElementById('jenisPertanggunganMobil').value;
 
-            // Ambil data TJH
+            // Ambil data TJH dengan NULL CHECK
             const cbTjh = document.getElementById('tjhAktifMobil');
             const tjhAktif = cbTjh ? cbTjh.checked : false;
             const tjhNilai = parseFloat(document.getElementById('tjhNilaiMobil').value) || 0;
@@ -3473,32 +3473,36 @@
             let detailPerluasan = [];
             let extPremi = 0;
 
-            // Banjir
-            if (document.getElementById('extBanjirMobil').checked) {
+            // Banjir - dengan NULL CHECK
+            const extBanjir = document.getElementById('extBanjirMobil');
+            if (extBanjir && extBanjir.checked) {
                 const banjirRate = wilayah === 1 ? 0.00075 : (wilayah === 2 ? 0.0010 : 0.00075);
                 const banjirPremi = Math.round(harga * banjirRate / 1000) * 1000;
                 detailPerluasan.push({ nama: 'Banjir', rate: (banjirRate * 100).toFixed(3) + '%', premi: banjirPremi });
                 extPremi += banjirPremi;
             }
 
-            // Gempa
-            if (document.getElementById('extGempaMobil').checked) {
+            // Gempa - dengan NULL CHECK
+            const extGempa = document.getElementById('extGempaMobil');
+            if (extGempa && extGempa.checked) {
                 const gempaRate = wilayah === 1 ? 0.0012 : (wilayah === 2 ? 0.0010 : 0.00075);
                 const gempaPremi = Math.round(harga * gempaRate / 1000) * 1000;
                 detailPerluasan.push({ nama: 'Gempa', rate: (gempaRate * 100).toFixed(3) + '%', premi: gempaPremi });
                 extPremi += gempaPremi;
             }
 
-            // SRCC
-            if (document.getElementById('extSRCCMobil').checked) {
+            // SRCC - dengan NULL CHECK
+            const extSRCC = document.getElementById('extSRCCMobil');
+            if (extSRCC && extSRCC.checked) {
                 const srccRate = 0.0005;
                 const srccPremi = Math.round(harga * srccRate / 1000) * 1000;
                 detailPerluasan.push({ nama: 'SRCC (Huru Hara)', rate: (srccRate * 100).toFixed(3) + '%', premi: srccPremi });
                 extPremi += srccPremi;
             }
 
-            // Teror
-            if (document.getElementById('extTerorMobil').checked) {
+            // Teror - dengan NULL CHECK
+            const extTeror = document.getElementById('extTerorMobil');
+            if (extTeror && extTeror.checked) {
                 const terorRate = 0.0005;
                 const terorPremi = Math.round(harga * terorRate / 1000) * 1000;
                 detailPerluasan.push({ nama: 'Terorisme', rate: (terorRate * 100).toFixed(3) + '%', premi: terorPremi });
