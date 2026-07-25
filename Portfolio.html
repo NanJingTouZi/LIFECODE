@@ -21,7 +21,6 @@
       position: relative;
     }
 
-    /* Efek bintang/kilauan halus di background */
     body::before {
       content: '';
       position: fixed;
@@ -70,7 +69,7 @@
     /* --- Header Mewah dengan Logo --- */
     .page-header {
       text-align: center;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
       padding-bottom: 1.5rem;
       border-bottom: 1px solid rgba(212, 175, 55, 0.2);
       position: relative;
@@ -86,7 +85,6 @@
       background: linear-gradient(90deg, transparent, #d4af37, transparent);
     }
 
-    /* ===== LOGO / ICON DI ATAS ===== */
     .header-logo {
       display: flex;
       justify-content: center;
@@ -160,12 +158,100 @@
       backdrop-filter: blur(10px);
     }
 
+    /* --- Sorting Controls --- */
+    .sort-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 16px;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      border-radius: 14px;
+      padding: 14px 20px;
+      margin-bottom: 1.5rem;
+    }
+
+    .sort-controls .label {
+      color: #94a3b8;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      margin-right: 4px;
+    }
+
+    .sort-controls select,
+    .sort-controls button {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 8px;
+      padding: 8px 14px;
+      color: #e2e8f0;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .sort-controls select:hover,
+    .sort-controls button:hover {
+      border-color: rgba(212, 175, 55, 0.5);
+      background: rgba(212, 175, 55, 0.08);
+    }
+
+    .sort-controls select:focus,
+    .sort-controls button:focus {
+      border-color: #d4af37;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+    }
+
+    .sort-controls select option {
+      background: #1a1a2e;
+      color: #e2e8f0;
+    }
+
+    .sort-controls .sort-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .sort-controls .order-btn {
+      padding: 8px 12px;
+      min-width: 44px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .sort-controls .order-btn.active {
+      border-color: #d4af37;
+      background: rgba(212, 175, 55, 0.15);
+      color: #f9e07f;
+    }
+
+    .sort-controls .reset-btn {
+      margin-left: auto;
+      padding: 8px 16px;
+      border-color: rgba(148, 163, 184, 0.2);
+      color: #94a3b8;
+      font-size: 0.8rem;
+    }
+
+    .sort-controls .reset-btn:hover {
+      border-color: #f87171;
+      color: #f87171;
+      background: rgba(248, 113, 113, 0.08);
+    }
+
     /* --- Grid Kartu --- */
     .portfolio-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 2rem;
-      margin-top: 1rem;
+      margin-top: 0.5rem;
     }
 
     /* --- Kartu Glassmorphism --- */
@@ -184,6 +270,11 @@
       animation: fadeUp 0.6s ease forwards;
       position: relative;
       overflow: hidden;
+    }
+
+    .portfolio-card.reordering {
+      animation: none;
+      opacity: 1;
     }
 
     .portfolio-card::before {
@@ -376,6 +467,26 @@
     }
 
     /* --- Responsive --- */
+    @media (max-width: 640px) {
+      .sort-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 12px 16px;
+      }
+      .sort-controls .sort-group {
+        justify-content: space-between;
+      }
+      .sort-controls .reset-btn {
+        margin-left: 0;
+      }
+      .sort-controls select,
+      .sort-controls button {
+        flex: 1;
+        min-width: 0;
+      }
+    }
+
     @media (max-width: 480px) {
       body { padding: 1rem; }
       .page-header h1 { font-size: 2rem; }
@@ -401,7 +512,6 @@
          ============================================================ -->
     <header class="page-header">
       <div class="header-logo">
-        <!-- Logo dengan nama nanjing-ico1.png -->
         <img src="https://nanjingtouzi.github.io/LIFECODE/nanjing-ico1.png" alt="Nanjing Logo" onerror="this.style.display='none'">
         <span class="logo-divider"></span>
         <span class="logo-text">✦ Nanjing Investasi ✦</span>
@@ -410,6 +520,28 @@
       <span class="subtitle">Trading System &amp; Strategy Gallery</span>
       <div class="badge-count" id="portfolioCount">Memuat...</div>
     </header>
+
+    <!-- ============================================================
+         SORTING CONTROLS
+         ============================================================ -->
+    <div class="sort-controls" id="sortControls">
+      <span class="label">Sort by</span>
+
+      <div class="sort-group">
+        <select id="sortField">
+          <option value="name">Name</option>
+          <option value="return" selected>Return</option>
+          <option value="winRate">Win Rate</option>
+          <option value="drawdown">Max DD</option>
+          <option value="profitFactor">Profit Factor</option>
+        </select>
+
+        <button class="order-btn active" id="orderAsc" data-order="asc">↑</button>
+        <button class="order-btn" id="orderDesc" data-order="desc">↓</button>
+      </div>
+
+      <button class="reset-btn" id="resetSortBtn">↺ Reset</button>
+    </div>
 
     <!-- GRID PORTFOLIO -->
     <div class="portfolio-grid" id="portfolioGrid">
@@ -429,151 +561,75 @@
 
   <script>
     // ============================================================
-    // 1. DATA SEMUA PORTOFOLIO (16 Portofolio - Data Sudah Dikoreksi)
+    // 1. DATA SEMUA PORTOFOLIO (18 Portofolio)
     // ============================================================
-    const portfolios = [
+    const portfoliosData = [
       // === WAIVER SERIES ===
-      {
-        id: 1,
-        title: "WAIVER 1",
-        status: "active",
-        updated: "2026-07-24",
-        stats: { return: "+571.47%", winRate: "90.61%", drawdown: "2.57%", profitFactor: "8.88" },
-        fileName: "waiver1.html"
-      },
-      {
-        id: 2,
-        title: "WAIVER 5",
-        status: "active",
-        updated: "2026-07-24",
-        stats: { return: "+562,998.74%", winRate: "90.33%", drawdown: "13.83%", profitFactor: "5.56" },
-        fileName: "waiver10.html"
-      },
+      { id: 1, title: "WAIVER 1", status: "active", updated: "2026-07-24", stats: { return: "+571.47%", winRate: "90.61%", drawdown: "2.57%", profitFactor: "8.88" }, fileName: "waiver1.html" },
+      { id: 2, title: "WAIVER 5", status: "active", updated: "2026-07-24", stats: { return: "+562,998.74%", winRate: "90.33%", drawdown: "13.83%", profitFactor: "5.56" }, fileName: "waiver10.html" },
       // === AXION SERIES ===
-      {
-        id: 3,
-        title: "AXION 1",
-        status: "active",
-        updated: "2026-07-24",
-        stats: { return: "+258.63%", winRate: "97.12%", drawdown: "3.80%", profitFactor: "8.91" },
-        fileName: "AXION1.html"
-      },
-      {
-        id: 4,
-        title: "AXION 10",
-        status: "active",
-        updated: "2026-07-24",
-        stats: { return: "+16,233.66%", winRate: "97.12%", drawdown: "16.95%", profitFactor: "3.18" },
-        fileName: "AXION10.html"
-      },
+      { id: 3, title: "AXION 1", status: "active", updated: "2026-07-24", stats: { return: "+258.63%", winRate: "97.12%", drawdown: "3.80%", profitFactor: "8.91" }, fileName: "AXION1.html" },
+      { id: 4, title: "AXION 10", status: "active", updated: "2026-07-24", stats: { return: "+16,233.66%", winRate: "97.12%", drawdown: "16.95%", profitFactor: "3.18" }, fileName: "AXION10.html" },
       // === CAPE SERIES ===
-      {
-        id: 5,
-        title: "CAPE 1",
-        status: "active",
-        updated: "2026-07-24",
-        stats: { return: "+44.94%", winRate: "98.03%", drawdown: "2.18%", profitFactor: "8.38" },
-        fileName: "CAPE1.html"
-      },
-      {
-        id: 6,
-        title: "CAPE 10",
-        status: "active",
-        updated: "2026-07-24",
-        stats: { return: "+4,309.08%", winRate: "98.03%", drawdown: "19.96%", profitFactor: "3.94" },
-        fileName: "CAPE10.html"
-      },
+      { id: 5, title: "CAPE 1", status: "active", updated: "2026-07-24", stats: { return: "+44.94%", winRate: "98.03%", drawdown: "2.18%", profitFactor: "8.38" }, fileName: "CAPE1.html" },
+      { id: 6, title: "CAPE 10", status: "active", updated: "2026-07-24", stats: { return: "+4,309.08%", winRate: "98.03%", drawdown: "19.96%", profitFactor: "3.94" }, fileName: "CAPE10.html" },
       // === SEAL SERIES ===
-      {
-        id: 7,
-        title: "SEAL 1",
-        status: "active",
-        updated: "2026-07-24",
-        stats: { return: "+99.88%", winRate: "82.41%", drawdown: "2.88%", profitFactor: "3.59" },
-        fileName: "SEAL1.html"
-      },
-      {
-        id: 8,
-        title: "SEAL 10",
-        status: "active",
-        updated: "2026-07-24",
-        stats: { return: "+49,528.53%", winRate: "82.41%", drawdown: "25.21%", profitFactor: "2.87" },
-        fileName: "SEAL10.html"
-      },
+      { id: 7, title: "SEAL 1", status: "active", updated: "2026-07-24", stats: { return: "+99.88%", winRate: "82.41%", drawdown: "2.88%", profitFactor: "3.59" }, fileName: "SEAL1.html" },
+      { id: 8, title: "SEAL 10", status: "active", updated: "2026-07-24", stats: { return: "+49,528.53%", winRate: "82.41%", drawdown: "25.21%", profitFactor: "2.87" }, fileName: "SEAL10.html" },
       // === TRICK & HOLE ===
-      {
-        id: 9,
-        title: "TRICK 7",
-        status: "active",
-        updated: "2026-07-24",
-        stats: { return: "+2,606.09%", winRate: "96.42%", drawdown: "10.16%", profitFactor: "4.28" },
-        fileName: "TRICK7.html"
-      },
-      {
-        id: 10,
-        title: "HOLE 7",
-        status: "active",
-        updated: "2026-07-24",
-        stats: { return: "+2,141.20%", winRate: "94.71%", drawdown: "21.29%", profitFactor: "5.28" },
-        fileName: "HOLE7.html"
-      },
+      { id: 9, title: "TRICK 7", status: "active", updated: "2026-07-24", stats: { return: "+2,606.09%", winRate: "96.42%", drawdown: "10.16%", profitFactor: "4.28" }, fileName: "TRICK7.html" },
+      { id: 10, title: "HOLE 7", status: "active", updated: "2026-07-24", stats: { return: "+2,141.20%", winRate: "94.71%", drawdown: "21.29%", profitFactor: "5.28" }, fileName: "HOLE7.html" },
       // === ZEUS SERIES ===
-      {
-        id: 11,
-        title: "ZEUS 10",
-        status: "active",
-        updated: "2026-07-24",
-        stats: { return: "+144.55%", winRate: "84.14%", drawdown: "7.61%", profitFactor: "7.27" },
-        fileName: "ZEUS10.html"
-      },
-      {
-        id: 12,
-        title: "ZEUS 50",
-        status: "active",
-        updated: "2026-07-24",
-        stats: { return: "+8,186.61%", winRate: "84.14%", drawdown: "38.41%", profitFactor: "7.37" },
-        fileName: "ZEUS50.html"
-      },
+      { id: 11, title: "ZEUS 10", status: "active", updated: "2026-07-24", stats: { return: "+144.55%", winRate: "84.14%", drawdown: "7.61%", profitFactor: "7.27" }, fileName: "ZEUS10.html" },
+      { id: 12, title: "ZEUS 50", status: "active", updated: "2026-07-24", stats: { return: "+8,186.61%", winRate: "84.14%", drawdown: "38.41%", profitFactor: "7.37" }, fileName: "ZEUS50.html" },
       // === ATHENA SERIES ===
-      {
-        id: 13,
-        title: "ATHENA 10",
-        status: "active",
-        updated: "2026-07-24",
-        stats: { return: "+205.40%", winRate: "80.97%", drawdown: "9.26%", profitFactor: "5.45" },
-        fileName: "ATHENA10.html"
-      },
-      {
-        id: 14,
-        title: "ATHENA 50",
-        status: "active",
-        updated: "2026-07-24",
-        stats: { return: "+24,390.66%", winRate: "82.95%", drawdown: "37.10%", profitFactor: "5.79" },
-        fileName: "ATHENA50.html"
-      },
+      { id: 13, title: "ATHENA 10", status: "active", updated: "2026-07-24", stats: { return: "+205.40%", winRate: "80.97%", drawdown: "9.26%", profitFactor: "5.45" }, fileName: "ATHENA10.html" },
+      { id: 14, title: "ATHENA 50", status: "active", updated: "2026-07-24", stats: { return: "+24,390.66%", winRate: "82.95%", drawdown: "37.10%", profitFactor: "5.79" }, fileName: "ATHENA50.html" },
       // === ODIN SERIES ===
-      {
-        id: 15,
-        title: "ODIN 10",
-        status: "active",
-        updated: "2026-07-24",
-        stats: { return: "+206.73%", winRate: "82.73%", drawdown: "21.41%", profitFactor: "2.80" },
-        fileName: "ODIN10.html"
-      },
-      {
-        id: 16,
-        title: "ODIN 50",
-        status: "active",
-        updated: "2026-07-24",
-        stats: { return: "+8,977.92%", winRate: "82.64%", drawdown: "84.13%", profitFactor: "1.27" },
-        fileName: "ODIN50.html"
-      }
+      { id: 15, title: "ODIN 10", status: "active", updated: "2026-07-24", stats: { return: "+206.73%", winRate: "82.73%", drawdown: "21.41%", profitFactor: "2.80" }, fileName: "ODIN10.html" },
+      { id: 16, title: "ODIN 50", status: "active", updated: "2026-07-24", stats: { return: "+8,977.92%", winRate: "82.64%", drawdown: "84.13%", profitFactor: "1.27" }, fileName: "ODIN50.html" },
+      // === DOLPHIN SERIES ===
+      { id: 17, title: "DOLPHIN 1", status: "active", updated: "2026-07-24", stats: { return: "+163.32%", winRate: "95.89%", drawdown: "3.13%", profitFactor: "9.46" }, fileName: "DOLPHIN1.html" },
+      { id: 18, title: "DOLPHIN 10", status: "active", updated: "2026-07-24", stats: { return: "+1,002,454.69%", winRate: "95.89%", drawdown: "27.20%", profitFactor: "3.00" }, fileName: "DOLPHIN10.html" }
     ];
 
     // ============================================================
     // 2. FUNGSI RENDER KARTU
     // ============================================================
-    function renderPortfolios() {
+    let currentOrder = 'asc';
+    let currentField = 'return';
+
+    function parsePercentage(str) {
+      if (!str) return 0;
+      return parseFloat(str.replace(/[+,%]/g, '').replace(/,/g, '')) || 0;
+    }
+
+    function getSortValue(portfolio, field) {
+      const stats = portfolio.stats || {};
+      switch (field) {
+        case 'name': return portfolio.title.toLowerCase();
+        case 'return': return parsePercentage(stats.return);
+        case 'winRate': return parsePercentage(stats.winRate);
+        case 'drawdown': return parsePercentage(stats.drawdown);
+        case 'profitFactor': return parseFloat(stats.profitFactor) || 0;
+        default: return 0;
+      }
+    }
+
+    function sortPortfolios(portfolios, field, order) {
+      const sorted = [...portfolios];
+      sorted.sort((a, b) => {
+        let valA = getSortValue(a, field);
+        let valB = getSortValue(b, field);
+        if (field === 'name') {
+          return order === 'asc' ? valA.localeCompare(valB) : valB.localeCompare(valA);
+        }
+        return order === 'asc' ? valA - valB : valB - valA;
+      });
+      return sorted;
+    }
+
+    function renderPortfolios(portfolios) {
       const grid = document.getElementById('portfolioGrid');
       const countBadge = document.getElementById('portfolioCount');
 
@@ -613,7 +669,7 @@
         const pfVal = stats.profitFactor || '—';
 
         cardsHTML += `
-          <div class="portfolio-card" style="animation-delay: ${index * 0.04}s">
+          <div class="portfolio-card reordering" style="animation-delay: ${index * 0.04}s">
             <div class="card-header">
               <span class="card-number">#${String(p.id).padStart(2, '0')}</span>
               <span class="status-badge ${statusClass}">${statusText}</span>
@@ -636,8 +692,57 @@
       grid.innerHTML = cardsHTML;
     }
 
+    function updateSortAndRender() {
+      const sorted = sortPortfolios(portfoliosData, currentField, currentOrder);
+      renderPortfolios(sorted);
+      updateButtonStates();
+    }
+
+    function updateButtonStates() {
+      const ascBtn = document.getElementById('orderAsc');
+      const descBtn = document.getElementById('orderDesc');
+      ascBtn.classList.toggle('active', currentOrder === 'asc');
+      descBtn.classList.toggle('active', currentOrder === 'desc');
+    }
+
+    // ============================================================
+    // 3. EVENT LISTENERS SORTING
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set initial sort: Return → Descending (highest first)
+      currentField = 'return';
+      currentOrder = 'desc';
+      document.getElementById('sortField').value = 'return';
+      updateSortAndRender();
+      document.getElementById('yearFooter').textContent = new Date().getFullYear();
+    });
+
+    document.getElementById('sortField').addEventListener('change', function() {
+      currentField = this.value;
+      updateSortAndRender();
+    });
+
+    document.getElementById('orderAsc').addEventListener('click', function() {
+      currentOrder = 'asc';
+      updateSortAndRender();
+    });
+
+    document.getElementById('orderDesc').addEventListener('click', function() {
+      currentOrder = 'desc';
+      updateSortAndRender();
+    });
+
+    document.getElementById('resetSortBtn').addEventListener('click', function() {
+      currentField = 'return';
+      currentOrder = 'desc';
+      document.getElementById('sortField').value = 'return';
+      updateSortAndRender();
+    });
+
+    // ============================================================
+    // 4. TAHUN FOOTER
+    // ============================================================
     document.getElementById('yearFooter').textContent = new Date().getFullYear();
-    document.addEventListener('DOMContentLoaded', renderPortfolios);
   </script>
 </body>
 </html>
