@@ -2112,7 +2112,7 @@ const DREAMS = [
   {no:7, title:'MENJADI PENGENDALI SEMUA ORANG', segitiga:'2 (Komunikasi), 7 (Orang Pendukung), 9 (Hasil)'},
   {no:8, title:'MENDAPATKAN HAK ANDA SENDIRI (KUASA)', segitiga:'2 (Komunikasi), 4 (Rencana), 5 (Arah), 8 (Bertanggung Jawab), 9 (Hasil)'},
   {no:9, title:'MENGUASAI DUNIA', segitiga:'1 (Leader), 2 (Komunikasi), 4 (Rencana), 5 (Arah), 7 (Orang Pendukung), 9 (Hasil)'}
-]};
+};
 
 // ============================================================
 // SHIO DATA
@@ -2967,7 +2967,7 @@ async function updateStatusBar() {
     var logoutBtn = document.getElementById('logoutBtn');
     var loginBtn = document.getElementById('loginBtn');
     var changePasswordBtn = document.getElementById('changePasswordBtn');
-    var copyReferralBtn = document.getElementById('copyReferralBtn'); // BARU
+    var copyReferralBtn = document.getElementById('copyReferralBtn');
     
     if (!bar) return;
     
@@ -2984,7 +2984,7 @@ async function updateStatusBar() {
         if (logoutBtn) logoutBtn.style.display = 'none';
         if (loginBtn) loginBtn.style.display = 'inline-block';
         if (changePasswordBtn) changePasswordBtn.style.display = 'none';
-        if (copyReferralBtn) copyReferralBtn.style.display = 'none'; // BARU
+        if (copyReferralBtn) copyReferralBtn.style.display = 'none';
         return;
     }
     
@@ -3005,7 +3005,7 @@ async function updateStatusBar() {
     if (logoutBtn) logoutBtn.style.display = 'inline-block';
     if (loginBtn) loginBtn.style.display = 'none';
     if (changePasswordBtn) changePasswordBtn.style.display = 'inline-block';
-    if (copyReferralBtn) copyReferralBtn.style.display = 'inline-block'; // BARU
+    if (copyReferralBtn) copyReferralBtn.style.display = 'inline-block';
     
     var status = await getLicenseStatus(session.email);
     
@@ -3055,7 +3055,7 @@ async function updateStatusBar() {
 }
 
 // ============================================================
-// FUNGSI COPY REFERRAL LINK (BARU)
+// FUNGSI COPY REFERRAL LINK
 // ============================================================
 function getReferralLink(email) {
     const baseUrl = window.location.origin + window.location.pathname;
@@ -3085,7 +3085,7 @@ async function copyReferralLink() {
 }
 
 // ============================================================
-// OTOMATIS ISI FIELD REFERAL DARI SESSION (BARU)
+// OTOMATIS ISI FIELD REFERAL DARI SESSION
 // ============================================================
 (function() {
     const refEmail = sessionStorage.getItem('referral_email');
@@ -3326,7 +3326,7 @@ document.getElementById('dobMonth').addEventListener('input', function() {
 // BUTTON EVENT HANDLERS
 // ============================================================
 
-// --- COPY REFERRAL LINK (BARU) ---
+// --- COPY REFERRAL LINK ---
 document.getElementById('copyReferralBtn').addEventListener('click', function() {
     copyReferralLink();
 });
@@ -3557,7 +3557,7 @@ document.getElementById('registerSubmitBtn').addEventListener('click', async fun
     const password = document.getElementById('regPassword').value;
     const name = document.getElementById('regName').value.trim();
     const phone = document.getElementById('regPhone').value.trim();
-    const referral = document.getElementById('regReferral').value.trim(); // BARU
+    const referral = document.getElementById('regReferral').value.trim();
     
     if (!email || !email.includes('@') || !email.includes('.')) {
         showCustomAlert('warning', 'Peringatan', 'Masukkan email yang valid.');
@@ -3576,7 +3576,7 @@ document.getElementById('registerSubmitBtn').addEventListener('click', async fun
         return;
     }
     
-    // CEK: apakah ada referral dari sessionStorage (dari link) - BARU
+    // CEK: apakah ada referral dari sessionStorage (dari link)
     const sessionRef = sessionStorage.getItem('referral_email');
     let finalReferral = referral || sessionRef || null;
     
@@ -3611,7 +3611,7 @@ document.getElementById('registerSubmitBtn').addEventListener('click', async fun
             verified: false,
             registered_at: getNowISO(),
             password_temp: password,
-            referred_by: finalReferral || null // BARU
+            referred_by: finalReferral || null
         });
         
         // Hapus referral dari session setelah digunakan
@@ -3648,10 +3648,10 @@ document.getElementById('verifyRegOtpBtn').addEventListener('click', async funct
             }
             const userData = userDoc.data();
             
-            // CEK: apakah user ini punya referal? - BARU
+            // CEK: apakah user ini punya referal?
             const referredBy = userData.referred_by || null;
             
-            // ===== BONUS KUOTA UNTUK REFERAL ===== - BARU
+            // ===== BONUS KUOTA UNTUK REFERAL =====
             if (referredBy) {
                 console.log('🔗 User direferensikan oleh:', referredBy);
                 
