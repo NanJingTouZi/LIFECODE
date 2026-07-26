@@ -793,8 +793,6 @@ table .code-hidden{color:var(--paper-dim);opacity:0.4;text-decoration:line-throu
 import { initializeApp } from 'firebase/app';
 import { 
   getAuth, 
-  signInWithEmailAndPassword,
-  signOut,
   onAuthStateChanged
 } from 'firebase/auth';
 import {
@@ -803,15 +801,11 @@ import {
   getDocs,
   doc,
   getDoc,
-  setDoc,
   updateDoc,
   deleteDoc,
   query,
   where,
   addDoc,
-  deleteDoc as deleteFirestoreDoc,
-  orderBy,
-  limit,
   writeBatch
 } from 'firebase/firestore';
 
@@ -867,7 +861,6 @@ function showPopup(type, title, message, confirmText, cancelText, showInput, cal
         titleEl.textContent = title || 'Informasi';
         msgEl.textContent = message || '';
         
-        // Handle input
         if (showInput) {
             inputContainer.style.display = 'block';
             inputEl.value = '';
@@ -878,7 +871,6 @@ function showPopup(type, title, message, confirmText, cancelText, showInput, cal
             inputContainer.style.display = 'none';
         }
         
-        // Handle radio options
         if (radioOptions && radioOptions.length > 0) {
             radioContainer.style.display = 'block';
             let html = '<div class="popup-radio-group">';
@@ -903,7 +895,6 @@ function showPopup(type, title, message, confirmText, cancelText, showInput, cal
             radioContainer.style.display = 'none';
         }
         
-        // Handle number input
         if (showNumberInput) {
             numberContainer.style.display = 'block';
             numberContainer.innerHTML = `
@@ -916,7 +907,6 @@ function showPopup(type, title, message, confirmText, cancelText, showInput, cal
             numberContainer.style.display = 'none';
         }
         
-        // Handle detail data
         if (detailData) {
             detailContainer.style.display = 'block';
             detailContainer.innerHTML = detailData;
@@ -939,7 +929,6 @@ function showPopup(type, title, message, confirmText, cancelText, showInput, cal
                     const selected = radioContainer.querySelector('input[type="radio"]:checked');
                     result = selected ? selected.value : null;
                 }
-                // Get number input value if exists
                 if (showNumberInput) {
                     const numInput = document.getElementById('popupNumberInput');
                     if (numInput) {
@@ -1074,12 +1063,10 @@ async function getAllCodes() {
         const codes = {};
         querySnapshot.forEach((doc) => {
             const data = doc.data();
-            // Handle both field names: 'code' or 'token'
             const token = data.code || data.token || doc.id;
             codes[doc.id] = {
                 ...data,
                 token: token,
-                // Ensure all fields exist
                 hidden: data.hidden || false,
                 note: data.note || '',
                 used: data.used || false,
@@ -1106,7 +1093,6 @@ async function getAllHistory() {
         querySnapshot.forEach((doc) => {
             history.push({ id: doc.id, ...doc.data() });
         });
-        // Sort by newest first
         history.sort((a, b) => new Date(b.calculated_at) - new Date(a.calculated_at));
         return history;
     } catch (e) {
@@ -1115,7 +1101,6 @@ async function getAllHistory() {
     }
 }
 
-// ===== ASURANSI FUNCTIONS =====
 async function getAllAssCalculations() {
     try {
         const querySnapshot = await getDocs(collection(db, 'ass_calculations'));
@@ -1123,7 +1108,6 @@ async function getAllAssCalculations() {
         querySnapshot.forEach((doc) => {
             data.push({ id: doc.id, ...doc.data() });
         });
-        // Sort by newest first
         data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
         return data;
     } catch (e) {
@@ -1193,7 +1177,6 @@ async function deleteUser(email) {
     }
 }
 
-// ===== TOKEN FUNCTIONS =====
 function generateToken() {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let code = '';
@@ -1207,11 +1190,10 @@ function generateToken() {
 async function createToken(type, duration, amount) {
     try {
         const token = generateToken();
-        
-        const docRef = await addDoc(collection(db, 'codes'), {
+        await addDoc(collection(db, 'codes'), {
             code: token,
             token: token,
-            type: type, // 'both', 'time', 'quota'
+            type: type,
             duration: duration || 0,
             amount: amount || 0,
             used: false,
@@ -1221,8 +1203,6 @@ async function createToken(type, duration, amount) {
             note: '',
             created_at: new Date().toISOString()
         });
-        
-        console.log('✅ Token created:', token, 'ID:', docRef.id);
         return token;
     } catch (error) {
         console.error('Create token error:', error);
@@ -1237,7 +1217,6 @@ async function createMultipleTokens(type, duration, amount, count) {
         if (token) {
             tokens.push(token);
         }
-        // Small delay to avoid rate limiting
         await new Promise(resolve => setTimeout(resolve, 100));
     }
     return tokens;
@@ -1356,7 +1335,6 @@ document.querySelectorAll('.tab').forEach(tab => {
     tab.addEventListener('click', function() {
         const tabId = this.dataset.tab;
         activateTab(tabId);
-        // Re-render the specific tab content
         if (tabId === 'users') renderUsers();
         else if (tabId === 'licenses') renderLicenses();
         else if (tabId === 'codes') renderCodes();
@@ -1416,7 +1394,6 @@ function toggleSort(tableId, key) {
         state.key = key;
         state.direction = 'asc';
     }
-    // Update UI
     const table = document.getElementById(tableId);
     if (table) {
         table.querySelectorAll('th .sort-icon').forEach(el => {
@@ -1448,7 +1425,7 @@ function sortData(data, key, direction) {
             return direction === 'asc' ? valA - valB : valB - valA;
         }
         
-        if (valA instanceof Date || valB instanceof Date || key === 'date' || key === 'registered' || key === 'expiry') {
+        if (key === 'date' || key === 'registered' || key === 'expiry' || key === 'created_at') {
             const dA = new Date(valA);
             const dB = new Date(valB);
             if (!isNaN(dA) && !isNaN(dB)) {
@@ -1482,7 +1459,6 @@ function renderStats() {
     const users = DATA.users || {};
     const licenses = DATA.licenses || {};
     const codes = DATA.codes || {};
-    const history = DATA.history || [];
     const ass = DATA.assCalculations || [];
     
     const total = Object.keys(users).length;
@@ -1598,6 +1574,7 @@ function renderUsers() {
             registered: user.registered_at ? new Date(user.registered_at).toLocaleDateString('id-ID') : '-',
             registered_date: registeredDate,
             status: statusText,
+            statusClass: statusClass,
             quota: remaining,
             days: daysLeft,
             _status: status,
@@ -1606,7 +1583,6 @@ function renderUsers() {
         });
     });
     
-    // Default sort: by registration date (newest first) if no sort set
     if (!sort.key) {
         data.sort((a, b) => b.registered_date - a.registered_date);
         data.forEach((item, idx) => {
@@ -1629,7 +1605,7 @@ function renderUsers() {
         html += '<td>' + esc(item.email) + '</td>';
         html += '<td>' + esc(item.phone) + '</td>';
         html += '<td>' + item.registered + '</td>';
-        html += '<td class="' + (item._status === 'active' ? 'status-active' : item._status === 'warning' ? 'status-warning' : 'status-expired') + '">' + item.status + '</td>';
+        html += '<td class="' + item.statusClass + '">' + item.status + '</td>';
         html += '<td>' + item.quota + '/' + (DATA.licenses[item.email]?.quota || 0) + '</td>';
         html += '<td>' + (item.days !== '-' ? item.days : '-') + '</td>';
         html += '<td><button class="delete-btn-table" data-email="' + esc(item.email) + '">🗑️ Hapus</button></td>';
@@ -1712,14 +1688,13 @@ function renderLicenses() {
             remaining: remaining,
             expiry: lic.expiry_date,
             status: statusText,
-            _statusClass: statusClass,
+            statusClass: statusClass,
             _email: email,
             _lic: lic,
             _isEditing: isEditing
         });
     });
     
-    // Default sort: by email if no sort set
     if (!sort.key) {
         data.sort((a, b) => a.email.localeCompare(b.email));
         data.forEach((item, idx) => {
@@ -1767,7 +1742,7 @@ function renderLicenses() {
             html += '<option value="false"' + (!lic.is_active ? ' selected' : '') + '>❌ Tidak Aktif</option>';
             html += '</select></td>';
         } else {
-            html += '<td class="' + item._statusClass + '">' + item.status + '</td>';
+            html += '<td class="' + item.statusClass + '">' + item.status + '</td>';
         }
         
         html += '<td>';
@@ -1841,7 +1816,7 @@ function renderLicenses() {
 }
 
 // ============================================================
-// RENDER CODES
+// RENDER CODES (FIXED - statusClass defined properly)
 // ============================================================
 function renderCodes() {
     const codes = DATA.codes || {};
@@ -1863,18 +1838,26 @@ function renderCodes() {
             return;
         }
         
-        // Use token field or fallback to docId
         const token = code.token || code.code || docId;
         
-        // Filter logic
         if (!showHidden && code.hidden) return;
         if (filter === 'available' && (code.used || code.hidden)) return;
         if (filter === 'used' && !code.used) return;
         if (filter === 'hidden' && !code.hidden) return;
         
         no++;
-        let statusText = code.used ? '❌ Terpakai' : (code.hidden ? '🙈 Tersembunyi' : '✅ Tersedia');
-        let statusClass = code.used ? 'code-used' : (code.hidden ? 'code-hidden' : 'code-available');
+        let statusText, statusClass;
+        if (code.used) {
+            statusText = '❌ Terpakai';
+            statusClass = 'code-used';
+        } else if (code.hidden) {
+            statusText = '🙈 Tersembunyi';
+            statusClass = 'code-hidden';
+        } else {
+            statusText = '✅ Tersedia';
+            statusClass = 'code-available';
+        }
+        
         const usedBy = code.used_by || '-';
         const usedAt = code.used_at ? new Date(code.used_at).toLocaleDateString('id-ID') : '-';
         const created = code.created_at ? new Date(code.created_at).toLocaleDateString('id-ID') : '-';
@@ -1897,6 +1880,7 @@ function renderCodes() {
             duration: code.duration || '-',
             amount: code.amount || '-',
             status: statusText,
+            statusClass: statusClass,
             used_by: usedBy,
             note: note,
             date: code.used_at ? usedAt : created,
@@ -1907,7 +1891,6 @@ function renderCodes() {
         });
     });
     
-    // Default sort: by created date (newest first) if no sort set
     if (!sort.key) {
         data.sort((a, b) => b._created_at - a._created_at);
         data.forEach((item, idx) => {
@@ -1931,7 +1914,7 @@ function renderCodes() {
         html += '<td>' + item.type + '</td>';
         html += '<td>' + item.duration + '</td>';
         html += '<td>' + item.amount + '</td>';
-        html += '<td class="' + statusClass + '">' + item.status + '</td>';
+        html += '<td class="' + item.statusClass + '">' + item.status + '</td>';
         html += '<td>' + esc(item.used_by) + '</td>';
         html += '<td>' + esc(item.note) + ' <button class="edit-note-btn" data-id="' + item._id + '">✏️</button></td>';
         html += '<td>' + item.date + '</td>';
@@ -2030,7 +2013,7 @@ function renderCodes() {
 }
 
 // ============================================================
-// CREATE TOKEN (with bulk create)
+// CREATE TOKEN
 // ============================================================
 document.getElementById('createTokenBtn').addEventListener('click', async function() {
     const radioOptions = [
@@ -2074,8 +2057,7 @@ document.getElementById('createTokenBtn').addEventListener('click', async functi
                 return;
         }
         
-        // Show loading
-        const loadingPopup = await showPopup('info', '⏳ Membuat Token', 'Sedang membuat ' + count + ' token...', 'OK');
+        await showPopup('info', '⏳ Membuat Token', 'Sedang membuat ' + count + ' token...', 'OK');
         
         const tokens = await createMultipleTokens(type, duration, amount, count);
         
@@ -2122,7 +2104,6 @@ function renderHistory() {
         });
     });
     
-    // Default sort: by date (newest first) if no sort set
     if (!sort.key) {
         data.sort((a, b) => b._dateObj - a._dateObj);
         data.forEach((item, idx) => {
@@ -2180,12 +2161,6 @@ function renderAssCalculations() {
             'jiwa': '📋 Jiwa',
             'wealth': '💰 Wealth'
         };
-        const typeBadge = {
-            'mobil': 'mobil',
-            'properti': 'properti',
-            'jiwa': 'jiwa',
-            'wealth': 'wealth'
-        };
         
         const result = item.result || {};
         const resultDisplay = result.formatted || formatRupiah(result.total) || '-';
@@ -2219,7 +2194,6 @@ function renderAssCalculations() {
         });
     });
     
-    // Default sort: by date (newest first) if no sort set
     if (!sort.key) {
         data.sort((a, b) => b._dateObj - a._dateObj);
         data.forEach((item, idx) => {
@@ -2236,10 +2210,13 @@ function renderAssCalculations() {
     
     let html = '';
     data.forEach(item => {
+        const badgeClass = item.type_raw === 'mobil' ? 'mobil' : 
+                          item.type_raw === 'properti' ? 'properti' : 
+                          item.type_raw === 'jiwa' ? 'jiwa' : 'wealth';
         html += '<tr>';
         html += '<td>' + item.no + '</td>';
         html += '<td>' + esc(item.user) + '</td>';
-        html += '<td><span class="ass-type-badge ' + (item.type_raw === 'mobil' ? 'mobil' : item.type_raw === 'properti' ? 'properti' : item.type_raw === 'jiwa' ? 'jiwa' : 'wealth') + '">' + item.type + '</span></td>';
+        html += '<td><span class="ass-type-badge ' + badgeClass + '">' + item.type + '</span></td>';
         html += '<td style="font-weight:600;color:var(--gold-soft);">' + item.result + '</td>';
         html += '<td style="font-size:11px;color:var(--paper-dim);">' + esc(item.summary) + '</td>';
         html += '<td style="font-size:11px;">' + item.date + '</td>';
@@ -2255,7 +2232,6 @@ function renderAssCalculations() {
     }
     tbody.innerHTML = html;
     
-    // View Detail
     tbody.querySelectorAll('.view-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const id = this.dataset.id;
@@ -2266,7 +2242,6 @@ function renderAssCalculations() {
         });
     });
     
-    // Delete
     tbody.querySelectorAll('.delete-btn-table').forEach(btn => {
         btn.addEventListener('click', async function() {
             const id = this.dataset.id;
@@ -2315,8 +2290,8 @@ function showAssDetail(item) {
         const value = input[key];
         if (value !== undefined && value !== null && value !== '') {
             detailHtml += '<div class="pd-item"><span class="pd-label">' + esc(label) + '</span>';
-            if (typeof value === 'number' && key.toLowerCase().includes('harga') || 
-                key.toLowerCase().includes('nilai') || key.toLowerCase().includes('biaya')) {
+            if (typeof value === 'number' && (key.toLowerCase().includes('harga') || 
+                key.toLowerCase().includes('nilai') || key.toLowerCase().includes('biaya'))) {
                 detailHtml += '<span class="pd-value gold">' + formatRupiah(value) + '</span>';
             } else if (typeof value === 'number') {
                 detailHtml += '<span class="pd-value">' + value + '</span>';
@@ -2376,86 +2351,7 @@ function showAssDetail(item) {
 }
 
 // ============================================================
-// EXPORT ASURANSI
-// ============================================================
-document.getElementById('exportAssBtn').addEventListener('click', function() {
-    const ass = DATA.assCalculations || [];
-    const typeFilter = document.getElementById('assTypeFilter').value;
-    
-    let filtered = ass;
-    if (typeFilter !== 'all') {
-        filtered = ass.filter(item => item.type === typeFilter);
-    }
-    
-    let csv = 'No,User,Email,Jenis,Hasil,Ringkasan,Waktu\n';
-    filtered.forEach((item, index) => {
-        const result = item.result || {};
-        const resultDisplay = result.formatted || formatRupiah(result.total) || '-';
-        const typeLabels = { 'mobil': 'Mobil', 'properti': 'Properti', 'jiwa': 'Jiwa', 'wealth': 'Wealth' };
-        const date = item.created_at ? new Date(item.created_at) : new Date();
-        const dateStr = date.toLocaleDateString('id-ID') + ' ' + date.toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
-        
-        let summary = '-';
-        if (item.type === 'mobil') {
-            summary = (item.input || {}).merk + ' ' + (item.input || {}).tipe || '-';
-        } else if (item.type === 'properti') {
-            summary = (item.input || {}).jenis || '-';
-        } else if (item.type === 'jiwa') {
-            summary = 'Kebutuhan: ' + resultDisplay;
-        } else if (item.type === 'wealth') {
-            summary = 'Dana Pensiun: ' + resultDisplay;
-        }
-        
-        csv += (index + 1) + ',' + 
-               '"' + (item.userName || '') + '",' +
-               '"' + (item.email || '') + '",' +
-               '"' + (typeLabels[item.type] || item.type) + '",' +
-               '"' + resultDisplay + '",' +
-               '"' + summary + '",' +
-               '"' + dateStr + '"\n';
-    });
-    
-    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-    link.href = url;
-    link.download = 'data_asuransi_' + getTodayStr() + '.csv';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-    
-    showPopup('success', 'Berhasil', 'Data asuransi berhasil diexport!');
-});
-
-// ============================================================
-// CLEAR ALL ASURANSI
-// ============================================================
-document.getElementById('clearAssBtn').addEventListener('click', async function() {
-    const ass = DATA.assCalculations || [];
-    if (ass.length === 0) {
-        await showPopup('warning', 'Info', 'Tidak ada data untuk dihapus.');
-        return;
-    }
-    
-    const confirmDelete = await showPopup('confirm', '⚠️ Hapus Semua Data Asuransi', 
-        'Yakin ingin menghapus semua ' + ass.length + ' data perhitungan asuransi?<br><br><strong>Ini tidak bisa dibatalkan!</strong>', 
-        'Hapus Semua', 'Batal');
-    
-    if (confirmDelete) {
-        const result = await deleteAllAssCalculations();
-        if (result) {
-            await loadData();
-            renderAll();
-            await showPopup('success', 'Berhasil', 'Semua data asuransi berhasil dihapus.');
-        } else {
-            await showPopup('error', 'Gagal', 'Gagal menghapus data.');
-        }
-    }
-});
-
-// ============================================================
-// EXPORT FUNCTIONS (User, History)
+// EXPORT FUNCTIONS
 // ============================================================
 document.getElementById('exportExcelBtn').addEventListener('click', function() {
     const users = DATA.users || {};
@@ -2541,6 +2437,79 @@ document.getElementById('exportHistoryBtn').addEventListener('click', function()
     URL.revokeObjectURL(url);
 });
 
+document.getElementById('exportAssBtn').addEventListener('click', function() {
+    const ass = DATA.assCalculations || [];
+    const typeFilter = document.getElementById('assTypeFilter').value;
+    
+    let filtered = ass;
+    if (typeFilter !== 'all') {
+        filtered = ass.filter(item => item.type === typeFilter);
+    }
+    
+    let csv = 'No,User,Email,Jenis,Hasil,Ringkasan,Waktu\n';
+    filtered.forEach((item, index) => {
+        const result = item.result || {};
+        const resultDisplay = result.formatted || formatRupiah(result.total) || '-';
+        const typeLabels = { 'mobil': 'Mobil', 'properti': 'Properti', 'jiwa': 'Jiwa', 'wealth': 'Wealth' };
+        const date = item.created_at ? new Date(item.created_at) : new Date();
+        const dateStr = date.toLocaleDateString('id-ID') + ' ' + date.toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
+        
+        let summary = '-';
+        if (item.type === 'mobil') {
+            summary = (item.input || {}).merk + ' ' + (item.input || {}).tipe || '-';
+        } else if (item.type === 'properti') {
+            summary = (item.input || {}).jenis || '-';
+        } else if (item.type === 'jiwa') {
+            summary = 'Kebutuhan: ' + resultDisplay;
+        } else if (item.type === 'wealth') {
+            summary = 'Dana Pensiun: ' + resultDisplay;
+        }
+        
+        csv += (index + 1) + ',' + 
+               '"' + (item.userName || '') + '",' +
+               '"' + (item.email || '') + '",' +
+               '"' + (typeLabels[item.type] || item.type) + '",' +
+               '"' + resultDisplay + '",' +
+               '"' + summary + '",' +
+               '"' + dateStr + '"\n';
+    });
+    
+    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.href = url;
+    link.download = 'data_asuransi_' + getTodayStr() + '.csv';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    
+    showPopup('success', 'Berhasil', 'Data asuransi berhasil diexport!');
+});
+
+document.getElementById('clearAssBtn').addEventListener('click', async function() {
+    const ass = DATA.assCalculations || [];
+    if (ass.length === 0) {
+        await showPopup('warning', 'Info', 'Tidak ada data untuk dihapus.');
+        return;
+    }
+    
+    const confirmDelete = await showPopup('confirm', '⚠️ Hapus Semua Data Asuransi', 
+        'Yakin ingin menghapus semua ' + ass.length + ' data perhitungan asuransi?<br><br><strong>Ini tidak bisa dibatalkan!</strong>', 
+        'Hapus Semua', 'Batal');
+    
+    if (confirmDelete) {
+        const result = await deleteAllAssCalculations();
+        if (result) {
+            await loadData();
+            renderAll();
+            await showPopup('success', 'Berhasil', 'Semua data asuransi berhasil dihapus.');
+        } else {
+            await showPopup('error', 'Gagal', 'Gagal menghapus data.');
+        }
+    }
+});
+
 // ============================================================
 // SORT EVENT LISTENERS
 // ============================================================
@@ -2559,20 +2528,6 @@ document.querySelectorAll('thead th[data-sort]').forEach(th => {
         else if (tableId === 'assTableHead') renderAssCalculations();
     });
 });
-
-// ============================================================
-// HELPER FUNCTIONS
-// ============================================================
-function esc(s) { if (!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function getTodayStr() { return new Date().toISOString().slice(0,10); }
-
-function formatRupiah(angka) {
-    if (!angka || isNaN(angka)) return 'Rp 0';
-    if (angka >= 1000000000000) return 'Rp ' + (angka / 1000000000000).toFixed(2) + ' Triliun';
-    if (angka >= 1000000000) return 'Rp ' + (angka / 1000000000).toFixed(2) + ' Miliar';
-    if (angka >= 1000000) return 'Rp ' + (angka / 1000000).toFixed(0) + ' Juta';
-    return 'Rp ' + Math.round(angka).toLocaleString('id-ID');
-}
 
 // ============================================================
 // REFRESH BUTTONS
@@ -2614,6 +2569,20 @@ document.getElementById('codeFilter').addEventListener('change', renderCodes);
 document.getElementById('historySearch').addEventListener('input', renderHistory);
 document.getElementById('assTypeFilter').addEventListener('change', renderAssCalculations);
 document.getElementById('assSearch').addEventListener('input', renderAssCalculations);
+
+// ============================================================
+// HELPER FUNCTIONS
+// ============================================================
+function esc(s) { if (!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function getTodayStr() { return new Date().toISOString().slice(0,10); }
+
+function formatRupiah(angka) {
+    if (!angka || isNaN(angka)) return 'Rp 0';
+    if (angka >= 1000000000000) return 'Rp ' + (angka / 1000000000000).toFixed(2) + ' Triliun';
+    if (angka >= 1000000000) return 'Rp ' + (angka / 1000000000).toFixed(2) + ' Miliar';
+    if (angka >= 1000000) return 'Rp ' + (angka / 1000000).toFixed(0) + ' Juta';
+    return 'Rp ' + Math.round(angka).toLocaleString('id-ID');
+}
 
 // ============================================================
 // AUTH STATE OBSERVER
