@@ -440,6 +440,34 @@ table .code-hidden{color:var(--paper-dim);opacity:0.4;text-decoration:line-throu
   margin-left:auto;
 }
 
+.popup-number-input{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:10px 0 16px;
+  justify-content:center;
+}
+.popup-number-input label{
+  color:var(--paper-dim);
+  font-size:13px;
+}
+.popup-number-input input{
+  width:80px;
+  padding:8px 12px;
+  border-radius:8px;
+  border:1px solid rgba(201,162,74,0.3);
+  background:rgba(0,0,0,0.25);
+  color:var(--paper);
+  font-size:16px;
+  text-align:center;
+  font-family:'Inter',sans-serif;
+  outline:none;
+}
+.popup-number-input input:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(201,162,74,0.15);
+}
+
 @media (max-width:768px){
   .stats-grid{grid-template-columns:repeat(3,1fr);}
   .popup-data-grid{grid-template-columns:1fr;}
@@ -478,6 +506,7 @@ table .code-hidden{color:var(--paper-dim);opacity:0.4;text-decoration:line-throu
       <input class="popup-input" type="password" id="popupInput" placeholder="••••••" maxlength="6" inputmode="numeric">
     </div>
     <div id="popupRadioContainer" style="display:none;"></div>
+    <div id="popupNumberContainer" style="display:none;"></div>
     <div id="popupDetailContainer" style="display:none;"></div>
     <div class="popup-btns" id="popupButtons">
       <button class="popup-btn" id="popupBtnConfirm">OK</button>
@@ -811,7 +840,7 @@ const ADMIN_PIN = '614931';
 // ============================================================
 // CUSTOM POPUP
 // ============================================================
-function showPopup(type, title, message, confirmText, cancelText, showInput, callback, detailData, radioOptions) {
+function showPopup(type, title, message, confirmText, cancelText, showInput, callback, detailData, radioOptions, showNumberInput) {
     return new Promise((resolve) => {
         const overlay = document.getElementById('customPopup');
         const icon = document.getElementById('popupIcon');
@@ -820,6 +849,7 @@ function showPopup(type, title, message, confirmText, cancelText, showInput, cal
         const btnContainer = document.getElementById('popupButtons');
         const inputContainer = document.getElementById('popupInputContainer');
         const radioContainer = document.getElementById('popupRadioContainer');
+        const numberContainer = document.getElementById('popupNumberContainer');
         const detailContainer = document.getElementById('popupDetailContainer');
         const inputEl = document.getElementById('popupInput');
         
@@ -862,7 +892,6 @@ function showPopup(type, title, message, confirmText, cancelText, showInput, cal
             html += '</div>';
             radioContainer.innerHTML = html;
             
-            // Add click handler for labels
             radioContainer.querySelectorAll('label').forEach(label => {
                 label.addEventListener('click', function() {
                     this.querySelector('input[type="radio"]').checked = true;
@@ -872,6 +901,19 @@ function showPopup(type, title, message, confirmText, cancelText, showInput, cal
             });
         } else {
             radioContainer.style.display = 'none';
+        }
+        
+        // Handle number input
+        if (showNumberInput) {
+            numberContainer.style.display = 'block';
+            numberContainer.innerHTML = `
+                <div class="popup-number-input">
+                    <label>Jumlah Token:</label>
+                    <input type="number" id="popupNumberInput" value="1" min="1" max="100">
+                </div>
+            `;
+        } else {
+            numberContainer.style.display = 'none';
         }
         
         // Handle detail data
@@ -896,6 +938,14 @@ function showPopup(type, title, message, confirmText, cancelText, showInput, cal
                 } else if (radioOptions && radioOptions.length > 0) {
                     const selected = radioContainer.querySelector('input[type="radio"]:checked');
                     result = selected ? selected.value : null;
+                }
+                // Get number input value if exists
+                if (showNumberInput) {
+                    const numInput = document.getElementById('popupNumberInput');
+                    if (numInput) {
+                        const count = parseInt(numInput.value) || 1;
+                        result = { selected: result, count: count };
+                    }
                 }
                 overlay.classList.remove('show');
                 resolve(result);
@@ -991,39 +1041,75 @@ function clearAdminSession() {
 // DATA FUNCTIONS
 // ============================================================
 async function getAllUsers() {
-    const querySnapshot = await getDocs(collection(db, 'users'));
-    const users = {};
-    querySnapshot.forEach((doc) => {
-        users[doc.id] = doc.data();
-    });
-    return users;
+    try {
+        const querySnapshot = await getDocs(collection(db, 'users'));
+        const users = {};
+        querySnapshot.forEach((doc) => {
+            users[doc.id] = doc.data();
+        });
+        return users;
+    } catch (e) {
+        console.error('getAllUsers error:', e);
+        return {};
+    }
 }
 
 async function getAllLicenses() {
-    const querySnapshot = await getDocs(collection(db, 'licenses'));
-    const licenses = {};
-    querySnapshot.forEach((doc) => {
-        licenses[doc.id] = doc.data();
-    });
-    return licenses;
+    try {
+        const querySnapshot = await getDocs(collection(db, 'licenses'));
+        const licenses = {};
+        querySnapshot.forEach((doc) => {
+            licenses[doc.id] = doc.data();
+        });
+        return licenses;
+    } catch (e) {
+        console.error('getAllLicenses error:', e);
+        return {};
+    }
 }
 
 async function getAllCodes() {
-    const querySnapshot = await getDocs(collection(db, 'codes'));
-    const codes = {};
-    querySnapshot.forEach((doc) => {
-        codes[doc.id] = doc.data();
-    });
-    return codes;
+    try {
+        const querySnapshot = await getDocs(collection(db, 'codes'));
+        const codes = {};
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            // Handle both field names: 'code' or 'token'
+            const token = data.code || data.token || doc.id;
+            codes[doc.id] = {
+                ...data,
+                token: token,
+                // Ensure all fields exist
+                hidden: data.hidden || false,
+                note: data.note || '',
+                used: data.used || false,
+                used_by: data.used_by || null,
+                used_at: data.used_at || null,
+                created_at: data.created_at || new Date().toISOString(),
+                duration: data.duration || 0,
+                amount: data.amount || 0,
+                type: data.type || 'both'
+            };
+        });
+        return codes;
+    } catch (e) {
+        console.error('getAllCodes error:', e);
+        return {};
+    }
 }
 
 async function getAllHistory() {
-    const querySnapshot = await getDocs(collection(db, 'history'));
-    const history = [];
-    querySnapshot.forEach((doc) => {
-        history.push({ id: doc.id, ...doc.data() });
-    });
-    return history.sort((a, b) => new Date(b.calculated_at) - new Date(a.calculated_at));
+    try {
+        const querySnapshot = await getDocs(collection(db, 'history'));
+        const history = [];
+        querySnapshot.forEach((doc) => {
+            history.push({ id: doc.id, ...doc.data() });
+        });
+        return history.sort((a, b) => new Date(b.calculated_at) - new Date(a.calculated_at));
+    } catch (e) {
+        console.error('getAllHistory error:', e);
+        return [];
+    }
 }
 
 // ===== ASURANSI FUNCTIONS =====
@@ -1103,20 +1189,23 @@ async function deleteUser(email) {
 }
 
 // ===== TOKEN FUNCTIONS =====
+function generateToken() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let code = '';
+    for (let i = 0; i < 8; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    const timestamp = Date.now().toString(36).toUpperCase();
+    return code + '-' + timestamp.slice(-4);
+}
+
 async function createToken(type, duration, amount) {
     try {
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        let code = '';
-        for (let i = 0; i < 8; i++) {
-            code += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        
-        // Add timestamp to make it unique
-        const timestamp = Date.now().toString(36).toUpperCase();
-        const token = code + '-' + timestamp.slice(-4);
+        const token = generateToken();
         
         await addDoc(collection(db, 'codes'), {
             code: token,
+            token: token,
             type: type, // 'both', 'time', 'quota'
             duration: duration || 0,
             amount: amount || 0,
@@ -1133,6 +1222,17 @@ async function createToken(type, duration, amount) {
         console.error('Create token error:', error);
         return null;
     }
+}
+
+async function createMultipleTokens(type, duration, amount, count) {
+    const tokens = [];
+    for (let i = 0; i < count; i++) {
+        const token = await createToken(type, duration, amount);
+        if (token) {
+            tokens.push(token);
+        }
+    }
+    return tokens;
 }
 
 async function deleteToken(docId) {
@@ -1270,6 +1370,7 @@ async function loadData() {
         DATA.history = await getAllHistory();
         DATA.assCalculations = await getAllAssCalculations();
         console.log('✅ Data loaded from Firebase');
+        console.log('📦 Total tokens:', Object.keys(DATA.codes).length);
         return true;
     } catch (error) {
         console.error('❌ Gagal load data:', error);
@@ -1297,13 +1398,15 @@ function toggleSort(tableId, key) {
     }
     // Update UI
     const table = document.getElementById(tableId);
-    table.querySelectorAll('th .sort-icon').forEach(el => {
-        el.classList.remove('active');
-    });
-    const header = table.querySelector(`th[data-sort="${key}"] .sort-icon`);
-    if (header) {
-        header.classList.add('active');
-        header.textContent = state.direction === 'asc' ? '▲' : '▼';
+    if (table) {
+        table.querySelectorAll('th .sort-icon').forEach(el => {
+            el.classList.remove('active');
+        });
+        const header = table.querySelector(`th[data-sort="${key}"] .sort-icon`);
+        if (header) {
+            header.classList.add('active');
+            header.textContent = state.direction === 'asc' ? '▲' : '▼';
+        }
     }
     return state;
 }
@@ -1315,26 +1418,24 @@ function sortData(data, key, direction) {
         let valA = a[key] !== undefined ? a[key] : '';
         let valB = b[key] !== undefined ? b[key] : '';
         
-        // Handle special cases
         if (key === 'no') {
             valA = a._index || 0;
             valB = b._index || 0;
             return direction === 'asc' ? valA - valB : valB - valA;
         }
         
-        // Handle numbers
         if (typeof valA === 'number' && typeof valB === 'number') {
             return direction === 'asc' ? valA - valB : valB - valA;
         }
         
-        // Handle dates
-        if (valA instanceof Date || valB instanceof Date) {
-            valA = new Date(valA);
-            valB = new Date(valB);
-            return direction === 'asc' ? valA - valB : valB - valA;
+        if (valA instanceof Date || valB instanceof Date || key === 'date' || key === 'registered') {
+            const dA = new Date(valA);
+            const dB = new Date(valB);
+            if (!isNaN(dA) && !isNaN(dB)) {
+                return direction === 'asc' ? dA - dB : dB - dA;
+            }
         }
         
-        // Handle strings
         valA = String(valA).toLowerCase();
         valB = String(valB).toLowerCase();
         if (valA < valB) return direction === 'asc' ? -1 : 1;
@@ -1382,7 +1483,6 @@ function renderStats() {
         }
     }
     
-    // Count available codes (not used and not hidden)
     const availableCodes = Object.keys(codes).filter(key => !codes[key].used && !codes[key].hidden).length;
     
     document.getElementById('statTotal').textContent = total;
@@ -1412,7 +1512,7 @@ function renderAssStats() {
 }
 
 // ============================================================
-// RENDER USERS
+// RENDER USERS (with default sort by registration date)
 // ============================================================
 function renderUsers() {
     const users = DATA.users || {};
@@ -1468,6 +1568,7 @@ function renderUsers() {
         if (filter === 'warning' && status !== 'warning') return;
         
         no++;
+        const registeredDate = user.registered_at ? new Date(user.registered_at) : new Date(0);
         data.push({
             _index: no,
             no: no,
@@ -1475,6 +1576,7 @@ function renderUsers() {
             email: email,
             phone: user.phone || '-',
             registered: user.registered_at ? new Date(user.registered_at).toLocaleDateString('id-ID') : '-',
+            registered_date: registeredDate,
             status: statusText,
             quota: remaining,
             days: daysLeft,
@@ -1484,10 +1586,15 @@ function renderUsers() {
         });
     });
     
-    // Apply sorting
-    if (sort.key) {
+    // Default sort: by registration date (newest first) if no sort set
+    if (!sort.key) {
+        data.sort((a, b) => b.registered_date - a.registered_date);
+        data.forEach((item, idx) => {
+            item.no = idx + 1;
+            item._index = idx + 1;
+        });
+    } else {
         data = sortData(data, sort.key, sort.direction);
-        // Reassign no after sorting
         data.forEach((item, idx) => {
             item.no = idx + 1;
             item._index = idx + 1;
@@ -1592,8 +1699,14 @@ function renderLicenses() {
         });
     });
     
-    // Apply sorting
-    if (sort.key) {
+    // Default sort: by email if no sort set
+    if (!sort.key) {
+        data.sort((a, b) => a.email.localeCompare(b.email));
+        data.forEach((item, idx) => {
+            item.no = idx + 1;
+            item._index = idx + 1;
+        });
+    } else {
         data = sortData(data, sort.key, sort.direction);
         data.forEach((item, idx) => {
             item.no = idx + 1;
@@ -1708,7 +1821,7 @@ function renderLicenses() {
 }
 
 // ============================================================
-// RENDER CODES (with new features)
+// RENDER CODES (with new features - fixed to load existing tokens)
 // ============================================================
 function renderCodes() {
     const codes = DATA.codes || {};
@@ -1721,8 +1834,12 @@ function renderCodes() {
     let data = [];
     let no = 0;
     
-    keys.forEach(key => {
-        const code = codes[key];
+    keys.forEach(docId => {
+        const code = codes[docId];
+        if (!code) return;
+        
+        // Use token field or fallback to docId
+        const token = code.token || code.code || docId;
         
         // Filter logic
         if (!showHidden && code.hidden) return;
@@ -1750,7 +1867,7 @@ function renderCodes() {
         data.push({
             _index: no,
             no: no,
-            token: key,
+            token: token,
             type: typeText,
             duration: code.duration || '-',
             amount: code.amount || '-',
@@ -1760,12 +1877,19 @@ function renderCodes() {
             date: code.used_at ? usedAt : created,
             _status: code.used ? 'used' : (code.hidden ? 'hidden' : 'available'),
             _code: code,
-            _id: key
+            _id: docId,
+            _created_at: code.created_at ? new Date(code.created_at) : new Date(0)
         });
     });
     
-    // Apply sorting
-    if (sort.key) {
+    // Default sort: by created date (newest first) if no sort set
+    if (!sort.key) {
+        data.sort((a, b) => b._created_at - a._created_at);
+        data.forEach((item, idx) => {
+            item.no = idx + 1;
+            item._index = idx + 1;
+        });
+    } else {
         data = sortData(data, sort.key, sort.direction);
         data.forEach((item, idx) => {
             item.no = idx + 1;
@@ -1835,9 +1959,10 @@ function renderCodes() {
             const id = this.dataset.id;
             const code = DATA.codes[id];
             if (!code) return;
+            const token = code.token || code.code || id;
             
             const confirmDelete = await showPopup('confirm', '⚠️ Hapus Token', 
-                'Yakin ingin menghapus token <strong>' + esc(code.code) + '</strong>?<br><br>Ini tidak bisa dibatalkan!', 
+                'Yakin ingin menghapus token <strong>' + esc(token) + '</strong>?<br><br>Ini tidak bisa dibatalkan!', 
                 'Hapus', 'Batal');
             
             if (confirmDelete) {
@@ -1859,9 +1984,10 @@ function renderCodes() {
             const id = this.dataset.id;
             const code = DATA.codes[id];
             if (!code) return;
+            const token = code.token || code.code || id;
             
             const newNote = await showPopup('pin', '✏️ Edit Catatan', 
-                'Catatan untuk token: <strong>' + esc(code.code) + '</strong><br><br>Masukkan catatan baru:', 
+                'Catatan untuk token: <strong>' + esc(token) + '</strong><br><br>Masukkan catatan baru:', 
                 'Simpan', 'Batal', true);
             
             if (newNote !== null && newNote !== false) {
@@ -1879,7 +2005,7 @@ function renderCodes() {
 }
 
 // ============================================================
-// CREATE TOKEN
+// CREATE TOKEN (with bulk create)
 // ============================================================
 document.getElementById('createTokenBtn').addEventListener('click', async function() {
     const radioOptions = [
@@ -1889,12 +2015,15 @@ document.getElementById('createTokenBtn').addEventListener('click', async functi
         { value: 'time_3', label: '📅 +3 Bulan', desc: 'Perpanjang masa aktif 3 bulan (tanpa kuota)' }
     ];
     
-    const selected = await showPopup('confirm', '🔑 Buat Token Baru', 
-        'Pilih jenis token yang akan dibuat:', 
-        'Buat Token', 'Batal', false, null, null, radioOptions);
+    const result = await showPopup('confirm', '🔑 Buat Token Baru', 
+        'Pilih jenis token dan jumlah yang akan dibuat:', 
+        'Buat Token', 'Batal', false, null, null, radioOptions, true);
     
-    if (selected && selected !== false) {
+    if (result && result !== false) {
+        const selected = result.selected;
+        const count = result.count || 1;
         let type, duration, amount;
+        
         switch (selected) {
             case 'both_1_3':
                 type = 'both';
@@ -1920,12 +2049,18 @@ document.getElementById('createTokenBtn').addEventListener('click', async functi
                 return;
         }
         
-        const token = await createToken(type, duration, amount);
-        if (token) {
+        // Show loading
+        await showPopup('info', '⏳ Membuat Token', 'Sedang membuat ' + count + ' token...', 'OK');
+        
+        const tokens = await createMultipleTokens(type, duration, amount, count);
+        
+        if (tokens && tokens.length > 0) {
             await loadData();
             renderCodes();
+            const tokenList = tokens.map(t => '<strong style="font-family:Cormorant Garamond,serif;color:var(--gold-soft);">' + t + '</strong>').join('<br>');
             await showPopup('success', '✅ Token Berhasil Dibuat', 
-                'Token: <strong style="font-family:Cormorant Garamond,serif;font-size:20px;color:var(--gold-soft);">' + token + '</strong><br><br>Token ini dapat digunakan oleh user untuk menambah kuota dan/atau memperpanjang masa aktif.');
+                'Berhasil membuat <strong>' + tokens.length + '</strong> token:<br><br>' + tokenList + 
+                '<br><br>Token ini dapat digunakan oleh user untuk menambah kuota dan/atau memperpanjang masa aktif.');
         } else {
             await showPopup('error', '❌ Gagal', 'Gagal membuat token. Silakan coba lagi.');
         }
@@ -1933,7 +2068,7 @@ document.getElementById('createTokenBtn').addEventListener('click', async functi
 });
 
 // ============================================================
-// RENDER HISTORY
+// RENDER HISTORY (with default sort by date)
 // ============================================================
 function renderHistory() {
     const history = DATA.history || [];
@@ -1962,8 +2097,14 @@ function renderHistory() {
         });
     });
     
-    // Apply sorting
-    if (sort.key) {
+    // Default sort: by date (newest first) if no sort set
+    if (!sort.key) {
+        data.sort((a, b) => b._dateObj - a._dateObj);
+        data.forEach((item, idx) => {
+            item.no = idx + 1;
+            item._index = idx + 1;
+        });
+    } else {
         data = sortData(data, sort.key, sort.direction);
         data.forEach((item, idx) => {
             item.no = idx + 1;
@@ -1989,7 +2130,7 @@ function renderHistory() {
 }
 
 // ============================================================
-// RENDER ASURANSI
+// RENDER ASURANSI (with default sort by date)
 // ============================================================
 function renderAssCalculations() {
     const ass = DATA.assCalculations || [];
@@ -2053,8 +2194,14 @@ function renderAssCalculations() {
         });
     });
     
-    // Apply sorting
-    if (sort.key) {
+    // Default sort: by date (newest first) if no sort set
+    if (!sort.key) {
+        data.sort((a, b) => b._dateObj - a._dateObj);
+        data.forEach((item, idx) => {
+            item.no = idx + 1;
+            item._index = idx + 1;
+        });
+    } else {
         data = sortData(data, sort.key, sort.direction);
         data.forEach((item, idx) => {
             item.no = idx + 1;
@@ -2372,25 +2519,6 @@ document.getElementById('exportHistoryBtn').addEventListener('click', function()
 // ============================================================
 // SORT EVENT LISTENERS
 // ============================================================
-document.querySelectorAll('thead[data-sort]').forEach(head => {
-    head.querySelectorAll('th[data-sort]').forEach(th => {
-        th.addEventListener('click', function() {
-            const tableId = this.closest('thead').id;
-            const key = this.dataset.sort;
-            if (!tableId) return;
-            toggleSort(tableId, key);
-            // Re-render the appropriate tab
-            const tabId = tableId.replace('TableHead', '').toLowerCase();
-            if (tabId === 'users') renderUsers();
-            else if (tabId === 'licenses') renderLicenses();
-            else if (tabId === 'codes') renderCodes();
-            else if (tabId === 'history') renderHistory();
-            else if (tabId === 'ass') renderAssCalculations();
-        });
-    });
-});
-
-// Also support the older way with IDs
 document.querySelectorAll('thead th[data-sort]').forEach(th => {
     th.addEventListener('click', function() {
         const head = this.closest('thead');
@@ -2399,7 +2527,6 @@ document.querySelectorAll('thead th[data-sort]').forEach(th => {
         if (!tableId) return;
         toggleSort(tableId, key);
         
-        // Determine which render function to call
         if (tableId === 'usersTableHead') renderUsers();
         else if (tableId === 'licensesTableHead') renderLicenses();
         else if (tableId === 'codesTableHead') renderCodes();
@@ -2478,7 +2605,6 @@ onAuthStateChanged(auth, (user) => {
 console.log('🔐 Admin Dashboard siap!');
 console.log('📌 Mode: FIREBASE');
 console.log('🔑 PIN: ' + ADMIN_PIN);
-console.log('📊 Tab Asuransi: ' + (document.getElementById('tab-assurance') ? '✅ aktif' : '❌ tidak ada'));
 console.log('💡 Session tersimpan, refresh tidak logout!');
 
 checkAdminSession();
