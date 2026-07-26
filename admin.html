@@ -1091,6 +1091,7 @@ async function getAllCodes() {
                 type: data.type || 'both'
             };
         });
+        console.log('✅ Tokens loaded:', Object.keys(codes).length);
         return codes;
     } catch (e) {
         console.error('getAllCodes error:', e);
@@ -1105,7 +1106,9 @@ async function getAllHistory() {
         querySnapshot.forEach((doc) => {
             history.push({ id: doc.id, ...doc.data() });
         });
-        return history.sort((a, b) => new Date(b.calculated_at) - new Date(a.calculated_at));
+        // Sort by newest first
+        history.sort((a, b) => new Date(b.calculated_at) - new Date(a.calculated_at));
+        return history;
     } catch (e) {
         console.error('getAllHistory error:', e);
         return [];
@@ -1120,7 +1123,9 @@ async function getAllAssCalculations() {
         querySnapshot.forEach((doc) => {
             data.push({ id: doc.id, ...doc.data() });
         });
-        return data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        // Sort by newest first
+        data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        return data;
     } catch (e) {
         console.error('getAllAssCalculations error:', e);
         return [];
@@ -1203,7 +1208,7 @@ async function createToken(type, duration, amount) {
     try {
         const token = generateToken();
         
-        await addDoc(collection(db, 'codes'), {
+        const docRef = await addDoc(collection(db, 'codes'), {
             code: token,
             token: token,
             type: type, // 'both', 'time', 'quota'
@@ -1217,6 +1222,7 @@ async function createToken(type, duration, amount) {
             created_at: new Date().toISOString()
         });
         
+        console.log('✅ Token created:', token, 'ID:', docRef.id);
         return token;
     } catch (error) {
         console.error('Create token error:', error);
@@ -1231,6 +1237,8 @@ async function createMultipleTokens(type, duration, amount, count) {
         if (token) {
             tokens.push(token);
         }
+        // Small delay to avoid rate limiting
+        await new Promise(resolve => setTimeout(resolve, 100));
     }
     return tokens;
 }
@@ -1348,7 +1356,15 @@ document.querySelectorAll('.tab').forEach(tab => {
     tab.addEventListener('click', function() {
         const tabId = this.dataset.tab;
         activateTab(tabId);
-        renderAll();
+        // Re-render the specific tab content
+        if (tabId === 'users') renderUsers();
+        else if (tabId === 'licenses') renderLicenses();
+        else if (tabId === 'codes') renderCodes();
+        else if (tabId === 'history') renderHistory();
+        else if (tabId === 'assurance') {
+            renderAssCalculations();
+            renderAssStats();
+        }
     });
 });
 
@@ -1370,7 +1386,11 @@ async function loadData() {
         DATA.history = await getAllHistory();
         DATA.assCalculations = await getAllAssCalculations();
         console.log('✅ Data loaded from Firebase');
-        console.log('📦 Total tokens:', Object.keys(DATA.codes).length);
+        console.log('📦 Users:', Object.keys(DATA.users).length);
+        console.log('📦 Licenses:', Object.keys(DATA.licenses).length);
+        console.log('📦 Tokens:', Object.keys(DATA.codes).length);
+        console.log('📦 History:', DATA.history.length);
+        console.log('📦 Assurances:', DATA.assCalculations.length);
         return true;
     } catch (error) {
         console.error('❌ Gagal load data:', error);
@@ -1428,7 +1448,7 @@ function sortData(data, key, direction) {
             return direction === 'asc' ? valA - valB : valB - valA;
         }
         
-        if (valA instanceof Date || valB instanceof Date || key === 'date' || key === 'registered') {
+        if (valA instanceof Date || valB instanceof Date || key === 'date' || key === 'registered' || key === 'expiry') {
             const dA = new Date(valA);
             const dB = new Date(valB);
             if (!isNaN(dA) && !isNaN(dB)) {
@@ -1512,7 +1532,7 @@ function renderAssStats() {
 }
 
 // ============================================================
-// RENDER USERS (with default sort by registration date)
+// RENDER USERS
 // ============================================================
 function renderUsers() {
     const users = DATA.users || {};
@@ -1821,7 +1841,7 @@ function renderLicenses() {
 }
 
 // ============================================================
-// RENDER CODES (with new features - fixed to load existing tokens)
+// RENDER CODES
 // ============================================================
 function renderCodes() {
     const codes = DATA.codes || {};
@@ -1834,9 +1854,14 @@ function renderCodes() {
     let data = [];
     let no = 0;
     
+    console.log('📦 Rendering codes, total:', keys.length);
+    
     keys.forEach(docId => {
         const code = codes[docId];
-        if (!code) return;
+        if (!code) {
+            console.warn('⚠️ Code data missing for:', docId);
+            return;
+        }
         
         // Use token field or fallback to docId
         const token = code.token || code.code || docId;
@@ -2050,7 +2075,7 @@ document.getElementById('createTokenBtn').addEventListener('click', async functi
         }
         
         // Show loading
-        await showPopup('info', '⏳ Membuat Token', 'Sedang membuat ' + count + ' token...', 'OK');
+        const loadingPopup = await showPopup('info', '⏳ Membuat Token', 'Sedang membuat ' + count + ' token...', 'OK');
         
         const tokens = await createMultipleTokens(type, duration, amount, count);
         
@@ -2068,7 +2093,7 @@ document.getElementById('createTokenBtn').addEventListener('click', async functi
 });
 
 // ============================================================
-// RENDER HISTORY (with default sort by date)
+// RENDER HISTORY
 // ============================================================
 function renderHistory() {
     const history = DATA.history || [];
@@ -2130,7 +2155,7 @@ function renderHistory() {
 }
 
 // ============================================================
-// RENDER ASURANSI (with default sort by date)
+// RENDER ASURANSI
 // ============================================================
 function renderAssCalculations() {
     const ass = DATA.assCalculations || [];
