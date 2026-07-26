@@ -617,6 +617,7 @@ table .code-hidden{color:var(--paper-dim);opacity:0.4;text-decoration:line-throu
               <th data-sort="email">Email <span class="sort-icon">⇅</span></th>
               <th data-sort="phone">HP <span class="sort-icon">⇅</span></th>
               <th data-sort="registered">Registrasi <span class="sort-icon">⇅</span></th>
+              <th data-sort="referral">Direferensikan Oleh <span class="sort-icon">⇅</span></th>
               <th data-sort="status">Status Lisensi <span class="sort-icon">⇅</span></th>
               <th data-sort="quota">Sisa Kuota <span class="sort-icon">⇅</span></th>
               <th data-sort="days">Hari Tersisa <span class="sort-icon">⇅</span></th>
@@ -624,7 +625,7 @@ table .code-hidden{color:var(--paper-dim);opacity:0.4;text-decoration:line-throu
             </tr>
           </thead>
           <tbody id="usersTableBody">
-            <tr><td colspan="9" style="text-align:center;color:var(--paper-dim);padding:30px;">Memuat data...</td></tr>
+            <tr><td colspan="10" style="text-align:center;color:var(--paper-dim);padding:30px;">Memuat data...</td></tr>
           </tbody>
         </table>
       </div>
@@ -819,6 +820,8 @@ table .code-hidden{color:var(--paper-dim);opacity:0.4;text-decoration:line-throu
 import { initializeApp } from 'firebase/app';
 import { 
   getAuth, 
+  signInWithEmailAndPassword,
+  signOut,
   onAuthStateChanged
 } from 'firebase/auth';
 import {
@@ -827,13 +830,16 @@ import {
   getDocs,
   doc,
   getDoc,
+  setDoc,
   updateDoc,
   deleteDoc,
   query,
   where,
   addDoc,
-  writeBatch,
-  setDoc
+  deleteDoc as deleteFirestoreDoc,
+  orderBy,
+  limit,
+  writeBatch
 } from 'firebase/firestore';
 
 // ============================================================
@@ -1232,7 +1238,7 @@ async function deleteUser(email) {
     }
 }
 
-// ===== ACTIVATE USER (create license) =====
+// ===== ACTIVATE USER (create license) with referral bonus =====
 async function activateUser(email, quota, expiryDate) {
     try {
         // Check if user exists
@@ -1240,6 +1246,7 @@ async function activateUser(email, quota, expiryDate) {
         if (!userDoc.exists()) {
             throw new Error('User tidak ditemukan');
         }
+        const userData = userDoc.data();
         
         // Check if license already exists
         const licenseDoc = await getDoc(doc(db, 'licenses', email));
@@ -1247,15 +1254,59 @@ async function activateUser(email, quota, expiryDate) {
             throw new Error('User sudah memiliki lisensi');
         }
         
-        // Create license
+        // ===== CEK REFERAL =====
+        const referredBy = userData.referred_by || null;
+        if (referredBy) {
+            console.log('🔗 User direferensikan oleh:', referredBy);
+            
+            // Cek apakah referal valid (user exist)
+            const refererDoc = await getDoc(doc(db, 'users', referredBy));
+            if (refererDoc.exists()) {
+                // Cek lisensi referal
+                const refererLicense = await getDoc(doc(db, 'licenses', referredBy));
+                if (refererLicense.exists()) {
+                    // Tambah kuota +2
+                    await updateDoc(doc(db, 'licenses', referredBy), {
+                        quota: refererLicense.data().quota + 2
+                    });
+                    console.log('✅ +2 kuota diberikan ke:', referredBy);
+                } else {
+                    // Jika belum punya lisensi, buatkan dengan kuota 2
+                    const key = 'REF-' + getTodayStr().replace(/-/g,'') + '-' + Math.random().toString(36).substring(2,6).toUpperCase();
+                    const expiry = new Date();
+                    expiry.setDate(expiry.getDate() + 30);
+                    await setDoc(doc(db, 'licenses', referredBy), {
+                        key: key,
+                        user_email: referredBy,
+                        type: 'both',
+                        quota: 2,
+                        used_count: 0,
+                        start_date: getTodayStr(),
+                        expiry_date: expiry.toISOString().slice(0,10),
+                        is_active: true
+                    });
+                    console.log('✅ Lisensi baru dibuat untuk referal dengan kuota 2:', referredBy);
+                }
+            } else {
+                console.log('⚠️ Referal tidak ditemukan:', referredBy);
+            }
+        }
+        
+        // Create license for the new user
+        const key = 'AKTIF-' + Date.now().toString(36).toUpperCase();
         await setDoc(doc(db, 'licenses', email), {
             email: email,
-            key: 'AKTIF-' + Date.now().toString(36).toUpperCase(),
+            key: key,
             quota: quota,
             used_count: 0,
             expiry_date: expiryDate,
             is_active: true,
             created_at: new Date().toISOString()
+        });
+        
+        // Update user to verified
+        await updateDoc(doc(db, 'users', email), {
+            verified: true
         });
         
         return true;
@@ -1265,6 +1316,7 @@ async function activateUser(email, quota, expiryDate) {
     }
 }
 
+// ===== TOKEN FUNCTIONS =====
 function generateToken() {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let code = '';
@@ -1338,6 +1390,19 @@ async function toggleTokenHidden(docId, hidden) {
         console.error('Toggle token hidden error:', error);
         return false;
     }
+}
+
+// ============================================================
+// HELPER FUNCTIONS
+// ============================================================
+function getTodayStr() { return new Date().toISOString().slice(0,10); }
+function esc(s) { if (!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function formatRupiah(angka) {
+    if (!angka || isNaN(angka)) return 'Rp 0';
+    if (angka >= 1000000000000) return 'Rp ' + (angka / 1000000000000).toFixed(2) + ' Triliun';
+    if (angka >= 1000000000) return 'Rp ' + (angka / 1000000000).toFixed(2) + ' Miliar';
+    if (angka >= 1000000) return 'Rp ' + (angka / 1000000).toFixed(0) + ' Juta';
+    return 'Rp ' + Math.round(angka).toLocaleString('id-ID');
 }
 
 // ============================================================
@@ -1600,7 +1665,7 @@ function renderAssStats() {
 }
 
 // ============================================================
-// RENDER USERS (with Activate button for no license)
+// RENDER USERS (with Referral column)
 // ============================================================
 function renderUsers() {
     const users = DATA.users || {};
@@ -1665,6 +1730,7 @@ function renderUsers() {
             phone: user.phone || '-',
             registered: user.registered_at ? new Date(user.registered_at).toLocaleDateString('id-ID') : '-',
             registered_date: registeredDate,
+            referred_by: user.referred_by || '-', // BARU
             status: statusText,
             statusClass: statusClass,
             quota: remaining,
@@ -1698,8 +1764,8 @@ function renderUsers() {
         html += '<td>' + esc(item.email) + '</td>';
         html += '<td>' + esc(item.phone) + '</td>';
         html += '<td>' + item.registered + '</td>';
+        html += '<td>' + esc(item.referred_by) + '</td>'; // BARU
         html += '<td class="' + item.statusClass + '">' + item.status;
-        // Show Activate button if no license
         if (!item.hasLicense) {
             html += ' <button class="activate-btn" data-email="' + esc(item.email) + '" data-name="' + esc(item.name) + '">Aktifkan</button>';
         }
@@ -1711,7 +1777,7 @@ function renderUsers() {
     });
     
     if (data.length === 0) {
-        html = '<tr><td colspan="9" style="text-align:center;color:var(--paper-dim);padding:30px;">Tidak ada data.</td></tr>';
+        html = '<tr><td colspan="10" style="text-align:center;color:var(--paper-dim);padding:30px;">Tidak ada data.</td></tr>';
     }
     tbody.innerHTML = html;
     
@@ -1961,14 +2027,9 @@ function renderCodes() {
     let data = [];
     let no = 0;
     
-    console.log('📦 Rendering codes, total:', keys.length);
-    
     keys.forEach(docId => {
         const code = codes[docId];
-        if (!code) {
-            console.warn('⚠️ Code data missing for:', docId);
-            return;
-        }
+        if (!code) return;
         
         const token = code.token || code.code || docId;
         
@@ -2118,7 +2179,7 @@ function renderCodes() {
         });
     });
     
-    // Edit note - NOW USING TEXT INPUT (not password)
+    // Edit note - using text input
     tbody.querySelectorAll('.edit-note-btn').forEach(btn => {
         btn.addEventListener('click', async function() {
             const id = this.dataset.id;
@@ -2490,7 +2551,7 @@ document.getElementById('exportExcelBtn').addEventListener('click', function() {
     const users = DATA.users || {};
     const licenses = DATA.licenses || {};
     
-    let rows = [['No', 'Nama', 'Email', 'No HP', 'Tanggal Registrasi', 'Status Lisensi', 'Sisa Kuota', 'Expired']];
+    let rows = [['No', 'Nama', 'Email', 'No HP', 'Tanggal Registrasi', 'Direferensikan Oleh', 'Status Lisensi', 'Sisa Kuota', 'Expired']];
     let no = 1;
     
     for (const email in users) {
@@ -2500,6 +2561,7 @@ document.getElementById('exportExcelBtn').addEventListener('click', function() {
         let statusText = 'Tidak ada lisensi';
         let remaining = '-';
         let expiry = '-';
+        let referredBy = user.referred_by || '-';
         
         if (lic) {
             if (lic.is_active) {
@@ -2528,6 +2590,7 @@ document.getElementById('exportExcelBtn').addEventListener('click', function() {
             email,
             user.phone || '-',
             user.registered_at ? new Date(user.registered_at).toLocaleDateString('id-ID') : '-',
+            referredBy,
             statusText,
             remaining,
             expiry
@@ -2702,20 +2765,6 @@ document.getElementById('codeFilter').addEventListener('change', renderCodes);
 document.getElementById('historySearch').addEventListener('input', renderHistory);
 document.getElementById('assTypeFilter').addEventListener('change', renderAssCalculations);
 document.getElementById('assSearch').addEventListener('input', renderAssCalculations);
-
-// ============================================================
-// HELPER FUNCTIONS
-// ============================================================
-function esc(s) { if (!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function getTodayStr() { return new Date().toISOString().slice(0,10); }
-
-function formatRupiah(angka) {
-    if (!angka || isNaN(angka)) return 'Rp 0';
-    if (angka >= 1000000000000) return 'Rp ' + (angka / 1000000000000).toFixed(2) + ' Triliun';
-    if (angka >= 1000000000) return 'Rp ' + (angka / 1000000000).toFixed(2) + ' Miliar';
-    if (angka >= 1000000) return 'Rp ' + (angka / 1000000).toFixed(0) + ' Juta';
-    return 'Rp ' + Math.round(angka).toLocaleString('id-ID');
-}
 
 // ============================================================
 // AUTH STATE OBSERVER
