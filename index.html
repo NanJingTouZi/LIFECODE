@@ -62,7 +62,6 @@
             box-shadow: 0 2px 0 #a07a1e;
         }
 
-        /* Hilangkan countdown badge karena tidak auto-redirect */
         .countdown-badge {
             display: none;
         }
@@ -79,7 +78,6 @@
             font-weight: 600;
         }
 
-        /* ===== INSTALL BANNER ===== */
         .install-banner {
             background: linear-gradient(135deg, #1a2f44, #0d1f30);
             border: 1px solid #f5c842;
@@ -169,7 +167,6 @@
             transform: scale(0.95);
         }
 
-        /* Responsive */
         @media (max-width: 600px) {
             .btn-lanjut {
                 padding: 14px 40px;
@@ -202,7 +199,6 @@
 <body>
 
     <div class="splash-container">
-        <!-- Gambar Iklan -->
         <img 
             src="nanjing1.jpeg" 
             alt="Nanjing Investment" 
@@ -210,7 +206,6 @@
             id="splashImage"
         />
 
-        <!-- Tombol Lanjutkan (TANPA COUNTDOWN) -->
         <button class="btn-lanjut" id="btnLanjut">
             Lanjutkan →
         </button>
@@ -219,7 +214,6 @@
             ⏱️ Akan muncul kembali jika <span>1 jam</span> tidak mengunjungi aplikasi
         </div>
 
-        <!-- ===== INSTALL BANNER ===== -->
         <div class="install-banner" id="installBanner">
             <div class="icon-text">
                 <div class="icon">📲</div>
@@ -243,20 +237,43 @@
         const SESSION_KEY = 'nanjing_just_from_menu';
 
         // ============================================================
-        // 2. CEK WAKTU KUNJUNGAN
+        // 2. FITUR REFERAL - BACA PARAMETER DARI URL
+        // ============================================================
+        (function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const refEmail = urlParams.get('ref');
+            
+            if (refEmail && refEmail.includes('@')) {
+                sessionStorage.setItem('referral_email', refEmail);
+                console.log('🔗 Referal detected:', refEmail);
+            } else {
+                // Cek apakah ada di sessionStorage dari sebelumnya
+                const savedRef = sessionStorage.getItem('referral_email');
+                if (!savedRef) {
+                    sessionStorage.removeItem('referral_email');
+                }
+                console.log('🔗 Tidak ada referal baru');
+            }
+            
+            const savedRef = sessionStorage.getItem('referral_email');
+            if (savedRef) {
+                console.log('📌 Referal tersimpan di session:', savedRef);
+            }
+        })();
+
+        // ============================================================
+        // 3. CEK WAKTU KUNJUNGAN
         // ============================================================
         function checkLastVisit() {
             const lastVisit = localStorage.getItem(STORAGE_KEY);
             const currentTime = Date.now();
             
-            // CEK APAKAH BARU SAJA DARI MENU (SESSION)
             const justFromMenu = sessionStorage.getItem(SESSION_KEY);
 
             if (justFromMenu === 'true') {
-                // Hapus penanda agar tidak loop
                 sessionStorage.removeItem(SESSION_KEY);
                 console.log('🔄 Kembali dari menu, tampilkan splash (harus klik)');
-                return false; // Tampilkan splash
+                return false;
             }
 
             if (lastVisit) {
@@ -277,13 +294,12 @@
         }
 
         // ============================================================
-        // 3. FUNGSI REDIRECT KE MENU
+        // 4. FUNGSI REDIRECT KE MENU
         // ============================================================
         function goToMenu() {
             const currentTime = Date.now();
             localStorage.setItem(STORAGE_KEY, currentTime.toString());
             
-            // TANDAI bahwa kita sedang menuju menu
             sessionStorage.setItem(SESSION_KEY, 'true');
             
             console.log('💾 Waktu kunjungan disimpan, menuju menu...');
@@ -291,7 +307,7 @@
         }
 
         // ============================================================
-        // 4. INSTALL APP
+        // 5. INSTALL APP
         // ============================================================
         let deferredPrompt = null;
 
@@ -334,7 +350,7 @@
         }
 
         // ============================================================
-        // 5. EKSEKUSI UTAMA
+        // 6. EKSEKUSI UTAMA
         // ============================================================
         const isRedirected = checkLastVisit();
 
@@ -344,7 +360,6 @@
             const container = document.querySelector('.splash-container');
             const btnInstall = document.getElementById('btnInstall');
 
-            // ===== INSTALL BANNER =====
             window.addEventListener('beforeinstallprompt', (e) => {
                 e.preventDefault();
                 deferredPrompt = e;
@@ -365,21 +380,18 @@
                 handleInstall();
             });
 
-            // ===== TOMBOL LANJUT (HARUS KLIK) =====
             btnLanjut.addEventListener('click', function(e) {
                 e.preventDefault();
                 console.log('👆 User klik tombol, redirect ke menu...');
                 goToMenu();
             });
 
-            // ===== KLIK GAMBAR =====
             splashImage.addEventListener('click', function() {
                 console.log('🖼️ Klik gambar, redirect ke menu...');
                 goToMenu();
             });
             splashImage.style.cursor = 'pointer';
 
-            // ===== KLIK CONTAINER (kecuali tombol) =====
             container.addEventListener('click', function(e) {
                 if (e.target === btnLanjut || e.target.closest('.btn-lanjut')) return;
                 if (e.target === btnInstall || e.target.closest('.btn-install')) return;
@@ -389,7 +401,6 @@
                 goToMenu();
             });
 
-            // ===== KEYBOARD =====
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
@@ -403,7 +414,7 @@
         }
 
         // ============================================================
-        // 6. INFO CONSOLE
+        // 7. INFO CONSOLE
         // ============================================================
         const lastVisit = localStorage.getItem(STORAGE_KEY);
         if (lastVisit) {
