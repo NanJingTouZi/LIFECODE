@@ -161,6 +161,10 @@ body{
   border-color:var(--cinnabar);color:#e0968a;
 }
 .table-controls .btn-sm.red:hover{background:rgba(180,72,58,0.15);}
+.table-controls .btn-sm.gold{
+  border-color:var(--gold);color:var(--gold-soft);
+}
+.table-controls .btn-sm.gold:hover{background:rgba(201,162,74,0.15);}
 .table-scroll{overflow-x:auto;}
 table{width:100%;border-collapse:collapse;font-size:12px;}
 table th{
@@ -169,7 +173,12 @@ table th{
   text-transform:uppercase;letter-spacing:0.06em;
   background:rgba(0,0,0,0.15);
   white-space:nowrap;
+  cursor:pointer;
+  user-select:none;
 }
+table th:hover{color:var(--paper);}
+table th .sort-icon{opacity:0.3;margin-left:4px;}
+table th .sort-icon.active{opacity:1;color:var(--gold-soft);}
 table td{padding:7px 12px;border-bottom:1px solid rgba(201,162,74,0.06);color:var(--paper);}
 table tr:hover td{background:rgba(201,162,74,0.04);}
 table .status-active{color:var(--jade-soft);font-weight:600;}
@@ -177,6 +186,7 @@ table .status-expired{color:#e0968a;font-weight:600;}
 table .status-warning{color:#f0b84d;font-weight:600;}
 table .code-used{color:var(--paper-dim);}
 table .code-available{color:var(--jade-soft);font-weight:600;}
+table .code-hidden{color:var(--paper-dim);opacity:0.4;text-decoration:line-through;}
 
 .copy-btn{
   background:transparent;border:none;color:var(--gold-soft);cursor:pointer;
@@ -196,6 +206,22 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
   font-family:'Inter',sans-serif;transition:background .15s;
 }
 .delete-btn-table:hover{background:rgba(180,72,58,0.15);}
+.edit-note-btn{
+  background:transparent;border:1px solid var(--gold-soft);color:var(--gold-soft);
+  border-radius:4px;padding:2px 8px;font-size:9px;cursor:pointer;
+  font-family:'Inter',sans-serif;transition:background .15s;
+}
+.edit-note-btn:hover{background:rgba(201,162,74,0.15);}
+.hide-toggle-btn{
+  background:transparent;border:1px solid var(--jade);color:var(--jade-soft);
+  border-radius:4px;padding:2px 8px;font-size:9px;cursor:pointer;
+  font-family:'Inter',sans-serif;transition:background .15s;
+}
+.hide-toggle-btn:hover{background:rgba(79,138,114,0.15);}
+.hide-toggle-btn.unhide{
+  border-color:var(--gold);color:var(--gold-soft);
+}
+.hide-toggle-btn.unhide:hover{background:rgba(201,162,74,0.15);}
 
 .tabs{display:flex;gap:4px;margin-bottom:18px;flex-wrap:wrap;}
 .tabs .tab{
@@ -375,6 +401,45 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
 .ass-type-badge.jiwa{background:rgba(180,72,58,0.2);color:#e0968a;}
 .ass-type-badge.wealth{background:rgba(107,63,160,0.2);color:#b89fd4;}
 
+.popup-radio-group{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin:10px 0 16px;
+}
+.popup-radio-group label{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 14px;
+  border-radius:8px;
+  border:1px solid rgba(201,162,74,0.15);
+  background:rgba(0,0,0,0.15);
+  cursor:pointer;
+  transition:all .15s;
+  font-size:13px;
+  color:var(--paper);
+}
+.popup-radio-group label:hover{
+  border-color:var(--gold);
+  background:rgba(201,162,74,0.08);
+}
+.popup-radio-group label.selected{
+  border-color:var(--gold);
+  background:rgba(201,162,74,0.12);
+}
+.popup-radio-group input[type="radio"]{
+  accent-color:var(--gold);
+  width:16px;
+  height:16px;
+  cursor:pointer;
+}
+.popup-radio-group .radio-desc{
+  font-size:11px;
+  color:var(--paper-dim);
+  margin-left:auto;
+}
+
 @media (max-width:768px){
   .stats-grid{grid-template-columns:repeat(3,1fr);}
   .popup-data-grid{grid-template-columns:1fr;}
@@ -412,6 +477,7 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
     <div id="popupInputContainer" style="display:none;">
       <input class="popup-input" type="password" id="popupInput" placeholder="••••••" maxlength="6" inputmode="numeric">
     </div>
+    <div id="popupRadioContainer" style="display:none;"></div>
     <div id="popupDetailContainer" style="display:none;"></div>
     <div class="popup-btns" id="popupButtons">
       <button class="popup-btn" id="popupBtnConfirm">OK</button>
@@ -489,16 +555,16 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
       </div>
       <div class="table-scroll">
         <table>
-          <thead>
+          <thead id="usersTableHead">
             <tr>
-              <th>#</th>
-              <th>Nama</th>
-              <th>Email</th>
-              <th>HP</th>
-              <th>Registrasi</th>
-              <th>Status Lisensi</th>
-              <th>Sisa Kuota</th>
-              <th>Hari Tersisa</th>
+              <th data-sort="no"># <span class="sort-icon">⇅</span></th>
+              <th data-sort="name">Nama <span class="sort-icon">⇅</span></th>
+              <th data-sort="email">Email <span class="sort-icon">⇅</span></th>
+              <th data-sort="phone">HP <span class="sort-icon">⇅</span></th>
+              <th data-sort="registered">Registrasi <span class="sort-icon">⇅</span></th>
+              <th data-sort="status">Status Lisensi <span class="sort-icon">⇅</span></th>
+              <th data-sort="quota">Sisa Kuota <span class="sort-icon">⇅</span></th>
+              <th data-sort="days">Hari Tersisa <span class="sort-icon">⇅</span></th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -522,16 +588,16 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
       </div>
       <div class="table-scroll">
         <table>
-          <thead>
+          <thead id="licensesTableHead">
             <tr>
-              <th>#</th>
-              <th>Email</th>
-              <th>Kunci</th>
-              <th>Kuota</th>
-              <th>Terpakai</th>
-              <th>Sisa</th>
-              <th>Expired</th>
-              <th>Status</th>
+              <th data-sort="no"># <span class="sort-icon">⇅</span></th>
+              <th data-sort="email">Email <span class="sort-icon">⇅</span></th>
+              <th data-sort="key">Kunci <span class="sort-icon">⇅</span></th>
+              <th data-sort="quota">Kuota <span class="sort-icon">⇅</span></th>
+              <th data-sort="used">Terpakai <span class="sort-icon">⇅</span></th>
+              <th data-sort="remaining">Sisa <span class="sort-icon">⇅</span></th>
+              <th data-sort="expiry">Expired <span class="sort-icon">⇅</span></th>
+              <th data-sort="status">Status <span class="sort-icon">⇅</span></th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -549,31 +615,37 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
       <div class="table-header">
         <h3>📦 Daftar Token</h3>
         <div class="table-controls">
+          <button class="btn-sm gold" id="createTokenBtn">➕ Buat Token</button>
           <select id="codeFilter">
             <option value="all">Semua</option>
             <option value="available">✅ Tersedia</option>
             <option value="used">❌ Terpakai</option>
+            <option value="hidden">🙈 Tersembunyi</option>
           </select>
+          <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--paper-dim);">
+            <input type="checkbox" id="showHiddenCheck"> Tampilkan Tersembunyi
+          </label>
           <button class="btn-sm" id="refreshCodesBtn">🔄 Refresh</button>
         </div>
       </div>
       <div class="table-scroll">
         <table>
-          <thead>
+          <thead id="codesTableHead">
             <tr>
-              <th>#</th>
-              <th>Token</th>
-              <th>Type</th>
-              <th>Durasi</th>
-              <th>Kuota</th>
-              <th>Status</th>
-              <th>Dipakai Oleh</th>
-              <th>Tanggal</th>
+              <th data-sort="no"># <span class="sort-icon">⇅</span></th>
+              <th data-sort="token">Token <span class="sort-icon">⇅</span></th>
+              <th data-sort="type">Type <span class="sort-icon">⇅</span></th>
+              <th data-sort="duration">Durasi <span class="sort-icon">⇅</span></th>
+              <th data-sort="amount">Kuota <span class="sort-icon">⇅</span></th>
+              <th data-sort="status">Status <span class="sort-icon">⇅</span></th>
+              <th data-sort="used_by">Dipakai Oleh <span class="sort-icon">⇅</span></th>
+              <th data-sort="note">Note <span class="sort-icon">⇅</span></th>
+              <th data-sort="date">Tanggal <span class="sort-icon">⇅</span></th>
               <th>Aksi</th>
             </tr>
           </thead>
           <tbody id="codesTableBody">
-            <tr><td colspan="9" style="text-align:center;color:var(--paper-dim);padding:30px;">Memuat data...</td></tr>
+            <tr><td colspan="10" style="text-align:center;color:var(--paper-dim);padding:30px;">Memuat data...</td></tr>
           </tbody>
         </table>
       </div>
@@ -593,13 +665,13 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
       </div>
       <div class="table-scroll">
         <table>
-          <thead>
+          <thead id="historyTableHead">
             <tr>
-              <th>#</th>
-              <th>User</th>
-              <th>Nama Dihitung</th>
-              <th>Tanggal Lahir</th>
-              <th>Waktu</th>
+              <th data-sort="no"># <span class="sort-icon">⇅</span></th>
+              <th data-sort="user">User <span class="sort-icon">⇅</span></th>
+              <th data-sort="name">Nama Dihitung <span class="sort-icon">⇅</span></th>
+              <th data-sort="dob">Tanggal Lahir <span class="sort-icon">⇅</span></th>
+              <th data-sort="date">Waktu <span class="sort-icon">⇅</span></th>
             </tr>
           </thead>
           <tbody id="historyTableBody">
@@ -610,7 +682,7 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
     </div>
   </div>
 
-  <!-- Tab: ASURANSI (BARU) -->
+  <!-- Tab: ASURANSI -->
   <div class="tab-content" id="tab-assurance">
     <div class="stats-grid" id="assStatsGrid" style="margin-bottom:18px;">
       <div class="stat-card">
@@ -654,14 +726,14 @@ table .code-available{color:var(--jade-soft);font-weight:600;}
       </div>
       <div class="table-scroll">
         <table>
-          <thead>
+          <thead id="assTableHead">
             <tr>
-              <th>#</th>
-              <th>User</th>
-              <th>Jenis</th>
-              <th>Hasil</th>
-              <th>Ringkasan</th>
-              <th>Waktu</th>
+              <th data-sort="no"># <span class="sort-icon">⇅</span></th>
+              <th data-sort="user">User <span class="sort-icon">⇅</span></th>
+              <th data-sort="type">Jenis <span class="sort-icon">⇅</span></th>
+              <th data-sort="result">Hasil <span class="sort-icon">⇅</span></th>
+              <th data-sort="summary">Ringkasan <span class="sort-icon">⇅</span></th>
+              <th data-sort="date">Waktu <span class="sort-icon">⇅</span></th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -710,7 +782,8 @@ import {
   addDoc,
   deleteDoc as deleteFirestoreDoc,
   orderBy,
-  limit
+  limit,
+  writeBatch
 } from 'firebase/firestore';
 
 // ============================================================
@@ -738,7 +811,7 @@ const ADMIN_PIN = '614931';
 // ============================================================
 // CUSTOM POPUP
 // ============================================================
-function showPopup(type, title, message, confirmText, cancelText, showInput, callback, detailData) {
+function showPopup(type, title, message, confirmText, cancelText, showInput, callback, detailData, radioOptions) {
     return new Promise((resolve) => {
         const overlay = document.getElementById('customPopup');
         const icon = document.getElementById('popupIcon');
@@ -746,6 +819,7 @@ function showPopup(type, title, message, confirmText, cancelText, showInput, cal
         const msgEl = document.getElementById('popupMessage');
         const btnContainer = document.getElementById('popupButtons');
         const inputContainer = document.getElementById('popupInputContainer');
+        const radioContainer = document.getElementById('popupRadioContainer');
         const detailContainer = document.getElementById('popupDetailContainer');
         const inputEl = document.getElementById('popupInput');
         
@@ -774,6 +848,32 @@ function showPopup(type, title, message, confirmText, cancelText, showInput, cal
             inputContainer.style.display = 'none';
         }
         
+        // Handle radio options
+        if (radioOptions && radioOptions.length > 0) {
+            radioContainer.style.display = 'block';
+            let html = '<div class="popup-radio-group">';
+            radioOptions.forEach((opt, idx) => {
+                html += `<label class="${idx === 0 ? 'selected' : ''}">
+                    <input type="radio" name="popupRadio" value="${opt.value}" ${idx === 0 ? 'checked' : ''}>
+                    <span>${opt.label}</span>
+                    <span class="radio-desc">${opt.desc || ''}</span>
+                </label>`;
+            });
+            html += '</div>';
+            radioContainer.innerHTML = html;
+            
+            // Add click handler for labels
+            radioContainer.querySelectorAll('label').forEach(label => {
+                label.addEventListener('click', function() {
+                    this.querySelector('input[type="radio"]').checked = true;
+                    radioContainer.querySelectorAll('label').forEach(l => l.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+        } else {
+            radioContainer.style.display = 'none';
+        }
+        
         // Handle detail data
         if (detailData) {
             detailContainer.style.display = 'block';
@@ -790,16 +890,16 @@ function showPopup(type, title, message, confirmText, cancelText, showInput, cal
             btnYes.className = 'popup-btn ' + (type === 'pin' ? 'popup-btn-success' : 'popup-btn-danger');
             
             btnYes.onclick = function() {
+                let result = true;
                 if (type === 'pin') {
-                    const pinValue = inputEl.value;
-                    overlay.classList.remove('show');
-                    resolve(pinValue);
-                    if (callback) callback(pinValue);
-                } else {
-                    overlay.classList.remove('show');
-                    resolve(true);
-                    if (callback) callback(true);
+                    result = inputEl.value;
+                } else if (radioOptions && radioOptions.length > 0) {
+                    const selected = radioContainer.querySelector('input[type="radio"]:checked');
+                    result = selected ? selected.value : null;
                 }
+                overlay.classList.remove('show');
+                resolve(result);
+                if (callback) callback(result);
             };
             
             const btnNo = document.createElement('button');
@@ -1002,6 +1102,69 @@ async function deleteUser(email) {
     }
 }
 
+// ===== TOKEN FUNCTIONS =====
+async function createToken(type, duration, amount) {
+    try {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let code = '';
+        for (let i = 0; i < 8; i++) {
+            code += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        
+        // Add timestamp to make it unique
+        const timestamp = Date.now().toString(36).toUpperCase();
+        const token = code + '-' + timestamp.slice(-4);
+        
+        await addDoc(collection(db, 'codes'), {
+            code: token,
+            type: type, // 'both', 'time', 'quota'
+            duration: duration || 0,
+            amount: amount || 0,
+            used: false,
+            used_by: null,
+            used_at: null,
+            hidden: false,
+            note: '',
+            created_at: new Date().toISOString()
+        });
+        
+        return token;
+    } catch (error) {
+        console.error('Create token error:', error);
+        return null;
+    }
+}
+
+async function deleteToken(docId) {
+    try {
+        await deleteDoc(doc(db, 'codes', docId));
+        return true;
+    } catch (error) {
+        console.error('Delete token error:', error);
+        return false;
+    }
+}
+
+async function updateTokenNote(docId, note) {
+    try {
+        await updateDoc(doc(db, 'codes', docId), { note: note });
+        return true;
+    } catch (error) {
+        console.error('Update token note error:', error);
+        return false;
+    }
+}
+
+async function toggleTokenHidden(docId, hidden) {
+    try {
+        await updateDoc(doc(db, 'codes', docId), { hidden: hidden });
+        return true;
+    } catch (error) {
+        console.error('Toggle token hidden error:', error);
+        return false;
+    }
+}
+
 // ============================================================
 // PIN LOGIN
 // ============================================================
@@ -1094,6 +1257,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 // ============================================================
 let DATA = { users: {}, licenses: {}, codes: {}, history: [], assCalculations: [] };
 let editingRow = null;
+let sortState = {};
 
 // ============================================================
 // LOAD DATA
@@ -1111,6 +1275,73 @@ async function loadData() {
         console.error('❌ Gagal load data:', error);
         return false;
     }
+}
+
+// ============================================================
+// SORTING FUNCTIONS
+// ============================================================
+function getSortState(tableId) {
+    if (!sortState[tableId]) {
+        sortState[tableId] = { key: null, direction: 'asc' };
+    }
+    return sortState[tableId];
+}
+
+function toggleSort(tableId, key) {
+    const state = getSortState(tableId);
+    if (state.key === key) {
+        state.direction = state.direction === 'asc' ? 'desc' : 'asc';
+    } else {
+        state.key = key;
+        state.direction = 'asc';
+    }
+    // Update UI
+    const table = document.getElementById(tableId);
+    table.querySelectorAll('th .sort-icon').forEach(el => {
+        el.classList.remove('active');
+    });
+    const header = table.querySelector(`th[data-sort="${key}"] .sort-icon`);
+    if (header) {
+        header.classList.add('active');
+        header.textContent = state.direction === 'asc' ? '▲' : '▼';
+    }
+    return state;
+}
+
+function sortData(data, key, direction) {
+    if (!key) return data;
+    const sorted = [...data];
+    sorted.sort((a, b) => {
+        let valA = a[key] !== undefined ? a[key] : '';
+        let valB = b[key] !== undefined ? b[key] : '';
+        
+        // Handle special cases
+        if (key === 'no') {
+            valA = a._index || 0;
+            valB = b._index || 0;
+            return direction === 'asc' ? valA - valB : valB - valA;
+        }
+        
+        // Handle numbers
+        if (typeof valA === 'number' && typeof valB === 'number') {
+            return direction === 'asc' ? valA - valB : valB - valA;
+        }
+        
+        // Handle dates
+        if (valA instanceof Date || valB instanceof Date) {
+            valA = new Date(valA);
+            valB = new Date(valB);
+            return direction === 'asc' ? valA - valB : valB - valA;
+        }
+        
+        // Handle strings
+        valA = String(valA).toLowerCase();
+        valB = String(valB).toLowerCase();
+        if (valA < valB) return direction === 'asc' ? -1 : 1;
+        if (valA > valB) return direction === 'asc' ? 1 : -1;
+        return 0;
+    });
+    return sorted;
 }
 
 // ============================================================
@@ -1151,7 +1382,8 @@ function renderStats() {
         }
     }
     
-    const availableCodes = Object.keys(codes).filter(key => !codes[key].used).length;
+    // Count available codes (not used and not hidden)
+    const availableCodes = Object.keys(codes).filter(key => !codes[key].used && !codes[key].hidden).length;
     
     document.getElementById('statTotal').textContent = total;
     document.getElementById('statActive').textContent = active;
@@ -1188,9 +1420,10 @@ function renderUsers() {
     const search = (document.getElementById('userSearch').value || '').toLowerCase();
     const filter = document.getElementById('userFilter').value;
     const tbody = document.getElementById('usersTableBody');
+    const sort = getSortState('usersTableHead');
     
     let emails = Object.keys(users);
-    let html = '';
+    let data = [];
     let no = 0;
     
     emails.forEach(email => {
@@ -1235,20 +1468,48 @@ function renderUsers() {
         if (filter === 'warning' && status !== 'warning') return;
         
         no++;
+        data.push({
+            _index: no,
+            no: no,
+            name: user.name || '-',
+            email: email,
+            phone: user.phone || '-',
+            registered: user.registered_at ? new Date(user.registered_at).toLocaleDateString('id-ID') : '-',
+            status: statusText,
+            quota: remaining,
+            days: daysLeft,
+            _status: status,
+            _email: email,
+            _user: user
+        });
+    });
+    
+    // Apply sorting
+    if (sort.key) {
+        data = sortData(data, sort.key, sort.direction);
+        // Reassign no after sorting
+        data.forEach((item, idx) => {
+            item.no = idx + 1;
+            item._index = idx + 1;
+        });
+    }
+    
+    let html = '';
+    data.forEach(item => {
         html += '<tr>';
-        html += '<td>' + no + '</td>';
-        html += '<td>' + esc(user.name || '-') + '</td>';
-        html += '<td>' + esc(email) + '</td>';
-        html += '<td>' + esc(user.phone || '-') + '</td>';
-        html += '<td>' + (user.registered_at ? new Date(user.registered_at).toLocaleDateString('id-ID') : '-') + '</td>';
-        html += '<td class="' + statusClass + '">' + statusText + '</td>';
-        html += '<td>' + remaining + '/' + quota + '</td>';
-        html += '<td>' + (daysLeft !== '-' ? daysLeft : '-') + '</td>';
-        html += '<td><button class="delete-btn-table" data-email="' + esc(email) + '">🗑️ Hapus</button></td>';
+        html += '<td>' + item.no + '</td>';
+        html += '<td>' + esc(item.name) + '</td>';
+        html += '<td>' + esc(item.email) + '</td>';
+        html += '<td>' + esc(item.phone) + '</td>';
+        html += '<td>' + item.registered + '</td>';
+        html += '<td class="' + (item._status === 'active' ? 'status-active' : item._status === 'warning' ? 'status-warning' : 'status-expired') + '">' + item.status + '</td>';
+        html += '<td>' + item.quota + '/' + (DATA.licenses[item.email]?.quota || 0) + '</td>';
+        html += '<td>' + (item.days !== '-' ? item.days : '-') + '</td>';
+        html += '<td><button class="delete-btn-table" data-email="' + esc(item.email) + '">🗑️ Hapus</button></td>';
         html += '</tr>';
     });
     
-    if (no === 0) {
+    if (data.length === 0) {
         html = '<tr><td colspan="9" style="text-align:center;color:var(--paper-dim);padding:30px;">Tidak ada data.</td></tr>';
     }
     tbody.innerHTML = html;
@@ -1284,9 +1545,10 @@ function renderLicenses() {
     const licenses = DATA.licenses || {};
     const search = (document.getElementById('licenseSearch').value || '').toLowerCase();
     const tbody = document.getElementById('licensesTableBody');
+    const sort = getSortState('licensesTableHead');
     
     let emails = Object.keys(licenses);
-    let html = '';
+    let data = [];
     let no = 0;
     
     emails.forEach(email => {
@@ -1313,33 +1575,66 @@ function renderLicenses() {
         
         const isEditing = (editingRow === email);
         
-        html += '<tr id="row-' + email.replace(/[@.]/g, '_') + '">';
-        html += '<td>' + no + '</td>';
+        data.push({
+            _index: no,
+            no: no,
+            email: email,
+            key: lic.key || '-',
+            quota: lic.quota,
+            used: lic.used_count,
+            remaining: remaining,
+            expiry: lic.expiry_date,
+            status: statusText,
+            _statusClass: statusClass,
+            _email: email,
+            _lic: lic,
+            _isEditing: isEditing
+        });
+    });
+    
+    // Apply sorting
+    if (sort.key) {
+        data = sortData(data, sort.key, sort.direction);
+        data.forEach((item, idx) => {
+            item.no = idx + 1;
+            item._index = idx + 1;
+        });
+    }
+    
+    let html = '';
+    data.forEach(item => {
+        const isEditing = item._isEditing;
+        const email = item._email;
+        const lic = item._lic;
+        const id = email.replace(/[@.]/g, '_');
+        
+        html += '<tr id="row-' + id + '">';
+        html += '<td>' + item.no + '</td>';
         html += '<td>' + esc(email) + '</td>';
-        html += '<td style="font-family:Cormorant Garamond,serif;color:var(--gold-soft);">' + esc(lic.key || '-') + '</td>';
+        html += '<td style="font-family:Cormorant Garamond,serif;color:var(--gold-soft);">' + esc(item.key) + '</td>';
         
         if (isEditing) {
-            html += '<td><input class="inline-input" type="number" id="editQuota_' + email.replace(/[@.]/g, '_') + '" value="' + lic.quota + '" min="0" style="max-width:70px;"></td>';
+            html += '<td><input class="inline-input" type="number" id="editQuota_' + id + '" value="' + lic.quota + '" min="0" style="max-width:70px;"></td>';
         } else {
-            html += '<td>' + lic.quota + '</td>';
+            html += '<td>' + item.quota + '</td>';
         }
         
-        html += '<td>' + lic.used_count + '</td>';
-        html += '<td>' + remaining + '</td>';
+        html += '<td>' + item.used + '</td>';
+        html += '<td>' + item.remaining + '</td>';
         
         if (isEditing) {
-            html += '<td><input class="inline-date" type="date" id="editExpiry_' + email.replace(/[@.]/g, '_') + '" value="' + lic.expiry_date + '" style="max-width:130px;"></td>';
+            html += '<td><input class="inline-date" type="date" id="editExpiry_' + id + '" value="' + lic.expiry_date + '" style="max-width:130px;"></td>';
         } else {
-            html += '<td>' + lic.expiry_date + '</td>';
+            html += '<td>' + item.expiry + '</td>';
         }
         
         if (isEditing) {
-            html += '<td><select class="inline-select" id="editStatus_' + email.replace(/[@.]/g, '_') + '" style="max-width:110px;">';
+            html += '<td><select class="inline-select" id="editStatus_' + id + '" style="max-width:110px;">';
             html += '<option value="true"' + (lic.is_active ? ' selected' : '') + '>✅ Aktif</option>';
             html += '<option value="false"' + (!lic.is_active ? ' selected' : '') + '>❌ Tidak Aktif</option>';
             html += '</select></td>';
         } else {
-            html += '<td class="' + statusClass + '">' + statusText + '</td>';
+            html += '<td class="' + item._statusClass + '">' + item.status + '</td>';
         }
         
         html += '<td>';
@@ -1353,7 +1648,7 @@ function renderLicenses() {
         html += '</tr>';
     });
     
-    if (no === 0) {
+    if (data.length === 0) {
         html = '<tr><td colspan="9" style="text-align:center;color:var(--paper-dim);padding:30px;">Tidak ada data.</td></tr>';
     }
     tbody.innerHTML = html;
@@ -1413,56 +1708,100 @@ function renderLicenses() {
 }
 
 // ============================================================
-// RENDER CODES
+// RENDER CODES (with new features)
 // ============================================================
 function renderCodes() {
     const codes = DATA.codes || {};
     const filter = document.getElementById('codeFilter').value;
+    const showHidden = document.getElementById('showHiddenCheck').checked;
     const tbody = document.getElementById('codesTableBody');
+    const sort = getSortState('codesTableHead');
     
     let keys = Object.keys(codes);
-    let html = '';
+    let data = [];
     let no = 0;
     
     keys.forEach(key => {
         const code = codes[key];
-        if (filter === 'available' && code.used) return;
+        
+        // Filter logic
+        if (!showHidden && code.hidden) return;
+        if (filter === 'available' && (code.used || code.hidden)) return;
         if (filter === 'used' && !code.used) return;
+        if (filter === 'hidden' && !code.hidden) return;
         
         no++;
-        const statusText = code.used ? '❌ Terpakai' : '✅ Tersedia';
-        const statusClass = code.used ? 'code-used' : 'code-available';
+        let statusText = code.used ? '❌ Terpakai' : (code.hidden ? '🙈 Tersembunyi' : '✅ Tersedia');
+        let statusClass = code.used ? 'code-used' : (code.hidden ? 'code-hidden' : 'code-available');
         const usedBy = code.used_by || '-';
         const usedAt = code.used_at ? new Date(code.used_at).toLocaleDateString('id-ID') : '-';
         const created = code.created_at ? new Date(code.created_at).toLocaleDateString('id-ID') : '-';
+        const note = code.note || '';
         
         let typeText = '-';
-        if (code.type === 'time') typeText = '⏰ ' + (code.duration || 0) + ' hari';
-        else if (code.type === 'quota') typeText = '📊 +' + (code.amount || 0) + ' kali';
-        else if (code.type === 'both') typeText = '⏰ +' + (code.duration || 0) + 'h 📊 +' + (code.amount || 0) + 'x';
-        
-        html += '<tr>';
-        html += '<td>' + no + '</td>';
-        html += '<td style="font-family:Cormorant Garamond,serif;color:var(--gold-soft);">' + esc(key) + '</td>';
-        html += '<td>' + typeText + '</td>';
-        html += '<td>' + (code.duration || '-') + '</td>';
-        html += '<td>' + (code.amount || '-') + '</td>';
-        html += '<td class="' + statusClass + '">' + statusText + '</td>';
-        html += '<td>' + esc(usedBy) + '</td>';
-        html += '<td>' + (code.used_at ? usedAt : created) + '</td>';
-        html += '<td>';
-        if (!code.used) {
-            html += '<button class="copy-btn" data-code="' + esc(key) + '">📋 Salin</button>';
+        if (code.type === 'both') {
+            typeText = '⏰ +' + (code.duration || 0) + 'bln 📊 +' + (code.amount || 0);
+        } else if (code.type === 'time') {
+            typeText = '⏰ +' + (code.duration || 0) + 'bln';
+        } else if (code.type === 'quota') {
+            typeText = '📊 +' + (code.amount || 0);
         }
+        
+        data.push({
+            _index: no,
+            no: no,
+            token: key,
+            type: typeText,
+            duration: code.duration || '-',
+            amount: code.amount || '-',
+            status: statusText,
+            used_by: usedBy,
+            note: note,
+            date: code.used_at ? usedAt : created,
+            _status: code.used ? 'used' : (code.hidden ? 'hidden' : 'available'),
+            _code: code,
+            _id: key
+        });
+    });
+    
+    // Apply sorting
+    if (sort.key) {
+        data = sortData(data, sort.key, sort.direction);
+        data.forEach((item, idx) => {
+            item.no = idx + 1;
+            item._index = idx + 1;
+        });
+    }
+    
+    let html = '';
+    data.forEach(item => {
+        const isHidden = item._status === 'hidden';
+        html += '<tr style="' + (isHidden ? 'opacity:0.6;' : '') + '">';
+        html += '<td>' + item.no + '</td>';
+        html += '<td style="font-family:Cormorant Garamond,serif;color:var(--gold-soft);">' + esc(item.token) + '</td>';
+        html += '<td>' + item.type + '</td>';
+        html += '<td>' + item.duration + '</td>';
+        html += '<td>' + item.amount + '</td>';
+        html += '<td class="' + statusClass + '">' + item.status + '</td>';
+        html += '<td>' + esc(item.used_by) + '</td>';
+        html += '<td>' + esc(item.note) + ' <button class="edit-note-btn" data-id="' + item._id + '">✏️</button></td>';
+        html += '<td>' + item.date + '</td>';
+        html += '<td>';
+        if (!item._code.used) {
+            html += '<button class="copy-btn" data-code="' + esc(item.token) + '">📋 Salin</button> ';
+        }
+        html += '<button class="hide-toggle-btn ' + (isHidden ? 'unhide' : '') + '" data-id="' + item._id + '">' + (isHidden ? '👁️ Tampilkan' : '🙈 Sembunyikan') + '</button> ';
+        html += '<button class="delete-btn-table" data-id="' + item._id + '">🗑️</button>';
         html += '</td>';
         html += '</tr>';
     });
     
-    if (no === 0) {
-        html = '<tr><td colspan="9" style="text-align:center;color:var(--paper-dim);padding:30px;">Tidak ada data.</td></tr>';
+    if (data.length === 0) {
+        html = '<tr><td colspan="10" style="text-align:center;color:var(--paper-dim);padding:30px;">Tidak ada data.</td></tr>';
     }
     tbody.innerHTML = html;
     
+    // Copy button
     tbody.querySelectorAll('.copy-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const code = this.dataset.code;
@@ -1472,7 +1811,126 @@ function renderCodes() {
             });
         });
     });
+    
+    // Hide/Unhide toggle
+    tbody.querySelectorAll('.hide-toggle-btn').forEach(btn => {
+        btn.addEventListener('click', async function() {
+            const id = this.dataset.id;
+            const code = DATA.codes[id];
+            if (!code) return;
+            const newHidden = !code.hidden;
+            const result = await toggleTokenHidden(id, newHidden);
+            if (result) {
+                await loadData();
+                renderCodes();
+            } else {
+                await showPopup('error', 'Gagal', 'Gagal mengubah status token.');
+            }
+        });
+    });
+    
+    // Delete token
+    tbody.querySelectorAll('.delete-btn-table').forEach(btn => {
+        btn.addEventListener('click', async function() {
+            const id = this.dataset.id;
+            const code = DATA.codes[id];
+            if (!code) return;
+            
+            const confirmDelete = await showPopup('confirm', '⚠️ Hapus Token', 
+                'Yakin ingin menghapus token <strong>' + esc(code.code) + '</strong>?<br><br>Ini tidak bisa dibatalkan!', 
+                'Hapus', 'Batal');
+            
+            if (confirmDelete) {
+                const result = await deleteToken(id);
+                if (result) {
+                    await loadData();
+                    renderCodes();
+                    await showPopup('success', 'Berhasil', 'Token berhasil dihapus.');
+                } else {
+                    await showPopup('error', 'Gagal', 'Gagal menghapus token.');
+                }
+            }
+        });
+    });
+    
+    // Edit note
+    tbody.querySelectorAll('.edit-note-btn').forEach(btn => {
+        btn.addEventListener('click', async function() {
+            const id = this.dataset.id;
+            const code = DATA.codes[id];
+            if (!code) return;
+            
+            const newNote = await showPopup('pin', '✏️ Edit Catatan', 
+                'Catatan untuk token: <strong>' + esc(code.code) + '</strong><br><br>Masukkan catatan baru:', 
+                'Simpan', 'Batal', true);
+            
+            if (newNote !== null && newNote !== false) {
+                const result = await updateTokenNote(id, newNote);
+                if (result) {
+                    await loadData();
+                    renderCodes();
+                    await showPopup('success', 'Berhasil', 'Catatan token berhasil diupdate.');
+                } else {
+                    await showPopup('error', 'Gagal', 'Gagal mengupdate catatan.');
+                }
+            }
+        });
+    });
 }
+
+// ============================================================
+// CREATE TOKEN
+// ============================================================
+document.getElementById('createTokenBtn').addEventListener('click', async function() {
+    const radioOptions = [
+        { value: 'both_1_3', label: '➕ +3 Kuota + 1 Bulan', desc: 'Tambahan 3 kuota & perpanjang 1 bulan' },
+        { value: 'both_1_10', label: '➕ +10 Kuota + 1 Bulan', desc: 'Tambahan 10 kuota & perpanjang 1 bulan' },
+        { value: 'time_1', label: '📅 +1 Bulan', desc: 'Perpanjang masa aktif 1 bulan (tanpa kuota)' },
+        { value: 'time_3', label: '📅 +3 Bulan', desc: 'Perpanjang masa aktif 3 bulan (tanpa kuota)' }
+    ];
+    
+    const selected = await showPopup('confirm', '🔑 Buat Token Baru', 
+        'Pilih jenis token yang akan dibuat:', 
+        'Buat Token', 'Batal', false, null, null, radioOptions);
+    
+    if (selected && selected !== false) {
+        let type, duration, amount;
+        switch (selected) {
+            case 'both_1_3':
+                type = 'both';
+                duration = 1;
+                amount = 3;
+                break;
+            case 'both_1_10':
+                type = 'both';
+                duration = 1;
+                amount = 10;
+                break;
+            case 'time_1':
+                type = 'time';
+                duration = 1;
+                amount = 0;
+                break;
+            case 'time_3':
+                type = 'time';
+                duration = 3;
+                amount = 0;
+                break;
+            default:
+                return;
+        }
+        
+        const token = await createToken(type, duration, amount);
+        if (token) {
+            await loadData();
+            renderCodes();
+            await showPopup('success', '✅ Token Berhasil Dibuat', 
+                'Token: <strong style="font-family:Cormorant Garamond,serif;font-size:20px;color:var(--gold-soft);">' + token + '</strong><br><br>Token ini dapat digunakan oleh user untuk menambah kuota dan/atau memperpanjang masa aktif.');
+        } else {
+            await showPopup('error', '❌ Gagal', 'Gagal membuat token. Silakan coba lagi.');
+        }
+    }
+});
 
 // ============================================================
 // RENDER HISTORY
@@ -1481,8 +1939,9 @@ function renderHistory() {
     const history = DATA.history || [];
     const search = (document.getElementById('historySearch').value || '').toLowerCase();
     const tbody = document.getElementById('historyTableBody');
+    const sort = getSortState('historyTableHead');
     
-    let html = '';
+    let data = [];
     let no = 0;
     
     history.forEach(item => {
@@ -1492,16 +1951,38 @@ function renderHistory() {
         no++;
         const date = new Date(item.calculated_at);
         const dateStr = date.toLocaleDateString('id-ID') + ' ' + date.toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
+        data.push({
+            _index: no,
+            no: no,
+            user: item.email,
+            name: item.name,
+            dob: item.dob,
+            date: dateStr,
+            _dateObj: date
+        });
+    });
+    
+    // Apply sorting
+    if (sort.key) {
+        data = sortData(data, sort.key, sort.direction);
+        data.forEach((item, idx) => {
+            item.no = idx + 1;
+            item._index = idx + 1;
+        });
+    }
+    
+    let html = '';
+    data.forEach(item => {
         html += '<tr>';
-        html += '<td>' + no + '</td>';
-        html += '<td>' + esc(item.email) + '</td>';
+        html += '<td>' + item.no + '</td>';
+        html += '<td>' + esc(item.user) + '</td>';
         html += '<td>' + esc(item.name) + '</td>';
         html += '<td>' + esc(item.dob) + '</td>';
-        html += '<td>' + dateStr + '</td>';
+        html += '<td>' + item.date + '</td>';
         html += '</tr>';
     });
     
-    if (no === 0) {
+    if (data.length === 0) {
         html = '<tr><td colspan="5" style="text-align:center;color:var(--paper-dim);padding:30px;">Tidak ada data.</td></tr>';
     }
     tbody.innerHTML = html;
@@ -1515,8 +1996,9 @@ function renderAssCalculations() {
     const typeFilter = document.getElementById('assTypeFilter').value;
     const search = (document.getElementById('assSearch').value || '').toLowerCase();
     const tbody = document.getElementById('assTableBody');
+    const sort = getSortState('assTableHead');
     
-    let html = '';
+    let data = [];
     let no = 0;
     
     ass.forEach(item => {
@@ -1556,21 +2038,47 @@ function renderAssCalculations() {
         const date = item.created_at ? new Date(item.created_at) : new Date();
         const dateStr = date.toLocaleDateString('id-ID') + ' ' + date.toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
         
+        data.push({
+            _index: no,
+            no: no,
+            user: item.userName + ' (' + item.email + ')',
+            type: typeLabels[item.type] || item.type,
+            type_raw: item.type,
+            result: resultDisplay,
+            summary: summary,
+            date: dateStr,
+            _dateObj: date,
+            _id: item.id,
+            _item: item
+        });
+    });
+    
+    // Apply sorting
+    if (sort.key) {
+        data = sortData(data, sort.key, sort.direction);
+        data.forEach((item, idx) => {
+            item.no = idx + 1;
+            item._index = idx + 1;
+        });
+    }
+    
+    let html = '';
+    data.forEach(item => {
         html += '<tr>';
-        html += '<td>' + no + '</td>';
-        html += '<td>' + esc(item.userName) + '<br><span style="font-size:10px;color:var(--paper-dim);">' + esc(item.email) + '</span></td>';
-        html += '<td><span class="ass-type-badge ' + typeBadge[item.type] + '">' + typeLabels[item.type] + '</span></td>';
-        html += '<td style="font-weight:600;color:var(--gold-soft);">' + resultDisplay + '</td>';
-        html += '<td style="font-size:11px;color:var(--paper-dim);">' + esc(summary) + '</td>';
-        html += '<td style="font-size:11px;">' + dateStr + '</td>';
+        html += '<td>' + item.no + '</td>';
+        html += '<td>' + esc(item.user) + '</td>';
+        html += '<td><span class="ass-type-badge ' + (item.type_raw === 'mobil' ? 'mobil' : item.type_raw === 'properti' ? 'properti' : item.type_raw === 'jiwa' ? 'jiwa' : 'wealth') + '">' + item.type + '</span></td>';
+        html += '<td style="font-weight:600;color:var(--gold-soft);">' + item.result + '</td>';
+        html += '<td style="font-size:11px;color:var(--paper-dim);">' + esc(item.summary) + '</td>';
+        html += '<td style="font-size:11px;">' + item.date + '</td>';
         html += '<td>';
-        html += '<button class="view-btn" data-id="' + item.id + '">👁️ Detail</button> ';
-        html += '<button class="delete-btn-table" data-id="' + item.id + '">🗑️</button>';
+        html += '<button class="view-btn" data-id="' + item._id + '">👁️ Detail</button> ';
+        html += '<button class="delete-btn-table" data-id="' + item._id + '">🗑️</button>';
         html += '</td>';
         html += '</tr>';
     });
     
-    if (no === 0) {
+    if (data.length === 0) {
         html = '<tr><td colspan="7" style="text-align:center;color:var(--paper-dim);padding:30px;">Tidak ada data perhitungan asuransi.</td></tr>';
     }
     tbody.innerHTML = html;
@@ -1862,6 +2370,45 @@ document.getElementById('exportHistoryBtn').addEventListener('click', function()
 });
 
 // ============================================================
+// SORT EVENT LISTENERS
+// ============================================================
+document.querySelectorAll('thead[data-sort]').forEach(head => {
+    head.querySelectorAll('th[data-sort]').forEach(th => {
+        th.addEventListener('click', function() {
+            const tableId = this.closest('thead').id;
+            const key = this.dataset.sort;
+            if (!tableId) return;
+            toggleSort(tableId, key);
+            // Re-render the appropriate tab
+            const tabId = tableId.replace('TableHead', '').toLowerCase();
+            if (tabId === 'users') renderUsers();
+            else if (tabId === 'licenses') renderLicenses();
+            else if (tabId === 'codes') renderCodes();
+            else if (tabId === 'history') renderHistory();
+            else if (tabId === 'ass') renderAssCalculations();
+        });
+    });
+});
+
+// Also support the older way with IDs
+document.querySelectorAll('thead th[data-sort]').forEach(th => {
+    th.addEventListener('click', function() {
+        const head = this.closest('thead');
+        const tableId = head.id || head.closest('table')?.id + 'Head';
+        const key = this.dataset.sort;
+        if (!tableId) return;
+        toggleSort(tableId, key);
+        
+        // Determine which render function to call
+        if (tableId === 'usersTableHead') renderUsers();
+        else if (tableId === 'licensesTableHead') renderLicenses();
+        else if (tableId === 'codesTableHead') renderCodes();
+        else if (tableId === 'historyTableHead') renderHistory();
+        else if (tableId === 'assTableHead') renderAssCalculations();
+    });
+});
+
+// ============================================================
 // HELPER FUNCTIONS
 // ============================================================
 function esc(s) { if (!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -1900,6 +2447,11 @@ document.getElementById('refreshAssBtn').addEventListener('click', async functio
     await loadData();
     renderAssCalculations();
     renderAssStats();
+});
+
+// Show hidden checkbox
+document.getElementById('showHiddenCheck').addEventListener('change', function() {
+    renderCodes();
 });
 
 // Search & Filter
