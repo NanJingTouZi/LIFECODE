@@ -1550,6 +1550,10 @@ ul.trait-list li:last-child{border-bottom:none;}
     <span class="status-item" id="masaItem">⏰ Masa Aktif: <span class="val" id="displayMasaAktif">0</span> hari</span>
     <span class="status-item" id="expiredItem">📅 Expired: <span class="val" id="displayExpired">—</span></span>
     <div style="flex:1;"></div>
+    
+    <!-- TOMBOL COPY LINK REFERAL (BARU) -->
+    <button class="token-btn" id="copyReferralBtn" style="display:none;">🔗 Salin Link Referal</button>
+    
     <button class="token-btn" id="changePasswordBtn" style="display:none;">🔑 Ganti Password</button>
     <button class="token-btn" id="historyBtn">📊 Riwayat</button>
     <button class="token-btn" id="tokenBtn">🔑 Token</button>
@@ -1666,6 +1670,14 @@ ul.trait-list li:last-child{border-bottom:none;}
         <label>No HP</label>
         <input type="tel" id="regPhone" placeholder="08123456789">
       </div>
+      
+      <!-- FIELD REFERAL (BARU) -->
+      <div class="form-group" style="margin-top:12px;">
+        <label>Kode Referal <span style="font-weight:400;font-size:10px;color:var(--paper-dim);">(opsional)</span></label>
+        <input type="email" id="regReferral" placeholder="email orang yang mereferensikan" style="color:var(--gold-soft);">
+        <span style="font-size:10px;color:var(--paper-dim);opacity:0.6;" id="referralInfo"></span>
+      </div>
+      
       <div class="modal-btns">
         <button class="btn btn-block" id="registerSubmitBtn">Kirim Kode OTP</button>
       </div>
@@ -2100,7 +2112,7 @@ const DREAMS = [
   {no:7, title:'MENJADI PENGENDALI SEMUA ORANG', segitiga:'2 (Komunikasi), 7 (Orang Pendukung), 9 (Hasil)'},
   {no:8, title:'MENDAPATKAN HAK ANDA SENDIRI (KUASA)', segitiga:'2 (Komunikasi), 4 (Rencana), 5 (Arah), 8 (Bertanggung Jawab), 9 (Hasil)'},
   {no:9, title:'MENGUASAI DUNIA', segitiga:'1 (Leader), 2 (Komunikasi), 4 (Rencana), 5 (Arah), 7 (Orang Pendukung), 9 (Hasil)'}
-];
+};
 
 // ============================================================
 // SHIO DATA
@@ -2955,6 +2967,7 @@ async function updateStatusBar() {
     var logoutBtn = document.getElementById('logoutBtn');
     var loginBtn = document.getElementById('loginBtn');
     var changePasswordBtn = document.getElementById('changePasswordBtn');
+    var copyReferralBtn = document.getElementById('copyReferralBtn'); // BARU
     
     if (!bar) return;
     
@@ -2971,6 +2984,7 @@ async function updateStatusBar() {
         if (logoutBtn) logoutBtn.style.display = 'none';
         if (loginBtn) loginBtn.style.display = 'inline-block';
         if (changePasswordBtn) changePasswordBtn.style.display = 'none';
+        if (copyReferralBtn) copyReferralBtn.style.display = 'none'; // BARU
         return;
     }
     
@@ -2991,6 +3005,7 @@ async function updateStatusBar() {
     if (logoutBtn) logoutBtn.style.display = 'inline-block';
     if (loginBtn) loginBtn.style.display = 'none';
     if (changePasswordBtn) changePasswordBtn.style.display = 'inline-block';
+    if (copyReferralBtn) copyReferralBtn.style.display = 'inline-block'; // BARU
     
     var status = await getLicenseStatus(session.email);
     
@@ -3038,6 +3053,59 @@ async function updateStatusBar() {
         document.getElementById('formCard').style.display = 'none';
     }
 }
+
+// ============================================================
+// FUNGSI COPY REFERRAL LINK (BARU)
+// ============================================================
+function getReferralLink(email) {
+    const baseUrl = window.location.origin + window.location.pathname;
+    const indexUrl = baseUrl.replace('lifecode.html', 'index.html');
+    return indexUrl + '?ref=' + encodeURIComponent(email);
+}
+
+async function copyReferralLink() {
+    const session = getSession();
+    if (!session) {
+        showCustomAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu untuk mendapatkan link referal.');
+        return;
+    }
+    
+    const link = getReferralLink(session.email);
+    
+    try {
+        await navigator.clipboard.writeText(link);
+        showCustomAlert('success', '✅ Link Disalin', 
+            'Link referal Anda: <br><br><strong style="color:var(--gold-soft);font-size:14px;word-break:break-all;">' + link + '</strong><br><br>' +
+            'Bagikan link ini ke teman. Jika mereka daftar, Anda dapat +2 kuota!');
+    } catch (err) {
+        showCustomAlert('info', '📋 Salin Manual', 
+            'Salin link berikut: <br><br><strong style="color:var(--gold-soft);font-size:14px;word-break:break-all;">' + link + '</strong><br><br>' +
+            'Tekan dan tahan untuk menyalin.');
+    }
+}
+
+// ============================================================
+// OTOMATIS ISI FIELD REFERAL DARI SESSION (BARU)
+// ============================================================
+(function() {
+    const refEmail = sessionStorage.getItem('referral_email');
+    if (refEmail) {
+        const checkAndFill = setInterval(function() {
+            const regReferral = document.getElementById('regReferral');
+            const referralInfo = document.getElementById('referralInfo');
+            if (regReferral) {
+                regReferral.value = refEmail;
+                regReferral.disabled = true;
+                regReferral.style.color = 'var(--jade-soft)';
+                if (referralInfo) {
+                    referralInfo.textContent = '✅ Direferensikan oleh: ' + refEmail;
+                    referralInfo.style.color = 'var(--jade-soft)';
+                }
+                clearInterval(checkAndFill);
+            }
+        }, 500);
+    }
+})();
 
 // ============================================================
 // MODAL FUNCTIONS
@@ -3258,6 +3326,11 @@ document.getElementById('dobMonth').addEventListener('input', function() {
 // BUTTON EVENT HANDLERS
 // ============================================================
 
+// --- COPY REFERRAL LINK (BARU) ---
+document.getElementById('copyReferralBtn').addEventListener('click', function() {
+    copyReferralLink();
+});
+
 // --- LOGIN (PAKAI PASSWORD) ---
 document.getElementById('loginBtnAction').addEventListener('click', async function() {
     const email = document.getElementById('loginEmail').value.trim();
@@ -3319,23 +3392,18 @@ document.getElementById('resetPasswordBtn').addEventListener('click', async func
     btn.textContent = '⏳ Mengirim...';
     
     try {
-        // ===== CEK DI FIRESTORE =====
         const userData = await getUser(email);
         var actionCodeSettings = {
             url: 'https://nanjingtouzi.github.io/LIFECODE/lifecode.html'
         };
         
-        // Jika user ada di Firestore (verified: false), buat akun Firebase Auth dulu
         if (userData && userData.verified === false) {
             console.log('📧 User belum verified, buat akun Firebase Auth dulu...');
-            
-            // Buat akun Firebase Auth dengan password_temp (jika ada)
             const password = userData.password_temp || '123456';
             try {
                 await auth.createUserWithEmailAndPassword(email, password);
                 console.log('✅ Akun Firebase Auth berhasil dibuat untuk reset password');
             } catch (createError) {
-                // Jika email sudah terdaftar di Auth, lanjutkan
                 if (createError.code !== 'auth/email-already-in-use') {
                     throw createError;
                 }
@@ -3343,7 +3411,6 @@ document.getElementById('resetPasswordBtn').addEventListener('click', async func
             }
         }
         
-        // ===== KIRIM RESET PASSWORD =====
         await auth.sendPasswordResetEmail(email, actionCodeSettings);
         
         console.log("✅ Email reset password terkirim!");
@@ -3358,7 +3425,6 @@ document.getElementById('resetPasswordBtn').addEventListener('click', async func
         btn.textContent = 'Kirim Link Reset';
         
         if (error.code === 'auth/user-not-found') {
-            // Cek apakah email ada di Firestore
             const userData = await getUser(email);
             if (userData && userData.verified === false) {
                 showCustomAlert('warning', 'Akun Belum Aktif', 'Email sudah terdaftar tapi belum diverifikasi. Silakan registrasi ulang atau hubungi admin.');
@@ -3491,6 +3557,7 @@ document.getElementById('registerSubmitBtn').addEventListener('click', async fun
     const password = document.getElementById('regPassword').value;
     const name = document.getElementById('regName').value.trim();
     const phone = document.getElementById('regPhone').value.trim();
+    const referral = document.getElementById('regReferral').value.trim(); // BARU
     
     if (!email || !email.includes('@') || !email.includes('.')) {
         showCustomAlert('warning', 'Peringatan', 'Masukkan email yang valid.');
@@ -3509,21 +3576,33 @@ document.getElementById('registerSubmitBtn').addEventListener('click', async fun
         return;
     }
     
-    const existingUser = await getUser(email);
-if (existingUser) {
-    // Jika user sudah verified → arahkan ke login
-    if (existingUser.verified === true) {
-        showCustomAlert('warning', 'Email Terdaftar', 'Email sudah terdaftar. Silakan login.');
-        showModal('login');
+    // CEK: apakah ada referral dari sessionStorage (dari link) - BARU
+    const sessionRef = sessionStorage.getItem('referral_email');
+    let finalReferral = referral || sessionRef || null;
+    
+    // Validasi: tidak boleh referal sama dengan email sendiri
+    if (finalReferral && finalReferral.toLowerCase() === email.toLowerCase()) {
+        showCustomAlert('warning', 'Tidak Valid', 'Anda tidak bisa mereferensikan diri sendiri.');
         return;
-    } else {
-        // Jika belum verified → izinkan registrasi ulang (timpa data lama)
-        showCustomAlert('info', 'Registrasi Ulang', 'Pendaftaran sebelumnya belum selesai. Silakan daftar ulang.');
-        // Hapus data lama
-        await db.collection('users').doc(email).delete();
-        // Lanjutkan proses registrasi
     }
-}
+    
+    // Validasi: pastikan referal adalah email yang valid
+    if (finalReferral && !finalReferral.includes('@')) {
+        showCustomAlert('warning', 'Tidak Valid', 'Kode referal harus berupa email yang valid.');
+        return;
+    }
+    
+    const existingUser = await getUser(email);
+    if (existingUser) {
+        if (existingUser.verified === true) {
+            showCustomAlert('warning', 'Email Terdaftar', 'Email sudah terdaftar. Silakan login.');
+            showModal('login');
+            return;
+        } else {
+            showCustomAlert('info', 'Registrasi Ulang', 'Pendaftaran sebelumnya belum selesai. Silakan daftar ulang.');
+            await db.collection('users').doc(email).delete();
+        }
+    }
     
     try {
         await db.collection('users').doc(email).set({
@@ -3531,8 +3610,14 @@ if (existingUser) {
             phone: phone,
             verified: false,
             registered_at: getNowISO(),
-            password_temp: password
+            password_temp: password,
+            referred_by: finalReferral || null // BARU
         });
+        
+        // Hapus referral dari session setelah digunakan
+        if (sessionRef) {
+            sessionStorage.removeItem('referral_email');
+        }
     } catch (e) {
         showCustomAlert('error', 'Gagal', 'Gagal menyimpan data: ' + e.message);
         return;
@@ -3563,6 +3648,30 @@ document.getElementById('verifyRegOtpBtn').addEventListener('click', async funct
             }
             const userData = userDoc.data();
             
+            // CEK: apakah user ini punya referal? - BARU
+            const referredBy = userData.referred_by || null;
+            
+            // ===== BONUS KUOTA UNTUK REFERAL ===== - BARU
+            if (referredBy) {
+                console.log('🔗 User direferensikan oleh:', referredBy);
+                
+                const refererDoc = await db.collection('users').doc(referredBy).get();
+                if (refererDoc.exists) {
+                    const refererLicense = await getLicense(referredBy);
+                    if (refererLicense) {
+                        await db.collection('licenses').doc(referredBy).update({
+                            quota: refererLicense.quota + 2
+                        });
+                        console.log('✅ +2 kuota diberikan ke:', referredBy);
+                    } else {
+                        await createLicense(referredBy, 2, 30);
+                        console.log('✅ Lisensi baru dibuat untuk referal dengan kuota 2:', referredBy);
+                    }
+                } else {
+                    console.log('⚠️ Referal tidak ditemukan:', referredBy);
+                }
+            }
+            
             const password = userData.password_temp || '123456';
             await auth.createUserWithEmailAndPassword(email, password);
             
@@ -3575,8 +3684,15 @@ document.getElementById('verifyRegOtpBtn').addEventListener('click', async funct
             setSession(email, userData.name);
             hideModal();
             updateStatusBar();
-            showCustomAlert('success', 'Registrasi Berhasil', 'Selamat datang, ' + userData.name + '!');
+            
+            let message = 'Selamat datang, ' + userData.name + '!';
+            if (referredBy) {
+                message += '\n\n🔗 Anda direferensikan oleh: ' + referredBy;
+                message += '\n✅ Mereka mendapat +2 kuota sebagai bonus!';
+            }
+            showCustomAlert('success', 'Registrasi Berhasil', message);
             showCustomAlert('info', 'Selamat', 'Anda mendapatkan ' + CONFIG.DEFAULT_QUOTA + ' kali kuota dan ' + CONFIG.DEFAULT_DAYS + ' hari masa aktif.');
+            
         } catch (e) {
             console.error('Registrasi error:', e);
             showCustomAlert('error', 'Gagal', 'Gagal registrasi: ' + e.message);
@@ -3792,6 +3908,7 @@ console.log('🚀 Aplikasi siap dengan Firebase!');
 console.log('📌 Data di Firestore: users, licenses, codes, history');
 console.log('🔐 Firebase Auth untuk login (Email + Password)');
 console.log('📧 OTP via EmailJS untuk verifikasi register');
+console.log('🔗 Fitur Referal: Copy link, bonus +2 kuota, kolom referred_by');
 </script>
    <script>
     // ===== SIMPAN WAKTU AKSES LIFECODE =====
