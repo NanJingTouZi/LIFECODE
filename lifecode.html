@@ -1551,7 +1551,7 @@ ul.trait-list li:last-child{border-bottom:none;}
     <span class="status-item" id="expiredItem">📅 Expired: <span class="val" id="displayExpired">—</span></span>
     <div style="flex:1;"></div>
     
-    <!-- TOMBOL COPY LINK REFERAL (BARU) -->
+    <!-- TOMBOL COPY LINK REFERAL -->
     <button class="token-btn" id="copyReferralBtn" style="display:none;">🔗 Salin Link Referal</button>
     
     <button class="token-btn" id="changePasswordBtn" style="display:none;">🔑 Ganti Password</button>
@@ -1671,7 +1671,7 @@ ul.trait-list li:last-child{border-bottom:none;}
         <input type="tel" id="regPhone" placeholder="08123456789">
       </div>
       
-      <!-- FIELD REFERAL (BARU) -->
+      <!-- FIELD REFERAL -->
       <div class="form-group" style="margin-top:12px;">
         <label>Kode Referal <span style="font-weight:400;font-size:10px;color:var(--paper-dim);">(opsional)</span></label>
         <input type="email" id="regReferral" placeholder="email orang yang mereferensikan" style="color:var(--gold-soft);">
@@ -3066,7 +3066,7 @@ function getReferralLink(email) {
 async function copyReferralLink() {
     const session = getSession();
     if (!session) {
-        showCustomAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu untuk mendapatkan link referal.');
+        showCustomAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu.');
         return;
     }
     
