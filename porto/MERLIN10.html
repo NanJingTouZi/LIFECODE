@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MERLIN 10 — Portfolio Trading</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+    </script>
+
+    <style>
+        /* ============================================================
+                   RESET & GLOBAL
+                   ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0b0e14;
+            color: #e5e7eb;
+            line-height: 1.7;
+            padding: 24px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* ============================================================
+                   HEADER TOP - Back Link + Trust Badge
+                   ============================================================ */
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding: 12px 18px;
+            background: #11161f;
+            border-radius: 12px;
+            border: 1px solid #1f2937;
+        }
+
+        .header-top .back-link {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .header-top .back-link:hover {
+            color: #fbbf24;
+        }
+
+        .header-top .trust-badge {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .header-top .trust-badge .item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        .header-top .trust-badge .item .check {
+            color: #34d399;
+            font-weight: 700;
+        }
+
+        .header-top .trust-badge .item strong {
+            color: #e5e7eb;
+        }
+
+        /* ============================================================
+                   TITLE BLOCK
+                   ============================================================ */
+        .title-block {
+            background: linear-gradient(135deg, #11161f, #1a212c);
+            padding: 28px 30px 22px;
+            border-radius: 16px;
+            margin-bottom: 28px;
+            border: 1px solid #1f2937;
+        }
+
+        .title-block h1 {
+            font-size: 34px;
+            font-weight: 700;
+            color: #e5e7eb;
+        }
+
+        .title-block h1 span {
+            color: #fbbf24;
+        }
+
+        .title-block .meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        .title-block .meta strong {
+            color: #e5e7eb;
+        }
+
+        /* ============================================================
+                   STATUS BAR
+                   ============================================================ */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 14px 20px;
+            background: #11161f;
+            border-radius: 12px;
+            border: 1px solid #1f2937;
+            margin-bottom: 28px;
+        }
+
+        .status-bar .left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .status-bar .left .badge-demo {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #fbbf24;
+            font-size: 13px;
+            font-weight: 600;
+            background: rgba(251, 191, 36, 0.1);
+            padding: 4px 14px;
+            border-radius: 30px;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+
+        .status-bar .left .badge-demo .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #fbbf24;
+            border-radius: 50%;
+            animation: pulse-dot 1.8s infinite;
+        }
+
+        .status-bar .left .badge-backtest {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #fbbf24;
+            font-size: 13px;
+            font-weight: 600;
+            background: rgba(251, 191, 36, 0.1);
+            padding: 4px 14px;
+            border-radius: 30px;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+
+        .status-bar .right {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .status-bar .right .stat-chip {
+            font-size: 13px;
+            color: #9ca3af;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-bar .right .stat-chip strong {
+            color: #e5e7eb;
+        }
+
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.4;
+                transform: scale(0.75);
+            }
+        }
+
+        /* ============================================================
+                   CARD UTAMA
+                   ============================================================ */
+        .main-card {
+            background: #11161f;
+            border-radius: 16px;
+            border: 1px solid #1f2937;
+            overflow: hidden;
+        }
+
+        .card-body {
+            padding: 28px 30px;
+        }
+
+        /* ============================================================
+                   SECTION LABEL
+                   ============================================================ */
+        .section-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #6b7280;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #1f2937;
+        }
+
+        /* ============================================================
+                   METRICS GRID (12 KARTU)
+                   ============================================================ */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .metric-box {
+            background: #1a212c;
+            padding: 14px 16px;
+            border-radius: 10px;
+            border-left: 3px solid #fbbf24;
+            transition: transform 0.2s;
+        }
+
+        .metric-box:hover {
+            transform: translateY(-2px);
+        }
+
+        .metric-box .label {
+            font-size: 10px;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .metric-box .value {
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        .metric-box .value.green {
+            color: #34d399;
+        }
+        .metric-box .value.blue {
+            color: #60a5fa;
+        }
+        .metric-box .value.gold {
+            color: #fbbf24;
+        }
+        .metric-box .value.pink {
+            color: #f87171;
+        }
+        .metric-box .value.purple {
+            color: #a78bfa;
+        }
+        .metric-box .value.orange {
+            color: #fb923c;
+        }
+        .metric-box .value.cyan {
+            color: #22d3ee;
+        }
+        .metric-box .value.white {
+            color: #e5e7eb;
+        }
+
+        /* ============================================================
+                   CHART
+                   ============================================================ */
+        .chart-section {
+            background: #1a212c;
+            border-radius: 12px;
+            padding: 20px 20px 10px;
+            margin-bottom: 28px;
+            border: 1px solid #1f2937;
+        }
+
+        .chart-section .chart-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .chart-section .chart-title h3 {
+            font-size: 16px;
+            color: #e5e7eb;
+            font-weight: 500;
+        }
+
+        .chart-section .chart-title .sub {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 260px;
+        }
+
+        /* ============================================================
+                   TABEL PROFIT BULANAN (COMPOUNDING)
+                   ============================================================ */
+        .monthly-table-wrap {
+            background: #1a212c;
+            border-radius: 12px;
+            padding: 20px 22px;
+            margin-bottom: 20px;
+            border: 1px solid #1f2937;
+            overflow: hidden;
+        }
+
+        .monthly-table-wrap .table-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #e5e7eb;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .monthly-table-wrap .table-title small {
+            font-weight: 400;
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .monthly-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            min-width: 700px;
+        }
+
+        .monthly-table th {
+            padding: 8px 4px;
+            color: #9ca3af;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            text-align: center;
+            border-bottom: 2px solid #2a3344;
+        }
+
+        .monthly-table td {
+            padding: 7px 4px;
+            text-align: center;
+            border-bottom: 1px solid #1f2937;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .monthly-table td.positive {
+            color: #34d399;
+        }
+
+        .monthly-table td.negative {
+            color: #f87171;
+        }
+
+        .monthly-table td.empty {
+            color: #6b7280;
+        }
+
+        .monthly-table td.year-total {
+            color: #fbbf24;
+            font-weight: 700;
+        }
+
+        .monthly-table .total-row td {
+            padding-top: 12px;
+            border-top: 2px solid #2a3344;
+            font-weight: 700;
+            color: #e5e7eb;
+        }
+
+        .monthly-table .total-row .year-total {
+            color: #fbbf24;
+        }
+
+        .table-footer {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid #1f2937;
+            font-size: 13px;
+            color: #9ca3af;
+        }
+
+        .table-footer .legend-profit {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .table-footer .legend-profit .box {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+            background: #34d399;
+        }
+
+        .table-footer .legend-empty .box {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+            background: #374151;
+        }
+
+        .table-footer strong {
+            color: #e5e7eb;
+        }
+
+        .table-footer .highlight-gold {
+            color: #fbbf24;
+        }
+        .table-footer .highlight-blue {
+            color: #60a5fa;
+        }
+
+        .table-note {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #6b7280;
+            text-align: right;
+        }
+
+        /* ============================================================
+                   STRATEGI TRADING
+                   ============================================================ */
+        .strategy-section {
+            background: #1a212c;
+            border-radius: 12px;
+            padding: 22px 24px;
+            margin-bottom: 28px;
+            border: 1px solid #1f2937;
+        }
+
+        .strategy-section h3 {
+            color: #fbbf24;
+            font-size: 18px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .strategy-section p {
+            color: #d1d5db;
+            margin-bottom: 12px;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .strategy-section ul {
+            color: #d1d5db;
+            padding-left: 0;
+            margin-bottom: 14px;
+            list-style: none;
+        }
+
+        .strategy-section ul li {
+            padding: 5px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .strategy-section ul li::before {
+            content: '✅';
+            color: #34d399;
+            font-size: 14px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .strategy-section .setup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #1f2937;
+        }
+
+        .strategy-section .setup-item {
+            background: #11161f;
+            padding: 12px 16px;
+            border-radius: 8px;
+        }
+
+        .strategy-section .setup-item .label {
+            color: #9ca3af;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .strategy-section .setup-item .value {
+            color: #e5e7eb;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .strategy-section .setup-item .value .note {
+            color: #6b7280;
+            font-weight: 400;
+            font-size: 12px;
+        }
+
+        /* ============================================================
+                   STATISTIK LANJUTAN
+                   ============================================================ */
+        .advanced-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .advanced-stats .stat-item {
+            background: #1a212c;
+            padding: 14px 18px;
+            border-radius: 10px;
+            border-left: 3px solid #a78bfa;
+        }
+
+        .advanced-stats .stat-item .stat-label {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .advanced-stats .stat-item .stat-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #a78bfa;
+            margin-top: 2px;
+        }
+
+        .advanced-stats .stat-item .stat-desc {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 2px;
+        }
+
+        /* ============================================================
+                   FORWARD TEST SECTION
+                   ============================================================ */
+        .forward-section {
+            border-top: 2px solid #fbbf24;
+            padding-top: 28px;
+            margin-top: 8px;
+        }
+
+        .forward-section .forward-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fbbf24;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .forward-section .forward-title .dot-lg {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            background: #fbbf24;
+            border-radius: 50%;
+            animation: pulse-dot 1.8s infinite;
+        }
+
+        .forward-summary {
+            background: linear-gradient(135deg, #11161f, #1a212c);
+            border-radius: 12px;
+            padding: 22px 24px;
+            margin-bottom: 20px;
+            border: 1px solid #1f2937;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .forward-summary::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.05), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .forward-summary .fs-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .forward-summary .fs-header .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #fbbf24;
+            border-radius: 50%;
+            animation: pulse-dot 1.8s infinite;
+        }
+
+        .forward-summary .fs-header h3 {
+            font-size: 17px;
+            color: #e5e7eb;
+            font-weight: 600;
+        }
+
+        .forward-summary .fs-header .status-text {
+            font-size: 13px;
+            color: #fbbf24;
+            background: rgba(251, 191, 36, 0.1);
+            padding: 4px 14px;
+            border-radius: 30px;
+            border: 1px solid rgba(251, 191, 36, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .forward-summary .fs-header .status-text .dot-sm {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #fbbf24;
+            border-radius: 50%;
+            animation: pulse-dot 1.8s infinite;
+        }
+
+        .insight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .insight-item {
+            background: #11161f;
+            padding: 12px 16px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid #1f2937;
+        }
+
+        .insight-item .icon {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .insight-item .text {
+            font-size: 13px;
+            color: #d1d5db;
+        }
+
+        .insight-item .text strong {
+            color: #e5e7eb;
+        }
+
+        .insight-item .text .highlight-gold {
+            color: #fbbf24;
+        }
+        .insight-item .text .highlight-gray {
+            color: #6b7280;
+        }
+
+        .smart-insight {
+            background: #11161f;
+            border-radius: 10px;
+            padding: 14px 18px;
+            font-size: 14px;
+            color: #d1d5db;
+            border-left: 3px solid #fbbf24;
+            margin-top: 4px;
+        }
+
+        .smart-insight strong {
+            color: #fbbf24;
+        }
+
+        /* ============================================================
+                   TABEL FORWARD TEST
+                   ============================================================ */
+        .forward-table-wrap {
+            background: #1a212c;
+            border-radius: 12px;
+            padding: 20px 22px;
+            margin-bottom: 20px;
+            border: 1px solid #1f2937;
+            overflow: hidden;
+        }
+
+        .forward-table-wrap .table-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #fbbf24;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .forward-table-wrap .table-title .dot-sm {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #fbbf24;
+            border-radius: 50%;
+            animation: pulse-dot 1.8s infinite;
+        }
+
+        .forward-table-wrap .table-title small {
+            font-weight: 400;
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .forward-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            min-width: 500px;
+        }
+
+        .forward-table th {
+            padding: 8px 4px;
+            color: #9ca3af;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            text-align: center;
+            border-bottom: 2px solid #2a3344;
+        }
+
+        .forward-table td {
+            padding: 7px 4px;
+            text-align: center;
+            border-bottom: 1px solid #1f2937;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .forward-table td.positive {
+            color: #34d399;
+        }
+
+        .forward-table td.empty {
+            color: #6b7280;
+        }
+
+        .forward-table td.year-total {
+            color: #fbbf24;
+            font-weight: 700;
+        }
+
+        .forward-table .total-row td {
+            padding-top: 12px;
+            border-top: 2px solid #2a3344;
+            font-weight: 700;
+            color: #e5e7eb;
+        }
+
+        .forward-table .total-row .year-total {
+            color: #fbbf24;
+        }
+
+        /* ============================================================
+                   LINK BUTTONS
+                   ============================================================ */
+        .link-wrap {
+            text-align: center;
+            padding: 16px;
+            background: #11161f;
+            border-radius: 12px;
+            border: 1px solid #1f2937;
+            margin-bottom: 28px;
+        }
+
+        .btn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-link.primary {
+            background: #fbbf24;
+            color: #0b0e14;
+        }
+
+        .btn-link.primary:hover {
+            background: #fcd34d;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(251, 191, 36, 0.2);
+        }
+
+        .btn-link.outline {
+            background: transparent;
+            border: 1px solid #2a3344;
+            color: #9ca3af;
+        }
+
+        .btn-link.outline:hover {
+            border-color: #fbbf24;
+            color: #fbbf24;
+            background: rgba(251, 191, 36, 0.05);
+        }
+
+        .btn-link.gold-outline {
+            background: transparent;
+            border: 1px solid #fbbf24;
+            color: #fbbf24;
+        }
+
+        .btn-link.gold-outline:hover {
+            background: rgba(251, 191, 36, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(251, 191, 36, 0.1);
+        }
+
+        .link-wrap .sub {
+            display: block;
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 6px;
+        }
+
+        /* ============================================================
+                   FAQ
+                   ============================================================ */
+        .faq-section {
+            background: #1a212c;
+            border-radius: 12px;
+            padding: 22px 24px;
+            margin-bottom: 28px;
+            border: 1px solid #1f2937;
+        }
+
+        .faq-section h3 {
+            color: #fbbf24;
+            font-size: 17px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .faq-section .faq-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #1f2937;
+        }
+
+        .faq-section .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-section .faq-item .q {
+            color: #e5e7eb;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .faq-section .faq-item .a {
+            color: #9ca3af;
+            font-size: 14px;
+            margin-top: 2px;
+        }
+
+        /* ============================================================
+                   RISK DISCLAIMER
+                   ============================================================ */
+        .risk-disclaimer {
+            background: rgba(248, 113, 113, 0.06);
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin-bottom: 28px;
+            border: 1px solid rgba(248, 113, 113, 0.15);
+        }
+
+        .risk-disclaimer h4 {
+            color: #f87171;
+            font-size: 15px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .risk-disclaimer p {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .risk-disclaimer p strong {
+            color: #e5e7eb;
+        }
+
+        /* ============================================================
+                   LINK NAVIGASI BAWAH
+                   ============================================================ */
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 10px;
+            justify-content: center;
+        }
+
+        /* ============================================================
+                   FOOTER & UPDATE TIMESTAMP
+                   ============================================================ */
+        .footer {
+            text-align: center;
+            padding: 24px 0 8px;
+            color: #6b7280;
+            font-size: 14px;
+            border-top: 1px solid #1f2937;
+            margin-top: 36px;
+        }
+
+        .footer .warning {
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        .update-info {
+            font-size: 13px;
+            color: #6b7280;
+            text-align: right;
+            padding-top: 12px;
+            border-top: 1px solid #1f2937;
+            margin-top: 16px;
+        }
+
+        /* ============================================================
+                   RESPONSIVE
+                   ============================================================ */
+        @media (max-width: 1024px) {
+            .card-body {
+                padding: 22px 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 16px;
+            }
+
+            .header-top {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 12px 16px;
+            }
+
+            .header-top .trust-badge {
+                gap: 10px;
+            }
+
+            .title-block h1 {
+                font-size: 26px;
+            }
+
+            .title-block .meta {
+                font-size: 13px;
+                gap: 12px;
+            }
+
+            .status-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 12px 16px;
+            }
+
+            .status-bar .right {
+                gap: 10px;
+            }
+
+            .card-body {
+                padding: 18px 16px;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .metric-box .value {
+                font-size: 16px;
+            }
+
+            .chart-wrapper {
+                height: 200px;
+            }
+
+            .insight-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .forward-summary {
+                padding: 18px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-link {
+                justify-content: center;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .monthly-table-wrap,
+            .forward-table-wrap,
+            .strategy-section,
+            .faq-section {
+                padding: 14px 16px;
+            }
+
+            .monthly-table,
+            .forward-table {
+                font-size: 11px;
+                min-width: 500px;
+            }
+
+            .monthly-table th,
+            .monthly-table td,
+            .forward-table th,
+            .forward-table td {
+                padding: 5px 3px;
+            }
+
+            .advanced-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            .title-block h1 {
+                font-size: 22px;
+            }
+
+            .title-block {
+                padding: 20px 18px;
+            }
+
+            .title-block .meta {
+                flex-direction: column;
+                gap: 4px;
+                font-size: 12px;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .metric-box .value {
+                font-size: 15px;
+            }
+
+            .metric-box {
+                padding: 10px 14px;
+            }
+
+            .insight-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .status-bar .left {
+                font-size: 13px;
+                flex-wrap: wrap;
+            }
+
+            .status-bar .right .stat-chip {
+                font-size: 11px;
+            }
+
+            .monthly-table,
+            .forward-table {
+                font-size: 10px;
+                min-width: 400px;
+            }
+
+            .monthly-table th,
+            .monthly-table td,
+            .forward-table th,
+            .forward-table td {
+                padding: 4px 2px;
+            }
+
+            .strategy-section {
+                padding: 14px 16px;
+            }
+
+            .strategy-section p {
+                font-size: 14px;
+                text-align: justify;
+            }
+
+            .strategy-section ul li {
+                font-size: 14px;
+            }
+
+            .strategy-section .setup-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .forward-summary {
+                padding: 14px;
+            }
+
+            .chart-wrapper {
+                height: 180px;
+            }
+
+            .faq-section .faq-item .q {
+                font-size: 13px;
+            }
+
+            .faq-section .faq-item .a {
+                font-size: 13px;
+            }
+
+            .risk-disclaimer {
+                padding: 14px 16px;
+            }
+
+            .risk-disclaimer p {
+                font-size: 13px;
+            }
+
+            .smart-insight {
+                font-size: 13px;
+                padding: 12px 14px;
+            }
+
+            .header-top .trust-badge .item {
+                font-size: 11px;
+            }
+
+            .table-footer {
+                font-size: 12px;
+                gap: 12px;
+            }
+
+            .btn-link {
+                font-size: 13px;
+                padding: 10px 20px;
+                max-width: 100%;
+            }
+
+            .update-info {
+                font-size: 12px;
+            }
+
+            .footer {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ============================================================
+        HEADER TOP - Back Link + Trust Badge
+        ============================================================ -->
+        <div class="header-top">
+            <a href="https://nanjingtouzi.github.io/LIFECODE/Portfolio.html" class="back-link">
+                ← Kembali ke Portfolio
+            </a>
+            <div class="trust-badge">
+                <span class="item"><span class="check">✅</span> <strong>Real Account</strong> Verified</span>
+                <span class="item"><span class="check">✅</span> <strong>100%</strong> Autotrading</span>
+                <span class="item"><span class="check">✅</span> <strong>ShowMyTrades</strong> Verified</span>
+                <span class="item"><span class="check">✅</span> <strong>19 Months</strong> Backtest</span>
+                <span class="item"><span class="check">✅</span> <strong>99%</strong> History Quality</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        TITLE BLOCK
+        ============================================================ -->
+        <div class="title-block">
+            <h1>🔹 <span>MERLIN 10</span> — XAUUSD</h1>
+            <div class="meta">
+                <span>Expert Advisor — <strong>XAUUSD (Gold)</strong> • 1:500 Leverage • Risk: 10% (Backtest)</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        STATUS BAR
+        ============================================================ -->
+        <div class="status-bar">
+            <div class="left">
+                <span class="badge-demo">
+                    <span class="dot"></span> ● Demo Forward Test
+                </span>
+                <span class="badge-backtest">● Backtest Selesai</span>
+            </div>
+            <div class="right">
+                <span class="stat-chip">📅 <strong>Jan 2025 - Jul 2026</strong></span>
+                <span class="stat-chip">🏦 <strong>Exness MT5</strong></span>
+                <span class="stat-chip">🤖 <strong>100% Autotrading</strong></span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        MAIN CARD
+        ============================================================ -->
+        <div class="main-card">
+            <div class="card-body">
+
+                <!-- ============================================================
+                SECTION: RINGKASAN BACKTEST
+                ============================================================ -->
+                <div class="section-label">📊 Ringkasan Backtest — MetaTrader 5</div>
+
+                <div class="metrics-grid">
+                    <div class="metric-box">
+                        <div class="label">Total Net Profit</div>
+                        <div class="value green">+$2,267,497.86</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Total Return</div>
+                        <div class="value gold">+22,649.79%</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Profit Factor</div>
+                        <div class="value blue">3.28</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Win Rate</div>
+                        <div class="value gold">83.90%</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Max Drawdown</div>
+                        <div class="value pink">16.64%</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Sharpe Ratio</div>
+                        <div class="value purple">16.43</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Total Trades</div>
+                        <div class="value cyan">385</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Recovery Factor</div>
+                        <div class="value orange">6.55</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Expected Payoff</div>
+                        <div class="value green">+$5,889.60</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Initial Deposit</div>
+                        <div class="value white">$1,000</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Final Balance</div>
+                        <div class="value green">$227,497.86</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="label">Periode</div>
+                        <div class="value cyan">19 Bulan</div>
+                    </div>
+                </div>
+
+                <!-- ============================================================
+                SECTION: CHART EQUITY CURVE
+                ============================================================ -->
+                <div class="chart-section">
+                    <div class="chart-title">
+                        <h3>📈 Equity Curve — Backtest Real</h3>
+                        <span class="sub">385 trades • 99% quality</span>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="chartMerlin10"></canvas>
+                    </div>
+                </div>
+
+                <!-- ============================================================
+                SECTION: TABEL PROFIT BULANAN (COMPOUNDING)
+                ============================================================ -->
+                <div class="monthly-table-wrap">
+                    <div class="table-title">
+                        📋 Profit Bulanan — Backtest (Compounding)
+                        <small>— (Profit Bulan Ini ÷ Modal Awal Bulan) × 100%</small>
+                    </div>
+
+                    <div style="overflow-x:auto;">
+                        <table class="monthly-table">
+                            <thead>
+                                <tr>
+                                    <th>Year</th>
+                                    <th>Jan</th>
+                                    <th>Feb</th>
+                                    <th>Mar</th>
+                                    <th>Apr</th>
+                                    <th>May</th>
+                                    <th>Jun</th>
+                                    <th>Jul</th>
+                                    <th>Aug</th>
+                                    <th>Sep</th>
+                                    <th>Oct</th>
+                                    <th>Nov</th>
+                                    <th>Dec</th>
+                                    <th>Year</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 2025 -->
+                                <tr>
+                                    <td><strong>2025</strong></td>
+                                    <td class="positive">+12.54%</td>
+                                    <td class="positive">+20.29%</td>
+                                    <td class="positive">+15.84%</td>
+                                    <td class="positive">+57.51%</td>
+                                    <td class="positive">+74.78%</td>
+                                    <td class="positive">+30.07%</td>
+                                    <td class="positive">+16.94%</td>
+                                    <td class="positive">+12.91%</td>
+                                    <td class="positive">+16.73%</td>
+                                    <td class="positive">+29.21%</td>
+                                    <td class="positive">+12.70%</td>
+                                    <td class="positive">+34.59%</td>
+                                    <td class="year-total"><strong>+1,596.38%</strong></td>
+                                </tr>
+
+                                <!-- 2026 -->
+                                <tr>
+                                    <td><strong>2026</strong></td>
+                                    <td class="positive">+32.88%</td>
+                                    <td class="positive">+39.59%</td>
+                                    <td class="positive">+127.36%</td>
+                                    <td class="positive">+22.67%</td>
+                                    <td class="positive">+40.88%</td>
+                                    <td class="positive">+35.71%</td>
+                                    <td class="positive">+35.60%</td>
+                                    <td class="empty">—</td>
+                                    <td class="empty">—</td>
+                                    <td class="empty">—</td>
+                                    <td class="empty">—</td>
+                                    <td class="empty">—</td>
+                                    <td class="year-total"><strong>+1,241.54%</strong></td>
+                                </tr>
+
+                                <!-- TOTAL -->
+                                <tr class="total-row">
+                                    <td><strong>TOTAL</strong></td>
+                                    <td colspan="12" style="text-align:center; color:#9ca3af;">
+                                        Total Return: <strong style="color:#fbbf24;">+22,649.79%</strong>
+                                    </td>
+                                    <td class="year-total"><strong>+22,649.79%</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-footer">
+                        <span class="legend-profit">
+                            <span class="box"></span>
+                            Profit: <strong style="color:#34d399;">19 bulan</strong>
+                        </span>
+                        <span class="legend-empty">
+                            <span class="box"></span>
+                            No Activity: <strong style="color:#6b7280;">0 bulan</strong>
+                        </span>
+                        <span>📊 Konsistensi: <strong class="highlight-gold">100%</strong></span>
+                        <span>📈 Rata-rata: <strong class="highlight-blue">+34.91%</strong> / bulan aktif</span>
+                    </div>
+
+                    <div class="table-note">
+                        * Compounding: (Profit bulan ini ÷ Modal awal bulan) × 100%
+                    </div>
+                </div>
+
+                <!-- ============================================================
+                SECTION: STRATEGI TRADING
+                ============================================================ -->
+                <div class="strategy-section">
+                    <h3>🧠 Strategi Trading — MERLIN 10</h3>
+
+                    <p>
+                        <strong>MERLIN 10</strong> adalah Expert Advisor dengan <strong>risk tolerance tinggi (10% per trade)</strong> yang dirancang untuk menangkap pergerakan besar pada XAUUSD. Strategi ini mengandalkan <strong>breakout dengan volume tinggi</strong> dan <strong>money management agresif</strong>:
+                    </p>
+
+                    <ul>
+                        <li>Identifikasi <strong>breakout kuat</strong> pada level support/resistance utama dengan konfirmasi volume</li>
+                        <li>Konfirmasi tambahan dengan <strong>MACD divergence</strong> dan <strong>momentum oscillator</strong></li>
+                        <li><strong>Trailing stop</strong> lebar untuk mengikuti trend besar tanpa terganggu koreksi kecil</li>
+                        <li>Risk per trade tinggi: <strong>10%</strong> dari equity untuk memaksimalkan profit</li>
+                        <li>Hanya trading pada sesi <strong>London (08:00-16:00 GMT)</strong> dan <strong>New York (13:00-21:00 GMT)</strong> untuk likuiditas maksimal</li>
+                    </ul>
+
+                    <div class="setup-grid">
+                        <div class="setup-item">
+                            <div class="label">Minimal Deposit</div>
+                            <div class="value">$1,000 <span class="note">(optimal $5,000+)</span></div>
+                        </div>
+                        <div class="setup-item">
+                            <div class="label">Leverage</div>
+                            <div class="value">1:100 <span class="note">atau lebih tinggi</span></div>
+                        </div>
+                        <div class="setup-item">
+                            <div class="label">VPS</div>
+                            <div class="value">✅ Sangat disarankan</div>
+                        </div>
+                        <div class="setup-item">
+                            <div class="label">Broker</div>
+                            <div class="value">ECN/STP <span class="note">spread rendah</span></div>
+                        </div>
+                        <div class="setup-item">
+                            <div class="label">Pair</div>
+                            <div class="value">XAUUSD (Gold) <span class="note">khusus</span></div>
+                        </div>
+                        <div class="setup-item">
+                            <div class="label">Timeframe</div>
+                            <div class="value">M15 <span class="note">sesuai backtest</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================================
+                SECTION: STATISTIK LANJUTAN
+                ============================================================ -->
+                <div class="section-label">📈 Statistik Lanjutan</div>
+
+                <div class="advanced-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">📊 Correlation (Profits, MFE)</div>
+                        <div class="stat-value">0.73</div>
+                        <div class="stat-desc">Hubungan profit dengan MFE cukup kuat</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">📈 LR Correlation</div>
+                        <div class="stat-value">0.73</div>
+                        <div class="stat-desc">Trend equity positif dan cukup linear</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">⚡ Z-Score (Probability)</div>
+                        <div class="stat-value">2.93 (99.66%)</div>
+                        <div class="stat-desc">Sistem memiliki edge statistik yang sangat kuat</div>
+                    </div>
+                </div>
+
+                <!-- ============================================================
+                SECTION: FORWARD TEST (KOSONG / DEMO)
+                ============================================================ -->
+                <div class="forward-section">
+                    <div class="forward-title">
+                        <span class="dot-lg"></span>
+                        Demo Forward Test — Akun Siap Digunakan
+                    </div>
+
+                    <!-- FORWARD TEST SUMMARY -->
+                    <div class="forward-summary">
+                        <div class="fs-header">
+                            <span class="dot"></span>
+                            <h3>Ringkasan Performa Demo</h3>
+                            <span class="status-text">
+                                <span class="dot-sm"></span> ⏳ Belum ada aktivitas trading
+                            </span>
+                        </div>
+
+                        <div class="insight-grid">
+                            <div class="insight-item">
+                                <span class="icon">📈</span>
+                                <span class="text"><strong>Gain (TWR):</strong> <span class="highlight-gray">0.00%</span></span>
+                            </div>
+                            <div class="insight-item">
+                                <span class="icon">💰</span>
+                                <span class="text"><strong>Profit:</strong> <span class="highlight-gray">$0.00</span></span>
+                            </div>
+                            <div class="insight-item">
+                                <span class="icon">🛡️</span>
+                                <span class="text"><strong>Max Drawdown:</strong> <span class="highlight-gray">0.00%</span></span>
+                            </div>
+                            <div class="insight-item">
+                                <span class="icon">🎯</span>
+                                <span class="text"><strong>Win Rate:</strong> <span class="highlight-gray">0.00%</span></span>
+                            </div>
+                            <div class="insight-item">
+                                <span class="icon">⚡</span>
+                                <span class="text"><strong>Profit Factor:</strong> <span class="highlight-gray">0.00</span></span>
+                            </div>
+                            <div class="insight-item">
+                                <span class="icon">📅</span>
+                                <span class="text"><strong>Avg Monthly:</strong> <span class="highlight-gray">0.00%</span></span>
+                            </div>
+                            <div class="insight-item">
+                                <span class="icon">🏦</span>
+                                <span class="text"><strong>Balance:</strong> <span class="highlight-gold">$10,000.00</span></span>
+                            </div>
+                            <div class="insight-item">
+                                <span class="icon">🤖</span>
+                                <span class="text"><strong>Autotrading:</strong> <span class="highlight-gray">0%</span></span>
+                            </div>
+                        </div>
+
+                        <div class="smart-insight">
+                            <strong>💡 Smart Insights:</strong> Akun demo siap digunakan • Belum ada aktivitas trading • Monitor secara berkala
+                        </div>
+                    </div>
+
+                    <!-- TABEL FORWARD TEST (SEMUA KOSONG) -->
+                    <div class="forward-table-wrap">
+                        <div class="table-title">
+                            <span class="dot-sm"></span>
+                            Profit Bulanan — Demo Forward Test
+                            <small>— Belum ada aktivitas trading</small>
+                        </div>
+
+                        <div style="overflow-x:auto;">
+                            <table class="forward-table">
+                                <thead>
+                                    <tr>
+                                        <th>Year</th>
+                                        <th>Jan</th>
+                                        <th>Feb</th>
+                                        <th>Mar</th>
+                                        <th>Apr</th>
+                                        <th>May</th>
+                                        <th>Jun</th>
+                                        <th>Jul</th>
+                                        <th>Aug</th>
+                                        <th>Sep</th>
+                                        <th>Oct</th>
+                                        <th>Nov</th>
+                                        <th>Dec</th>
+                                        <th>Year</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- 2026 (Demo - Kosong) -->
+                                    <tr>
+                                        <td><strong>2026</strong></td>
+                                        <td class="empty">—</td>
+                                        <td class="empty">—</td>
+                                        <td class="empty">—</td>
+                                        <td class="empty">—</td>
+                                        <td class="empty">—</td>
+                                        <td class="empty">—</td>
+                                        <td class="empty">—</td>
+                                        <td class="empty">—</td>
+                                        <td class="empty">—</td>
+                                        <td class="empty">—</td>
+                                        <td class="empty">—</td>
+                                        <td class="empty">—</td>
+                                        <td class="year-total"><strong>0.00%</strong></td>
+                                    </tr>
+
+                                    <!-- TOTAL -->
+                                    <tr class="total-row">
+                                        <td><strong>TOTAL</strong></td>
+                                        <td colspan="12" style="text-align:center; color:#9ca3af;">
+                                            Total Gain: <strong style="color:#fbbf24;">0.00%</strong>
+                                        </td>
+                                        <td class="year-total"><strong>0.00%</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="table-footer">
+                            <span class="legend-profit">
+                                <span class="box" style="background:#374151;"></span>
+                                Profit: <strong style="color:#6b7280;">0 bulan</strong>
+                            </span>
+                            <span class="legend-empty">
+                                <span class="box"></span>
+                                No Activity: <strong style="color:#6b7280;">12 bulan</strong>
+                            </span>
+                            <span>📊 Rata-rata return: <strong class="highlight-gray">0.00%</strong> / bulan aktif</span>
+                            <span>📅 Status: <strong style="color:#fbbf24;">Menunggu trading pertama</strong></span>
+                        </div>
+
+                        <div class="table-note">
+                            * Akun demo siap digunakan • Belum ada aktivitas trading
+                        </div>
+                    </div>
+
+                    <!-- LINK FORWARD TEST -->
+                    <div class="link-wrap">
+                        <a href="https://showmytrades.com/account/nanjing-merlin-10" target="_blank" class="btn-link gold-outline">
+                            📈 Pantau Forward Test
+                        </a>
+                        <span class="sub">🔄 Akun demo siap digunakan • Belum ada aktivitas trading</span>
+                    </div>
+                </div>
+
+                <!-- ============================================================
+                LINK BACKTEST
+                ============================================================ -->
+                <div class="link-wrap">
+                    <a href="https://nanjingtouzi.github.io/MERLIN10" target="_blank" class="btn-link primary">
+                        📄 Lihat Detail Backtest
+                    </a>
+                    <span class="sub">ℹ️ Halaman Strategy Tester Report dari MetaTrader 5</span>
+                </div>
+
+                <!-- ============================================================
+                SECTION: FAQ
+                ============================================================ -->
+                <div class="faq-section">
+                    <h3>❓ Pertanyaan Umum (FAQ)</h3>
+
+                    <div class="faq-item">
+                        <div class="q">💰 Berapa modal minimal untuk menggunakan EA ini?</div>
+                        <div class="a">Minimal $1,000, namun untuk hasil optimal dan manajemen risiko yang lebih baik disarankan $5,000+.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="q">🖥️ Apakah perlu VPS untuk menjalankan EA?</div>
+                        <div class="a">Sangat disarankan menggunakan VPS untuk menjalankan EA 24/7 tanpa gangguan koneksi internet.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="q">📊 Apakah EA ini bisa digunakan untuk pair lain selain XAUUSD?</div>
+                        <div class="a">Tidak, EA ini dirancang khusus untuk XAUUSD (Gold) berdasarkan optimasi dan backtest yang spesifik.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="q">💲 Apakah ada biaya atau fee tambahan?</div>
+                        <div class="a">Tidak ada biaya tersembunyi. Anda hanya perlu membayar spread dan swap seperti trading biasa.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="q">⚠️ Mengapa risk per trade sangat tinggi (10%)?</div>
+                        <div class="a">MERLIN 10 dirancang dengan risk tolerance tinggi untuk menangkap pergerakan besar pada XAUUSD. Dengan profit factor 3.28 dan win rate 83.90%, risiko ini terkompensasi dengan baik.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="q">📈 Seberapa besar drawdown yang pernah terjadi?</div>
+                        <div class="a">Dalam backtest 19 bulan, max drawdown tercatat 16.64%. Meskipun lebih tinggi dari varian risiko rendah, drawdown ini masih dalam batas wajar untuk strategi agresif.</div>
+                    </div>
+                </div>
+
+                <!-- ============================================================
+                SECTION: RISK DISCLAIMER
+                ============================================================ -->
+                <div class="risk-disclaimer">
+                    <h4>⚠️ Peringatan Risiko</h4>
+                    <p>
+                        Trading forex mengandung <strong>risiko tinggi</strong> dan tidak cocok untuk semua investor.
+                        Kinerja masa lalu <strong>tidak menjamin</strong> hasil di masa depan.
+                        Pastikan Anda memahami risiko sebelum menggunakan EA ini.
+                        Selalu gunakan <strong>manajemen risiko</strong> yang tepat dan jangan trading dengan uang yang tidak mampu Anda rugikan.
+                    </p>
+                </div>
+
+                <!-- ============================================================
+                NAVIGATION LINKS
+                ============================================================ -->
+                <div class="nav-links">
+                    <a href="https://nanjingtouzi.github.io/LIFECODE/Portfolio.html" class="btn-link outline">
+                        ← Kembali ke Portfolio
+                    </a>
+                    <a href="https://showmytrades.com/account/nanjing-merlin-10" target="_blank" class="btn-link gold-outline">
+                        📈 Pantau Forward Test
+                    </a>
+                    <a href="https://nanjingtouzi.github.io/MERLIN10" target="_blank" class="btn-link primary">
+                        📄 Detail Backtest
+                    </a>
+                </div>
+
+                <!-- ============================================================
+                UPDATE TIMESTAMP
+                ============================================================ -->
+                <div class="update-info">
+                    📅 Data forward test terakhir diperbarui: <span id="updateTime">memuat...</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ============================================================
+        FOOTER
+        ============================================================ -->
+        <div class="footer">
+            <p>© 2026 MERLIN 10 — Portfolio Trading Forex</p>
+            <p class="warning">⚠️ Kinerja masa lalu tidak menjamin hasil di masa depan. Selalu lakukan riset sendiri.</p>
+        </div>
+
+    </div>
+
+    <!-- ============================================================
+    SCRIPT
+    ============================================================ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // ---- UPDATE TIMESTAMP ----
+            document.getElementById('updateTime').textContent = new Date().toLocaleString('id-ID', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            // ---- DATA EQUITY CURVE (MERLIN 10) - 19 BULAN ----
+            const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des',
+                'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul'
+            ];
+
+            const equityData = [
+                1000.00, 1125.39, 1353.74, 1568.17, 2469.99, 4317.11, 5615.40, 6566.71,
+                7414.43, 8655.23, 11183.26, 12603.60, 16963.80, 22541.10, 31465.99,
+                71539.86, 87755.36, 123626.83, 167775.62, 227497.86
+            ];
+
+            // ---- BUAT GRAFIK ----
+            const ctx = document.getElementById('chartMerlin10').getContext('2d');
+            const gradient = ctx.createLinearGradient(0, 0, 0, 260);
+            gradient.addColorStop(0, 'rgba(52, 211, 153, 0.25)');
+            gradient.addColorStop(0.5, 'rgba(52, 211, 153, 0.08)');
+            gradient.addColorStop(1, 'rgba(52, 211, 153, 0)');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Equity (USD)',
+                        data: equityData,
+                        borderColor: '#34d399',
+                        backgroundColor: gradient,
+                        fill: true,
+                        tension: 0.15,
+                        pointBackgroundColor: '#34d399',
+                        pointBorderColor: '#0b0e14',
+                        pointBorderWidth: 1.5,
+                        pointRadius: 3,
+                        pointHoverRadius: 6,
+                        pointHoverBackgroundColor: '#e5e7eb',
+                        borderWidth: 2.5,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#9ca3af',
+                                font: { size: 12 },
+                                boxWidth: 12,
+                                boxHeight: 12,
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(11, 14, 20, 0.92)',
+                            titleColor: '#e5e7eb',
+                            bodyColor: '#d1d5db',
+                            borderColor: '#1f2937',
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 10,
+                            callbacks: {
+                                label: function(context) {
+                                    return '💰 $' + context.parsed.y.toLocaleString('en-US', {
+                                        minimumFractionDigits: 2,
+                                        maximumFractionDigits: 2
+                                    });
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#1f2937', drawBorder: false },
+                            ticks: { color: '#6b7280', maxTicksLimit: 19, font: { size: 9 } }
+                        },
+                        y: {
+                            grid: { color: '#1f2937', drawBorder: false },
+                            ticks: {
+                                color: '#6b7280',
+                                font: { size: 11 },
+                                callback: function(value) {
+                                    if (value >= 1000) {
+                                        return '$' + (value / 1000).toFixed(0) + 'K';
+                                    }
+                                    return '$' + value.toFixed(0);
+                                }
+                            },
+                            beginAtZero: true
+                        }
+                    },
+                    interaction: { intersect: false, mode: 'index' }
+                }
+            });
+
+        });
+    </script>
+
+</body>
+</html>
