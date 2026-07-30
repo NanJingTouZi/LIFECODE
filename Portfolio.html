@@ -561,7 +561,7 @@
 
   <script>
     // ============================================================
-    // 1. DATA SEMUA PORTOFOLIO (18 Portofolio)
+    // 1. DATA SEMUA PORTOFOLIO (22 Portofolio)
     // ============================================================
     const portfoliosData = [
       // === WAIVER SERIES ===
@@ -590,7 +590,13 @@
       { id: 16, title: "ODIN 50", status: "active", updated: "2026-07-24", stats: { return: "+8,977.92%", winRate: "82.64%", drawdown: "84.13%", profitFactor: "1.27" }, fileName: "ODIN50.html" },
       // === DOLPHIN SERIES ===
       { id: 17, title: "DOLPHIN 1", status: "active", updated: "2026-07-24", stats: { return: "+163.32%", winRate: "95.89%", drawdown: "3.13%", profitFactor: "9.46" }, fileName: "DOLPHIN1.html" },
-      { id: 18, title: "DOLPHIN 10", status: "active", updated: "2026-07-24", stats: { return: "+1,002,454.69%", winRate: "95.89%", drawdown: "27.20%", profitFactor: "3.00" }, fileName: "DOLPHIN10.html" }
+      { id: 18, title: "DOLPHIN 10", status: "active", updated: "2026-07-24", stats: { return: "+1,002,454.69%", winRate: "95.89%", drawdown: "27.20%", profitFactor: "3.00" }, fileName: "DOLPHIN10.html" },
+      // === ORCA SERIES ===
+      { id: 19, title: "ORCA 1", status: "active", updated: "2026-07-30", stats: { return: "+189.72%", winRate: "95.55%", drawdown: "2.84%", profitFactor: "15.74" }, fileName: "ORCA1.html" },
+      { id: 20, title: "ORCA 10", status: "active", updated: "2026-07-30", stats: { return: "+1,484,086.52%", winRate: "95.09%", drawdown: "30.02%", profitFactor: "27.65" }, fileName: "ORCA10.html" },
+      // === MERLIN SERIES ===
+      { id: 21, title: "MERLIN 1", status: "active", updated: "2026-07-30", stats: { return: "+127.79%", winRate: "83.90%", drawdown: "1.78%", profitFactor: "4.69" }, fileName: "MERLIN1.html" },
+      { id: 22, title: "MERLIN 10", status: "active", updated: "2026-07-30", stats: { return: "+22,649.79%", winRate: "83.90%", drawdown: "16.64%", profitFactor: "3.28" }, fileName: "MERLIN10.html" }
     ];
 
     // ============================================================
@@ -669,7 +675,7 @@
         const pfVal = stats.profitFactor || '—';
 
         cardsHTML += `
-          <div class="portfolio-card reordering" style="animation-delay: ${index * 0.04}s">
+          <div class="portfolio-card reordering" style="animation-delay: ${Math.min(index * 0.03, 0.5)}s">
             <div class="card-header">
               <span class="card-number">#${String(p.id).padStart(2, '0')}</span>
               <span class="status-badge ${statusClass}">${statusText}</span>
