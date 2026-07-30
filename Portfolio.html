@@ -1115,8 +1115,8 @@
         const fwd = forwardData[p.key] || {};
         const fGain = parsePercentage(fwd.gain);
 
-        if (filterType === 'lowrisk' && dd >= 10) return false;
-        if (filterType === 'highrisk' && dd < 10) return false;
+        if (filterType === 'lowrisk' && dd >= 5) return false;
+        if (filterType === 'highrisk' && dd < 5) return false;
         if (filterType === 'forward' && fGain <= 0) return false;
 
         // Sliders
