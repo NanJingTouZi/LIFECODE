@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nanjing Portfolio · Dark Gold Edition</title>
+  <style>
+    /* --- Reset & Base --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: radial-gradient(ellipse at 50% 0%, #1a1a2e, #0f0f1a 70%);
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+      color: #e2e8f0;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(2px 2px at 20% 30%, rgba(212, 175, 55, 0.15), transparent),
+        radial-gradient(2px 2px at 40% 70%, rgba(212, 175, 55, 0.1), transparent),
+        radial-gradient(1px 1px at 70% 20%, rgba(212, 175, 55, 0.2), transparent),
+        radial-gradient(1px 1px at 90% 80%, rgba(212, 175, 55, 0.1), transparent),
+        radial-gradient(1px 1px at 10% 90%, rgba(212, 175, 55, 0.15), transparent);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== BACK BUTTON ===== */
+    .back-home {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #e4c988;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        padding: 8px 16px;
+        border: 2px solid #e4c988;
+        border-radius: 8px;
+        transition: 0.2s;
+        margin-bottom: 12px;
+        background: transparent;
+    }
+    .back-home:hover {
+        background: #e4c988;
+        color: #12181a;
+    }
+
+    /* --- Header Mewah dengan Logo --- */
+    .page-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      position: relative;
+    }
+
+    .page-header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 25%;
+      right: 25%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    }
+
+    .header-logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .header-logo img {
+      height: 64px;
+      width: auto;
+      filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3));
+      transition: transform 0.3s ease;
+      border-radius: 8px;
+    }
+
+    .header-logo img:hover {
+      transform: scale(1.05);
+    }
+
+    .header-logo .logo-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #d4af37;
+      letter-spacing: 0.1em;
+      text-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
+    }
+
+    .header-logo .logo-divider {
+      width: 2px;
+      height: 40px;
+      background: linear-gradient(180deg, transparent, #d4af37, transparent);
+      opacity: 0.3;
+    }
+
+    .page-header h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      background: linear-gradient(135deg, #f9e07f, #d4af37, #b8860b);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
+      display: inline-block;
+      margin-top: 0;
+    }
+
+    .page-header .subtitle {
+      display: block;
+      font-size: 1rem;
+      font-weight: 300;
+      color: #94a3b8;
+      margin-top: 0.3rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .badge-count {
+      display: inline-block;
+      background: rgba(212, 175, 55, 0.15);
+      color: #d4af37;
+      padding: 0.3rem 1.5rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    /* --- Sorting Controls --- */
+    .sort-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 16px;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      border-radius: 14px;
+      padding: 14px 20px;
+      margin-bottom: 1.5rem;
+    }
+
+    .sort-controls .label {
+      color: #94a3b8;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      margin-right: 4px;
+    }
+
+    .sort-controls select,
+    .sort-controls button {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 8px;
+      padding: 8px 14px;
+      color: #e2e8f0;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .sort-controls select:hover,
+    .sort-controls button:hover {
+      border-color: rgba(212, 175, 55, 0.5);
+      background: rgba(212, 175, 55, 0.08);
+    }
+
+    .sort-controls select:focus,
+    .sort-controls button:focus {
+      border-color: #d4af37;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+    }
+
+    .sort-controls select option {
+      background: #1a1a2e;
+      color: #e2e8f0;
+    }
+
+    .sort-controls .sort-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .sort-controls .order-btn {
+      padding: 8px 12px;
+      min-width: 44px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .sort-controls .order-btn.active {
+      border-color: #d4af37;
+      background: rgba(212, 175, 55, 0.15);
+      color: #f9e07f;
+    }
+
+    .sort-controls .reset-btn {
+      margin-left: auto;
+      padding: 8px 16px;
+      border-color: rgba(148, 163, 184, 0.2);
+      color: #94a3b8;
+      font-size: 0.8rem;
+    }
+
+    .sort-controls .reset-btn:hover {
+      border-color: #f87171;
+      color: #f87171;
+      background: rgba(248, 113, 113, 0.08);
+    }
+
+    /* --- Grid Kartu --- */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 0.5rem;
+    }
+
+    /* --- Kartu Glassmorphism --- */
+    .portfolio-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 1.8rem 1.5rem 1.5rem;
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(212, 175, 55, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.4s ease, border-color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .portfolio-card.reordering {
+      animation: none;
+      opacity: 1;
+    }
+
+    .portfolio-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 20%, rgba(212, 175, 55, 0.03), transparent 60%);
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .portfolio-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(212, 175, 55, 0.4);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.05), inset 0 1px 0 rgba(212, 175, 55, 0.2);
+    }
+
+    .portfolio-card:hover::before {
+      opacity: 0.5;
+    }
+
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- Isi Kartu --- */
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.8rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-number {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #d4af37;
+      letter-spacing: 0.5px;
+      background: rgba(212, 175, 55, 0.1);
+      padding: 0.15rem 0.8rem;
+      border-radius: 30px;
+      border: 1px solid rgba(212, 175, 55, 0.15);
+    }
+
+    .status-badge {
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      letter-spacing: 0.3px;
+    }
+
+    .status-active { 
+      background: rgba(74, 222, 128, 0.15); 
+      color: #4ade80; 
+      border: 1px solid rgba(74, 222, 128, 0.2);
+    }
+    .status-dev { 
+      background: rgba(251, 191, 36, 0.15); 
+      color: #fbbf24; 
+      border: 1px solid rgba(251, 191, 36, 0.2);
+    }
+    .status-archived { 
+      background: rgba(148, 163, 184, 0.15); 
+      color: #94a3b8; 
+      border: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0.4rem 0 0.2rem;
+      color: #f1f5f9;
+      line-height: 1.3;
+      position: relative;
+      z-index: 1;
+      letter-spacing: 0.02em;
+    }
+
+    /* --- Backtest Stats --- */
+    .card-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem 1rem;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 0.8rem 1rem;
+      border-radius: 14px;
+      margin: 0.6rem 0 0.6rem;
+      font-size: 0.8rem;
+      border: 1px solid rgba(212, 175, 55, 0.05);
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+    }
+    .stat-label { 
+      color: #94a3b8; 
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .stat-value { 
+      font-weight: 600; 
+      color: #f9e07f; 
+      font-size: 0.85rem;
+    }
+
+    /* --- Forward Test Stats --- */
+    .forward-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.4rem;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 0.6rem 0.8rem;
+      border-radius: 10px;
+      margin: 0.2rem 0 0.8rem;
+      font-size: 0.7rem;
+      border: 1px solid rgba(212, 175, 55, 0.08);
+      position: relative;
+      z-index: 1;
+    }
+
+    .forward-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .forward-label { 
+      color: #94a3b8; 
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .forward-value { 
+      font-weight: 600; 
+      font-size: 0.75rem;
+      margin-top: 1px;
+    }
+    .forward-value.positive { color: #4ade80; }
+    .forward-value.negative { color: #f87171; }
+    .forward-value.neutral { color: #94a3b8; }
+
+    .forward-update {
+      font-size: 0.55rem;
+      color: #64748b;
+      text-align: right;
+      margin-top: 2px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-updated {
+      font-size: 0.7rem;
+      color: #64748b;
+      margin-bottom: 0.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-link {
+      display: inline-block;
+      background: linear-gradient(135deg, #d4af37, #b8860b);
+      color: #0f0f1a;
+      text-decoration: none;
+      padding: 0.6rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-align: center;
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+      align-self: flex-start;
+      margin-top: 0.2rem;
+      position: relative;
+      z-index: 1;
+      letter-spacing: 0.03em;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+    }
+
+    .card-link:hover {
+      transform: scale(0.97);
+      box-shadow: 0 6px 25px rgba(212, 175, 55, 0.4);
+      background: linear-gradient(135deg, #f9e07f, #d4af37);
+    }
+
+    /* --- Empty State --- */
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 4rem 2rem;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border-radius: 40px;
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      color: #94a3b8;
+    }
+
+    .empty-state h3 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: #d4af37;
+    }
+
+    /* --- Footer --- */
+    .page-footer {
+      margin-top: 4rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #475569;
+      border-top: 1px solid rgba(212, 175, 55, 0.1);
+      padding-top: 2rem;
+      position: relative;
+    }
+
+    .page-footer a {
+      color: #d4af37;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .page-footer a:hover {
+      color: #f9e07f;
+      text-decoration: underline;
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 640px) {
+      .sort-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 12px 16px;
+      }
+      .sort-controls .sort-group {
+        justify-content: space-between;
+      }
+      .sort-controls .reset-btn {
+        margin-left: 0;
+      }
+      .sort-controls select,
+      .sort-controls button {
+        flex: 1;
+        min-width: 0;
+      }
+      .forward-stats {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 1rem; }
+      .page-header h1 { font-size: 2rem; }
+      .portfolio-grid { gap: 1.2rem; }
+      .card-stats { grid-template-columns: 1fr; }
+      .portfolio-card { padding: 1.2rem; }
+      .header-logo img { height: 40px; }
+      .header-logo .logo-text { font-size: 1.2rem; }
+      .header-logo .logo-divider { height: 24px; }
+      .forward-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.3rem;
+        padding: 0.5rem;
+      }
+      .forward-value { font-size: 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- ============================================================
+         BACK BUTTON
+         ============================================================ -->
+    <a href="index.html" class="back-home">← Kembali ke Beranda</a>
+
+    <!-- ============================================================
+         HEADER DENGAN LOGO
+         ============================================================ -->
+    <header class="page-header">
+      <div class="header-logo">
+        <img src="https://nanjingtouzi.github.io/LIFECODE/nanjing-ico1.png" alt="Nanjing Logo" onerror="this.style.display='none'">
+        <span class="logo-divider"></span>
+        <span class="logo-text">✦ Nanjing Investasi ✦</span>
+      </div>
+      <h1>✦ Portfolio Gallery ✦</h1>
+      <span class="subtitle">Trading System &amp; Strategy Gallery</span>
+      <div class="badge-count" id="portfolioCount">Memuat...</div>
+    </header>
+
+    <!-- ============================================================
+         SORTING CONTROLS
+         ============================================================ -->
+    <div class="sort-controls" id="sortControls">
+      <span class="label">Sort by</span>
+
+      <div class="sort-group">
+        <select id="sortField">
+          <option value="name">Name</option>
+          <option value="return" selected>Return</option>
+          <option value="winRate">Win Rate</option>
+          <option value="drawdown">Max DD</option>
+          <option value="profitFactor">Profit Factor</option>
+        </select>
+
+        <button class="order-btn active" id="orderAsc" data-order="asc">↑</button>
+        <button class="order-btn" id="orderDesc" data-order="desc">↓</button>
+      </div>
+
+      <button class="reset-btn" id="resetSortBtn">↺ Reset</button>
+    </div>
+
+    <!-- GRID PORTFOLIO -->
+    <div class="portfolio-grid" id="portfolioGrid">
+      <!-- Kartu akan di-generate oleh JavaScript -->
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="page-footer">
+      <p>
+        <a href="index.html">← Kembali ke Beranda</a>
+        &nbsp;·&nbsp; 
+        <span id="yearFooter"></span> Nanjing Investasi
+      </p>
+    </footer>
+
+  </div>
+
+  <script>
+    // ============================================================
+    // 1. DATA PORTOFOLIO
+    // ============================================================
+    const portfoliosData = [
+      { id: 1, title: "WAIVER 1", key: "WAIVER1", status: "active", updated: "2026-07-24", stats: { return: "+571.47%", winRate: "90.61%", drawdown: "2.57%", profitFactor: "8.88" }, fileName: "waiver1.html" },
+      { id: 2, title: "WAIVER 5", key: "WAIVER5", status: "active", updated: "2026-07-24", stats: { return: "+562,998.74%", winRate: "90.33%", drawdown: "13.83%", profitFactor: "5.56" }, fileName: "waiver10.html" },
+      { id: 3, title: "AXION 1", key: "AXION1", status: "active", updated: "2026-07-24", stats: { return: "+258.63%", winRate: "97.12%", drawdown: "3.80%", profitFactor: "8.91" }, fileName: "AXION1.html" },
+      { id: 4, title: "AXION 10", key: "AXION10", status: "active", updated: "2026-07-24", stats: { return: "+16,233.66%", winRate: "97.12%", drawdown: "16.95%", profitFactor: "3.18" }, fileName: "AXION10.html" },
+      { id: 5, title: "CAPE 1", key: "CAPE1", status: "active", updated: "2026-07-24", stats: { return: "+44.94%", winRate: "98.03%", drawdown: "2.18%", profitFactor: "8.38" }, fileName: "CAPE1.html" },
+      { id: 6, title: "CAPE 10", key: "CAPE10", status: "active", updated: "2026-07-24", stats: { return: "+4,309.08%", winRate: "98.03%", drawdown: "19.96%", profitFactor: "3.94" }, fileName: "CAPE10.html" },
+      { id: 7, title: "SEAL 1", key: "SEAL1", status: "active", updated: "2026-07-24", stats: { return: "+99.88%", winRate: "82.41%", drawdown: "2.88%", profitFactor: "3.59" }, fileName: "SEAL1.html" },
+      { id: 8, title: "SEAL 10", key: "SEAL10", status: "active", updated: "2026-07-24", stats: { return: "+49,528.53%", winRate: "82.41%", drawdown: "25.21%", profitFactor: "2.87" }, fileName: "SEAL10.html" },
+      { id: 9, title: "TRICK 7", key: "TRICK7", status: "active", updated: "2026-07-24", stats: { return: "+2,606.09%", winRate: "96.42%", drawdown: "10.16%", profitFactor: "4.28" }, fileName: "TRICK7.html" },
+      { id: 10, title: "HOLE 7", key: "HOLE7", status: "active", updated: "2026-07-24", stats: { return: "+2,141.20%", winRate: "94.71%", drawdown: "21.29%", profitFactor: "5.28" }, fileName: "HOLE7.html" },
+      { id: 11, title: "ZEUS 10", key: "ZEUS10", status: "active", updated: "2026-07-24", stats: { return: "+144.55%", winRate: "84.14%", drawdown: "7.61%", profitFactor: "7.27" }, fileName: "ZEUS10.html" },
+      { id: 12, title: "ZEUS 50", key: "ZEUS50", status: "active", updated: "2026-07-24", stats: { return: "+8,186.61%", winRate: "84.14%", drawdown: "38.41%", profitFactor: "7.37" }, fileName: "ZEUS50.html" },
+      { id: 13, title: "ATHENA 10", key: "ATHENA10", status: "active", updated: "2026-07-24", stats: { return: "+205.40%", winRate: "80.97%", drawdown: "9.26%", profitFactor: "5.45" }, fileName: "ATHENA10.html" },
+      { id: 14, title: "ATHENA 50", key: "ATHENA50", status: "active", updated: "2026-07-24", stats: { return: "+24,390.66%", winRate: "82.95%", drawdown: "37.10%", profitFactor: "5.79" }, fileName: "ATHENA50.html" },
+      { id: 15, title: "ODIN 10", key: "ODIN10", status: "active", updated: "2026-07-24", stats: { return: "+206.73%", winRate: "82.73%", drawdown: "21.41%", profitFactor: "2.80" }, fileName: "ODIN10.html" },
+      { id: 16, title: "ODIN 50", key: "ODIN50", status: "active", updated: "2026-07-24", stats: { return: "+8,977.92%", winRate: "82.64%", drawdown: "84.13%", profitFactor: "1.27" }, fileName: "ODIN50.html" },
+      { id: 17, title: "DOLPHIN 1", key: "DOLPHIN1", status: "active", updated: "2026-07-24", stats: { return: "+163.32%", winRate: "95.89%", drawdown: "3.13%", profitFactor: "9.46" }, fileName: "DOLPHIN1.html" },
+      { id: 18, title: "DOLPHIN 10", key: "DOLPHIN10", status: "active", updated: "2026-07-24", stats: { return: "+1,002,454.69%", winRate: "95.89%", drawdown: "27.20%", profitFactor: "3.00" }, fileName: "DOLPHIN10.html" },
+      { id: 19, title: "ORCA 1", key: "ORCA1", status: "active", updated: "2026-07-30", stats: { return: "+189.72%", winRate: "95.55%", drawdown: "2.84%", profitFactor: "15.74" }, fileName: "ORCA1.html" },
+      { id: 20, title: "ORCA 10", key: "ORCA10", status: "active", updated: "2026-07-30", stats: { return: "+1,484,086.52%", winRate: "95.09%", drawdown: "30.02%", profitFactor: "27.65" }, fileName: "ORCA10.html" },
+      { id: 21, title: "MERLIN 1", key: "MERLIN1", status: "active", updated: "2026-07-30", stats: { return: "+127.79%", winRate: "83.90%", drawdown: "1.78%", profitFactor: "4.69" }, fileName: "MERLIN1.html" },
+      { id: 22, title: "MERLIN 10", key: "MERLIN10", status: "active", updated: "2026-07-30", stats: { return: "+22,649.79%", winRate: "83.90%", drawdown: "16.64%", profitFactor: "3.28" }, fileName: "MERLIN10.html" }
+    ];
+
+    // ============================================================
+    // 2. VARIABEL & FUNGSI SORTING
+    // ============================================================
+    let currentOrder = 'desc';
+    let currentField = 'return';
+    let forwardData = {};
+
+    function parsePercentage(str) {
+      if (!str) return 0;
+      return parseFloat(str.replace(/[+,%]/g, '').replace(/,/g, '')) || 0;
+    }
+
+    function getSortValue(portfolio, field) {
+      const stats = portfolio.stats || {};
+      switch (field) {
+        case 'name': return portfolio.title.toLowerCase();
+        case 'return': return parsePercentage(stats.return);
+        case 'winRate': return parsePercentage(stats.winRate);
+        case 'drawdown': return parsePercentage(stats.drawdown);
+        case 'profitFactor': return parseFloat(stats.profitFactor) || 0;
+        default: return 0;
+      }
+    }
+
+    function sortPortfolios(portfolios, field, order) {
+      const sorted = [...portfolios];
+      sorted.sort((a, b) => {
+        let valA = getSortValue(a, field);
+        let valB = getSortValue(b, field);
+        if (field === 'name') {
+          return order === 'asc' ? valA.localeCompare(valB) : valB.localeCompare(valA);
+        }
+        return order === 'asc' ? valA - valB : valB - valA;
+      });
+      return sorted;
+    }
+
+    // ============================================================
+    // 3. FUNGSI RENDER KARTU
+    // ============================================================
+    function renderPortfolios(portfolios) {
+      const grid = document.getElementById('portfolioGrid');
+      const countBadge = document.getElementById('portfolioCount');
+
+      countBadge.textContent = `${portfolios.length} Portofolio`;
+
+      if (portfolios.length === 0) {
+        grid.innerHTML = `<div class="empty-state"><h3>✦ Belum ada portofolio ✦</h3><p>Portofolio trading akan segera ditambahkan.</p></div>`;
+        return;
+      }
+
+      let cardsHTML = '';
+      portfolios.forEach((p, index) => {
+        const fwd = forwardData[p.key] || {};
+        
+        let statusClass = 'status-active';
+        let statusText = 'Aktif';
+        if (p.status === 'dev') { statusClass = 'status-dev'; statusText = 'Pengembangan'; }
+        else if (p.status === 'archived') { statusClass = 'status-archived'; statusText = 'Arsip'; }
+
+        const filePath = `https://nanjingtouzi.github.io/LIFECODE/porto/${p.fileName}`;
+        const updateDate = p.updated ? new Date(p.updated).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) : '—';
+
+        const stats = p.stats || {};
+        const returnVal = stats.return || '—';
+        const winRateVal = stats.winRate || '—';
+        const drawdownVal = stats.drawdown || '—';
+        const pfVal = stats.profitFactor || '—';
+
+        // Forward Test Data
+        const gain = fwd.gain || '0.00%';
+        const profit = fwd.profit || '$0.00';
+        const fwdDrawdown = fwd.drawdown || '0.00%';
+        const fwdWinRate = fwd.winRate || '0%';
+        const fwdPF = fwd.profitFactor || '0.00';
+        const lastUpdate = fwd.lastUpdate || '—';
+
+        // Warna Gain
+        let gainClass = 'neutral';
+        const gainNum = parsePercentage(gain);
+        if (gainNum > 0) gainClass = 'positive';
+        else if (gainNum < 0) gainClass = 'negative';
+
+        cardsHTML += `
+          <div class="portfolio-card reordering" style="animation-delay: ${Math.min(index * 0.03, 0.5)}s">
+            <div class="card-header">
+              <span class="card-number">#${String(p.id).padStart(2, '0')}</span>
+              <span class="status-badge ${statusClass}">${statusText}</span>
+            </div>
+            <h3 class="card-title">${p.title}</h3>
+
+            <!-- Backtest Stats -->
+            <div class="card-stats">
+              <div class="stat-item"><span class="stat-label">Return</span><span class="stat-value">${returnVal}</span></div>
+              <div class="stat-item"><span class="stat-label">Win Rate</span><span class="stat-value">${winRateVal}</span></div>
+              <div class="stat-item"><span class="stat-label">Max DD</span><span class="stat-value">${drawdownVal}</span></div>
+              <div class="stat-item"><span class="stat-label">Profit Factor</span><span class="stat-value">${pfVal}</span></div>
+            </div>
+
+            <!-- Forward Test Stats -->
+            <div class="forward-stats">
+              <div class="forward-item">
+                <span class="forward-label">Gain</span>
+                <span class="forward-value ${gainClass}">${gain}</span>
+              </div>
+              <div class="forward-item">
+                <span class="forward-label">Profit</span>
+                <span class="forward-value">${profit}</span>
+              </div>
+              <div class="forward-item">
+                <span class="forward-label">Max DD</span>
+                <span class="forward-value">${fwdDrawdown}</span>
+              </div>
+              <div class="forward-item">
+                <span class="forward-label">Win Rate</span>
+                <span class="forward-value">${fwdWinRate}</span>
+              </div>
+              <div class="forward-item">
+                <span class="forward-label">Profit Factor</span>
+                <span class="forward-value">${fwdPF}</span>
+              </div>
+              <div class="forward-item">
+                <span class="forward-label">Updated</span>
+                <span class="forward-value" style="font-size:0.6rem;color:#64748b;">${lastUpdate}</span>
+              </div>
+            </div>
+
+            <div class="card-updated">🔄 Backtest: ${updateDate}</div>
+            <a href="${filePath}" target="_blank" class="card-link">✦ Lihat Detail</a>
+          </div>
+        `;
+      });
+
+      grid.innerHTML = cardsHTML;
+    }
+
+    function updateSortAndRender() {
+      const sorted = sortPortfolios(portfoliosData, currentField, currentOrder);
+      renderPortfolios(sorted);
+      updateButtonStates();
+    }
+
+    function updateButtonStates() {
+      document.getElementById('orderAsc').classList.toggle('active', currentOrder === 'asc');
+      document.getElementById('orderDesc').classList.toggle('active', currentOrder === 'desc');
+    }
+
+    // ============================================================
+    // 4. LOAD FORWARD TEST DATA
+    // ============================================================
+    async function loadForwardData() {
+      try {
+        const response = await fetch('forward-test.json');
+        if (!response.ok) throw new Error('File JSON tidak ditemukan');
+        forwardData = await response.json();
+        console.log('✅ Data Forward Test dimuat:', Object.keys(forwardData).length, 'portofolio');
+      } catch (error) {
+        console.warn('⚠️ Gagal memuat forward-test.json:', error.message);
+        forwardData = {};
+      }
+      updateSortAndRender();
+    }
+
+    // ============================================================
+    // 5. EVENT LISTENERS
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('sortField').value = 'return';
+      loadForwardData();
+      document.getElementById('yearFooter').textContent = new Date().getFullYear();
+    });
+
+    document.getElementById('sortField').addEventListener('change', function() {
+      currentField = this.value;
+      updateSortAndRender();
+    });
+
+    document.getElementById('orderAsc').addEventListener('click', function() {
+      currentOrder = 'asc';
+      updateSortAndRender();
+    });
+
+    document.getElementById('orderDesc').addEventListener('click', function() {
+      currentOrder = 'desc';
+      updateSortAndRender();
+    });
+
+    document.getElementById('resetSortBtn').addEventListener('click', function() {
+      currentField = 'return';
+      currentOrder = 'desc';
+      document.getElementById('sortField').value = 'return';
+      updateSortAndRender();
+    });
+  </script>
+</body>
+</html>
