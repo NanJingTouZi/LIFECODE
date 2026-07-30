@@ -28,7 +28,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-image: 
+      background-image:
         radial-gradient(2px 2px at 20% 30%, rgba(212, 175, 55, 0.15), transparent),
         radial-gradient(2px 2px at 40% 70%, rgba(212, 175, 55, 0.1), transparent),
         radial-gradient(1px 1px at 70% 20%, rgba(212, 175, 55, 0.2), transparent),
@@ -69,7 +69,7 @@
     /* --- Header Mewah dengan Logo --- */
     .page-header {
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       padding-bottom: 1.5rem;
       border-bottom: 1px solid rgba(212, 175, 55, 0.2);
       position: relative;
@@ -158,7 +158,260 @@
       backdrop-filter: blur(10px);
     }
 
-    /* --- Sorting Controls --- */
+    /* --- Filter & Search Controls --- */
+    .filter-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 1.5rem;
+    }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 16px;
+    }
+
+    .filter-row .label {
+      color: #94a3b8;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    /* --- Search Box --- */
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 8px;
+      padding: 6px 14px;
+      flex: 1;
+      min-width: 200px;
+      transition: border-color 0.2s;
+    }
+    .search-box:focus-within {
+      border-color: #d4af37;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+    }
+    .search-box input {
+      background: transparent;
+      border: none;
+      color: #e2e8f0;
+      font-size: 0.9rem;
+      padding: 8px 0;
+      width: 100%;
+      outline: none;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .search-box input::placeholder {
+      color: #64748b;
+    }
+    .search-box .icon {
+      color: #64748b;
+      margin-right: 8px;
+      font-size: 0.9rem;
+    }
+
+    /* --- Category Chips --- */
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .chip {
+      padding: 5px 14px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      color: #94a3b8;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .chip:hover {
+      border-color: rgba(212, 175, 55, 0.4);
+      color: #e2e8f0;
+    }
+    .chip.active {
+      background: rgba(212, 175, 55, 0.15);
+      border-color: #d4af37;
+      color: #f9e07f;
+    }
+    .chip.active-lowrisk {
+      background: rgba(74, 222, 128, 0.15);
+      border-color: #4ade80;
+      color: #4ade80;
+    }
+    .chip.active-highrisk {
+      background: rgba(248, 113, 113, 0.15);
+      border-color: #f87171;
+      color: #f87171;
+    }
+    .chip.active-forward {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: #38bdf8;
+      color: #38bdf8;
+    }
+
+    /* --- Slider with Switch --- */
+    .slider-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(212, 175, 55, 0.05);
+    }
+    .slider-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 180px;
+    }
+    .slider-item .switch-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .slider-item .switch-track {
+      width: 36px;
+      height: 20px;
+      background: #334155;
+      border-radius: 12px;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.25s ease;
+      flex-shrink: 0;
+    }
+    .slider-item .switch-track.on {
+      background: #d4af37;
+    }
+    .slider-item .switch-track .thumb {
+      width: 16px;
+      height: 16px;
+      background: #f1f5f9;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.25s ease;
+    }
+    .slider-item .switch-track.on .thumb {
+      transform: translateX(16px);
+    }
+    .slider-item .slider-body {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 80px;
+    }
+    .slider-item .slider-body .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: #94a3b8;
+    }
+    .slider-item .slider-body .slider-header .slider-label {
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .slider-item .slider-body .slider-header .slider-value {
+      color: #f9e07f;
+      font-weight: 600;
+    }
+    .slider-item .slider-body input[type="range"] {
+      width: 100%;
+      height: 4px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: rgba(212, 175, 55, 0.2);
+      border-radius: 4px;
+      outline: none;
+      transition: background 0.2s, opacity 0.25s;
+    }
+    .slider-item .slider-body input[type="range"]:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    .slider-item .slider-body input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #d4af37;
+      cursor: pointer;
+      border: 2px solid #0f0f1a;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+    }
+    .slider-item .slider-body input[type="range"]::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #d4af37;
+      cursor: pointer;
+      border: 2px solid #0f0f1a;
+    }
+    .slider-item .slider-body input[type="range"]:focus {
+      background: rgba(212, 175, 55, 0.35);
+    }
+    .slider-item .slider-body input[type="range"]:disabled::-webkit-slider-thumb {
+      background: #475569;
+      cursor: not-allowed;
+    }
+    .slider-item .slider-body input[type="range"]:disabled::-moz-range-thumb {
+      background: #475569;
+      cursor: not-allowed;
+    }
+
+    /* --- Reset & Result Count --- */
+    .filter-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 16px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(212, 175, 55, 0.05);
+    }
+    .filter-actions .result-count {
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+    .filter-actions .result-count strong {
+      color: #f9e07f;
+    }
+    .btn-reset {
+      padding: 6px 18px;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      color: #94a3b8;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .btn-reset:hover {
+      border-color: #f87171;
+      color: #f87171;
+      background: rgba(248, 113, 113, 0.08);
+    }
+
+    /* --- Sorting Controls (existing) --- */
     .sort-controls {
       display: flex;
       flex-wrap: wrap;
@@ -168,13 +421,13 @@
       backdrop-filter: blur(10px);
       border: 1px solid rgba(212, 175, 55, 0.15);
       border-radius: 14px;
-      padding: 14px 20px;
+      padding: 12px 20px;
       margin-bottom: 1.5rem;
     }
 
     .sort-controls .label {
       color: #94a3b8;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       font-weight: 600;
@@ -186,10 +439,10 @@
       background: rgba(0, 0, 0, 0.3);
       border: 1px solid rgba(212, 175, 55, 0.2);
       border-radius: 8px;
-      padding: 8px 14px;
+      padding: 6px 12px;
       color: #e2e8f0;
       font-family: 'Segoe UI', system-ui, sans-serif;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       cursor: pointer;
       transition: all 0.2s ease;
       outline: none;
@@ -220,8 +473,8 @@
     }
 
     .sort-controls .order-btn {
-      padding: 8px 12px;
-      min-width: 44px;
+      padding: 6px 10px;
+      min-width: 36px;
       text-align: center;
       font-weight: 600;
     }
@@ -232,20 +485,6 @@
       color: #f9e07f;
     }
 
-    .sort-controls .reset-btn {
-      margin-left: auto;
-      padding: 8px 16px;
-      border-color: rgba(148, 163, 184, 0.2);
-      color: #94a3b8;
-      font-size: 0.8rem;
-    }
-
-    .sort-controls .reset-btn:hover {
-      border-color: #f87171;
-      color: #f87171;
-      background: rgba(248, 113, 113, 0.08);
-    }
-
     /* --- Grid Kartu --- */
     .portfolio-grid {
       display: grid;
@@ -254,7 +493,6 @@
       margin-top: 0.5rem;
     }
 
-    /* --- Kartu Glassmorphism --- */
     .portfolio-card {
       background: rgba(255, 255, 255, 0.03);
       backdrop-filter: blur(12px);
@@ -275,6 +513,10 @@
     .portfolio-card.reordering {
       animation: none;
       opacity: 1;
+    }
+
+    .portfolio-card.hidden {
+      display: none;
     }
 
     .portfolio-card::before {
@@ -334,19 +576,19 @@
       letter-spacing: 0.3px;
     }
 
-    .status-active { 
-      background: rgba(74, 222, 128, 0.15); 
-      color: #4ade80; 
+    .status-active {
+      background: rgba(74, 222, 128, 0.15);
+      color: #4ade80;
       border: 1px solid rgba(74, 222, 128, 0.2);
     }
-    .status-dev { 
-      background: rgba(251, 191, 36, 0.15); 
-      color: #fbbf24; 
+    .status-dev {
+      background: rgba(251, 191, 36, 0.15);
+      color: #fbbf24;
       border: 1px solid rgba(251, 191, 36, 0.2);
     }
-    .status-archived { 
-      background: rgba(148, 163, 184, 0.15); 
-      color: #94a3b8; 
+    .status-archived {
+      background: rgba(148, 163, 184, 0.15);
+      color: #94a3b8;
       border: 1px solid rgba(148, 163, 184, 0.2);
     }
 
@@ -380,15 +622,15 @@
       display: flex;
       justify-content: space-between;
     }
-    .stat-label { 
-      color: #94a3b8; 
+    .stat-label {
+      color: #94a3b8;
       font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
-    .stat-value { 
-      font-weight: 600; 
-      color: #f9e07f; 
+    .stat-value {
+      font-weight: 600;
+      color: #f9e07f;
       font-size: 0.85rem;
     }
 
@@ -413,14 +655,14 @@
       align-items: center;
       text-align: center;
     }
-    .forward-label { 
-      color: #94a3b8; 
+    .forward-label {
+      color: #94a3b8;
       font-size: 0.55rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
-    .forward-value { 
-      font-weight: 600; 
+    .forward-value {
+      font-weight: 600;
       font-size: 0.75rem;
       margin-top: 1px;
     }
@@ -513,23 +755,27 @@
     }
 
     /* --- Responsive --- */
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
+      .filter-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .search-box {
+        flex: unset;
+        width: 100%;
+      }
+      .slider-group {
+        flex-direction: column;
+      }
+      .slider-item {
+        min-width: unset;
+      }
       .sort-controls {
         flex-direction: column;
         align-items: stretch;
-        gap: 10px;
-        padding: 12px 16px;
       }
       .sort-controls .sort-group {
         justify-content: space-between;
-      }
-      .sort-controls .reset-btn {
-        margin-left: 0;
-      }
-      .sort-controls select,
-      .sort-controls button {
-        flex: 1;
-        min-width: 0;
       }
       .forward-stats {
         grid-template-columns: 1fr 1fr;
@@ -551,6 +797,13 @@
         padding: 0.5rem;
       }
       .forward-value { font-size: 0.7rem; }
+      .filter-controls { padding: 12px 14px; }
+      .slider-item {
+        flex-wrap: wrap;
+      }
+      .slider-item .slider-body {
+        min-width: 100%;
+      }
     }
   </style>
 </head>
@@ -577,6 +830,131 @@
     </header>
 
     <!-- ============================================================
+         FILTER CONTROLS
+         ============================================================ -->
+    <div class="filter-controls" id="filterControls">
+
+      <!-- Row 1: Search + Category Chips -->
+      <div class="filter-row">
+        <div class="search-box">
+          <span class="icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="Cari portofolio...">
+        </div>
+        <div class="chip-group">
+          <span class="chip" data-filter="all" id="filterAll">All</span>
+          <span class="chip active active-lowrisk" data-filter="lowrisk" id="filterLowRisk">🟢 Low Risk</span>
+          <span class="chip" data-filter="highrisk" id="filterHighRisk">🔴 High Risk</span>
+          <span class="chip" data-filter="forward" id="filterForward">📈 Forward Positive</span>
+        </div>
+      </div>
+
+      <!-- Row 2: Slider dengan Switch -->
+      <div class="slider-group" id="sliderGroup">
+        <!-- Backtest Return -->
+        <div class="slider-item">
+          <div class="switch-wrap">
+            <div class="switch-track" data-target="sliderReturn" id="switchReturn">
+              <span class="thumb"></span>
+            </div>
+          </div>
+          <div class="slider-body">
+            <div class="slider-header">
+              <span class="slider-label">Backtest Return</span>
+              <span class="slider-value" id="valReturn">50%</span>
+            </div>
+            <input type="range" id="sliderReturn" min="0" max="1000" value="50" step="1" disabled>
+          </div>
+        </div>
+
+        <!-- Backtest Max DD -->
+        <div class="slider-item">
+          <div class="switch-wrap">
+            <div class="switch-track" data-target="sliderDD" id="switchDD">
+              <span class="thumb"></span>
+            </div>
+          </div>
+          <div class="slider-body">
+            <div class="slider-header">
+              <span class="slider-label">Backtest Max DD</span>
+              <span class="slider-value" id="valDD">20%</span>
+            </div>
+            <input type="range" id="sliderDD" min="0" max="100" value="20" step="1" disabled>
+          </div>
+        </div>
+
+        <!-- Backtest Profit Factor -->
+        <div class="slider-item">
+          <div class="switch-wrap">
+            <div class="switch-track" data-target="sliderPF" id="switchPF">
+              <span class="thumb"></span>
+            </div>
+          </div>
+          <div class="slider-body">
+            <div class="slider-header">
+              <span class="slider-label">Backtest PF</span>
+              <span class="slider-value" id="valPF">2.0</span>
+            </div>
+            <input type="range" id="sliderPF" min="0" max="20" value="2" step="0.1" disabled>
+          </div>
+        </div>
+
+        <!-- Forward Gain -->
+        <div class="slider-item">
+          <div class="switch-wrap">
+            <div class="switch-track" data-target="sliderFGain" id="switchFGain">
+              <span class="thumb"></span>
+            </div>
+          </div>
+          <div class="slider-body">
+            <div class="slider-header">
+              <span class="slider-label">Forward Gain</span>
+              <span class="slider-value" id="valFGain">0%</span>
+            </div>
+            <input type="range" id="sliderFGain" min="-100" max="100" value="0" step="1" disabled>
+          </div>
+        </div>
+
+        <!-- Forward Max DD -->
+        <div class="slider-item">
+          <div class="switch-wrap">
+            <div class="switch-track" data-target="sliderFDD" id="switchFDD">
+              <span class="thumb"></span>
+            </div>
+          </div>
+          <div class="slider-body">
+            <div class="slider-header">
+              <span class="slider-label">Forward Max DD</span>
+              <span class="slider-value" id="valFDD">20%</span>
+            </div>
+            <input type="range" id="sliderFDD" min="0" max="100" value="20" step="1" disabled>
+          </div>
+        </div>
+
+        <!-- Forward Profit Factor -->
+        <div class="slider-item">
+          <div class="switch-wrap">
+            <div class="switch-track" data-target="sliderFPF" id="switchFPF">
+              <span class="thumb"></span>
+            </div>
+          </div>
+          <div class="slider-body">
+            <div class="slider-header">
+              <span class="slider-label">Forward PF</span>
+              <span class="slider-value" id="valFPF">1.0</span>
+            </div>
+            <input type="range" id="sliderFPF" min="0" max="10" value="1" step="0.1" disabled>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3: Result Count + Reset -->
+      <div class="filter-actions">
+        <span class="result-count" id="resultCount">Menampilkan <strong>0</strong> dari <strong>0</strong> portofolio</span>
+        <button class="btn-reset" id="resetFiltersBtn">↺ Reset Semua Filter</button>
+      </div>
+    </div>
+
+    <!-- ============================================================
          SORTING CONTROLS
          ============================================================ -->
     <div class="sort-controls" id="sortControls">
@@ -584,18 +962,20 @@
 
       <div class="sort-group">
         <select id="sortField">
-          <option value="name">Name</option>
-          <option value="return" selected>Return</option>
-          <option value="winRate">Win Rate</option>
-          <option value="drawdown">Max DD</option>
-          <option value="profitFactor">Profit Factor</option>
+          <option value="name" selected>Name</option>
+          <option value="return">Backtest Return</option>
+          <option value="winRate">Backtest Win Rate</option>
+          <option value="drawdown">Backtest Max DD</option>
+          <option value="profitFactor">Backtest PF</option>
+          <option value="forwardGain">Forward Gain</option>
+          <option value="forwardPF">Forward PF</option>
         </select>
 
         <button class="order-btn active" id="orderAsc" data-order="asc">↑</button>
         <button class="order-btn" id="orderDesc" data-order="desc">↓</button>
       </div>
 
-      <button class="reset-btn" id="resetSortBtn">↺ Reset</button>
+      <button class="btn-reset" id="resetSortBtn" style="margin-left:auto;">↺ Reset Sort</button>
     </div>
 
     <!-- GRID PORTFOLIO -->
@@ -607,7 +987,7 @@
     <footer class="page-footer">
       <p>
         <a href="index.html">← Kembali ke Beranda</a>
-        &nbsp;·&nbsp; 
+        &nbsp;·&nbsp;
         <span id="yearFooter"></span> Nanjing Investasi
       </p>
     </footer>
@@ -646,9 +1026,10 @@
     // ============================================================
     // 2. VARIABEL & FUNGSI SORTING
     // ============================================================
-    let currentOrder = 'desc';
-    let currentField = 'return';
+    let currentOrder = 'asc';
+    let currentField = 'name';
     let forwardData = {};
+    let filteredPortfolios = [];
 
     function parsePercentage(str) {
       if (!str) return 0;
@@ -657,12 +1038,15 @@
 
     function getSortValue(portfolio, field) {
       const stats = portfolio.stats || {};
+      const fwd = forwardData[portfolio.key] || {};
       switch (field) {
         case 'name': return portfolio.title.toLowerCase();
         case 'return': return parsePercentage(stats.return);
         case 'winRate': return parsePercentage(stats.winRate);
         case 'drawdown': return parsePercentage(stats.drawdown);
         case 'profitFactor': return parseFloat(stats.profitFactor) || 0;
+        case 'forwardGain': return parsePercentage(fwd.gain);
+        case 'forwardPF': return parseFloat(fwd.profitFactor) || 0;
         default: return 0;
       }
     }
@@ -681,7 +1065,88 @@
     }
 
     // ============================================================
-    // 3. FUNGSI RENDER KARTU
+    // 3. FUNGSI SWITCH TOGGLE
+    // ============================================================
+    function initSwitches() {
+      document.querySelectorAll('.switch-track').forEach(track => {
+        track.addEventListener('click', function() {
+          const targetId = this.dataset.target;
+          const slider = document.getElementById(targetId);
+          const isOn = this.classList.contains('on');
+          if (isOn) {
+            this.classList.remove('on');
+            slider.disabled = true;
+          } else {
+            this.classList.add('on');
+            slider.disabled = false;
+          }
+          applyFilters();
+        });
+      });
+    }
+
+    function isSwitchOn(targetId) {
+      const track = document.querySelector(`.switch-track[data-target="${targetId}"]`);
+      return track ? track.classList.contains('on') : false;
+    }
+
+    // ============================================================
+    // 4. FUNGSI FILTER
+    // ============================================================
+    function applyFilters() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+      const activeChip = document.querySelector('.chip.active');
+      const filterType = activeChip ? activeChip.dataset.filter : 'all';
+
+      // Slider values (hanya jika switch ON)
+      const minReturn = isSwitchOn('sliderReturn') ? parseFloat(document.getElementById('sliderReturn').value) || 0 : 0;
+      const minDD = isSwitchOn('sliderDD') ? parseFloat(document.getElementById('sliderDD').value) || 0 : 100;
+      const minPF = isSwitchOn('sliderPF') ? parseFloat(document.getElementById('sliderPF').value) || 0 : 0;
+      const minFGain = isSwitchOn('sliderFGain') ? parseFloat(document.getElementById('sliderFGain').value) || -100 : -100;
+      const minFDD = isSwitchOn('sliderFDD') ? parseFloat(document.getElementById('sliderFDD').value) || 0 : 100;
+      const minFPF = isSwitchOn('sliderFPF') ? parseFloat(document.getElementById('sliderFPF').value) || 0 : 0;
+
+      filteredPortfolios = portfoliosData.filter(p => {
+        // Search
+        if (searchTerm && !p.title.toLowerCase().includes(searchTerm)) return false;
+
+        // Category chips
+        const dd = parsePercentage(p.stats.drawdown);
+        const fwd = forwardData[p.key] || {};
+        const fGain = parsePercentage(fwd.gain);
+
+        if (filterType === 'lowrisk' && dd >= 10) return false;
+        if (filterType === 'highrisk' && dd < 10) return false;
+        if (filterType === 'forward' && fGain <= 0) return false;
+
+        // Sliders
+        const btReturn = parsePercentage(p.stats.return);
+        const btDD = parsePercentage(p.stats.drawdown);
+        const btPF = parseFloat(p.stats.profitFactor) || 0;
+        const fDD = parsePercentage(fwd.drawdown);
+        const fPF = parseFloat(fwd.profitFactor) || 0;
+
+        if (btReturn < minReturn) return false;
+        if (btDD > minDD) return false;
+        if (btPF < minPF) return false;
+        if (fGain < minFGain) return false;
+        if (fDD > minFDD) return false;
+        if (fPF < minFPF) return false;
+
+        return true;
+      });
+
+      // Update result count
+      document.getElementById('resultCount').innerHTML =
+        `Menampilkan <strong>${filteredPortfolios.length}</strong> dari <strong>${portfoliosData.length}</strong> portofolio`;
+
+      // Render
+      const sorted = sortPortfolios(filteredPortfolios, currentField, currentOrder);
+      renderPortfolios(sorted);
+    }
+
+    // ============================================================
+    // 5. FUNGSI RENDER KARTU
     // ============================================================
     function renderPortfolios(portfolios) {
       const grid = document.getElementById('portfolioGrid');
@@ -690,14 +1155,14 @@
       countBadge.textContent = `${portfolios.length} Portofolio`;
 
       if (portfolios.length === 0) {
-        grid.innerHTML = `<div class="empty-state"><h3>✦ Belum ada portofolio ✦</h3><p>Portofolio trading akan segera ditambahkan.</p></div>`;
+        grid.innerHTML = `<div class="empty-state"><h3>✦ Tidak ada portofolio ✦</h3><p>Coba ubah filter atau pencarian Anda.</p></div>`;
         return;
       }
 
       let cardsHTML = '';
       portfolios.forEach((p, index) => {
         const fwd = forwardData[p.key] || {};
-        
+
         let statusClass = 'status-active';
         let statusText = 'Aktif';
         if (p.status === 'dev') { statusClass = 'status-dev'; statusText = 'Pengembangan'; }
@@ -712,7 +1177,6 @@
         const drawdownVal = stats.drawdown || '—';
         const pfVal = stats.profitFactor || '—';
 
-        // Forward Test Data
         const gain = fwd.gain || '0.00%';
         const profit = fwd.profit || '$0.00';
         const fwdDrawdown = fwd.drawdown || '0.00%';
@@ -720,7 +1184,6 @@
         const fwdPF = fwd.profitFactor || '0.00';
         const lastUpdate = fwd.lastUpdate || '—';
 
-        // Warna Gain
         let gainClass = 'neutral';
         const gainNum = parsePercentage(gain);
         if (gainNum > 0) gainClass = 'positive';
@@ -734,7 +1197,6 @@
             </div>
             <h3 class="card-title">${p.title}</h3>
 
-            <!-- Backtest Stats -->
             <div class="card-stats">
               <div class="stat-item"><span class="stat-label">Return</span><span class="stat-value">${returnVal}</span></div>
               <div class="stat-item"><span class="stat-label">Win Rate</span><span class="stat-value">${winRateVal}</span></div>
@@ -742,7 +1204,6 @@
               <div class="stat-item"><span class="stat-label">Profit Factor</span><span class="stat-value">${pfVal}</span></div>
             </div>
 
-            <!-- Forward Test Stats -->
             <div class="forward-stats">
               <div class="forward-item">
                 <span class="forward-label">Gain</span>
@@ -780,7 +1241,7 @@
     }
 
     function updateSortAndRender() {
-      const sorted = sortPortfolios(portfoliosData, currentField, currentOrder);
+      const sorted = sortPortfolios(filteredPortfolios.length ? filteredPortfolios : portfoliosData, currentField, currentOrder);
       renderPortfolios(sorted);
       updateButtonStates();
     }
@@ -791,7 +1252,7 @@
     }
 
     // ============================================================
-    // 4. LOAD FORWARD TEST DATA
+    // 6. LOAD FORWARD TEST DATA
     // ============================================================
     async function loadForwardData() {
       try {
@@ -803,38 +1264,125 @@
         console.warn('⚠️ Gagal memuat forward-test.json:', error.message);
         forwardData = {};
       }
-      updateSortAndRender();
+      // Default: Low Risk aktif, Sort Name ASC, semua switch OFF
+      applyFilters();
     }
 
     // ============================================================
-    // 5. EVENT LISTENERS
+    // 7. EVENT LISTENERS
     // ============================================================
     document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('sortField').value = 'return';
+      // Set default sort: Name ASC
+      document.getElementById('sortField').value = 'name';
+      currentField = 'name';
+      currentOrder = 'asc';
+      updateButtonStates();
+
+      // Inisialisasi switch
+      initSwitches();
+
+      // Load data
       loadForwardData();
       document.getElementById('yearFooter').textContent = new Date().getFullYear();
     });
 
+    // --- Search ---
+    document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+    // --- Category Chips ---
+    document.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', function() {
+        document.querySelectorAll('.chip').forEach(c => {
+          c.classList.remove('active', 'active-lowrisk', 'active-highrisk', 'active-forward');
+        });
+        this.classList.add('active');
+        if (this.dataset.filter === 'lowrisk') this.classList.add('active-lowrisk');
+        else if (this.dataset.filter === 'highrisk') this.classList.add('active-highrisk');
+        else if (this.dataset.filter === 'forward') this.classList.add('active-forward');
+        applyFilters();
+      });
+    });
+
+    // --- Sliders ---
+    const sliderMap = {
+      sliderReturn: 'valReturn',
+      sliderDD: 'valDD',
+      sliderPF: 'valPF',
+      sliderFGain: 'valFGain',
+      sliderFDD: 'valFDD',
+      sliderFPF: 'valFPF'
+    };
+    Object.keys(sliderMap).forEach(id => {
+      const input = document.getElementById(id);
+      const display = document.getElementById(sliderMap[id]);
+      input.addEventListener('input', function() {
+        const val = parseFloat(this.value);
+        if (id === 'sliderPF' || id === 'sliderFPF') display.textContent = val.toFixed(1);
+        else display.textContent = val + '%';
+        applyFilters();
+      });
+    });
+
+    // --- Reset Filters ---
+    document.getElementById('resetFiltersBtn').addEventListener('click', function() {
+      // Reset search
+      document.getElementById('searchInput').value = '';
+      // Reset chips: aktifkan Low Risk
+      document.querySelectorAll('.chip').forEach(c => {
+        c.classList.remove('active', 'active-lowrisk', 'active-highrisk', 'active-forward');
+      });
+      document.getElementById('filterLowRisk').classList.add('active', 'active-lowrisk');
+      // Reset switches ke OFF
+      document.querySelectorAll('.switch-track').forEach(track => {
+        track.classList.remove('on');
+        const targetId = track.dataset.target;
+        const slider = document.getElementById(targetId);
+        if (slider) slider.disabled = true;
+      });
+      // Reset sliders ke nilai default
+      document.getElementById('sliderReturn').value = 50;
+      document.getElementById('sliderDD').value = 20;
+      document.getElementById('sliderPF').value = 2;
+      document.getElementById('sliderFGain').value = 0;
+      document.getElementById('sliderFDD').value = 20;
+      document.getElementById('sliderFPF').value = 1;
+      // Update display
+      document.getElementById('valReturn').textContent = '50%';
+      document.getElementById('valDD').textContent = '20%';
+      document.getElementById('valPF').textContent = '2.0';
+      document.getElementById('valFGain').textContent = '0%';
+      document.getElementById('valFDD').textContent = '20%';
+      document.getElementById('valFPF').textContent = '1.0';
+      // Reset sort ke Name ASC
+      currentField = 'name';
+      currentOrder = 'asc';
+      document.getElementById('sortField').value = 'name';
+      updateButtonStates();
+      applyFilters();
+    });
+
+    // --- Sorting ---
     document.getElementById('sortField').addEventListener('change', function() {
       currentField = this.value;
-      updateSortAndRender();
+      applyFilters();
     });
 
     document.getElementById('orderAsc').addEventListener('click', function() {
       currentOrder = 'asc';
-      updateSortAndRender();
+      applyFilters();
     });
 
     document.getElementById('orderDesc').addEventListener('click', function() {
       currentOrder = 'desc';
-      updateSortAndRender();
+      applyFilters();
     });
 
     document.getElementById('resetSortBtn').addEventListener('click', function() {
-      currentField = 'return';
-      currentOrder = 'desc';
-      document.getElementById('sortField').value = 'return';
-      updateSortAndRender();
+      currentField = 'name';
+      currentOrder = 'asc';
+      document.getElementById('sortField').value = 'name';
+      updateButtonStates();
+      applyFilters();
     });
   </script>
 </body>
