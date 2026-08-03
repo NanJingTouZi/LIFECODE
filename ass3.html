@@ -138,10 +138,64 @@
         .proposal-wrapper{display:none;margin-top:30px;border-top:2px dashed #dce3ec;padding-top:25px}
         .proposal-wrapper.show{display:block}
         .proposal-container{max-width:1000px;margin:0 auto;background:#fff;border-radius:12px;padding:40px 45px 35px;border:1px solid #e2e8f0}
-        .proposal-container .header{text-align:center;border-bottom:3px double #1a2a4a;padding-bottom:16px;margin-bottom:24px}
-        .proposal-container .header .title-main{font-size:24px;font-weight:700;color:#1a2a4a;letter-spacing:1px}
-        .proposal-container .header .title-sub{font-size:17px;font-weight:600;color:#2c3e6b;margin-top:4px}
-        .proposal-container .header .title-desc{font-size:12px;color:#6b7a8f;margin-top:4px;letter-spacing:.3px}
+        
+        /* ===== KOP SURAT PROPOSAL DENGAN LOGO ===== */
+        .proposal-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 3px double #1a2a4a;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+        .proposal-logo {
+            flex-shrink: 0;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .proposal-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .proposal-logo .logo-placeholder {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #1a3a5c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+        }
+        .proposal-title-area {
+            flex: 1;
+        }
+        .proposal-title-area .title-main {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a2a4a;
+            letter-spacing: 1px;
+        }
+        .proposal-title-area .title-sub {
+            font-size: 17px;
+            font-weight: 600;
+            color: #2c3e6b;
+            margin-top: 4px;
+        }
+        .proposal-title-area .title-desc {
+            font-size: 12px;
+            color: #6b7a8f;
+            margin-top: 4px;
+            letter-spacing: .3px;
+        }
+        
         .proposal-container .section-title{font-size:16px;font-weight:700;color:#1a2a4a;border-left:5px solid #2c3e6b;padding-left:12px;margin-top:22px;margin-bottom:12px;page-break-after:avoid}
         .proposal-container .section-title-first{margin-top:0}
         .proposal-container .data-table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:4px;page-break-inside:avoid}
@@ -198,10 +252,110 @@
         .quota-modal-overlay .quota-btn:hover{transform:scale(1.02);box-shadow:0 8px 24px rgba(37,211,102,.3)}
         .quota-modal-overlay .quota-btn-secondary{background:transparent;color:#5e7a93;border:1px solid #dce3ec;border-radius:10px;padding:10px 24px;font-size:14px;cursor:pointer;margin-top:10px;width:100%;transition:.2s}
         .quota-modal-overlay .quota-btn-secondary:hover{background:#f0f4f8}
-        @media print{body{background:#fff!important;padding:0!important;margin:0!important}.container>*:not(.proposal-wrapper){display:none!important}.proposal-wrapper .no-print{display:none!important}.proposal-wrapper .print-instruction{display:none!important}.proposal-wrapper{display:block!important;border-top:0!important;padding-top:0!important;margin-top:0!important;background:#fff!important}.proposal-container{max-width:100%!important;padding:20px 25px!important;border:0!important;border-radius:0!important;background:#fff!important;box-shadow:none!important;margin:0!important}.proposal-container .section-title{page-break-after:avoid!important;page-break-inside:avoid!important}.proposal-container .data-table,.proposal-container .premium-table{page-break-inside:avoid!important}.proposal-container .signature-area,.proposal-container .footer-notes{page-break-inside:avoid!important}.proposal-container .data-table tr,.proposal-container .premium-table tr{page-break-inside:avoid!important}.proposal-container .header,.proposal-container .signature-area,.proposal-container .footer-notes,.proposal-container .proposal-actions{page-break-inside:avoid!important}.proposal-container .data-table td{padding:4px 8px 4px 0!important;border-bottom:1px solid #eef1f6!important}.proposal-container .premium-table th{background:#f0f3f8!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}.proposal-container .premium-table .highlight-row td{background:#f7f9fc!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}.proposal-container .header{border-bottom:3px double #1a2a4a!important}.proposal-container .signature-area{border-top:2px solid #eef1f6!important}.proposal-container .footer-notes{border-top:1px solid #e0e5ed!important}.proposal-container{page-break-after:avoid}.tab-nav{display:none!important}.back-home{display:none!important}.no-print-rincian{display:none!important}}
-        @media (max-width:768px){.container{padding:20px 16px}.row{grid-template-columns:1fr;gap:12px}.checkbox-group{gap:8px 14px}.checkbox-group label{font-size:13px;flex:0 0 auto}.checkbox-group label input[type=checkbox]{width:16px;height:16px}.btn-group{flex-direction:column;gap:8px}.btn{width:100%;justify-content:center;padding:12px 20px;font-size:14px}.tab-nav{gap:4px;padding:4px}.tab-btn{min-width:50px;padding:8px 10px;font-size:11px;flex:1}.tab-btn .icon{font-size:14px}.premi-detail{grid-template-columns:1fr 1fr;gap:8px}.premi-value{font-size:24px;padding:10px 18px}.summary-grid{grid-template-columns:1fr 1fr;gap:8px}.proposal-container{padding:16px}.proposal-container .data-table td{display:block;padding:4px 0;border-bottom:0}.proposal-container .data-table .label{width:100%;font-weight:700;margin-top:6px}.proposal-container .data-table .value{width:100%;padding-left:8px;margin-bottom:4px;border-bottom:1px dashed #eef1f6}.proposal-container .premium-table td,.proposal-container .premium-table th{font-size:12px;padding:6px 8px}.proposal-container .signature-box .line{width:120px}.proposal-actions{flex-direction:column}.history-table{font-size:12px}.history-table td,.history-table th{padding:6px 8px}.perluasan-row{flex-direction:column;align-items:flex-start;gap:6px}.tjh-fields{margin-left:0;flex-wrap:wrap}.tjh-fields .field-group input{width:100px}.tjh-fields .field-group input.small{width:60px}}
-        @media (max-width:600px){.tab-btn{font-size:10px;padding:6px 8px;min-width:40px}.tab-btn .icon{font-size:12px}.premi-detail{grid-template-columns:1fr 1fr;gap:6px}.premi-value{font-size:20px;padding:8px 12px}.summary-grid{grid-template-columns:1fr 1fr;gap:6px}.summary-card .value{font-size:15px}.form-group input,.form-group select,.form-group textarea{font-size:14px;padding:8px 12px}.detail-item .value{font-size:13px}.checkbox-group{gap:6px 10px}.checkbox-group label{font-size:12px}.checkbox-group label input[type=checkbox]{width:15px;height:15px}.proposal-container .header .title-main{font-size:18px}.proposal-container .header .title-sub{font-size:14px}.proposal-container .section-title{font-size:14px}.perluasan-row label{font-size:13px}.tjh-fields .field-group input{width:80px;font-size:12px;padding:4px 8px}.tjh-fields .field-group input.small{width:50px}}
-        @media (max-width:480px){.container{padding:12px 10px}.premi-detail{grid-template-columns:1fr}.summary-grid{grid-template-columns:1fr}.tab-btn{font-size:9px;padding:5px 6px;min-width:35px;gap:3px}.tab-btn .icon{font-size:11px}h1{font-size:18px}.subtitle{font-size:11px}.badge-ojk{font-size:9px;padding:1px 8px}.premi-value{font-size:18px;padding:6px 12px}.detail-item .value{font-size:13px}.checkbox-group{gap:4px 8px}.checkbox-group label{font-size:11px}.checkbox-group label input[type=checkbox]{width:14px;height:14px}.btn{font-size:13px;padding:10px 16px}.proposal-container{padding:12px 10px}.proposal-container .header .title-main{font-size:16px}.proposal-container .header .title-sub{font-size:13px}.proposal-container .section-title{font-size:13px;padding-left:8px}.proposal-container .data-table td{font-size:12px}.result-box h3{font-size:16px}.result-box{padding:16px}.history-table{font-size:11px}.history-table td,.history-table th{padding:4px 6px}.perluasan-row{gap:4px}.perluasan-row label{font-size:12px}.tjh-fields .field-group input{width:70px;font-size:11px;padding:4px 6px}.tjh-fields .field-group input.small{width:45px}}
+        
+        @media print{
+            body{background:#fff!important;padding:0!important;margin:0!important}
+            .container>*:not(.proposal-wrapper){display:none!important}
+            .proposal-wrapper .no-print{display:none!important}
+            .proposal-wrapper .print-instruction{display:none!important}
+            .proposal-wrapper{display:block!important;border-top:0!important;padding-top:0!important;margin-top:0!important;background:#fff!important}
+            .proposal-container{max-width:100%!important;padding:20px 25px!important;border:0!important;border-radius:0!important;background:#fff!important;box-shadow:none!important;margin:0!important}
+            .proposal-container .section-title{page-break-after:avoid!important;page-break-inside:avoid!important}
+            .proposal-container .data-table,.proposal-container .premium-table{page-break-inside:avoid!important}
+            .proposal-container .signature-area,.proposal-container .footer-notes{page-break-inside:avoid!important}
+            .proposal-container .data-table tr,.proposal-container .premium-table tr{page-break-inside:avoid!important}
+            .proposal-container .proposal-header{page-break-inside:avoid!important}
+            .proposal-container .data-table td{padding:4px 8px 4px 0!important;border-bottom:1px solid #eef1f6!important}
+            .proposal-container .premium-table th{background:#f0f3f8!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+            .proposal-container .premium-table .highlight-row td{background:#f7f9fc!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+            .proposal-container .proposal-header{border-bottom:3px double #1a2a4a!important}
+            .proposal-container .signature-area{border-top:2px solid #eef1f6!important}
+            .proposal-container .footer-notes{border-top:1px solid #e0e5ed!important}
+            .proposal-container{page-break-after:avoid}
+            .tab-nav{display:none!important}
+            .back-home{display:none!important}
+            .no-print-rincian{display:none!important}
+            .proposal-logo img{max-width:80px!important;max-height:80px!important}
+        }
+        @media (max-width:768px){
+            .container{padding:20px 16px}
+            .row{grid-template-columns:1fr;gap:12px}
+            .checkbox-group{gap:8px 14px}
+            .checkbox-group label{font-size:13px;flex:0 0 auto}
+            .checkbox-group label input[type=checkbox]{width:16px;height:16px}
+            .btn-group{flex-direction:column;gap:8px}
+            .btn{width:100%;justify-content:center;padding:12px 20px;font-size:14px}
+            .tab-nav{gap:4px;padding:4px}
+            .tab-btn{min-width:50px;padding:8px 10px;font-size:11px;flex:1}
+            .tab-btn .icon{font-size:14px}
+            .premi-detail{grid-template-columns:1fr 1fr;gap:8px}
+            .premi-value{font-size:24px;padding:10px 18px}
+            .summary-grid{grid-template-columns:1fr 1fr;gap:8px}
+            .proposal-container{padding:16px}
+            .proposal-header{flex-direction:column;text-align:center;gap:10px}
+            .proposal-title-area .title-main{font-size:18px}
+            .proposal-title-area .title-sub{font-size:14px}
+            .proposal-container .data-table td{display:block;padding:4px 0;border-bottom:0}
+            .proposal-container .data-table .label{width:100%;font-weight:700;margin-top:6px}
+            .proposal-container .data-table .value{width:100%;padding-left:8px;margin-bottom:4px;border-bottom:1px dashed #eef1f6}
+            .proposal-container .premium-table td,.proposal-container .premium-table th{font-size:12px;padding:6px 8px}
+            .proposal-container .signature-box .line{width:120px}
+            .proposal-actions{flex-direction:column}
+            .history-table{font-size:12px}
+            .history-table td,.history-table th{padding:6px 8px}
+            .perluasan-row{flex-direction:column;align-items:flex-start;gap:6px}
+            .tjh-fields{margin-left:0;flex-wrap:wrap}
+            .tjh-fields .field-group input{width:100px}
+            .tjh-fields .field-group input.small{width:60px}
+        }
+        @media (max-width:600px){
+            .tab-btn{font-size:10px;padding:6px 8px;min-width:40px}
+            .tab-btn .icon{font-size:12px}
+            .premi-detail{grid-template-columns:1fr 1fr;gap:6px}
+            .premi-value{font-size:20px;padding:8px 12px}
+            .summary-grid{grid-template-columns:1fr 1fr;gap:6px}
+            .summary-card .value{font-size:15px}
+            .form-group input,.form-group select,.form-group textarea{font-size:14px;padding:8px 12px}
+            .detail-item .value{font-size:13px}
+            .checkbox-group{gap:6px 10px}
+            .checkbox-group label{font-size:12px}
+            .checkbox-group label input[type=checkbox]{width:15px;height:15px}
+            .proposal-container .proposal-header .title-main{font-size:18px}
+            .proposal-container .proposal-header .title-sub{font-size:14px}
+            .proposal-container .section-title{font-size:14px}
+            .perluasan-row label{font-size:13px}
+            .tjh-fields .field-group input{width:80px;font-size:12px;padding:4px 8px}
+            .tjh-fields .field-group input.small{width:50px}
+        }
+        @media (max-width:480px){
+            .container{padding:12px 10px}
+            .premi-detail{grid-template-columns:1fr}
+            .summary-grid{grid-template-columns:1fr}
+            .tab-btn{font-size:9px;padding:5px 6px;min-width:35px;gap:3px}
+            .tab-btn .icon{font-size:11px}
+            h1{font-size:18px}
+            .subtitle{font-size:11px}
+            .badge-ojk{font-size:9px;padding:1px 8px}
+            .premi-value{font-size:18px;padding:6px 12px}
+            .detail-item .value{font-size:13px}
+            .checkbox-group{gap:4px 8px}
+            .checkbox-group label{font-size:11px}
+            .checkbox-group label input[type=checkbox]{width:14px;height:14px}
+            .btn{font-size:13px;padding:10px 16px}
+            .proposal-container{padding:12px 10px}
+            .proposal-container .proposal-header .title-main{font-size:16px}
+            .proposal-container .proposal-header .title-sub{font-size:13px}
+            .proposal-container .section-title{font-size:13px;padding-left:8px}
+            .proposal-container .data-table td{font-size:12px}
+            .result-box h3{font-size:16px}
+            .result-box{padding:16px}
+            .history-table{font-size:11px}
+            .history-table td,.history-table th{padding:4px 6px}
+            .perluasan-row{gap:4px}
+            .perluasan-row label{font-size:12px}
+            .tjh-fields .field-group input{width:70px;font-size:11px;padding:4px 6px}
+            .tjh-fields .field-group input.small{width:45px}
+        }
     </style>
 </head>
 <body>
@@ -391,7 +545,7 @@
                 <div class="detail-item"><span class="label">Nilai Properti</span><div class="value" id="rNilaiProperti">-</div></div>
                 <div class="detail-item"><span class="label">Luas Bangunan</span><div class="value" id="rLuasProperti">-</div></div>
                 <div class="detail-item"><span class="label">Tahun Dibangun</span><div class="value" id="rTahunProperti">-</div></div>
-                <div class="detail-item"><span class="label">Total Rate (PAR)</span><div class="value" id="rRateProperti">-</div></div>
+                <div class="detail-item"><span class="label">Total Rate (Flexas)</span><div class="value" id="rRateProperti">-</div></div>
             </div>
             <div class="breakdown" id="breakdownProperti"><table><tbody id="breakdownBodyProperti"></tbody></table></div>
             <p style="margin-top:12px;font-size:12px;color:#5e7a93;">💡 Risiko sendiri (deductible) minimum Rp500.000 per kejadian untuk properti.</p>
@@ -510,7 +664,26 @@
     <!-- PROPOSAL -->
     <div class="proposal-wrapper" id="proposalWrapper">
         <div class="proposal-container" id="proposalContainer">
-            <div class="header"><div class="title-main">PROPOSAL ASURANSI</div><div class="title-sub" id="proposalSubTitle">KENDARAAN BERMOTOR</div><div class="title-desc" id="proposalDesc">Dokumen Penawaran Perlindungan Kendaraan</div></div>
+            
+            <!-- ===== KOP SURAT DENGAN LOGO ===== -->
+            <div class="proposal-header">
+                <div class="proposal-logo">
+                    <!-- Logo dari file nanjing-ico1.png -->
+                    <img src="nanjing-ico1.png" 
+                         alt="Logo Perusahaan" 
+                         id="proposalLogo" 
+                         style="display:block;width:80px;height:80px;object-fit:contain;"
+                         onerror="this.style.display='none'; document.getElementById('logoPlaceholder').style.display='flex';" />
+                    <!-- Placeholder jika gambar gagal load -->
+                    <div class="logo-placeholder" id="logoPlaceholder" style="display:none;">A</div>
+                </div>
+                <div class="proposal-title-area">
+                    <div class="title-main">PROPOSAL ASURANSI</div>
+                    <div class="title-sub" id="proposalSubTitle">KENDARAAN BERMOTOR</div>
+                    <div class="title-desc" id="proposalDesc">Dokumen Penawaran Perlindungan Kendaraan</div>
+                </div>
+            </div>
+            
             <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;font-size:14px;flex-wrap:wrap;gap:10px;">
                 <div><strong>Kepada Yth.</strong><br />Bapak / Ibu <strong id="pNama">-</strong><br /><span style="font-size:13px;color:#4a5a72;" id="pInfoTambahan"></span></div>
                 <div style="background:#f0f3f8;padding:5px 14px;border-radius:20px;font-weight:600;color:#1a2a4a;font-size:13px;white-space:nowrap;">No. <span id="pNoLabel">Proposal</span>: <strong id="pNoProposal">AVR/PROP/2026/001</strong></div>
@@ -829,10 +1002,31 @@ const TARIF_TLO_OLD = {
     roda2: {'k8':[0,Infinity,1.76,2.11,1.80,2.16,0.67,0.80]}
 };
 
+// ============================================================
+// DATA TARIF PROPERTI - REVISI (TANPA PAR)
+// ============================================================
 const TARIF_PROPERTI = {
-    'rumah': { nama:'Rumah Tinggal', flexas:0.0294, fwtwd:0.0450, rsmdcc:0.0010, others:0.0010, par:0.0764 },
-    'toko': { nama:'Toko', flexas:0.1520, fwtwd:0.0450, rsmdcc:0.0010, others:0.0010, par:0.1990 },
-    'gudang_pribadi': { nama:'Gudang Pribadi', flexas:0.1127, fwtwd:0.0450, rsmdcc:0.0010, others:0.0010, par:0.1597 }
+    'rumah': { 
+        nama: 'Rumah Tinggal', 
+        flexas: 0.0294, 
+        fwtwd: 0.0450, 
+        rsmdcc: 0.0010, 
+        others: 0.0010
+    },
+    'toko': { 
+        nama: 'Toko', 
+        flexas: 0.1520, 
+        fwtwd: 0.0450, 
+        rsmdcc: 0.0010, 
+        others: 0.0010
+    },
+    'gudang_pribadi': { 
+        nama: 'Gudang Pribadi', 
+        flexas: 0.1127, 
+        fwtwd: 0.0450, 
+        rsmdcc: 0.0010, 
+        others: 0.0010
+    }
 };
 
 // ============================================================
@@ -1371,7 +1565,7 @@ function resetFormMobil() {
 }
 
 // ============================================================
-// FUNGSI PROPERTI (LENGKAP)
+// FUNGSI PROPERTI (REVISI - TANPA PAR)
 // ============================================================
 async function hitungPremiProperti() {
     const session = getSession();
@@ -1388,20 +1582,27 @@ async function hitungPremiProperti() {
     if (nilai <= 0) { showAlert('warning', 'Info', 'Isi Nilai Properti!'); return; }
     if (!alamat) { showAlert('warning', 'Info', 'Isi Alamat Properti!'); return; }
     const tarifData = TARIF_PROPERTI[jenis] || TARIF_PROPERTI['rumah'];
-    let rate = tarifData.par / 100;
+    
+    // ===== PREMI DASAR: HANYA FLEXAS =====
+    let rate = tarifData.flexas / 100;
+    
     const usia = 2026 - tahun;
     let faktorUsia = 1.0;
     if (usia <= 5) faktorUsia = 1.0;
     else if (usia <= 10) faktorUsia = 1.05;
     else if (usia <= 20) faktorUsia = 1.10;
     else faktorUsia = 1.20;
+    
     let faktorLuas = 1.0;
     if (luas > 1000) faktorLuas = 0.85;
     else if (luas > 500) faktorLuas = 0.90;
     else if (luas > 200) faktorLuas = 0.95;
+    
     let premi = nilai * rate * faktorUsia * faktorLuas;
     premi = Math.round(premi / 1000) * 1000;
     if (premi < 50000) premi = 50000;
+    
+    // ===== PERLUASAN JAMINAN (OPSIONAL) =====
     let detailPerluasan = [], extPremi = 0;
     if (document.getElementById('extFWTWDProperti')?.checked) {
         const rateFWTWD = tarifData.fwtwd / 100;
@@ -1421,14 +1622,22 @@ async function hitungPremiProperti() {
         detailPerluasan.push({ nama: 'Others (Risiko Lainnya)', rate: tarifData.others.toFixed(4)+'%', premi: premiOthers });
         extPremi += premiOthers;
     }
+    
     const totalPremi = premi + extPremi;
     const biayaPolis = 52000;
     const totalBayar = totalPremi + biayaPolis;
     const jenisText = document.getElementById('jenisProperti').options[document.getElementById('jenisProperti').selectedIndex].text;
     const jenisPertanggungan = 'Flexas (Comprehensive)';
     const remainingQuota = (await getLicenseStatus(session.email)).remaining;
-    hasilTerakhirProperti = { nama, noHp, jenis, nilai, luas, tahun, alamat, jenisPertanggungan, rate, premi, extPremi, totalPremi, biayaPolis, totalBayar, jenisText, tarifData, detailPerluasan };
+    
+    hasilTerakhirProperti = { 
+        nama, noHp, jenis, nilai, luas, tahun, alamat, 
+        jenisPertanggungan, rate, premi, extPremi, totalPremi, 
+        biayaPolis, totalBayar, jenisText, tarifData, detailPerluasan,
+        faktorUsia, faktorLuas
+    };
     tampilkanHasilProperti(hasilTerakhirProperti);
+    
     const result = { total: totalBayar, formatted: formatRupiahFull(totalBayar), premiDasar: premi, premiPerluasan: extPremi, totalPremi, biayaPolis, rate: rate*100, tarif: tarifData };
     const input = { nama, noHp, jenis: jenisText, nilai, luas, tahun, alamat, jenisPertanggungan, perluasan: detailPerluasan.map(d=>d.nama).join(', ') || 'Tidak ada' };
     const detail = { rate: (rate*100).toFixed(4)+'%', faktorUsia: faktorUsia.toFixed(2), faktorLuas: faktorLuas.toFixed(2), tarif: tarifData, detailPerluasan };
@@ -1448,26 +1657,32 @@ function tampilkanHasilProperti(h) {
     document.getElementById('rLuasProperti').textContent = h.luas + ' m²';
     document.getElementById('rTahunProperti').textContent = h.tahun;
     document.getElementById('rRateProperti').textContent = (h.rate * 100).toFixed(4) + '%';
+    
     const breakdownBody = document.getElementById('breakdownBodyProperti');
     const tarif = h.tarifData || {};
     let html = `
-        <tr><td style="font-weight:600;color:#2c3e6b;">Rincian Tarif (PAR)</td><td class="right" style="font-weight:600;color:#2c3e6b;">Rate</td></tr>
-        <tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">Flexas</td><td class="right" style="font-size:13px;">${(tarif.flexas || 0).toFixed(4)}%</td></tr>
-        <tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">FWTWD</td><td class="right" style="font-size:13px;">${(tarif.fwtwd || 0).toFixed(4)}%</td></tr>
-        <tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">RSMDCC</td><td class="right" style="font-size:13px;">${(tarif.rsmdcc || 0).toFixed(4)}%</td></tr>
-        <tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">Others</td><td class="right" style="font-size:13px;">${(tarif.others || 0).toFixed(4)}%</td></tr>
-        <tr style="border-top:1px solid #dce3ec;"><td style="font-weight:600;color:#1a3a5c;">Total Rate (PAR)</td><td class="right" style="font-weight:600;color:#1a3a5c;">${(tarif.par || 0).toFixed(4)}%</td></tr>
-        <tr><td style="padding-top:8px;font-weight:600;color:#2c3e6b;" colspan="2">Perhitungan Premi</td></tr>
-        <tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">Premi Dasar (PAR × Nilai × Faktor)</td><td class="right" style="font-size:13px;">${formatRupiahFull(h.premi)}</td></tr>
-        <tr><td style="font-weight:600;padding-top:8px;color:#2c3e6b;" colspan="2">Rincian Perluasan Jaminan:</td></tr>
+        <tr><td style="font-weight:600;color:#2c3e6b;" colspan="2">RINCIAN TARIF</td></tr>
+        <tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">Flexas (Premi Dasar)</td><td class="right" style="font-size:13px;font-weight:600;">${(tarif.flexas || 0).toFixed(4)}%</td></tr>
+        <tr><td style="padding-left:20px;font-size:13px;color:#5e7a93;">FWTWD (Perluasan)</td><td class="right" style="font-size:13px;">${(tarif.fwtwd || 0).toFixed(4)}%</td></tr>
+        <tr><td style="padding-left:20px;font-size:13px;color:#5e7a93;">RSMDCC (Perluasan)</td><td class="right" style="font-size:13px;">${(tarif.rsmdcc || 0).toFixed(4)}%</td></tr>
+        <tr><td style="padding-left:20px;font-size:13px;color:#5e7a93;">Others (Perluasan)</td><td class="right" style="font-size:13px;">${(tarif.others || 0).toFixed(4)}%</td></tr>
+        <tr style="border-top:1px solid #dce3ec;"><td style="font-weight:600;color:#1a3a5c;">Faktor Usia Bangunan</td><td class="right" style="font-weight:600;color:#1a3a5c;">${h.faktorUsia || 1.00}</td></tr>
+        <tr><td style="font-weight:600;color:#1a3a5c;">Faktor Luas Bangunan</td><td class="right" style="font-weight:600;color:#1a3a5c;">${h.faktorLuas || 1.00}</td></tr>
+        <tr><td style="padding-top:8px;font-weight:600;color:#2c3e6b;" colspan="2">PERHITUNGAN PREMI DASAR</td></tr>
+        <tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">Flexas × Nilai × Faktor Usia × Faktor Luas</td><td class="right" style="font-size:13px;">${formatRupiahFull(h.premi)}</td></tr>
     `;
+    
     let totalPerluasan = 0;
     if (h.detailPerluasan && h.detailPerluasan.length > 0) {
+        html += `<tr><td style="font-weight:600;padding-top:8px;color:#2c3e6b;" colspan="2">RINCIAN PERLUASAN JAMINAN:</td></tr>`;
         h.detailPerluasan.forEach(item => {
             html += `<tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">${item.nama}<span style="color:#5e7a93;font-size:11px;margin-left:8px;">(${item.rate})</span></td><td class="right" style="font-size:13px;">${formatRupiahFull(item.premi)}</td></tr>`;
             totalPerluasan += item.premi;
         });
-    } else { html += `<tr><td style="padding-left:20px;color:#5e7a93;font-size:13px;" colspan="2">Tidak ada perluasan</td></tr>`; }
+    } else {
+        html += `<tr><td style="padding-left:20px;color:#5e7a93;font-size:13px;" colspan="2">Tidak ada perluasan</td></tr>`;
+    }
+    
     html += `
         <tr style="border-top:1px solid #dce3ec;padding-top:4px;"><td style="font-weight:600;color:#1a3a5c;">Total Perluasan</td><td class="right" style="font-weight:600;color:#1a3a5c;">${formatRupiahFull(totalPerluasan)}</td></tr>
         <tr class="total"><td><strong>Total Premi</strong></td><td class="right"><strong>${formatRupiahFull(h.totalPremi)}</strong></td></tr>
@@ -1498,36 +1713,43 @@ function viewHistoryProperti(item) {
     document.getElementById('rNilaiProperti').textContent = formatRupiah(input.nilai) || '-';
     document.getElementById('rLuasProperti').textContent = (input.luas || 0) + ' m²';
     document.getElementById('rTahunProperti').textContent = input.tahun || '-';
-    const rateDisplay = detail.tarif ? (detail.tarif.par || 0).toFixed(4) + '%' : (detail.rate || '0%');
+    const rateDisplay = detail.tarif ? (detail.tarif.flexas || 0).toFixed(4) + '%' : (detail.rate || '0%');
     document.getElementById('rRateProperti').textContent = rateDisplay;
+    
     const breakdownBody = document.getElementById('breakdownBodyProperti');
     const tarif = detail.tarif || {};
-    let html = '';
-    if (tarif.flexas !== undefined) {
-        html += `
-            <tr><td style="font-weight:600;color:#2c3e6b;">Rincian Tarif (PAR)</td><td class="right" style="font-weight:600;color:#2c3e6b;">Rate</td></tr>
-            <tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">Flexas</td><td class="right" style="font-size:13px;">${(tarif.flexas || 0).toFixed(4)}%</td></tr>
-            <tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">FWTWD</td><td class="right" style="font-size:13px;">${(tarif.fwtwd || 0).toFixed(4)}%</td></tr>
-            <tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">RSMDCC</td><td class="right" style="font-size:13px;">${(tarif.rsmdcc || 0).toFixed(4)}%</td></tr>
-            <tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">Others</td><td class="right" style="font-size:13px;">${(tarif.others || 0).toFixed(4)}%</td></tr>
-            <tr style="border-top:1px solid #dce3ec;"><td style="font-weight:600;color:#1a3a5c;">Total Rate (PAR)</td><td class="right" style="font-weight:600;color:#1a3a5c;">${(tarif.par || 0).toFixed(4)}%</td></tr>
-        `;
-    } else {
-        html += `<tr><td style="font-weight:600;color:#2c3e6b;">Rate Efektif</td><td class="right" style="font-weight:600;color:#2c3e6b;">${detail.rate || '0%'}</td></tr>`;
-    }
-    html += `
-        <tr><td style="padding-top:8px;font-weight:600;color:#2c3e6b;" colspan="2">Perhitungan Premi</td></tr>
-        <tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">Premi Dasar</td><td class="right" style="font-size:13px;">${formatRupiahFull(result.premiDasar)}</td></tr>
-        <tr><td style="font-weight:600;padding-top:8px;color:#2c3e6b;" colspan="2">Rincian Perluasan Jaminan:</td></tr>
+    let html = `
+        <tr><td style="font-weight:600;color:#2c3e6b;" colspan="2">RINCIAN TARIF</td></tr>
+        <tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">Flexas (Premi Dasar)</td><td class="right" style="font-size:13px;font-weight:600;">${(tarif.flexas || 0).toFixed(4)}%</td></tr>
+        <tr><td style="padding-left:20px;font-size:13px;color:#5e7a93;">FWTWD (Perluasan)</td><td class="right" style="font-size:13px;">${(tarif.fwtwd || 0).toFixed(4)}%</td></tr>
+        <tr><td style="padding-left:20px;font-size:13px;color:#5e7a93;">RSMDCC (Perluasan)</td><td class="right" style="font-size:13px;">${(tarif.rsmdcc || 0).toFixed(4)}%</td></tr>
+        <tr><td style="padding-left:20px;font-size:13px;color:#5e7a93;">Others (Perluasan)</td><td class="right" style="font-size:13px;">${(tarif.others || 0).toFixed(4)}%</td></tr>
     `;
+    
+    if (detail.faktorUsia) {
+        html += `
+            <tr style="border-top:1px solid #dce3ec;"><td style="font-weight:600;color:#1a3a5c;">Faktor Usia Bangunan</td><td class="right" style="font-weight:600;color:#1a3a5c;">${detail.faktorUsia}</td></tr>
+            <tr><td style="font-weight:600;color:#1a3a5c;">Faktor Luas Bangunan</td><td class="right" style="font-weight:600;color:#1a3a5c;">${detail.faktorLuas || '1.00'}</td></tr>
+        `;
+    }
+    
+    html += `
+        <tr><td style="padding-top:8px;font-weight:600;color:#2c3e6b;" colspan="2">PERHITUNGAN PREMI DASAR</td></tr>
+        <tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">Flexas × Nilai × Faktor</td><td class="right" style="font-size:13px;">${formatRupiahFull(result.premiDasar)}</td></tr>
+    `;
+    
     const detailPerluasan = detail.detailPerluasan || [];
     let totalPerluasan = 0;
     if (detailPerluasan.length > 0) {
+        html += `<tr><td style="font-weight:600;padding-top:8px;color:#2c3e6b;" colspan="2">RINCIAN PERLUASAN JAMINAN:</td></tr>`;
         detailPerluasan.forEach(item => {
             html += `<tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">${item.nama}<span style="color:#5e7a93;font-size:11px;margin-left:8px;">(${item.rate})</span></td><td class="right" style="font-size:13px;">${formatRupiahFull(item.premi)}</td></tr>`;
             totalPerluasan += item.premi;
         });
-    } else { html += `<tr><td style="padding-left:20px;color:#5e7a93;font-size:13px;" colspan="2">Tidak ada perluasan</td></tr>`; }
+    } else {
+        html += `<tr><td style="padding-left:20px;color:#5e7a93;font-size:13px;" colspan="2">Tidak ada perluasan</td></tr>`;
+    }
+    
     html += `
         <tr style="border-top:1px solid #dce3ec;padding-top:4px;"><td style="font-weight:600;color:#1a3a5c;">Total Perluasan</td><td class="right" style="font-weight:600;color:#1a3a5c;">${formatRupiahFull(totalPerluasan)}</td></tr>
         <tr class="total"><td><strong>Total Premi</strong></td><td class="right"><strong>${formatRupiahFull(result.totalPremi)}</strong></td></tr>
@@ -1536,7 +1758,26 @@ function viewHistoryProperti(item) {
     `;
     breakdownBody.innerHTML = html;
     document.getElementById('btnCetakProperti').disabled = false;
-    hasilTerakhirProperti = { nama: input.nama || '', noHp: input.noHp || '', jenisText: input.jenis || '-', nilai: input.nilai || 0, luas: input.luas || 0, tahun: input.tahun || '', alamat: input.alamat || '', jenisPertanggungan: input.jenisPertanggungan || '-', rate: result.rate ? result.rate/100 : 0, premi: result.premiDasar || 0, extPremi: result.premiPerluasan || 0, totalPremi: result.totalPremi || 0, biayaPolis: result.biayaPolis || 52000, totalBayar: result.total || 0, tarifData: detail.tarif || null, detailPerluasan };
+    hasilTerakhirProperti = { 
+        nama: input.nama || '', 
+        noHp: input.noHp || '', 
+        jenisText: input.jenis || '-', 
+        nilai: input.nilai || 0, 
+        luas: input.luas || 0, 
+        tahun: input.tahun || '', 
+        alamat: input.alamat || '', 
+        jenisPertanggungan: input.jenisPertanggungan || '-', 
+        rate: result.rate ? result.rate/100 : 0, 
+        premi: result.premiDasar || 0, 
+        extPremi: result.premiPerluasan || 0, 
+        totalPremi: result.totalPremi || 0, 
+        biayaPolis: result.biayaPolis || 52000, 
+        totalBayar: result.total || 0, 
+        tarifData: detail.tarif || null, 
+        detailPerluasan,
+        faktorUsia: detail.faktorUsia || 1.00,
+        faktorLuas: detail.faktorLuas || 1.00
+    };
     resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -1559,19 +1800,17 @@ function tampilkanProposalProperti(h) {
     document.getElementById('pJenisPertanggungan').innerHTML = '<strong>' + h.jenisPertanggungan + '</strong>';
     const extNames = h.detailPerluasan ? h.detailPerluasan.map(d=>d.nama).join(', ') : 'Tidak ada';
     document.getElementById('pExt').textContent = extNames;
+    
     const premiumBody = document.getElementById('pPremiumBody');
     const tarif = h.tarifData || {};
-    let tarifHTML = '';
-    if (tarif.par) {
-        tarifHTML = `
-            <tr><td style="padding-left:20px;font-size:12px;color:#2c3e6b;" colspan="3">Rincian Tarif PAR:</td></tr>
-            <tr><td style="padding-left:30px;font-size:12px;color:#2c3e6b;">Flexas</td><td style="text-align:right;font-size:12px;">${(tarif.flexas || 0).toFixed(4)}%</td><td style="text-align:right;font-size:12px;">-</td></tr>
-            <tr><td style="padding-left:30px;font-size:12px;color:#2c3e6b;">FWTWD</td><td style="text-align:right;font-size:12px;">${(tarif.fwtwd || 0).toFixed(4)}%</td><td style="text-align:right;font-size:12px;">-</td></tr>
-            <tr><td style="padding-left:30px;font-size:12px;color:#2c3e6b;">RSMDCC</td><td style="text-align:right;font-size:12px;">${(tarif.rsmdcc || 0).toFixed(4)}%</td><td style="text-align:right;font-size:12px;">-</td></tr>
-            <tr><td style="padding-left:30px;font-size:12px;color:#2c3e6b;">Others</td><td style="text-align:right;font-size:12px;">${(tarif.others || 0).toFixed(4)}%</td><td style="text-align:right;font-size:12px;">-</td></tr>
-            <tr><td style="padding-left:20px;font-size:12px;font-weight:600;color:#1a3a5c;">Total Rate (PAR)</td><td style="text-align:right;font-size:12px;font-weight:600;">${(tarif.par || 0).toFixed(4)}%</td><td style="text-align:right;font-size:12px;">-</td></tr>
-        `;
-    }
+    let tarifHTML = `
+        <tr><td style="padding-left:20px;font-size:12px;color:#2c3e6b;" colspan="3">Rincian Tarif:</td></tr>
+        <tr><td style="padding-left:30px;font-size:12px;color:#2c3e6b;">Flexas (Premi Dasar)</td><td style="text-align:right;font-size:12px;">${(tarif.flexas || 0).toFixed(4)}%</td><td style="text-align:right;font-size:12px;">-</td></tr>
+        <tr><td style="padding-left:30px;font-size:12px;color:#5e7a93;">FWTWD (Perluasan)</td><td style="text-align:right;font-size:12px;">${(tarif.fwtwd || 0).toFixed(4)}%</td><td style="text-align:right;font-size:12px;">-</td></tr>
+        <tr><td style="padding-left:30px;font-size:12px;color:#5e7a93;">RSMDCC (Perluasan)</td><td style="text-align:right;font-size:12px;">${(tarif.rsmdcc || 0).toFixed(4)}%</td><td style="text-align:right;font-size:12px;">-</td></tr>
+        <tr><td style="padding-left:30px;font-size:12px;color:#5e7a93;">Others (Perluasan)</td><td style="text-align:right;font-size:12px;">${(tarif.others || 0).toFixed(4)}%</td><td style="text-align:right;font-size:12px;">-</td></tr>
+    `;
+    
     let rincianHTML = '', totalExt = 0;
     if (h.detailPerluasan && h.detailPerluasan.length > 0) {
         h.detailPerluasan.forEach(item => {
@@ -1579,9 +1818,10 @@ function tampilkanProposalProperti(h) {
             totalExt += item.premi;
         });
     } else { rincianHTML = `<tr><td style="padding-left:20px;color:#5e7a93;font-size:13px;" colspan="3">Tidak ada perluasan</td></tr>`; }
+    
     premiumBody.innerHTML = `
         ${tarifHTML}
-        <tr><td>Jaminan Utama</td><td style="text-align:right;">${(h.rate * 100).toFixed(4)}%</td><td style="text-align:right;">${formatRupiahFull(h.premi)}</td></tr>
+        <tr><td>Premi Dasar (Flexas)</td><td style="text-align:right;">${(h.rate * 100).toFixed(4)}%</td><td style="text-align:right;">${formatRupiahFull(h.premi)}</td></tr>
         <tr><td style="font-weight:600;padding-top:8px;color:#2c3e6b;" colspan="3">Rincian Perluasan Jaminan:</td></tr>
         ${rincianHTML}
         <tr style="border-top:1px solid #dce3ec;padding-top:4px;"><td style="font-weight:600;color:#1a3a5c;">Total Perluasan</td><td style="text-align:right;"></td><td style="text-align:right;font-weight:600;color:#1a3a5c;">${formatRupiahFull(totalExt)}</td></tr>
@@ -1589,13 +1829,14 @@ function tampilkanProposalProperti(h) {
         <tr><td>Biaya Polis &amp; Materai</td><td style="text-align:right;"></td><td style="text-align:right;">${formatRupiahFull(h.biayaPolis)}</td></tr>
         <tr style="border-top:2px solid #1a2a4a;"><td class="total-label" style="font-size:15px;">TOTAL PREMI YANG HARUS DIBAYAR</td><td style="text-align:right;"></td><td class="total-value" style="text-align:right;font-size:17px;color:#1a2a4a;">${formatRupiahFull(h.totalBayar)}</td></tr>
     `;
+    
     const now = new Date();
     const tgl = formatTanggal(now.toISOString().split('T')[0]);
     document.getElementById('pTanggal').textContent = tgl;
     document.getElementById('pKotaTanggal').textContent = tgl;
     document.getElementById('pNoProposal').textContent = 'AVR/PROP/' + now.getFullYear() + '/' + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0') + String(Math.floor(Math.random()*1000)).padStart(3,'0');
     document.getElementById('proposalDeductibleContent').innerHTML = `<table class="data-table"><tr><td class="label">Kerugian Sebagian/Total</td><td class="value"><strong>Rp 500.000</strong> per kejadian</td></tr><tr><td class="label">Banjir / Gempa / Kebakaran</td><td class="value">10% dari klaim, min Rp 1.000.000</td></tr><tr><td class="label">Tanggung Jawab Hukum Pihak Ketiga</td><td class="value"><strong>Rp 1.000.000</strong></td></tr></table>`;
-    document.getElementById('footerNotes').innerHTML = `<ul><li><strong>Catatan:</strong> Perhitungan premi ini adalah perkiraan awal berdasarkan data yang diberikan.</li><li>Premi final dapat berubah setelah verifikasi data properti dan dokumen pendukung.</li><li>Tarif menggunakan PAR (Penjumlahan Flexas + FWTWD + RSMDCC + Others).</li><li style="margin-top:4px;font-size:11px;color:#7a8a9f;">Dokumen ini adalah proposal / penawaran awal.</li></ul>`;
+    document.getElementById('footerNotes').innerHTML = `<ul><li><strong>Catatan:</strong> Perhitungan premi ini adalah perkiraan awal berdasarkan data yang diberikan.</li><li>Premi final dapat berubah setelah verifikasi data properti dan dokumen pendukung.</li><li>Premi Dasar dihitung dari <strong>Flexas</strong> (bukan PAR). FWTWD, RSMDCC, dan Others adalah perluasan opsional.</li><li style="margin-top:4px;font-size:11px;color:#7a8a9f;">Dokumen ini adalah proposal / penawaran awal.</li></ul>`;
     document.getElementById('proposalWrapper').classList.add('show');
     document.getElementById('printInstruction').classList.remove('show');
     document.getElementById('proposalWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1622,7 +1863,7 @@ function resetFormProperti() {
 }
 
 // ============================================================
-// FUNGSI JIWA (LENGKAP)
+// FUNGSI JIWA (LENGKAP - TIDAK BERUBAH)
 // ============================================================
 document.getElementById('tanggalLahirJiwa').addEventListener('change', function() {
     const usia = hitungUsia(this.value);
@@ -1857,7 +2098,7 @@ function resetFormJiwa() {
 }
 
 // ============================================================
-// FUNGSI WEALTH (LENGKAP)
+// FUNGSI WEALTH (LENGKAP - TIDAK BERUBAH)
 // ============================================================
 document.getElementById('tanggalLahirWealth').addEventListener('change', function() {
     const usia = hitungUsia(this.value);
@@ -2228,11 +2469,13 @@ document.addEventListener('visibilitychange', function() {
     }
 });
 
-console.log('🚀 File HTML LENGKAP - semua fungsi utuh, tidak ada yang terpotong.');
+console.log('🚀 File HTML LENGKAP - Revisi Properti: Premi Dasar dari FLEXAS');
+console.log('✅ Premi Dasar = Flexas × Nilai × Faktor Usia × Faktor Luas');
+console.log('✅ FWTWD, RSMDCC, Others = Perluasan Opsional (terpisah)');
 console.log('✅ Mobil: Roda 2 disable perluasan & TLO only.');
-console.log('✅ Properti: 3 jenis (Rumah, Toko, Gudang Pribadi) - wilayah & jenis pertanggungan disable.');
 console.log('✅ Jiwa & Wealth: otomatisasi usia berfungsi.');
 console.log('✅ Riwayat: load, lihat, hapus berfungsi.');
+console.log('✅ Kop surat dengan LOGO dari nanjing-ico1.png');
 </script>
 </body>
 </html>
