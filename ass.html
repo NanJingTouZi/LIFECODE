@@ -138,10 +138,64 @@
         .proposal-wrapper{display:none;margin-top:30px;border-top:2px dashed #dce3ec;padding-top:25px}
         .proposal-wrapper.show{display:block}
         .proposal-container{max-width:1000px;margin:0 auto;background:#fff;border-radius:12px;padding:40px 45px 35px;border:1px solid #e2e8f0}
-        .proposal-container .header{text-align:center;border-bottom:3px double #1a2a4a;padding-bottom:16px;margin-bottom:24px}
-        .proposal-container .header .title-main{font-size:24px;font-weight:700;color:#1a2a4a;letter-spacing:1px}
-        .proposal-container .header .title-sub{font-size:17px;font-weight:600;color:#2c3e6b;margin-top:4px}
-        .proposal-container .header .title-desc{font-size:12px;color:#6b7a8f;margin-top:4px;letter-spacing:.3px}
+        
+        /* ===== KOP SURAT PROPOSAL DENGAN LOGO ===== */
+        .proposal-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 3px double #1a2a4a;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+        .proposal-logo {
+            flex-shrink: 0;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .proposal-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .proposal-logo .logo-placeholder {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #1a3a5c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+        }
+        .proposal-title-area {
+            flex: 1;
+        }
+        .proposal-title-area .title-main {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a2a4a;
+            letter-spacing: 1px;
+        }
+        .proposal-title-area .title-sub {
+            font-size: 17px;
+            font-weight: 600;
+            color: #2c3e6b;
+            margin-top: 4px;
+        }
+        .proposal-title-area .title-desc {
+            font-size: 12px;
+            color: #6b7a8f;
+            margin-top: 4px;
+            letter-spacing: .3px;
+        }
+        
         .proposal-container .section-title{font-size:16px;font-weight:700;color:#1a2a4a;border-left:5px solid #2c3e6b;padding-left:12px;margin-top:22px;margin-bottom:12px;page-break-after:avoid}
         .proposal-container .section-title-first{margin-top:0}
         .proposal-container .data-table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:4px;page-break-inside:avoid}
@@ -198,10 +252,110 @@
         .quota-modal-overlay .quota-btn:hover{transform:scale(1.02);box-shadow:0 8px 24px rgba(37,211,102,.3)}
         .quota-modal-overlay .quota-btn-secondary{background:transparent;color:#5e7a93;border:1px solid #dce3ec;border-radius:10px;padding:10px 24px;font-size:14px;cursor:pointer;margin-top:10px;width:100%;transition:.2s}
         .quota-modal-overlay .quota-btn-secondary:hover{background:#f0f4f8}
-        @media print{body{background:#fff!important;padding:0!important;margin:0!important}.container>*:not(.proposal-wrapper){display:none!important}.proposal-wrapper .no-print{display:none!important}.proposal-wrapper .print-instruction{display:none!important}.proposal-wrapper{display:block!important;border-top:0!important;padding-top:0!important;margin-top:0!important;background:#fff!important}.proposal-container{max-width:100%!important;padding:20px 25px!important;border:0!important;border-radius:0!important;background:#fff!important;box-shadow:none!important;margin:0!important}.proposal-container .section-title{page-break-after:avoid!important;page-break-inside:avoid!important}.proposal-container .data-table,.proposal-container .premium-table{page-break-inside:avoid!important}.proposal-container .signature-area,.proposal-container .footer-notes{page-break-inside:avoid!important}.proposal-container .data-table tr,.proposal-container .premium-table tr{page-break-inside:avoid!important}.proposal-container .header,.proposal-container .signature-area,.proposal-container .footer-notes,.proposal-container .proposal-actions{page-break-inside:avoid!important}.proposal-container .data-table td{padding:4px 8px 4px 0!important;border-bottom:1px solid #eef1f6!important}.proposal-container .premium-table th{background:#f0f3f8!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}.proposal-container .premium-table .highlight-row td{background:#f7f9fc!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}.proposal-container .header{border-bottom:3px double #1a2a4a!important}.proposal-container .signature-area{border-top:2px solid #eef1f6!important}.proposal-container .footer-notes{border-top:1px solid #e0e5ed!important}.proposal-container{page-break-after:avoid}.tab-nav{display:none!important}.back-home{display:none!important}.no-print-rincian{display:none!important}}
-        @media (max-width:768px){.container{padding:20px 16px}.row{grid-template-columns:1fr;gap:12px}.checkbox-group{gap:8px 14px}.checkbox-group label{font-size:13px;flex:0 0 auto}.checkbox-group label input[type=checkbox]{width:16px;height:16px}.btn-group{flex-direction:column;gap:8px}.btn{width:100%;justify-content:center;padding:12px 20px;font-size:14px}.tab-nav{gap:4px;padding:4px}.tab-btn{min-width:50px;padding:8px 10px;font-size:11px;flex:1}.tab-btn .icon{font-size:14px}.premi-detail{grid-template-columns:1fr 1fr;gap:8px}.premi-value{font-size:24px;padding:10px 18px}.summary-grid{grid-template-columns:1fr 1fr;gap:8px}.proposal-container{padding:16px}.proposal-container .data-table td{display:block;padding:4px 0;border-bottom:0}.proposal-container .data-table .label{width:100%;font-weight:700;margin-top:6px}.proposal-container .data-table .value{width:100%;padding-left:8px;margin-bottom:4px;border-bottom:1px dashed #eef1f6}.proposal-container .premium-table td,.proposal-container .premium-table th{font-size:12px;padding:6px 8px}.proposal-container .signature-box .line{width:120px}.proposal-actions{flex-direction:column}.history-table{font-size:12px}.history-table td,.history-table th{padding:6px 8px}.perluasan-row{flex-direction:column;align-items:flex-start;gap:6px}.tjh-fields{margin-left:0;flex-wrap:wrap}.tjh-fields .field-group input{width:100px}.tjh-fields .field-group input.small{width:60px}}
-        @media (max-width:600px){.tab-btn{font-size:10px;padding:6px 8px;min-width:40px}.tab-btn .icon{font-size:12px}.premi-detail{grid-template-columns:1fr 1fr;gap:6px}.premi-value{font-size:20px;padding:8px 12px}.summary-grid{grid-template-columns:1fr 1fr;gap:6px}.summary-card .value{font-size:15px}.form-group input,.form-group select,.form-group textarea{font-size:14px;padding:8px 12px}.detail-item .value{font-size:13px}.checkbox-group{gap:6px 10px}.checkbox-group label{font-size:12px}.checkbox-group label input[type=checkbox]{width:15px;height:15px}.proposal-container .header .title-main{font-size:18px}.proposal-container .header .title-sub{font-size:14px}.proposal-container .section-title{font-size:14px}.perluasan-row label{font-size:13px}.tjh-fields .field-group input{width:80px;font-size:12px;padding:4px 8px}.tjh-fields .field-group input.small{width:50px}}
-        @media (max-width:480px){.container{padding:12px 10px}.premi-detail{grid-template-columns:1fr}.summary-grid{grid-template-columns:1fr}.tab-btn{font-size:9px;padding:5px 6px;min-width:35px;gap:3px}.tab-btn .icon{font-size:11px}h1{font-size:18px}.subtitle{font-size:11px}.badge-ojk{font-size:9px;padding:1px 8px}.premi-value{font-size:18px;padding:6px 12px}.detail-item .value{font-size:13px}.checkbox-group{gap:4px 8px}.checkbox-group label{font-size:11px}.checkbox-group label input[type=checkbox]{width:14px;height:14px}.btn{font-size:13px;padding:10px 16px}.proposal-container{padding:12px 10px}.proposal-container .header .title-main{font-size:16px}.proposal-container .header .title-sub{font-size:13px}.proposal-container .section-title{font-size:13px;padding-left:8px}.proposal-container .data-table td{font-size:12px}.result-box h3{font-size:16px}.result-box{padding:16px}.history-table{font-size:11px}.history-table td,.history-table th{padding:4px 6px}.perluasan-row{gap:4px}.perluasan-row label{font-size:12px}.tjh-fields .field-group input{width:70px;font-size:11px;padding:4px 6px}.tjh-fields .field-group input.small{width:45px}}
+        
+        @media print{
+            body{background:#fff!important;padding:0!important;margin:0!important}
+            .container>*:not(.proposal-wrapper){display:none!important}
+            .proposal-wrapper .no-print{display:none!important}
+            .proposal-wrapper .print-instruction{display:none!important}
+            .proposal-wrapper{display:block!important;border-top:0!important;padding-top:0!important;margin-top:0!important;background:#fff!important}
+            .proposal-container{max-width:100%!important;padding:20px 25px!important;border:0!important;border-radius:0!important;background:#fff!important;box-shadow:none!important;margin:0!important}
+            .proposal-container .section-title{page-break-after:avoid!important;page-break-inside:avoid!important}
+            .proposal-container .data-table,.proposal-container .premium-table{page-break-inside:avoid!important}
+            .proposal-container .signature-area,.proposal-container .footer-notes{page-break-inside:avoid!important}
+            .proposal-container .data-table tr,.proposal-container .premium-table tr{page-break-inside:avoid!important}
+            .proposal-container .proposal-header{page-break-inside:avoid!important}
+            .proposal-container .data-table td{padding:4px 8px 4px 0!important;border-bottom:1px solid #eef1f6!important}
+            .proposal-container .premium-table th{background:#f0f3f8!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+            .proposal-container .premium-table .highlight-row td{background:#f7f9fc!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+            .proposal-container .proposal-header{border-bottom:3px double #1a2a4a!important}
+            .proposal-container .signature-area{border-top:2px solid #eef1f6!important}
+            .proposal-container .footer-notes{border-top:1px solid #e0e5ed!important}
+            .proposal-container{page-break-after:avoid}
+            .tab-nav{display:none!important}
+            .back-home{display:none!important}
+            .no-print-rincian{display:none!important}
+            .proposal-logo img{max-width:80px!important;max-height:80px!important}
+        }
+        @media (max-width:768px){
+            .container{padding:20px 16px}
+            .row{grid-template-columns:1fr;gap:12px}
+            .checkbox-group{gap:8px 14px}
+            .checkbox-group label{font-size:13px;flex:0 0 auto}
+            .checkbox-group label input[type=checkbox]{width:16px;height:16px}
+            .btn-group{flex-direction:column;gap:8px}
+            .btn{width:100%;justify-content:center;padding:12px 20px;font-size:14px}
+            .tab-nav{gap:4px;padding:4px}
+            .tab-btn{min-width:50px;padding:8px 10px;font-size:11px;flex:1}
+            .tab-btn .icon{font-size:14px}
+            .premi-detail{grid-template-columns:1fr 1fr;gap:8px}
+            .premi-value{font-size:24px;padding:10px 18px}
+            .summary-grid{grid-template-columns:1fr 1fr;gap:8px}
+            .proposal-container{padding:16px}
+            .proposal-header{flex-direction:column;text-align:center;gap:10px}
+            .proposal-title-area .title-main{font-size:18px}
+            .proposal-title-area .title-sub{font-size:14px}
+            .proposal-container .data-table td{display:block;padding:4px 0;border-bottom:0}
+            .proposal-container .data-table .label{width:100%;font-weight:700;margin-top:6px}
+            .proposal-container .data-table .value{width:100%;padding-left:8px;margin-bottom:4px;border-bottom:1px dashed #eef1f6}
+            .proposal-container .premium-table td,.proposal-container .premium-table th{font-size:12px;padding:6px 8px}
+            .proposal-container .signature-box .line{width:120px}
+            .proposal-actions{flex-direction:column}
+            .history-table{font-size:12px}
+            .history-table td,.history-table th{padding:6px 8px}
+            .perluasan-row{flex-direction:column;align-items:flex-start;gap:6px}
+            .tjh-fields{margin-left:0;flex-wrap:wrap}
+            .tjh-fields .field-group input{width:100px}
+            .tjh-fields .field-group input.small{width:60px}
+        }
+        @media (max-width:600px){
+            .tab-btn{font-size:10px;padding:6px 8px;min-width:40px}
+            .tab-btn .icon{font-size:12px}
+            .premi-detail{grid-template-columns:1fr 1fr;gap:6px}
+            .premi-value{font-size:20px;padding:8px 12px}
+            .summary-grid{grid-template-columns:1fr 1fr;gap:6px}
+            .summary-card .value{font-size:15px}
+            .form-group input,.form-group select,.form-group textarea{font-size:14px;padding:8px 12px}
+            .detail-item .value{font-size:13px}
+            .checkbox-group{gap:6px 10px}
+            .checkbox-group label{font-size:12px}
+            .checkbox-group label input[type=checkbox]{width:15px;height:15px}
+            .proposal-container .proposal-header .title-main{font-size:18px}
+            .proposal-container .proposal-header .title-sub{font-size:14px}
+            .proposal-container .section-title{font-size:14px}
+            .perluasan-row label{font-size:13px}
+            .tjh-fields .field-group input{width:80px;font-size:12px;padding:4px 8px}
+            .tjh-fields .field-group input.small{width:50px}
+        }
+        @media (max-width:480px){
+            .container{padding:12px 10px}
+            .premi-detail{grid-template-columns:1fr}
+            .summary-grid{grid-template-columns:1fr}
+            .tab-btn{font-size:9px;padding:5px 6px;min-width:35px;gap:3px}
+            .tab-btn .icon{font-size:11px}
+            h1{font-size:18px}
+            .subtitle{font-size:11px}
+            .badge-ojk{font-size:9px;padding:1px 8px}
+            .premi-value{font-size:18px;padding:6px 12px}
+            .detail-item .value{font-size:13px}
+            .checkbox-group{gap:4px 8px}
+            .checkbox-group label{font-size:11px}
+            .checkbox-group label input[type=checkbox]{width:14px;height:14px}
+            .btn{font-size:13px;padding:10px 16px}
+            .proposal-container{padding:12px 10px}
+            .proposal-container .proposal-header .title-main{font-size:16px}
+            .proposal-container .proposal-header .title-sub{font-size:13px}
+            .proposal-container .section-title{font-size:13px;padding-left:8px}
+            .proposal-container .data-table td{font-size:12px}
+            .result-box h3{font-size:16px}
+            .result-box{padding:16px}
+            .history-table{font-size:11px}
+            .history-table td,.history-table th{padding:4px 6px}
+            .perluasan-row{gap:4px}
+            .perluasan-row label{font-size:12px}
+            .tjh-fields .field-group input{width:70px;font-size:11px;padding:4px 6px}
+            .tjh-fields .field-group input.small{width:45px}
+        }
     </style>
 </head>
 <body>
@@ -510,7 +664,26 @@
     <!-- PROPOSAL -->
     <div class="proposal-wrapper" id="proposalWrapper">
         <div class="proposal-container" id="proposalContainer">
-            <div class="header"><div class="title-main">PROPOSAL ASURANSI</div><div class="title-sub" id="proposalSubTitle">KENDARAAN BERMOTOR</div><div class="title-desc" id="proposalDesc">Dokumen Penawaran Perlindungan Kendaraan</div></div>
+            
+            <!-- ===== KOP SURAT DENGAN LOGO ===== -->
+            <div class="proposal-header">
+                <div class="proposal-logo">
+                    <!-- Logo dari file nanjing-ico1.png -->
+                    <img src="nanjing-ico1.png" 
+                         alt="Logo Perusahaan" 
+                         id="proposalLogo" 
+                         style="display:block;width:80px;height:80px;object-fit:contain;"
+                         onerror="this.style.display='none'; document.getElementById('logoPlaceholder').style.display='flex';" />
+                    <!-- Placeholder jika gambar gagal load -->
+                    <div class="logo-placeholder" id="logoPlaceholder" style="display:none;">A</div>
+                </div>
+                <div class="proposal-title-area">
+                    <div class="title-main">PROPOSAL ASURANSI</div>
+                    <div class="title-sub" id="proposalSubTitle">KENDARAAN BERMOTOR</div>
+                    <div class="title-desc" id="proposalDesc">Dokumen Penawaran Perlindungan Kendaraan</div>
+                </div>
+            </div>
+            
             <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;font-size:14px;flex-wrap:wrap;gap:10px;">
                 <div><strong>Kepada Yth.</strong><br />Bapak / Ibu <strong id="pNama">-</strong><br /><span style="font-size:13px;color:#4a5a72;" id="pInfoTambahan"></span></div>
                 <div style="background:#f0f3f8;padding:5px 14px;border-radius:20px;font-weight:600;color:#1a2a4a;font-size:13px;white-space:nowrap;">No. <span id="pNoLabel">Proposal</span>: <strong id="pNoProposal">AVR/PROP/2026/001</strong></div>
@@ -2302,6 +2475,7 @@ console.log('✅ FWTWD, RSMDCC, Others = Perluasan Opsional (terpisah)');
 console.log('✅ Mobil: Roda 2 disable perluasan & TLO only.');
 console.log('✅ Jiwa & Wealth: otomatisasi usia berfungsi.');
 console.log('✅ Riwayat: load, lihat, hapus berfungsi.');
+console.log('✅ Kop surat dengan LOGO dari nanjing-ico1.png');
 </script>
 </body>
 </html>
