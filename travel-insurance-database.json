@@ -1,0 +1,828 @@
+{
+  "meta": {
+    "nama_produk": "Zurich Travel Insurance",
+    "versi": "1.0",
+    "last_updated": "2026-08-05",
+    "keterangan": "Database untuk kalkulator premi asuransi perjalanan Zurich - hanya untuk Polis Individu"
+  },
+  "area": {
+    "internasional": ["worldwide", "eropa", "asia"],
+    "domestik": ["domestik"]
+  },
+  "tier": {
+    "internasional": {
+      "prime": "Tertinggi",
+      "edge": "Menengah",
+      "lite": "Dasar"
+    },
+    "domestik": {
+      "boost": "Tertinggi",
+      "joy": "Menengah",
+      "roadtrip": "Dasar"
+    }
+  },
+  "jenis_polis": ["pulang_pergi", "tahunan"],
+  "range_usia": [
+    { "kode": "18_ke_bawah", "label": "18 ke bawah", "min": 0, "max": 18 },
+    { "kode": "19_65", "label": "19 - 65", "min": 19, "max": 65 },
+    { "kode": "66_75", "label": "66 - 75", "min": 66, "max": 75 },
+    { "kode": "76_ke_atas", "label": "76 ke atas", "min": 76, "max": 999 }
+  ],
+  "range_durasi": [
+    { "kode": "1_4", "label": "1 - 4 hari", "min": 1, "max": 4 },
+    { "kode": "5_6", "label": "5 - 6 hari", "min": 5, "max": 6 },
+    { "kode": "7_8", "label": "7 - 8 hari", "min": 7, "max": 8 },
+    { "kode": "9_10", "label": "9 - 10 hari", "min": 9, "max": 10 },
+    { "kode": "11_15", "label": "11 - 15 hari", "min": 11, "max": 15 },
+    { "kode": "16_20", "label": "16 - 20 hari", "min": 16, "max": 20 },
+    { "kode": "21_25", "label": "21 - 25 hari", "min": 21, "max": 25 },
+    { "kode": "26_31", "label": "26 - 31 hari", "min": 26, "max": 31 }
+  ],
+  "manfaat": {
+    "internasional": {
+      "prime": {
+        "label": "Prime",
+        "keterangan": "Paket Tertinggi",
+        "daftar": [
+          { "bagian": "A.1", "manfaat": "Kematian & Cacat Tetap Akibat Kecelakaan", "keterangan": "Usia 18 ke bawah", "nilai": 150000000 },
+          { "bagian": "A.1", "manfaat": "Kematian & Cacat Tetap Akibat Kecelakaan", "keterangan": "Usia 19 - 65", "nilai": 1500000000 },
+          { "bagian": "A.1", "manfaat": "Kematian & Cacat Tetap Akibat Kecelakaan", "keterangan": "Usia 66 - 75", "nilai": 750000000 },
+          { "bagian": "A.1", "manfaat": "Kematian & Cacat Tetap Akibat Kecelakaan", "keterangan": "Usia 76 ke atas", "nilai": 375000000 },
+          { "bagian": "A.2", "manfaat": "Dana Pendidikan Anak", "keterangan": "Per anak", "nilai": 50000000 },
+          { "bagian": "A.2", "manfaat": "Dana Pendidikan Anak", "keterangan": "Maksimum", "nilai": 100000000 },
+          { "bagian": "A.3", "manfaat": "Ganti Rugi Kartu Kredit", "keterangan": "-", "nilai": 10000000 },
+          { "bagian": "B.4", "manfaat": "Evakuasi Medis Darurat & Pemulangan", "keterangan": "-", "nilai": "Biaya Sebenarnya" },
+          { "bagian": "B.5", "manfaat": "Biaya Medis", "keterangan": "Usia 65 ke bawah", "nilai": 2500000000 },
+          { "bagian": "B.5", "manfaat": "Biaya Medis", "keterangan": "Usia 66 - 75", "nilai": 700000000 },
+          { "bagian": "B.5", "manfaat": "Biaya Medis", "keterangan": "Usia 76 ke atas", "nilai": 250000000 },
+          { "bagian": "B.6", "manfaat": "Santunan Harian Rawat Inap", "keterangan": "Per hari", "nilai": 1000000 },
+          { "bagian": "B.6", "manfaat": "Santunan Harian Rawat Inap", "keterangan": "Maksimum", "nilai": 20000000 },
+          { "bagian": "B.7", "manfaat": "Biaya Telepon Darurat", "keterangan": "-", "nilai": 5000000 },
+          { "bagian": "B.8", "manfaat": "Perawatan Pasca Pengobatan", "keterangan": "-", "nilai": 25000000 },
+          { "bagian": "B.9", "manfaat": "Biaya Perjalanan Pendamping", "keterangan": "-", "nilai": 45000000 },
+          { "bagian": "B.10", "manfaat": "Biaya Pemulangan Anak", "keterangan": "-", "nilai": 45000000 },
+          { "bagian": "C.11", "manfaat": "Pemulangan Jenazah", "keterangan": "Kunjungan Meninggal Dunia", "nilai": 35000000 },
+          { "bagian": "C.11", "manfaat": "Pemulangan Jenazah", "keterangan": "Biaya Pemakaman", "nilai": 10000000 },
+          { "bagian": "C.12", "manfaat": "Tanggung Jawab Pribadi", "keterangan": "-", "nilai": 2500000000 },
+          { "bagian": "C.13", "manfaat": "Biaya Hukum", "keterangan": "-", "nilai": 250000000 },
+          { "bagian": "D.14", "manfaat": "Pembatalan & Perubahan Perjalanan", "keterangan": "-", "nilai": 65000000 },
+          { "bagian": "D.15", "manfaat": "Pengurangan Perjalanan", "keterangan": "-", "nilai": 45000000 },
+          { "bagian": "D.16", "manfaat": "Gangguan Perjalanan", "keterangan": "-", "nilai": 5000000 },
+          { "bagian": "D.17", "manfaat": "Penundaan Perjalanan", "keterangan": "Per 4 jam", "nilai": 1000000 },
+          { "bagian": "D.17", "manfaat": "Penundaan Perjalanan", "keterangan": "Maksimum", "nilai": 4000000 },
+          { "bagian": "D.18", "manfaat": "Kehilangan Penerbangan Lanjutan", "keterangan": "-", "nilai": 10000000 },
+          { "bagian": "D.19", "manfaat": "Pengalihan Penerbangan", "keterangan": "-", "nilai": 10000000 },
+          { "bagian": "D.20", "manfaat": "Pembajakan", "keterangan": "-", "nilai": 10000000 },
+          { "bagian": "D.21", "manfaat": "Kehilangan Reservasi Hotel", "keterangan": "-", "nilai": 5000000 },
+          { "bagian": "D.22", "manfaat": "Acara Khusus", "keterangan": "-", "nilai": 5000000 },
+          { "bagian": "D.23", "manfaat": "Risiko Sendiri Kendaraan Sewa", "keterangan": "-", "nilai": 10000000 },
+          { "bagian": "D.24", "manfaat": "Penipuan Kartu Kredit", "keterangan": "-", "nilai": 10000000 },
+          { "bagian": "E.25", "manfaat": "Keterlambatan Bagasi", "keterangan": "Per 4 jam", "nilai": 1000000 },
+          { "bagian": "E.25", "manfaat": "Keterlambatan Bagasi", "keterangan": "Maksimum", "nilai": 3000000 },
+          { "bagian": "E.26", "manfaat": "Bagasi & Barang Pribadi", "keterangan": "Sublimit Rp3.000.000/barang/set, Rp7.500.000 laptop", "nilai": 30000000 },
+          { "bagian": "E.27", "manfaat": "Kehilangan Uang Pribadi", "keterangan": "-", "nilai": 5000000 },
+          { "bagian": "E.28", "manfaat": "Kehilangan Dokumen Perjalanan & Kartu Pembayaran", "keterangan": "-", "nilai": 10000000 },
+          { "bagian": "E.29", "manfaat": "Perlindungan Rumah", "keterangan": "Sublimit Rp3.000.000/barang bergerak", "nilai": 20000000 },
+          { "bagian": "E.30", "manfaat": "Perlindungan Tempat Tinggal di Luar Negeri", "keterangan": "-", "nilai": "-" },
+          { "bagian": "F.31", "manfaat": "Aktivitas Rekreasi", "keterangan": "-", "nilai": "Dijamin" },
+          { "bagian": "F.32", "manfaat": "Terorisme", "keterangan": "-", "nilai": "Dijamin" },
+          { "bagian": "G.33", "manfaat": "Perlindungan Visa", "keterangan": "-", "nilai": 9000000 },
+          { "bagian": "G.34", "manfaat": "Olahraga Salju", "keterangan": "-", "nilai": "Dijamin" },
+          { "bagian": "G.35", "manfaat": "Jaminan Kapal Pesiar", "keterangan": "Per hari / Maksimum", "nilai": "1.000.000 / 10.000.000" },
+          { "bagian": "G.35", "manfaat": "Jaminan Kapal Pesiar", "keterangan": "Per pelabuhan / Maksimum", "nilai": "1.000.000 / 5.000.000" },
+          { "bagian": "G.35", "manfaat": "Jaminan Kapal Pesiar", "keterangan": "Wisata Pantai yang Terlewat", "nilai": 5000000 },
+          { "bagian": "G.35", "manfaat": "Jaminan Kapal Pesiar", "keterangan": "Gangguan Perjalanan Kapal Pesiar", "nilai": 10000000 },
+          { "bagian": "G.36", "manfaat": "Aktivitas Petualangan", "keterangan": "-", "nilai": "Dijamin" },
+          { "bagian": "G.37", "manfaat": "Perjalanan Bisnis", "keterangan": "Penggantian Staf", "nilai": 15000000 },
+          { "bagian": "G.37", "manfaat": "Perjalanan Bisnis", "keterangan": "Peralatan Bisnis", "nilai": 20000000 },
+          { "bagian": "G.37", "manfaat": "Perjalanan Bisnis", "keterangan": "Biaya Kehilangan Acara", "nilai": 15000000 },
+          { "bagian": "G.38", "manfaat": "Acara Olahraga Amatir", "keterangan": "Kehilangan Acara Aktivitas Olahraga", "nilai": 5000000 },
+          { "bagian": "G.38", "manfaat": "Acara Olahraga Amatir", "keterangan": "Kehilangan/Kerusakan Peralatan Olahraga", "nilai": 10000000 },
+          { "bagian": "G.38", "manfaat": "Acara Olahraga Amatir", "keterangan": "Stroke Akibat Aktivitas Fisik", "nilai": 10000000 },
+          { "bagian": "G.38", "manfaat": "Acara Olahraga Amatir", "keterangan": "Patah Tulang", "nilai": 10000000 },
+          { "bagian": "G.38", "manfaat": "Acara Olahraga Amatir", "keterangan": "Sublimit Rp3.000.000/barang/set termasuk golf", "nilai": "-" }
+        ]
+      },
+      "edge": {
+        "label": "Edge",
+        "keterangan": "Paket Menengah",
+        "daftar": [
+          { "bagian": "A.1", "manfaat": "Kematian & Cacat Tetap Akibat Kecelakaan", "keterangan": "Usia 18 ke bawah", "nilai": 125000000 },
+          { "bagian": "A.1", "manfaat": "Kematian & Cacat Tetap Akibat Kecelakaan", "keterangan": "Usia 19 - 65", "nilai": 1250000000 },
+          { "bagian": "A.1", "manfaat": "Kematian & Cacat Tetap Akibat Kecelakaan", "keterangan": "Usia 66 - 75", "nilai": 625000000 },
+          { "bagian": "A.1", "manfaat": "Kematian & Cacat Tetap Akibat Kecelakaan", "keterangan": "Usia 76 ke atas", "nilai": 312500000 },
+          { "bagian": "A.2", "manfaat": "Dana Pendidikan Anak", "keterangan": "Per anak", "nilai": 37500000 },
+          { "bagian": "A.2", "manfaat": "Dana Pendidikan Anak", "keterangan": "Maksimum", "nilai": 75000000 },
+          { "bagian": "A.3", "manfaat": "Ganti Rugi Kartu Kredit", "keterangan": "-", "nilai": 7500000 },
+          { "bagian": "B.4", "manfaat": "Evakuasi Medis Darurat & Pemulangan", "keterangan": "-", "nilai": "Biaya Sebenarnya" },
+          { "bagian": "B.5", "manfaat": "Biaya Medis", "keterangan": "Usia 65 ke bawah", "nilai": 1000000000 },
+          { "bagian": "B.5", "manfaat": "Biaya Medis", "keterangan": "Usia 66 - 75", "nilai": 550000000 },
+          { "bagian": "B.5", "manfaat": "Biaya Medis", "keterangan": "Usia 76 ke atas", "nilai": 250000000 },
+          { "bagian": "B.6", "manfaat": "Santunan Harian Rawat Inap", "keterangan": "Per hari", "nilai": 1000000 },
+          { "bagian": "B.6", "manfaat": "Santunan Harian Rawat Inap", "keterangan": "Maksimum", "nilai": 15000000 },
+          { "bagian": "B.7", "manfaat": "Biaya Telepon Darurat", "keterangan": "-", "nilai": 5000000 },
+          { "bagian": "B.8", "manfaat": "Perawatan Pasca Pengobatan", "keterangan": "-", "nilai": 25000000 },
+          { "bagian": "B.9", "manfaat": "Biaya Perjalanan Pendamping", "keterangan": "-", "nilai": 45000000 },
+          { "bagian": "B.10", "manfaat": "Biaya Pemulangan Anak", "keterangan": "-", "nilai": 45000000 },
+          { "bagian": "C.11", "manfaat": "Pemulangan Jenazah", "keterangan": "Kunjungan Meninggal Dunia", "nilai": 35000000 },
+          { "bagian": "C.11", "manfaat": "Pemulangan Jenazah", "keterangan": "Biaya Pemakaman", "nilai": 10000000 },
+          { "bagian": "C.12", "manfaat": "Tanggung Jawab Pribadi", "keterangan": "-", "nilai": 1500000000 },
+          { "bagian": "C.13", "manfaat": "Biaya Hukum", "keterangan": "-", "nilai": 250000000 },
+          { "bagian": "D.14", "manfaat": "Pembatalan & Perubahan Perjalanan", "keterangan": "-", "nilai": 50000000 },
+          { "bagian": "D.15", "manfaat": "Pengurangan Perjalanan", "keterangan": "-", "nilai": 35000000 },
+          { "bagian": "D.16", "manfaat": "Gangguan Perjalanan", "keterangan": "-", "nilai": 5000000 },
+          { "bagian": "D.17", "manfaat": "Penundaan Perjalanan", "keterangan": "Per 4 jam", "nilai": 750000 },
+          { "bagian": "D.17", "manfaat": "Penundaan Perjalanan", "keterangan": "Maksimum", "nilai": 3750000 },
+          { "bagian": "D.18", "manfaat": "Kehilangan Penerbangan Lanjutan", "keterangan": "-", "nilai": 7500000 },
+          { "bagian": "D.19", "manfaat": "Pengalihan Penerbangan", "keterangan": "-", "nilai": 7500000 },
+          { "bagian": "D.20", "manfaat": "Pembajakan", "keterangan": "-", "nilai": 10000000 },
+          { "bagian": "D.21", "manfaat": "Kehilangan Reservasi Hotel", "keterangan": "-", "nilai": 3000000 },
+          { "bagian": "D.22", "manfaat": "Acara Khusus", "keterangan": "-", "nilai": 5000000 },
+          { "bagian": "D.23", "manfaat": "Risiko Sendiri Kendaraan Sewa", "keterangan": "-", "nilai": 10000000 },
+          { "bagian": "D.24", "manfaat": "Penipuan Kartu Kredit", "keterangan": "-", "nilai": 10000000 },
+          { "bagian": "E.25", "manfaat": "Keterlambatan Bagasi", "keterangan": "Per 4 jam", "nilai": 750000 },
+          { "bagian": "E.25", "manfaat": "Keterlambatan Bagasi", "keterangan": "Maksimum", "nilai": 2250000 },
+          { "bagian": "E.26", "manfaat": "Bagasi & Barang Pribadi", "keterangan": "Sublimit Rp3.000.000/barang/set, Rp7.500.000 laptop", "nilai": 25000000 },
+          { "bagian": "E.27", "manfaat": "Kehilangan Uang Pribadi", "keterangan": "-", "nilai": 3500000 },
+          { "bagian": "E.28", "manfaat": "Kehilangan Dokumen Perjalanan & Kartu Pembayaran", "keterangan": "-", "nilai": 7500000 },
+          { "bagian": "E.29", "manfaat": "Perlindungan Rumah", "keterangan": "Sublimit Rp3.000.000/barang bergerak", "nilai": 15000000 },
+          { "bagian": "E.30", "manfaat": "Perlindungan Tempat Tinggal di Luar Negeri", "keterangan": "-", "nilai": "-" },
+          { "bagian": "F.31", "manfaat": "Aktivitas Rekreasi", "keterangan": "-", "nilai": "Dijamin" },
+          { "bagian": "F.32", "manfaat": "Terorisme", "keterangan": "-", "nilai": "Dijamin" },
+          { "bagian": "G.33", "manfaat": "Perlindungan Visa", "keterangan": "-", "nilai": 9000000 },
+          { "bagian": "G.34", "manfaat": "Olahraga Salju", "keterangan": "-", "nilai": "Dijamin" },
+          { "bagian": "G.35", "manfaat": "Jaminan Kapal Pesiar", "keterangan": "Per hari / Maksimum", "nilai": "1.000.000 / 10.000.000" },
+          { "bagian": "G.35", "manfaat": "Jaminan Kapal Pesiar", "keterangan": "Per pelabuhan / Maksimum", "nilai": "1.000.000 / 5.000.000" },
+          { "bagian": "G.35", "manfaat": "Jaminan Kapal Pesiar", "keterangan": "Wisata Pantai yang Terlewat", "nilai": 5000000 },
+          { "bagian": "G.35", "manfaat": "Jaminan Kapal Pesiar", "keterangan": "Gangguan Perjalanan Kapal Pesiar", "nilai": 10000000 },
+          { "bagian": "G.36", "manfaat": "Aktivitas Petualangan", "keterangan": "-", "nilai": "Dijamin" },
+          { "bagian": "G.37", "manfaat": "Perjalanan Bisnis", "keterangan": "Penggantian Staf", "nilai": 15000000 },
+          { "bagian": "G.37", "manfaat": "Perjalanan Bisnis", "keterangan": "Peralatan Bisnis", "nilai": 20000000 },
+          { "bagian": "G.37", "manfaat": "Perjalanan Bisnis", "keterangan": "Biaya Kehilangan Acara", "nilai": 15000000 },
+          { "bagian": "G.38", "manfaat": "Acara Olahraga Amatir", "keterangan": "Kehilangan Acara Aktivitas Olahraga", "nilai": 5000000 },
+          { "bagian": "G.38", "manfaat": "Acara Olahraga Amatir", "keterangan": "Kehilangan/Kerusakan Peralatan Olahraga", "nilai": 10000000 },
+          { "bagian": "G.38", "manfaat": "Acara Olahraga Amatir", "keterangan": "Stroke Akibat Aktivitas Fisik", "nilai": 10000000 },
+          { "bagian": "G.38", "manfaat": "Acara Olahraga Amatir", "keterangan": "Patah Tulang", "nilai": 10000000 },
+          { "bagian": "G.38", "manfaat": "Acara Olahraga Amatir", "keterangan": "Sublimit Rp3.000.000/barang/set termasuk golf", "nilai": "-" }
+        ]
+      },
+      "lite": {
+        "label": "Lite",
+        "keterangan": "Paket Dasar",
+        "daftar": [
+          { "bagian": "A.1", "manfaat": "Kematian & Cacat Tetap Akibat Kecelakaan", "keterangan": "Usia 18 ke bawah", "nilai": 50000000 },
+          { "bagian": "A.1", "manfaat": "Kematian & Cacat Tetap Akibat Kecelakaan", "keterangan": "Usia 19 - 65", "nilai": 500000000 },
+          { "bagian": "A.1", "manfaat": "Kematian & Cacat Tetap Akibat Kecelakaan", "keterangan": "Usia 66 - 75", "nilai": 250000000 },
+          { "bagian": "A.1", "manfaat": "Kematian & Cacat Tetap Akibat Kecelakaan", "keterangan": "Usia 76 ke atas", "nilai": 125000000 },
+          { "bagian": "A.2", "manfaat": "Dana Pendidikan Anak", "keterangan": "Per anak", "nilai": 25000000 },
+          { "bagian": "A.2", "manfaat": "Dana Pendidikan Anak", "keterangan": "Maksimum", "nilai": 50000000 },
+          { "bagian": "A.3", "manfaat": "Ganti Rugi Kartu Kredit", "keterangan": "-", "nilai": 5000000 },
+          { "bagian": "B.4", "manfaat": "Evakuasi Medis Darurat & Pemulangan", "keterangan": "-", "nilai": "Biaya Sebenarnya" },
+          { "bagian": "B.5", "manfaat": "Biaya Medis", "keterangan": "Usia 65 ke bawah", "nilai": 700000000 },
+          { "bagian": "B.5", "manfaat": "Biaya Medis", "keterangan": "Usia 66 - 75", "nilai": 385000000 },
+          { "bagian": "B.5", "manfaat": "Biaya Medis", "keterangan": "Usia 76 ke atas", "nilai": 175000000 },
+          { "bagian": "B.6", "manfaat": "Santunan Harian Rawat Inap", "keterangan": "Per hari", "nilai": 500000 },
+          { "bagian": "B.6", "manfaat": "Santunan Harian Rawat Inap", "keterangan": "Maksimum", "nilai": 5000000 },
+          { "bagian": "B.7", "manfaat": "Biaya Telepon Darurat", "keterangan": "-", "nilai": 2500000 },
+          { "bagian": "B.8", "manfaat": "Perawatan Pasca Pengobatan", "keterangan": "-", "nilai": 20000000 },
+          { "bagian": "B.9", "manfaat": "Biaya Perjalanan Pendamping", "keterangan": "-", "nilai": 30000000 },
+          { "bagian": "B.10", "manfaat": "Biaya Pemulangan Anak", "keterangan": "-", "nilai": 30000000 },
+          { "bagian": "C.11", "manfaat": "Pemulangan Jenazah", "keterangan": "Kunjungan Meninggal Dunia", "nilai": 20000000 },
+          { "bagian": "C.11", "manfaat": "Pemulangan Jenazah", "keterangan": "Biaya Pemakaman", "nilai": 10000000 },
+          { "bagian": "C.12", "manfaat": "Tanggung Jawab Pribadi", "keterangan": "-", "nilai": 1000000000 },
+          { "bagian": "C.13", "manfaat": "Biaya Hukum", "keterangan": "-", "nilai": 150000000 },
+          { "bagian": "D.14", "manfaat": "Pembatalan & Perubahan Perjalanan", "keterangan": "-", "nilai": 35000000 },
+          { "bagian": "D.15", "manfaat": "Pengurangan Perjalanan", "keterangan": "-", "nilai": 15000000 },
+          { "bagian": "D.16", "manfaat": "Gangguan Perjalanan", "keterangan": "-", "nilai": 5000000 },
+          { "bagian": "D.17", "manfaat": "Penundaan Perjalanan", "keterangan": "Per 4 jam", "nilai": 500000 },
+          { "bagian": "D.17", "manfaat": "Penundaan Perjalanan", "keterangan": "Maksimum", "nilai": 3000000 },
+          { "bagian": "D.18", "manfaat": "Kehilangan Penerbangan Lanjutan", "keterangan": "-", "nilai": 5000000 },
+          { "bagian": "D.19", "manfaat": "Pengalihan Penerbangan", "keterangan": "-", "nilai": 5000000 },
+          { "bagian": "D.20", "manfaat": "Pembajakan", "keterangan": "-", "nilai": 5000000 },
+          { "bagian": "D.21", "manfaat": "Kehilangan Reservasi Hotel", "keterangan": "-", "nilai": 2000000 },
+          { "bagian": "D.22", "manfaat": "Acara Khusus", "keterangan": "-", "nilai": 5000000 },
+          { "bagian": "D.23", "manfaat": "Risiko Sendiri Kendaraan Sewa", "keterangan": "-", "nilai": 5000000 },
+          { "bagian": "D.24", "manfaat": "Penipuan Kartu Kredit", "keterangan": "-", "nilai": 3500000 },
+          { "bagian": "E.25", "manfaat": "Keterlambatan Bagasi", "keterangan": "Per 4 jam", "nilai": 500000 },
+          { "bagian": "E.25", "manfaat": "Keterlambatan Bagasi", "keterangan": "Maksimum", "nilai": 1500000 },
+          { "bagian": "E.26", "manfaat": "Bagasi & Barang Pribadi", "keterangan": "Sublimit Rp3.000.000/barang/set, Rp7.500.000 laptop", "nilai": 15000000 },
+          { "bagian": "E.27", "manfaat": "Kehilangan Uang Pribadi", "keterangan": "-", "nilai": 3000000 },
+          { "bagian": "E.28", "manfaat": "Kehilangan Dokumen Perjalanan & Kartu Pembayaran", "keterangan": "-", "nilai": 5000000 },
+          { "bagian": "E.29", "manfaat": "Perlindungan Rumah", "keterangan": "Sublimit Rp3.000.000/barang bergerak", "nilai": 12000000 },
+          { "bagian": "E.30", "manfaat": "Perlindungan Tempat Tinggal di Luar Negeri", "keterangan": "-", "nilai": "-" },
+          { "bagian": "F.31", "manfaat": "Aktivitas Rekreasi", "keterangan": "-", "nilai": "Dijamin" },
+          { "bagian": "F.32", "manfaat": "Terorisme", "keterangan": "-", "nilai": "Dijamin" },
+          { "bagian": "G.33", "manfaat": "Perlindungan Visa", "keterangan": "-", "nilai": 9000000 },
+          { "bagian": "G.34", "manfaat": "Olahraga Salju", "keterangan": "-", "nilai": "Dijamin" },
+          { "bagian": "G.35", "manfaat": "Jaminan Kapal Pesiar", "keterangan": "Per hari / Maksimum", "nilai": "1.000.000 / 10.000.000" },
+          { "bagian": "G.35", "manfaat": "Jaminan Kapal Pesiar", "keterangan": "Per pelabuhan / Maksimum", "nilai": "1.000.000 / 5.000.000" },
+          { "bagian": "G.35", "manfaat": "Jaminan Kapal Pesiar", "keterangan": "Wisata Pantai yang Terlewat", "nilai": 5000000 },
+          { "bagian": "G.35", "manfaat": "Jaminan Kapal Pesiar", "keterangan": "Gangguan Perjalanan Kapal Pesiar", "nilai": 10000000 },
+          { "bagian": "G.36", "manfaat": "Aktivitas Petualangan", "keterangan": "-", "nilai": "Dijamin" },
+          { "bagian": "G.37", "manfaat": "Perjalanan Bisnis", "keterangan": "Penggantian Staf", "nilai": 15000000 },
+          { "bagian": "G.37", "manfaat": "Perjalanan Bisnis", "keterangan": "Peralatan Bisnis", "nilai": 20000000 },
+          { "bagian": "G.37", "manfaat": "Perjalanan Bisnis", "keterangan": "Biaya Kehilangan Acara", "nilai": 15000000 },
+          { "bagian": "G.38", "manfaat": "Acara Olahraga Amatir", "keterangan": "Kehilangan Acara Aktivitas Olahraga", "nilai": 5000000 },
+          { "bagian": "G.38", "manfaat": "Acara Olahraga Amatir", "keterangan": "Kehilangan/Kerusakan Peralatan Olahraga", "nilai": 10000000 },
+          { "bagian": "G.38", "manfaat": "Acara Olahraga Amatir", "keterangan": "Stroke Akibat Aktivitas Fisik", "nilai": 10000000 },
+          { "bagian": "G.38", "manfaat": "Acara Olahraga Amatir", "keterangan": "Patah Tulang", "nilai": 10000000 },
+          { "bagian": "G.38", "manfaat": "Acara Olahraga Amatir", "keterangan": "Sublimit Rp3.000.000/barang/set termasuk golf", "nilai": "-" }
+        ]
+      }
+    },
+    "domestik": {
+      "boost": {
+        "label": "Boost",
+        "keterangan": "Paket Tertinggi Domestik",
+        "daftar": [
+          { "bagian": "A.1", "manfaat": "Kematian & Cacat Tetap Akibat Kecelakaan", "keterangan": "-", "nilai": 300000000 },
+          { "bagian": "B.2", "manfaat": "Dana Pendidikan Anak", "keterangan": "Per anak", "nilai": 15000000 },
+          { "bagian": "B.2", "manfaat": "Dana Pendidikan Anak", "keterangan": "Maksimum", "nilai": 30000000 },
+          { "bagian": "B.3", "manfaat": "Ganti Rugi Kartu Kredit", "keterangan": "-", "nilai": 5000000 },
+          { "bagian": "C.4", "manfaat": "Evakuasi Medis Darurat & Pemulangan", "keterangan": "-", "nilai": "Biaya Sebenarnya" },
+          { "bagian": "C.5", "manfaat": "Biaya Medis", "keterangan": "-", "nilai": 200000000 },
+          { "bagian": "C.6", "manfaat": "Pemulangan Jenazah", "keterangan": "-", "nilai": "Biaya Sebenarnya" },
+          { "bagian": "D.7", "manfaat": "Tanggung Jawab Pribadi", "keterangan": "-", "nilai": 250000000 },
+          { "bagian": "E.8", "manfaat": "Pembatalan & Perubahan Perjalanan", "keterangan": "-", "nilai": 10000000 },
+          { "bagian": "E.9", "manfaat": "Penundaan Perjalanan", "keterangan": "Per 4 jam", "nilai": 500000 },
+          { "bagian": "E.9", "manfaat": "Penundaan Perjalanan", "keterangan": "Maksimum", "nilai": 2000000 },
+          { "bagian": "E.10", "manfaat": "Acara Khusus", "keterangan": "-", "nilai": 2000000 },
+          { "bagian": "F.11", "manfaat": "Keterlambatan Bagasi", "keterangan": "Per 4 jam", "nilai": 500000 },
+          { "bagian": "F.11", "manfaat": "Keterlambatan Bagasi", "keterangan": "Maksimum", "nilai": 1000000 },
+          { "bagian": "F.12", "manfaat": "Bagasi & Barang Pribadi", "keterangan": "-", "nilai": 5000000 },
+          { "bagian": "G.13", "manfaat": "Aktivitas Rekreasi", "keterangan": "-", "nilai": "Dijamin" },
+          { "bagian": "G.14", "manfaat": "Terorisme", "keterangan": "-", "nilai": "Dijamin" },
+          { "bagian": "G.15", "manfaat": "Aktivitas Petualangan", "keterangan": "-", "nilai": "Dijamin" },
+          { "bagian": "H.16", "manfaat": "Perjalanan Bisnis", "keterangan": "Penggantian Staf", "nilai": 15000000 },
+          { "bagian": "H.16", "manfaat": "Perjalanan Bisnis", "keterangan": "Peralatan Bisnis", "nilai": 20000000 },
+          { "bagian": "H.16", "manfaat": "Perjalanan Bisnis", "keterangan": "Biaya Kehilangan Acara", "nilai": 15000000 },
+          { "bagian": "I.17", "manfaat": "Acara Olahraga Amatir", "keterangan": "Kehilangan Acara Aktivitas Olahraga", "nilai": 2500000 },
+          { "bagian": "I.17", "manfaat": "Acara Olahraga Amatir", "keterangan": "Kehilangan/Kerusakan Peralatan Olahraga", "nilai": 6000000 },
+          { "bagian": "I.17", "manfaat": "Acara Olahraga Amatir", "keterangan": "Stroke Akibat Aktivitas Fisik", "nilai": 10000000 },
+          { "bagian": "I.17", "manfaat": "Acara Olahraga Amatir", "keterangan": "Patah Tulang", "nilai": 5000000 },
+          { "bagian": "I.17", "manfaat": "Acara Olahraga Amatir", "keterangan": "Sublimit Rp3.000.000/barang/set termasuk golf", "nilai": "-" }
+        ]
+      },
+      "joy": {
+        "label": "Joy",
+        "keterangan": "Paket Menengah Domestik",
+        "daftar": [
+          { "bagian": "A.1", "manfaat": "Kematian & Cacat Tetap Akibat Kecelakaan", "keterangan": "-", "nilai": 150000000 },
+          { "bagian": "B.2", "manfaat": "Dana Pendidikan Anak", "keterangan": "Per anak", "nilai": 7500000 },
+          { "bagian": "B.2", "manfaat": "Dana Pendidikan Anak", "keterangan": "Maksimum", "nilai": 15000000 },
+          { "bagian": "B.3", "manfaat": "Ganti Rugi Kartu Kredit", "keterangan": "-", "nilai": 2500000 },
+          { "bagian": "C.4", "manfaat": "Evakuasi Medis Darurat & Pemulangan", "keterangan": "-", "nilai": "Biaya Sebenarnya" },
+          { "bagian": "C.5", "manfaat": "Biaya Medis", "keterangan": "-", "nilai": 100000000 },
+          { "bagian": "C.6", "manfaat": "Pemulangan Jenazah", "keterangan": "-", "nilai": "Biaya Sebenarnya" },
+          { "bagian": "D.7", "manfaat": "Tanggung Jawab Pribadi", "keterangan": "-", "nilai": 125000000 },
+          { "bagian": "E.8", "manfaat": "Pembatalan & Perubahan Perjalanan", "keterangan": "-", "nilai": 5000000 },
+          { "bagian": "E.9", "manfaat": "Penundaan Perjalanan", "keterangan": "Per 4 jam", "nilai": 250000 },
+          { "bagian": "E.9", "manfaat": "Penundaan Perjalanan", "keterangan": "Maksimum", "nilai": 1500000 },
+          { "bagian": "E.10", "manfaat": "Acara Khusus", "keterangan": "-", "nilai": 1000000 },
+          { "bagian": "F.11", "manfaat": "Keterlambatan Bagasi", "keterangan": "Per 4 jam", "nilai": 250000 },
+          { "bagian": "F.11", "manfaat": "Keterlambatan Bagasi", "keterangan": "Maksimum", "nilai": 500000 },
+          { "bagian": "F.12", "manfaat": "Bagasi & Barang Pribadi", "keterangan": "-", "nilai": 2500000 },
+          { "bagian": "G.13", "manfaat": "Aktivitas Rekreasi", "keterangan": "-", "nilai": "Dijamin" },
+          { "bagian": "G.14", "manfaat": "Terorisme", "keterangan": "-", "nilai": "Dijamin" },
+          { "bagian": "G.15", "manfaat": "Aktivitas Petualangan", "keterangan": "-", "nilai": "Dijamin" },
+          { "bagian": "H.16", "manfaat": "Perjalanan Bisnis", "keterangan": "Penggantian Staf", "nilai": 15000000 },
+          { "bagian": "H.16", "manfaat": "Perjalanan Bisnis", "keterangan": "Peralatan Bisnis", "nilai": 20000000 },
+          { "bagian": "H.16", "manfaat": "Perjalanan Bisnis", "keterangan": "Biaya Kehilangan Acara", "nilai": 15000000 }
+        ]
+      },
+      "roadtrip": {
+        "label": "Roadtrip",
+        "keterangan": "Paket Dasar Domestik",
+        "daftar": [
+          { "bagian": "A.1", "manfaat": "Kematian & Cacat Tetap Akibat Kecelakaan", "keterangan": "-", "nilai": 150000000 },
+          { "bagian": "B.2", "manfaat": "Dana Pendidikan Anak", "keterangan": "Per anak", "nilai": 7500000 },
+          { "bagian": "B.2", "manfaat": "Dana Pendidikan Anak", "keterangan": "Maksimum", "nilai": 15000000 },
+          { "bagian": "B.3", "manfaat": "Ganti Rugi Kartu Kredit", "keterangan": "-", "nilai": 2500000 },
+          { "bagian": "C.4", "manfaat": "Evakuasi Medis Darurat & Pemulangan", "keterangan": "-", "nilai": "Biaya Sebenarnya" },
+          { "bagian": "C.5", "manfaat": "Biaya Medis", "keterangan": "-", "nilai": 100000000 },
+          { "bagian": "C.6", "manfaat": "Pemulangan Jenazah", "keterangan": "-", "nilai": "Biaya Sebenarnya" },
+          { "bagian": "D.7", "manfaat": "Tanggung Jawab Pribadi", "keterangan": "-", "nilai": 125000000 },
+          { "bagian": "E.8", "manfaat": "Pembatalan & Perubahan Perjalanan", "keterangan": "-", "nilai": 5000000 },
+          { "bagian": "F.12", "manfaat": "Bagasi & Barang Pribadi", "keterangan": "-", "nilai": 2500000 },
+          { "bagian": "G.13", "manfaat": "Aktivitas Rekreasi", "keterangan": "-", "nilai": "Dijamin" },
+          { "bagian": "G.14", "manfaat": "Terorisme", "keterangan": "-", "nilai": "Dijamin" },
+          { "bagian": "G.15", "manfaat": "Aktivitas Petualangan", "keterangan": "-", "nilai": "Dijamin" }
+        ]
+      }
+    }
+  },
+  "premi": {
+    "individu": {
+      "usia_1_69": {
+        "worldwide": {
+          "prime": {
+            "1_4": 287000,
+            "5_6": 432000,
+            "7_8": 617000,
+            "9_10": 765000,
+            "11_15": 934000,
+            "16_20": 1190000,
+            "21_25": 1332000,
+            "26_31": 1536000,
+            "per_minggu": 233000,
+            "tahunan_90": 3192000,
+            "tahunan_180": 4787000
+          },
+          "edge": {
+            "1_4": 230000,
+            "5_6": 345000,
+            "7_8": 491000,
+            "9_10": 609000,
+            "11_15": 738000,
+            "16_20": 945000,
+            "21_25": 1058000,
+            "26_31": 1222000,
+            "per_minggu": 179000,
+            "tahunan_90": 2441000,
+            "tahunan_180": 3662000
+          },
+          "lite": {
+            "1_4": 178000,
+            "5_6": 273000,
+            "7_8": 391000,
+            "9_10": 489000,
+            "11_15": 592000,
+            "16_20": 764000,
+            "21_25": 856000,
+            "26_31": 992000,
+            "per_minggu": 141000,
+            "tahunan_90": 1924000,
+            "tahunan_180": 2887000
+          }
+        },
+        "eropa": {
+          "prime": {
+            "1_4": 255000,
+            "5_6": 383000,
+            "7_8": 548000,
+            "9_10": 678000,
+            "11_15": 833000,
+            "16_20": 1055000,
+            "21_25": 1181000,
+            "26_31": 1358000,
+            "per_minggu": 212000
+          },
+          "edge": {
+            "1_4": 201000,
+            "5_6": 301000,
+            "7_8": 429000,
+            "9_10": 530000,
+            "11_15": 650000,
+            "16_20": 825000,
+            "21_25": 923000,
+            "26_31": 1062000,
+            "per_minggu": 162000
+          },
+          "lite": {
+            "1_4": 157000,
+            "5_6": 238000,
+            "7_8": 342000,
+            "9_10": 425000,
+            "11_15": 520000,
+            "16_20": 665000,
+            "21_25": 744000,
+            "26_31": 858000,
+            "per_minggu": 128000
+          }
+        },
+        "asia": {
+          "prime": {
+            "1_4": 199000,
+            "5_6": 298000,
+            "7_8": 424000,
+            "9_10": 525000,
+            "11_15": 640000,
+            "16_20": 815000,
+            "21_25": 911000,
+            "26_31": 1050000,
+            "per_minggu": 159000
+          },
+          "edge": {
+            "1_4": 161000,
+            "5_6": 240000,
+            "7_8": 338000,
+            "9_10": 419000,
+            "11_15": 507000,
+            "16_20": 649000,
+            "21_25": 725000,
+            "26_31": 837000,
+            "per_minggu": 123000
+          },
+          "lite": {
+            "1_4": 121000,
+            "5_6": 184000,
+            "7_8": 263000,
+            "9_10": 329000,
+            "11_15": 400000,
+            "16_20": 514000,
+            "21_25": 575000,
+            "26_31": 666000,
+            "per_minggu": 96000
+          }
+        },
+        "domestik": {
+          "boost": {
+            "1_4": 54000,
+            "5_6": 84000,
+            "7_8": 120000,
+            "9_10": 152000,
+            "11_15": 178000,
+            "16_20": 237000,
+            "21_25": 266000,
+            "26_31": 312000,
+            "per_minggu": 60000,
+            "tahunan_90": 888000,
+            "tahunan_180": 1331000
+          },
+          "joy": {
+            "1_4": 29000,
+            "5_6": 46000,
+            "7_8": 65000,
+            "9_10": 82000,
+            "11_15": 96000,
+            "16_20": 128000,
+            "21_25": 143000,
+            "26_31": 168000,
+            "per_minggu": 33000,
+            "tahunan_90": 508000,
+            "tahunan_180": 761000
+          },
+          "roadtrip": {
+            "1_4": 40000,
+            "5_6": 62000,
+            "7_8": 89000,
+            "9_10": 113000,
+            "11_15": 132000,
+            "16_20": 176000,
+            "21_25": 197000,
+            "26_31": 231000,
+            "per_minggu": 45000
+          }
+        }
+      },
+      "usia_70_plus": {
+        "worldwide": {
+          "prime": {
+            "1_4": 517000,
+            "5_6": 778000,
+            "7_8": 1111000,
+            "9_10": 1377000,
+            "11_15": 1682000,
+            "16_20": 2142000,
+            "21_25": 2398000,
+            "26_31": 2765000,
+            "per_minggu": 420000
+          },
+          "edge": {
+            "1_4": 414000,
+            "5_6": 621000,
+            "7_8": 884000,
+            "9_10": 1097000,
+            "11_15": 1329000,
+            "16_20": 1701000,
+            "21_25": 1905000,
+            "26_31": 2200000,
+            "per_minggu": 323000
+          },
+          "lite": {
+            "1_4": 321000,
+            "5_6": 492000,
+            "7_8": 704000,
+            "9_10": 881000,
+            "11_15": 1066000,
+            "16_20": 1376000,
+            "21_25": 1541000,
+            "26_31": 1786000,
+            "per_minggu": 254000
+          }
+        },
+        "eropa": {
+          "prime": {
+            "1_4": 459000,
+            "5_6": 690000,
+            "7_8": 987000,
+            "9_10": 1221000,
+            "11_15": 1500000,
+            "16_20": 1899000,
+            "21_25": 2126000,
+            "26_31": 2445000,
+            "per_minggu": 382000
+          },
+          "edge": {
+            "1_4": 362000,
+            "5_6": 542000,
+            "7_8": 773000,
+            "9_10": 954000,
+            "11_15": 1170000,
+            "16_20": 1485000,
+            "21_25": 1662000,
+            "26_31": 1912000,
+            "per_minggu": 292000
+          },
+          "lite": {
+            "1_4": 283000,
+            "5_6": 429000,
+            "7_8": 616000,
+            "9_10": 765000,
+            "11_15": 936000,
+            "16_20": 1197000,
+            "21_25": 1340000,
+            "26_31": 1545000,
+            "per_minggu": 231000
+          }
+        },
+        "asia": {
+          "prime": {
+            "1_4": 359000,
+            "5_6": 537000,
+            "7_8": 764000,
+            "9_10": 945000,
+            "11_15": 1152000,
+            "16_20": 1467000,
+            "21_25": 1640000,
+            "26_31": 1890000,
+            "per_minggu": 287000
+          },
+          "edge": {
+            "1_4": 290000,
+            "5_6": 432000,
+            "7_8": 609000,
+            "9_10": 755000,
+            "11_15": 913000,
+            "16_20": 1169000,
+            "21_25": 1305000,
+            "26_31": 1507000,
+            "per_minggu": 222000
+          },
+          "lite": {
+            "1_4": 218000,
+            "5_6": 332000,
+            "7_8": 474000,
+            "9_10": 593000,
+            "11_15": 720000,
+            "16_20": 926000,
+            "21_25": 1035000,
+            "26_31": 1199000,
+            "per_minggu": 173000
+          }
+        },
+        "domestik": {
+          "boost": {
+            "1_4": 98000,
+            "5_6": 152000,
+            "7_8": 216000,
+            "9_10": 274000,
+            "11_15": 321000,
+            "16_20": 427000,
+            "21_25": 479000,
+            "26_31": 562000,
+            "per_minggu": 108000
+          },
+          "joy": {
+            "1_4": 53000,
+            "5_6": 83000,
+            "7_8": 117000,
+            "9_10": 148000,
+            "11_15": 173000,
+            "16_20": 231000,
+            "21_25": 258000,
+            "26_31": 303000,
+            "per_minggu": 60000
+          },
+          "roadtrip": {
+            "1_4": 72000,
+            "5_6": 112000,
+            "7_8": 160000,
+            "9_10": 202000,
+            "11_15": 238000,
+            "16_20": 316000,
+            "21_25": 354000,
+            "26_31": 416000,
+            "per_minggu": 97000
+          }
+        }
+      }
+    }
+  },
+  "tambahan": {
+    "internasional": {
+      "pulang_pergi": {
+        "usia_1_69": {
+          "worldwide": {
+            "prime": {
+              "visa": 75000,
+              "olahraga_salju": 83000,
+              "kapal_pesiar": 117000,
+              "petualangan": 49000,
+              "bisnis": 51000,
+              "olahraga_amatir": 130000
+            },
+            "edge": {
+              "visa": 75000,
+              "olahraga_salju": 72000,
+              "kapal_pesiar": 87000,
+              "petualangan": 39000,
+              "bisnis": 51000,
+              "olahraga_amatir": 107000
+            },
+            "lite": {
+              "visa": 75000,
+              "olahraga_salju": 61000,
+              "kapal_pesiar": 70000,
+              "petualangan": 31000,
+              "bisnis": 51000,
+              "olahraga_amatir": 98000
+            }
+          },
+          "eropa": {
+            "prime": {
+              "visa": 75000,
+              "olahraga_salju": 83000,
+              "kapal_pesiar": 117000,
+              "petualangan": 49000,
+              "bisnis": 51000,
+              "olahraga_amatir": 130000
+            },
+            "edge": {
+              "visa": 75000,
+              "olahraga_salju": 72000,
+              "kapal_pesiar": 87000,
+              "petualangan": 39000,
+              "bisnis": 51000,
+              "olahraga_amatir": 107000
+            },
+            "lite": {
+              "visa": 75000,
+              "olahraga_salju": 61000,
+              "kapal_pesiar": 70000,
+              "petualangan": 31000,
+              "bisnis": 51000,
+              "olahraga_amatir": 98000
+            }
+          },
+          "asia": {
+            "prime": {
+              "visa": 75000,
+              "olahraga_salju": 83000,
+              "kapal_pesiar": 117000,
+              "petualangan": 49000,
+              "bisnis": 51000,
+              "olahraga_amatir": 130000
+            },
+            "edge": {
+              "visa": 75000,
+              "olahraga_salju": 72000,
+              "kapal_pesiar": 87000,
+              "petualangan": 39000,
+              "bisnis": 51000,
+              "olahraga_amatir": 107000
+            },
+            "lite": {
+              "visa": 75000,
+              "olahraga_salju": 61000,
+              "kapal_pesiar": 70000,
+              "petualangan": 31000,
+              "bisnis": 51000,
+              "olahraga_amatir": 98000
+            }
+          }
+        },
+        "usia_70_plus": {
+          "worldwide": {
+            "prime": {
+              "visa": 230000,
+              "olahraga_salju": 150000,
+              "kapal_pesiar": 310000,
+              "petualangan": 89000,
+              "bisnis": 92000,
+              "olahraga_amatir": 234000
+            },
+            "edge": {
+              "visa": 230000,
+              "olahraga_salju": 130000,
+              "kapal_pesiar": 288000,
+              "petualangan": 71000,
+              "bisnis": 92000,
+              "olahraga_amatir": 193000
+            },
+            "lite": {
+              "visa": 230000,
+              "olahraga_salju": 110000,
+              "kapal_pesiar": 237000,
+              "petualangan": 56000,
+              "bisnis": 92000,
+              "olahraga_amatir": 177000
+            }
+          },
+          "eropa": {
+            "prime": {
+              "visa": 230000,
+              "olahraga_salju": 150000,
+              "kapal_pesiar": 310000,
+              "petualangan": 89000,
+              "bisnis": 92000,
+              "olahraga_amatir": 234000
+            },
+            "edge": {
+              "visa": 230000,
+              "olahraga_salju": 130000,
+              "kapal_pesiar": 245000,
+              "petualangan": 71000,
+              "bisnis": 92000,
+              "olahraga_amatir": 193000
+            },
+            "lite": {
+              "visa": 230000,
+              "olahraga_salju": 110000,
+              "kapal_pesiar": 237000,
+              "petualangan": 56000,
+              "bisnis": 92000,
+              "olahraga_amatir": 177000
+            }
+          },
+          "asia": {
+            "prime": {
+              "visa": 230000,
+              "olahraga_salju": 150000,
+              "kapal_pesiar": 310000,
+              "petualangan": 89000,
+              "bisnis": 92000,
+              "olahraga_amatir": 234000
+            },
+            "edge": {
+              "visa": 230000,
+              "olahraga_salju": 130000,
+              "kapal_pesiar": 245000,
+              "petualangan": 71000,
+              "bisnis": 92000,
+              "olahraga_amatir": 193000
+            },
+            "lite": {
+              "visa": 230000,
+              "olahraga_salju": 110000,
+              "kapal_pesiar": 237000,
+              "petualangan": 56000,
+              "bisnis": 92000,
+              "olahraga_amatir": 177000
+            }
+          }
+        }
+      },
+      "tahunan": {
+        "worldwide": {
+          "prime": {
+            "visa": 150000,
+            "olahraga_salju": 165000,
+            "kapal_pesiar": 264000,
+            "petualangan": 98000,
+            "bisnis": 116000,
+            "olahraga_amatir": 260000
+          },
+          "edge": {
+            "visa": 150000,
+            "olahraga_salju": 143000,
+            "kapal_pesiar": 173000,
+            "petualangan": 77000,
+            "bisnis": 116000,
+            "olahraga_amatir": 214000
+          },
+          "lite": {
+            "visa": 150000,
+            "olahraga_salju": 121000,
+            "kapal_pesiar": 139000,
+            "petualangan": 61000,
+            "bisnis": 116000,
+            "olahraga_amatir": 196000
+          }
+        }
+      }
+    },
+    "domestik": {
+      "pulang_pergi": {
+        "boost": {
+          "petualangan": 31000,
+          "bisnis": 51000,
+          "olahraga_amatir": 30000
+        },
+        "joy": {
+          "petualangan": 31000,
+          "bisnis": 51000
+        },
+        "roadtrip": {
+          "petualangan": 31000,
+          "bisnis": 51000
+        }
+      },
+      "tahunan": {
+        "boost": {},
+        "joy": {},
+        "roadtrip": {}
+      }
+    }
+  }
+}
