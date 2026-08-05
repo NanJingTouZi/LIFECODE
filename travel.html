@@ -325,89 +325,100 @@
             margin: 0 auto;
             background: #fff;
             border-radius: 12px;
-            padding: 40px 45px 35px;
+            padding: 35px 40px 30px;
             border: 1px solid #e2e8f0;
+            font-size: 13px;
         }
 
         .proposal-header {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 16px;
             border-bottom: 3px double #1a2a4a;
-            padding-bottom: 16px;
-            margin-bottom: 24px;
+            padding-bottom: 14px;
+            margin-bottom: 18px;
         }
         .proposal-logo {
             flex-shrink: 0;
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: #0057a8;
             border-radius: 50%;
             color: white;
-            font-size: 36px;
+            font-size: 32px;
             font-weight: bold;
         }
         .proposal-title-area {
             flex: 1;
         }
         .proposal-title-area .title-main {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
             color: #1a2a4a;
             letter-spacing: 1px;
         }
         .proposal-title-area .title-sub {
-            font-size: 17px;
+            font-size: 14px;
             font-weight: 600;
             color: #2c3e6b;
-            margin-top: 4px;
+            margin-top: 2px;
         }
         .proposal-title-area .title-desc {
-            font-size: 12px;
+            font-size: 11px;
             color: #6b7a8f;
-            margin-top: 4px;
+            margin-top: 2px;
             letter-spacing: .3px;
         }
 
         .proposal-container .section-title {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
             color: #1a2a4a;
-            border-left: 5px solid #0057a8;
-            padding-left: 12px;
-            margin-top: 22px;
-            margin-bottom: 12px;
+            border-left: 4px solid #0057a8;
+            padding-left: 10px;
+            margin-top: 16px;
+            margin-bottom: 10px;
         }
         .proposal-container .section-title-first {
             margin-top: 0;
         }
-        .proposal-container .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-            margin-bottom: 4px;
+
+        /* Data Tertanggung 2 Kolom */
+        .proposal-data-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px 30px;
+            border: 1px solid #e8ecf3;
+            border-radius: 6px;
+            padding: 10px 14px;
+            background: #fafcff;
         }
-        .proposal-container .data-table td {
-            padding: 6px 10px 6px 0;
-            vertical-align: top;
-            border-bottom: 1px solid #eef1f6;
+        .proposal-data-grid .item {
+            display: flex;
+            padding: 3px 0;
+            border-bottom: 1px solid #f0f2f5;
         }
-        .proposal-container .data-table .label {
-            width: 35%;
+        .proposal-data-grid .item .label {
+            width: 120px;
             font-weight: 600;
             color: #2c3e6b;
+            flex-shrink: 0;
         }
-        .proposal-container .data-table .value {
-            width: 65%;
+        .proposal-data-grid .item .value {
             color: #1e2f4a;
+            font-weight: 500;
         }
+        .proposal-data-grid .item-full {
+            grid-column: 1 / -1;
+        }
+
         .proposal-container .premium-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 14px;
+            font-size: 13px;
             margin-top: 4px;
         }
         .proposal-container .premium-table th {
@@ -415,13 +426,15 @@
             font-weight: 700;
             color: #1a2a4a;
             text-align: left;
-            padding: 8px 12px;
+            padding: 6px 10px;
             border-bottom: 2px solid #d0d7e3;
+            font-size: 12px;
         }
         .proposal-container .premium-table td {
-            padding: 7px 12px;
+            padding: 5px 10px;
             border-bottom: 1px solid #e8ecf3;
             color: #1e2f4a;
+            font-size: 13px;
         }
         .proposal-container .premium-table .highlight-row td {
             background: #f7f9fc;
@@ -433,20 +446,53 @@
         }
         .proposal-container .premium-table .total-value {
             font-weight: 700;
-            font-size: 16px;
+            font-size: 15px;
             color: #1a2a4a;
         }
+
+        /* Manfaat table - rapi tanpa jarak berlebih */
+        .proposal-manfaat-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+        .proposal-manfaat-table td {
+            padding: 3px 8px;
+            border-bottom: 1px solid #edf2f7;
+            color: #1e2f4a;
+            vertical-align: top;
+        }
+        .proposal-manfaat-table .group-header td {
+            font-weight: 700;
+            color: #0057a8;
+            padding-top: 6px;
+            padding-bottom: 4px;
+            border-bottom: 2px solid #dce3ec;
+            background: #f8fafc;
+        }
+        .proposal-manfaat-table .manfaat-item td {
+            padding-left: 16px;
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+        .proposal-manfaat-table .manfaat-item .nilai {
+            text-align: right;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
         .proposal-container .signature-area {
             display: flex;
             justify-content: space-between;
-            margin-top: 32px;
-            padding-top: 18px;
+            margin-top: 24px;
+            padding-top: 14px;
             border-top: 2px solid #eef1f6;
             flex-wrap: wrap;
-            gap: 30px;
+            gap: 20px;
         }
         .proposal-container .signature-box {
-            font-size: 14px;
+            font-size: 13px;
             color: #1e2f4a;
         }
         .proposal-container .signature-box .label {
@@ -455,23 +501,23 @@
         }
         .proposal-container .signature-box .line {
             display: inline-block;
-            width: 180px;
+            width: 160px;
             border-bottom: 1px solid #1a2a4a;
-            margin-top: 28px;
+            margin-top: 24px;
             margin-bottom: 4px;
         }
         .proposal-container .signature-box .city-date {
             margin-top: 4px;
-            font-size: 13px;
+            font-size: 12px;
             color: #4a5a72;
         }
         .proposal-container .footer-notes {
-            margin-top: 28px;
-            font-size: 12px;
+            margin-top: 20px;
+            font-size: 11px;
             color: #5a6a7f;
             border-top: 1px solid #e0e5ed;
-            padding-top: 14px;
-            line-height: 1.6;
+            padding-top: 10px;
+            line-height: 1.5;
         }
         .proposal-container .footer-notes ul {
             list-style: none;
@@ -485,8 +531,8 @@
 
         .proposal-actions {
             text-align: center;
-            margin-top: 20px;
-            padding-top: 16px;
+            margin-top: 16px;
+            padding-top: 14px;
             border-top: 1px solid #e2e8f0;
             display: flex;
             justify-content: center;
@@ -497,29 +543,29 @@
             background: #f8f9fa;
             border: 2px solid #0057a8;
             border-radius: 10px;
-            padding: 20px;
-            margin-top: 15px;
+            padding: 16px 20px;
+            margin-top: 12px;
             display: none;
+            font-size: 13px;
         }
         .print-instruction.show {
             display: block;
         }
         .print-instruction h4 {
             color: #0057a8;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .print-instruction ol {
-            padding-left: 20px;
+            padding-left: 18px;
             color: #2c3e6b;
-            line-height: 1.8;
+            line-height: 1.6;
         }
         .print-instruction .highlight-step {
             background: #e8edf3;
-            padding: 8px 12px;
-            border-radius: 6px;
+            padding: 4px 10px;
+            border-radius: 4px;
             font-weight: 600;
             color: #0057a8;
-            margin: 5px 0;
         }
 
         /* ===== RESPONSIVE ===== */
@@ -545,45 +591,40 @@
                 justify-content: center;
             }
             .proposal-container {
-                padding: 16px;
+                padding: 14px;
             }
             .proposal-header {
                 flex-direction: column;
                 text-align: center;
-                gap: 10px;
+                gap: 8px;
             }
             .proposal-title-area .title-main {
-                font-size: 18px;
+                font-size: 16px;
             }
             .proposal-title-area .title-sub {
-                font-size: 14px;
+                font-size: 13px;
             }
-            .proposal-container .data-table td {
-                display: block;
-                padding: 4px 0;
-                border-bottom: 0;
+            .proposal-data-grid {
+                grid-template-columns: 1fr;
+                gap: 0;
             }
-            .proposal-container .data-table .label {
-                width: 100%;
-                font-weight: 700;
-                margin-top: 6px;
-            }
-            .proposal-container .data-table .value {
-                width: 100%;
-                padding-left: 8px;
-                margin-bottom: 4px;
-                border-bottom: 1px dashed #eef1f6;
+            .proposal-data-grid .item .label {
+                width: 100px;
             }
             .proposal-container .premium-table td,
             .proposal-container .premium-table th {
-                font-size: 12px;
-                padding: 6px 8px;
+                font-size: 11px;
+                padding: 4px 6px;
             }
             .proposal-container .signature-box .line {
-                width: 120px;
+                width: 100px;
             }
             .proposal-actions {
                 flex-direction: column;
+            }
+            .proposal-manfaat-table td {
+                font-size: 11px;
+                padding: 2px 6px;
             }
         }
         @media (max-width: 480px) {
@@ -600,20 +641,18 @@
                 font-size: 17px;
             }
             .proposal-container {
-                padding: 12px 10px;
+                padding: 10px 8px;
             }
-            .proposal-container .proposal-header .title-main {
-                font-size: 16px;
+            .proposal-data-grid .item .label {
+                width: 80px;
+                font-size: 12px;
             }
-            .proposal-container .proposal-header .title-sub {
-                font-size: 13px;
+            .proposal-data-grid .item .value {
+                font-size: 12px;
             }
             .proposal-container .section-title {
                 font-size: 13px;
                 padding-left: 8px;
-            }
-            .proposal-container .data-table td {
-                font-size: 12px;
             }
         }
 
@@ -641,35 +680,40 @@
             }
             .proposal-container {
                 max-width: 100% !important;
-                padding: 20px 25px !important;
+                padding: 15px 20px !important;
                 border: 0 !important;
                 border-radius: 0 !important;
                 background: #fff !important;
                 box-shadow: none !important;
                 margin: 0 !important;
+                font-size: 11px !important;
             }
             .proposal-container .section-title {
                 page-break-after: avoid !important;
                 page-break-inside: avoid !important;
+                font-size: 13px !important;
+                margin-top: 12px !important;
+                margin-bottom: 6px !important;
             }
-            .proposal-container .data-table,
-            .proposal-container .premium-table {
-                page-break-inside: avoid !important;
+            .proposal-data-grid {
+                padding: 6px 10px !important;
+                border: 1px solid #d0d7e3 !important;
             }
-            .proposal-container .signature-area,
-            .proposal-container .footer-notes {
-                page-break-inside: avoid !important;
-            }
-            .proposal-container .data-table tr,
-            .proposal-container .premium-table tr {
-                page-break-inside: avoid !important;
-            }
-            .proposal-container .proposal-header {
-                page-break-inside: avoid !important;
-            }
-            .proposal-container .data-table td {
-                padding: 4px 8px 4px 0 !important;
+            .proposal-data-grid .item {
+                padding: 2px 0 !important;
                 border-bottom: 1px solid #eef1f6 !important;
+            }
+            .proposal-data-grid .item .label {
+                width: 110px !important;
+                font-size: 11px !important;
+            }
+            .proposal-data-grid .item .value {
+                font-size: 11px !important;
+            }
+            .proposal-container .premium-table td,
+            .proposal-container .premium-table th {
+                font-size: 11px !important;
+                padding: 3px 6px !important;
             }
             .proposal-container .premium-table th {
                 background: #f0f3f8 !important;
@@ -681,17 +725,69 @@
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
-            .proposal-container .proposal-header {
-                border-bottom: 3px double #1a2a4a !important;
+            .proposal-manfaat-table td {
+                font-size: 10px !important;
+                padding: 2px 4px !important;
+            }
+            .proposal-manfaat-table .group-header td {
+                padding-top: 4px !important;
+                padding-bottom: 2px !important;
+                background: #f8fafc !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .proposal-manfaat-table .manfaat-item td {
+                padding-left: 10px !important;
+                padding-top: 1px !important;
+                padding-bottom: 1px !important;
             }
             .proposal-container .signature-area {
-                border-top: 2px solid #eef1f6 !important;
+                margin-top: 16px !important;
+                padding-top: 10px !important;
+            }
+            .proposal-container .signature-box .line {
+                width: 120px !important;
+                margin-top: 16px !important;
             }
             .proposal-container .footer-notes {
-                border-top: 1px solid #e0e5ed !important;
+                margin-top: 12px !important;
+                padding-top: 8px !important;
+                font-size: 10px !important;
             }
-            .proposal-container {
-                page-break-after: avoid;
+            .proposal-container .proposal-header {
+                padding-bottom: 10px !important;
+                margin-bottom: 12px !important;
+            }
+            .proposal-container .proposal-header .title-main {
+                font-size: 18px !important;
+            }
+            .proposal-container .proposal-header .title-sub {
+                font-size: 13px !important;
+            }
+            .proposal-container .proposal-header .title-desc {
+                font-size: 10px !important;
+            }
+            .proposal-logo {
+                width: 55px !important;
+                height: 55px !important;
+                font-size: 26px !important;
+            }
+            .proposal-container .premium-table .total-value {
+                font-size: 14px !important;
+            }
+            /* Page break */
+            .page-break {
+                page-break-before: always !important;
+                margin-top: 10px !important;
+                padding-top: 10px !important;
+                border-top: 2px dashed #ccc !important;
+            }
+            .proposal-manfaat-wrap {
+                page-break-before: always !important;
+                page-break-after: avoid !important;
+            }
+            .proposal-container .section-title-manfaat {
+                page-break-before: auto !important;
             }
         }
     </style>
@@ -822,9 +918,9 @@
                     </div>
                 </div>
 
-                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;font-size:14px;flex-wrap:wrap;gap:10px;">
-                    <div><strong>Kepada Yth.</strong><br />Bapak / Ibu <strong id="pNama">-</strong><br /><span style="font-size:13px;color:#4a5a72;" id="pInfoTambahan"></span></div>
-                    <div style="background:#f0f3f8;padding:5px 14px;border-radius:20px;font-weight:600;color:#1a2a4a;font-size:13px;white-space:nowrap;">No. Proposal: <strong id="pNoProposal">ZUR/PROP/2026/001</strong></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:12px;flex-wrap:wrap;gap:8px;">
+                    <div><strong>Kepada Yth.</strong> Bapak / Ibu <strong id="pNama">-</strong> <span style="font-size:11px;color:#4a5a72;" id="pInfoTambahan"></span></div>
+                    <div style="background:#f0f3f8;padding:3px 12px;border-radius:16px;font-weight:600;color:#1a2a4a;font-size:11px;white-space:nowrap;">No. Proposal: <strong id="pNoProposal">ZUR/PROP/2026/001</strong></div>
                 </div>
 
                 <div class="section-title section-title-first">A. DATA PERTANGGUNGAN</div>
@@ -836,11 +932,14 @@
                     <tbody id="pPremiumBody"></tbody>
                 </table>
 
-                <div class="section-title">C. MANFAAT PERLINDUNGAN</div>
-                <div id="proposalManfaatContent"></div>
+                <!-- Manfaat akan di page berikutnya -->
+                <div class="proposal-manfaat-wrap">
+                    <div class="section-title section-title-manfaat" style="margin-top:20px;">C. MANFAAT PERLINDUNGAN</div>
+                    <div id="proposalManfaatContent"></div>
+                </div>
 
                 <div class="section-title">D. PERNYATAAN &amp; PERSETUJUAN</div>
-                <p style="font-size:14px;color:#1e2f4a;line-height:1.6;margin-bottom:14px;">Dengan ini saya menyatakan bahwa data dan keterangan yang saya berikan adalah benar dan dapat dipertanggungjawabkan. Saya telah membaca, memahami, dan menyetujui ketentuan-ketentuan yang berlaku.</p>
+                <p style="font-size:13px;color:#1e2f4a;line-height:1.5;margin-bottom:10px;">Dengan ini saya menyatakan bahwa data dan keterangan yang saya berikan adalah benar dan dapat dipertanggungjawabkan. Saya telah membaca, memahami, dan menyetujui ketentuan-ketentuan yang berlaku.</p>
 
                 <div class="signature-area">
                     <div class="signature-box">
@@ -1158,7 +1257,7 @@
         }
 
         // ============================================================
-        // GET MANFAAT (tanpa A.1, A.2, dst)
+        // GET MANFAAT
         // ============================================================
         function getManfaat() {
             const jenis = document.getElementById('jenisPerjalanan').value;
@@ -1223,7 +1322,6 @@
 
             const total = premiDasar + premiTambahan;
 
-            // Gunakan formatRupiahFull untuk menampilkan angka utuh
             document.getElementById('totalPremi').textContent = 'Rp ' + formatRupiahFull(total);
             document.getElementById('premiDasar').textContent = 'Rp ' + formatRupiahFull(premiDasar);
             document.getElementById('premiTambahan').textContent = 'Rp ' + formatRupiahFull(premiTambahan);
@@ -1248,7 +1346,7 @@
             detailHtml += `<tr class="total-row"><td>Total Premi</td><td style="text-align:right;">Rp ${formatRupiahFull(total)}</td></tr>`;
             detailBody.innerHTML = detailHtml;
 
-            // Manfaat - tanpa kode A.1, A.2, dst
+            // Manfaat
             const manfaatList = getManfaat();
             const manfaatBody = document.getElementById('resultManfaat');
             if (manfaatList.length === 0) {
@@ -1257,7 +1355,6 @@
                 let mHtml = '';
                 let groupMap = {};
 
-                // Kelompokkan berdasarkan bagian (A, B, C, dst) tapi tanpa menampilkan kode
                 manfaatList.forEach(item => {
                     const bagian = item.bagian || '';
                     const groupKey = bagian.charAt(0) || '';
@@ -1265,7 +1362,6 @@
                     groupMap[groupKey].push(item);
                 });
 
-                // Tampilkan per kelompok
                 const groupLabels = {
                     'A': 'Kecelakaan Diri & Pendidikan',
                     'B': 'Perawatan Medis Darurat',
@@ -1344,7 +1440,7 @@
             const jenisPolisLabel = h.jenisPolis === 'pulang_pergi' ? 'Perjalanan Pulang Pergi' : 'Tahunan';
 
             document.getElementById('pNama').textContent = h.nama;
-            document.getElementById('pInfoTambahan').textContent = 'No. HP: ' + h.noHp + ' | Usia: ' + h.usia + ' tahun';
+            document.getElementById('pInfoTambahan').textContent = '| No. HP: ' + h.noHp + ' | Usia: ' + h.usia + ' tahun';
             document.getElementById('proposalSubTitle').textContent = 'Zurich Travel Insurance - ' + jenisPerjalananLabel;
             document.getElementById('proposalDesc').textContent = 'Dokumen Penawaran Perlindungan Perjalanan ' + jenisPerjalananLabel;
 
@@ -1355,19 +1451,19 @@
                 1).padStart(2, '0') + String(now.getDate()).padStart(2, '0') + String(Math.floor(Math.random() * 1000))
                 .padStart(3, '0');
 
-            // Data Pertanggungan
+            // Data Pertanggungan - 2 kolom
             document.getElementById('proposalDataContent').innerHTML = `
-                <table class="data-table">
-                    <tr><td class="label">Nama Lengkap</td><td class="value"><strong>${h.nama}</strong></td></tr>
-                    <tr><td class="label">No. HP</td><td class="value"><strong>${h.noHp}</strong></td></tr>
-                    <tr><td class="label">Usia</td><td class="value"><strong>${h.usia} tahun</strong></td></tr>
-                    <tr><td class="label">Jenis Perjalanan</td><td class="value"><strong>${jenisPerjalananLabel}</strong></td></tr>
-                    <tr><td class="label">Area / Zona</td><td class="value"><strong>${areaLabels[h.area] || h.area}</strong></td></tr>
-                    <tr><td class="label">Paket / Tier</td><td class="value"><strong>${tierLabels[h.tier] || h.tier}</strong></td></tr>
-                    <tr><td class="label">Jenis Polis</td><td class="value"><strong>${jenisPolisLabel}</strong></td></tr>
-                    <tr><td class="label">Durasi Perjalanan</td><td class="value"><strong>${h.durasi} hari</strong></td></tr>
-                    <tr><td class="label">Tanggal Proposal</td><td class="value"><strong>${tgl}</strong></td></tr>
-                </table>
+                <div class="proposal-data-grid">
+                    <div class="item"><span class="label">Nama Lengkap</span><span class="value">${h.nama}</span></div>
+                    <div class="item"><span class="label">No. HP</span><span class="value">${h.noHp}</span></div>
+                    <div class="item"><span class="label">Usia</span><span class="value">${h.usia} tahun</span></div>
+                    <div class="item"><span class="label">Jenis Perjalanan</span><span class="value">${jenisPerjalananLabel}</span></div>
+                    <div class="item"><span class="label">Area / Zona</span><span class="value">${areaLabels[h.area] || h.area}</span></div>
+                    <div class="item"><span class="label">Paket / Tier</span><span class="value">${tierLabels[h.tier] || h.tier}</span></div>
+                    <div class="item"><span class="label">Jenis Polis</span><span class="value">${jenisPolisLabel}</span></div>
+                    <div class="item"><span class="label">Durasi Perjalanan</span><span class="value">${h.durasi} hari</span></div>
+                    <div class="item"><span class="label">Tanggal Proposal</span><span class="value">${tgl}</span></div>
+                </div>
             `;
 
             // Perhitungan Premi
@@ -1377,27 +1473,27 @@
                 `<tr><td>Premi Dasar</td><td style="text-align:right;">${h.detailDasar || '-'}</td><td style="text-align:right;">Rp ${formatRupiahFull(h.premiDasar)}</td></tr>`;
 
             if (h.detailTambahan && h.detailTambahan.length > 0) {
-                pHtml += `<tr><td style="font-weight:600;padding-top:8px;color:#2c3e6b;" colspan="3">Manfaat Tambahan:</td></tr>`;
+                pHtml += `<tr><td style="font-weight:600;padding-top:6px;color:#2c3e6b;" colspan="3">Manfaat Tambahan:</td></tr>`;
                 h.detailTambahan.forEach(item => {
                     pHtml +=
-                        `<tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">${item.nama}</td><td style="text-align:right;"></td><td style="text-align:right;">Rp ${formatRupiahFull(item.premi)}</td></tr>`;
+                        `<tr><td style="padding-left:16px;font-size:12px;color:#2c3e6b;">${item.nama}</td><td style="text-align:right;"></td><td style="text-align:right;">Rp ${formatRupiahFull(item.premi)}</td></tr>`;
                 });
                 const totalTambahan = h.detailTambahan.reduce((sum, i) => sum + i.premi, 0);
                 pHtml +=
                     `<tr style="border-top:1px solid #dce3ec;"><td style="font-weight:600;color:#1a3a5c;">Total Tambahan</td><td style="text-align:right;"></td><td style="text-align:right;font-weight:600;color:#1a3a5c;">Rp ${formatRupiahFull(totalTambahan)}</td></tr>`;
             } else {
                 pHtml +=
-                    `<tr><td style="padding-left:20px;color:#5e7a93;font-size:13px;" colspan="3">Tidak ada manfaat tambahan</td></tr>`;
+                    `<tr><td style="padding-left:16px;color:#5e7a93;font-size:12px;" colspan="3">Tidak ada manfaat tambahan</td></tr>`;
             }
 
             pHtml +=
                 `<tr class="highlight-row"><td><strong>Total Premi</strong></td><td style="text-align:right;"></td><td style="text-align:right;"><strong>Rp ${formatRupiahFull(h.total)}</strong></td></tr>`;
             premiumBody.innerHTML = pHtml;
 
-            // Manfaat Perlindungan (tanpa A.1, A.2, dst)
+            // Manfaat Perlindungan - table rapi tanpa jarak berlebih
             const manfaatContainer = document.getElementById('proposalManfaatContent');
             if (h.manfaat && h.manfaat.length > 0) {
-                let mHtml = '<table class="data-table">';
+                let mHtml = '<table class="proposal-manfaat-table">';
                 let groupMap = {};
                 const groupLabels = {
                     'A': 'Kecelakaan Diri & Pendidikan',
@@ -1418,8 +1514,7 @@
 
                 Object.keys(groupMap).forEach(key => {
                     const label = groupLabels[key] || 'Manfaat';
-                    mHtml +=
-                        `<tr><td style="font-weight:700;color:#0057a8;padding-top:10px;" colspan="2">${label}</td></tr>`;
+                    mHtml += `<tr class="group-header"><td colspan="2"><strong>${label}</strong></td></tr>`;
                     groupMap[key].forEach(item => {
                         const nilai = item.nilai;
                         const displayNilai = (nilai === 'Dijamin' || nilai === 'Biaya Sebenarnya' || nilai ===
@@ -1428,21 +1523,21 @@
                         const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' :
                             '';
                         mHtml +=
-                            `<tr><td style="padding-left:12px;">${item.manfaat}${ket}</td><td style="text-align:right;font-weight:600;">${displayNilai}</td></tr>`;
+                            `<tr class="manfaat-item"><td>${item.manfaat}${ket}</td><td class="nilai">${displayNilai}</td></tr>`;
                     });
                 });
                 mHtml += '</table>';
                 manfaatContainer.innerHTML = mHtml;
             } else {
-                manfaatContainer.innerHTML = '<p style="color:#5e7a93;">Tidak ada manfaat yang tersedia</p>';
+                manfaatContainer.innerHTML = '<p style="color:#5e7a93;font-size:13px;">Tidak ada manfaat yang tersedia</p>';
             }
 
             document.getElementById('footerNotes').innerHTML = `
                 <ul>
                     <li><strong>Catatan:</strong> Perhitungan premi ini adalah perkiraan berdasarkan data yang diberikan.</li>
                     <li>Premi final dapat berubah setelah verifikasi data dan dokumen pendukung.</li>
-                    <li style="margin-top:4px;font-size:11px;color:#7a8a9f;">Dokumen ini adalah proposal / penawaran awal.</li>
-                    <li style="font-size:11px;color:#7a8a9f;">PT Zurich Asuransi Indonesia Tbk berizin dan diawasi oleh OJK.</li>
+                    <li style="margin-top:2px;font-size:10px;color:#7a8a9f;">Dokumen ini adalah proposal / penawaran awal.</li>
+                    <li style="font-size:10px;color:#7a8a9f;">PT Zurich Asuransi Indonesia Tbk berizin dan diawasi oleh OJK.</li>
                 </ul>
             `;
 
@@ -1490,17 +1585,8 @@
         // ============================================================
         // HELPERS
         // ============================================================
-        // Format Rupiah dengan pemisah ribuan (tidak dibulatkan)
         function formatRupiahFull(angka) {
             if (!angka || isNaN(angka) || angka === 0) return '0';
-            return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-        }
-
-        // Format Rupiah dengan singkatan (untuk tampilan ringkas jika diperlukan)
-        function formatRupiah(angka) {
-            if (!angka || isNaN(angka) || angka === 0) return '0';
-            if (angka >= 1000000000) return (angka / 1000000000).toFixed(1) + ' Miliar';
-            if (angka >= 1000000) return (angka / 1000000).toFixed(0) + ' Juta';
             return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
         }
 
