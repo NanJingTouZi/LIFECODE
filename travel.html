@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kalkulator Asuransi Perjalanan Zurich</title>
+    <title>Kalkulator Asuransi Perjalanan</title>
     <style>
         /* ===== RESET & GLOBAL ===== */
         * {
@@ -345,11 +345,24 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #0057a8;
+        }
+        .proposal-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .proposal-logo .logo-placeholder {
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
+            background: #0057a8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
             font-size: 32px;
             font-weight: bold;
+            font-family: Arial, sans-serif;
         }
         .proposal-title-area {
             flex: 1;
@@ -452,11 +465,11 @@
         .proposal-manfaat-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 12px;
+            font-size: 13px;
             margin-top: 2px;
         }
         .proposal-manfaat-table td {
-            padding: 3px 8px;
+            padding: 4px 8px;
             border-bottom: 1px solid #edf2f7;
             color: #1e2f4a;
             vertical-align: top;
@@ -633,8 +646,8 @@
                 flex-direction: column;
             }
             .proposal-manfaat-table td {
-                font-size: 11px;
-                padding: 2px 6px;
+                font-size: 12px;
+                padding: 3px 6px;
             }
         }
         @media (max-width: 480px) {
@@ -663,6 +676,10 @@
             .proposal-container .section-title {
                 font-size: 13px;
                 padding-left: 8px;
+            }
+            .proposal-manfaat-table td {
+                font-size: 11px;
+                padding: 2px 4px;
             }
         }
 
@@ -696,12 +713,12 @@
                 background: #fff !important;
                 box-shadow: none !important;
                 margin: 0 !important;
-                font-size: 11px !important;
+                font-size: 12px !important;
             }
             .proposal-container .section-title {
                 page-break-after: avoid !important;
                 page-break-inside: avoid !important;
-                font-size: 13px !important;
+                font-size: 14px !important;
                 margin-top: 12px !important;
                 margin-bottom: 6px !important;
             }
@@ -715,15 +732,15 @@
             }
             .proposal-data-grid .item .label {
                 width: 110px !important;
-                font-size: 11px !important;
+                font-size: 12px !important;
             }
             .proposal-data-grid .item .value {
-                font-size: 11px !important;
+                font-size: 12px !important;
             }
             .proposal-container .premium-table td,
             .proposal-container .premium-table th {
-                font-size: 11px !important;
-                padding: 3px 6px !important;
+                font-size: 12px !important;
+                padding: 4px 6px !important;
             }
             .proposal-container .premium-table th {
                 background: #f0f3f8 !important;
@@ -735,29 +752,40 @@
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
+            /* Tabel Manfaat - ukuran font lebih besar */
+            .proposal-manfaat-table {
+                font-size: 13px !important;
+            }
             .proposal-manfaat-table td {
-                font-size: 10px !important;
-                padding: 2px 4px !important;
+                font-size: 12px !important;
+                padding: 4px 8px !important;
             }
             .proposal-manfaat-table .group-header td {
-                padding-top: 4px !important;
-                padding-bottom: 2px !important;
+                padding-top: 6px !important;
+                padding-bottom: 4px !important;
                 background: #f8fafc !important;
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
+                font-size: 13px !important;
             }
             .proposal-manfaat-table .manfaat-item td {
-                padding-left: 10px !important;
-                padding-top: 1px !important;
-                padding-bottom: 1px !important;
+                padding-left: 12px !important;
+                padding-top: 3px !important;
+                padding-bottom: 3px !important;
             }
             .proposal-manfaat-table .tambahan-item td {
-                padding-left: 10px !important;
-                padding-top: 1px !important;
-                padding-bottom: 1px !important;
+                padding-left: 12px !important;
+                padding-top: 3px !important;
+                padding-bottom: 3px !important;
                 background: #fafff5 !important;
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
+            }
+            .proposal-manfaat-table .manfaat-item .nilai {
+                font-size: 12px !important;
+            }
+            .proposal-manfaat-table .tambahan-item .nilai {
+                font-size: 12px !important;
             }
             .proposal-container .signature-area {
                 margin-top: 16px !important;
@@ -770,7 +798,7 @@
             .proposal-container .footer-notes {
                 margin-top: 12px !important;
                 padding-top: 8px !important;
-                font-size: 10px !important;
+                font-size: 11px !important;
             }
             .proposal-container .proposal-header {
                 padding-bottom: 10px !important;
@@ -783,12 +811,20 @@
                 font-size: 13px !important;
             }
             .proposal-container .proposal-header .title-desc {
-                font-size: 10px !important;
+                font-size: 11px !important;
             }
             .proposal-logo {
-                width: 55px !important;
-                height: 55px !important;
-                font-size: 26px !important;
+                width: 60px !important;
+                height: 60px !important;
+            }
+            .proposal-logo img {
+                max-width: 60px !important;
+                max-height: 60px !important;
+            }
+            .proposal-logo .logo-placeholder {
+                width: 60px !important;
+                height: 60px !important;
+                font-size: 28px !important;
             }
             .proposal-container .premium-table .total-value {
                 font-size: 14px !important;
@@ -805,7 +841,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>✈️ Asuransi Perjalanan Zurich <span class="badge">Individu</span></h1>
+        <h1>✈️ Asuransi Perjalanan <span class="badge">Individu</span></h1>
         <p class="subtitle">Hitung premi dan lihat manfaat perlindungan perjalanan Anda</p>
 
         <!-- ===== FORM ===== -->
@@ -921,17 +957,24 @@
         <div class="proposal-wrapper" id="proposalWrapper">
             <div class="proposal-container" id="proposalContainer">
                 <div class="proposal-header">
-                    <div class="proposal-logo">✈️</div>
+                    <div class="proposal-logo">
+                        <img src="nanjing-ico1.png" 
+                             alt="Logo Perusahaan" 
+                             id="proposalLogo" 
+                             style="display:block;width:70px;height:70px;object-fit:contain;"
+                             onerror="this.style.display='none'; document.getElementById('logoPlaceholder').style.display='flex';" />
+                        <div class="logo-placeholder" id="logoPlaceholder" style="display:none;">A</div>
+                    </div>
                     <div class="proposal-title-area">
                         <div class="title-main">PROPOSAL ASURANSI PERJALANAN</div>
-                        <div class="title-sub" id="proposalSubTitle">Zurich Travel Insurance</div>
+                        <div class="title-sub" id="proposalSubTitle">Perlindungan Perjalanan</div>
                         <div class="title-desc" id="proposalDesc">Dokumen Penawaran Perlindungan Perjalanan</div>
                     </div>
                 </div>
 
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:12px;flex-wrap:wrap;gap:8px;">
                     <div><strong>Kepada Yth.</strong> Bapak / Ibu <strong id="pNama">-</strong> <span style="font-size:11px;color:#4a5a72;" id="pInfoTambahan"></span></div>
-                    <div style="background:#f0f3f8;padding:3px 12px;border-radius:16px;font-weight:600;color:#1a2a4a;font-size:11px;white-space:nowrap;">No. Proposal: <strong id="pNoProposal">ZUR/PROP/2026/001</strong></div>
+                    <div style="background:#f0f3f8;padding:3px 12px;border-radius:16px;font-weight:600;color:#1a2a4a;font-size:11px;white-space:nowrap;">No. Proposal: <strong id="pNoProposal">PROP/2026/001</strong></div>
                 </div>
 
                 <div class="section-title section-title-first">A. DATA PERTANGGUNGAN</div>
@@ -1287,11 +1330,8 @@
             const daftar = manfaatData.daftar || [];
             const filtered = [];
 
-            // Hanya ambil yang BUKAN manfaat tambahan (bagian G)
-            // dan yang sesuai dengan usia
             daftar.forEach(item => {
                 const bagian = item.bagian || '';
-                // Skip jika bagian G (manfaat tambahan) - ini akan ditampilkan terpisah
                 if (bagian.startsWith('G')) return;
 
                 const ket = item.keterangan || '';
@@ -1377,7 +1417,6 @@
                 let mHtml = '';
                 let groupMap = {};
 
-                // Kelompokkan manfaat dasar
                 manfaatDasar.forEach(item => {
                     const bagian = item.bagian || '';
                     const groupKey = bagian.charAt(0) || '';
@@ -1385,7 +1424,6 @@
                     groupMap[groupKey].push({ type: 'dasar', item: item });
                 });
 
-                // Tambahkan manfaat tambahan yang dipilih ke grup 'G'
                 if (manfaatTambahan.length > 0) {
                     if (!groupMap['G']) groupMap['G'] = [];
                     manfaatTambahan.forEach(t => {
@@ -1469,7 +1507,7 @@
             const wrapper = document.getElementById('proposalWrapper');
             wrapper.classList.add('show');
 
-            const areaLabels = { worldwide: 'Worldwide', eropa: 'Europa', asia: 'Asia', domestik: 'Domestik' };
+            const areaLabels = { worldwide: 'Worldwide', eropa: 'Eropa', asia: 'Asia', domestik: 'Domestik' };
             const tierLabels = {
                 prime: 'Prime',
                 edge: 'Edge',
@@ -1483,13 +1521,13 @@
 
             document.getElementById('pNama').textContent = h.nama;
             document.getElementById('pInfoTambahan').textContent = '| No. HP: ' + h.noHp + ' | Usia: ' + h.usia + ' tahun';
-            document.getElementById('proposalSubTitle').textContent = 'Zurich Travel Insurance - ' + jenisPerjalananLabel;
+            document.getElementById('proposalSubTitle').textContent = 'Perlindungan Perjalanan - ' + jenisPerjalananLabel;
             document.getElementById('proposalDesc').textContent = 'Dokumen Penawaran Perlindungan Perjalanan ' + jenisPerjalananLabel;
 
             const now = new Date();
             const tgl = formatTanggal(now);
             document.getElementById('pKotaTanggal').textContent = tgl;
-            document.getElementById('pNoProposal').textContent = 'ZUR/PROP/' + now.getFullYear() + '/' + String(now.getMonth() +
+            document.getElementById('pNoProposal').textContent = 'PROP/' + now.getFullYear() + '/' + String(now.getMonth() +
                 1).padStart(2, '0') + String(now.getDate()).padStart(2, '0') + String(Math.floor(Math.random() * 1000))
                 .padStart(3, '0');
 
@@ -1532,7 +1570,7 @@
                 `<tr class="highlight-row"><td><strong>Total Premi</strong></td><td style="text-align:right;"></td><td style="text-align:right;"><strong>Rp ${formatRupiahFull(h.total)}</strong></td></tr>`;
             premiumBody.innerHTML = pHtml;
 
-            // Manfaat Perlindungan - hanya yang relevan
+            // Manfaat Perlindungan
             const manfaatContainer = document.getElementById('proposalManfaatContent');
             const manfaatDasar = h.manfaatDasar || [];
             const manfaatTambahan = h.manfaatTambahan || [];
@@ -1552,7 +1590,6 @@
                     'G': 'Manfaat Tambahan'
                 };
 
-                // Manfaat Dasar
                 manfaatDasar.forEach(item => {
                     const bagian = item.bagian || '';
                     const groupKey = bagian.charAt(0) || '';
@@ -1560,7 +1597,6 @@
                     groupMap[groupKey].push({ type: 'dasar', item: item });
                 });
 
-                // Manfaat Tambahan yang dipilih
                 if (manfaatTambahan.length > 0) {
                     if (!groupMap['G']) groupMap['G'] = [];
                     manfaatTambahan.forEach(t => {
@@ -1601,7 +1637,6 @@
                     <li><strong>Catatan:</strong> Perhitungan premi ini adalah perkiraan berdasarkan data yang diberikan.</li>
                     <li>Premi final dapat berubah setelah verifikasi data dan dokumen pendukung.</li>
                     <li style="margin-top:2px;font-size:10px;color:#7a8a9f;">Dokumen ini adalah proposal / penawaran awal.</li>
-                    <li style="font-size:10px;color:#7a8a9f;">PT Zurich Asuransi Indonesia Tbk berizin dan diawasi oleh OJK.</li>
                 </ul>
             `;
 
