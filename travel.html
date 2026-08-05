@@ -1223,13 +1223,14 @@
 
             const total = premiDasar + premiTambahan;
 
-            document.getElementById('totalPremi').textContent = 'Rp ' + formatRupiah(total);
-            document.getElementById('premiDasar').textContent = 'Rp ' + formatRupiah(premiDasar);
-            document.getElementById('premiTambahan').textContent = 'Rp ' + formatRupiah(premiTambahan);
+            // Gunakan formatRupiahFull untuk menampilkan angka utuh
+            document.getElementById('totalPremi').textContent = 'Rp ' + formatRupiahFull(total);
+            document.getElementById('premiDasar').textContent = 'Rp ' + formatRupiahFull(premiDasar);
+            document.getElementById('premiTambahan').textContent = 'Rp ' + formatRupiahFull(premiTambahan);
 
             const detailBody = document.getElementById('resultDetail');
             let detailHtml = '';
-            detailHtml += `<tr><td>Premi Dasar</td><td style="text-align:right;">Rp ${formatRupiah(premiDasar)}</td></tr>`;
+            detailHtml += `<tr><td>Premi Dasar</td><td style="text-align:right;">Rp ${formatRupiahFull(premiDasar)}</td></tr>`;
             if (hasilDasar.detail) {
                 detailHtml += `<tr class="sub-item"><td>${hasilDasar.detail}</td><td style="text-align:right;"></td></tr>`;
             }
@@ -1238,13 +1239,13 @@
                 detailHtml += `<tr class="section-header"><td colspan="2">Manfaat Tambahan</td></tr>`;
                 hasilTambahan.detail.forEach(item => {
                     detailHtml +=
-                        `<tr><td style="padding-left:20px;">${item.nama}</td><td style="text-align:right;">Rp ${formatRupiah(item.premi)}</td></tr>`;
+                        `<tr><td style="padding-left:20px;">${item.nama}</td><td style="text-align:right;">Rp ${formatRupiahFull(item.premi)}</td></tr>`;
                 });
             } else {
                 detailHtml += `<tr class="sub-item"><td>Tidak ada manfaat tambahan</td><td style="text-align:right;"></td></tr>`;
             }
 
-            detailHtml += `<tr class="total-row"><td>Total Premi</td><td style="text-align:right;">Rp ${formatRupiah(total)}</td></tr>`;
+            detailHtml += `<tr class="total-row"><td>Total Premi</td><td style="text-align:right;">Rp ${formatRupiahFull(total)}</td></tr>`;
             detailBody.innerHTML = detailHtml;
 
             // Manfaat - tanpa kode A.1, A.2, dst
@@ -1254,7 +1255,6 @@
                 manfaatBody.innerHTML = `<tr><td colspan="2" class="no-data">Tidak ada manfaat yang tersedia</td></tr>`;
             } else {
                 let mHtml = '';
-                let currentGroup = '';
                 let groupMap = {};
 
                 // Kelompokkan berdasarkan bagian (A, B, C, dst) tapi tanpa menampilkan kode
@@ -1283,7 +1283,7 @@
                         const nilai = item.nilai;
                         const displayNilai = (nilai === 'Dijamin' || nilai === 'Biaya Sebenarnya' || nilai ===
                             '-') ? nilai :
-                            'Rp ' + formatRupiah(parseInt(String(nilai).replace(/[^0-9]/g, '')) || 0);
+                            'Rp ' + formatRupiahFull(parseInt(String(nilai).replace(/[^0-9]/g, '')) || 0);
                         const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' :
                             '';
                         mHtml +=
@@ -1374,31 +1374,30 @@
             const premiumBody = document.getElementById('pPremiumBody');
             let pHtml = '';
             pHtml +=
-                `<tr><td>Premi Dasar</td><td style="text-align:right;">${h.detailDasar || '-'}</td><td style="text-align:right;">Rp ${formatRupiah(h.premiDasar)}</td></tr>`;
+                `<tr><td>Premi Dasar</td><td style="text-align:right;">${h.detailDasar || '-'}</td><td style="text-align:right;">Rp ${formatRupiahFull(h.premiDasar)}</td></tr>`;
 
             if (h.detailTambahan && h.detailTambahan.length > 0) {
                 pHtml += `<tr><td style="font-weight:600;padding-top:8px;color:#2c3e6b;" colspan="3">Manfaat Tambahan:</td></tr>`;
                 h.detailTambahan.forEach(item => {
                     pHtml +=
-                        `<tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">${item.nama}</td><td style="text-align:right;"></td><td style="text-align:right;">Rp ${formatRupiah(item.premi)}</td></tr>`;
+                        `<tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">${item.nama}</td><td style="text-align:right;"></td><td style="text-align:right;">Rp ${formatRupiahFull(item.premi)}</td></tr>`;
                 });
                 const totalTambahan = h.detailTambahan.reduce((sum, i) => sum + i.premi, 0);
                 pHtml +=
-                    `<tr style="border-top:1px solid #dce3ec;"><td style="font-weight:600;color:#1a3a5c;">Total Tambahan</td><td style="text-align:right;"></td><td style="text-align:right;font-weight:600;color:#1a3a5c;">Rp ${formatRupiah(totalTambahan)}</td></tr>`;
+                    `<tr style="border-top:1px solid #dce3ec;"><td style="font-weight:600;color:#1a3a5c;">Total Tambahan</td><td style="text-align:right;"></td><td style="text-align:right;font-weight:600;color:#1a3a5c;">Rp ${formatRupiahFull(totalTambahan)}</td></tr>`;
             } else {
                 pHtml +=
                     `<tr><td style="padding-left:20px;color:#5e7a93;font-size:13px;" colspan="3">Tidak ada manfaat tambahan</td></tr>`;
             }
 
             pHtml +=
-                `<tr class="highlight-row"><td><strong>Total Premi</strong></td><td style="text-align:right;"></td><td style="text-align:right;"><strong>Rp ${formatRupiah(h.total)}</strong></td></tr>`;
+                `<tr class="highlight-row"><td><strong>Total Premi</strong></td><td style="text-align:right;"></td><td style="text-align:right;"><strong>Rp ${formatRupiahFull(h.total)}</strong></td></tr>`;
             premiumBody.innerHTML = pHtml;
 
             // Manfaat Perlindungan (tanpa A.1, A.2, dst)
             const manfaatContainer = document.getElementById('proposalManfaatContent');
             if (h.manfaat && h.manfaat.length > 0) {
                 let mHtml = '<table class="data-table">';
-                let currentGroup = '';
                 let groupMap = {};
                 const groupLabels = {
                     'A': 'Kecelakaan Diri & Pendidikan',
@@ -1425,7 +1424,7 @@
                         const nilai = item.nilai;
                         const displayNilai = (nilai === 'Dijamin' || nilai === 'Biaya Sebenarnya' || nilai ===
                             '-') ? nilai :
-                            'Rp ' + formatRupiah(parseInt(String(nilai).replace(/[^0-9]/g, '')) || 0);
+                            'Rp ' + formatRupiahFull(parseInt(String(nilai).replace(/[^0-9]/g, '')) || 0);
                         const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' :
                             '';
                         mHtml +=
@@ -1491,11 +1490,18 @@
         // ============================================================
         // HELPERS
         // ============================================================
+        // Format Rupiah dengan pemisah ribuan (tidak dibulatkan)
+        function formatRupiahFull(angka) {
+            if (!angka || isNaN(angka) || angka === 0) return '0';
+            return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        // Format Rupiah dengan singkatan (untuk tampilan ringkas jika diperlukan)
         function formatRupiah(angka) {
             if (!angka || isNaN(angka) || angka === 0) return '0';
             if (angka >= 1000000000) return (angka / 1000000000).toFixed(1) + ' Miliar';
             if (angka >= 1000000) return (angka / 1000000).toFixed(0) + ' Juta';
-            return angka.toLocaleString('id-ID');
+            return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
         }
 
         function formatTanggal(date) {
