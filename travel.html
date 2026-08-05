@@ -386,7 +386,6 @@
             margin-top: 0;
         }
 
-        /* Data Tertanggung 2 Kolom */
         .proposal-data-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -450,7 +449,6 @@
             color: #1a2a4a;
         }
 
-        /* Manfaat table - rapi tanpa jarak berlebih */
         .proposal-manfaat-table {
             width: 100%;
             border-collapse: collapse;
@@ -477,6 +475,18 @@
             padding-bottom: 3px;
         }
         .proposal-manfaat-table .manfaat-item .nilai {
+            text-align: right;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .proposal-manfaat-table .tambahan-item td {
+            padding-left: 16px;
+            padding-top: 3px;
+            padding-bottom: 3px;
+            background: #fafff5;
+            color: #1e7e34;
+        }
+        .proposal-manfaat-table .tambahan-item .nilai {
             text-align: right;
             font-weight: 600;
             white-space: nowrap;
@@ -741,6 +751,14 @@
                 padding-top: 1px !important;
                 padding-bottom: 1px !important;
             }
+            .proposal-manfaat-table .tambahan-item td {
+                padding-left: 10px !important;
+                padding-top: 1px !important;
+                padding-bottom: 1px !important;
+                background: #fafff5 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
             .proposal-container .signature-area {
                 margin-top: 16px !important;
                 padding-top: 10px !important;
@@ -774,13 +792,6 @@
             }
             .proposal-container .premium-table .total-value {
                 font-size: 14px !important;
-            }
-            /* Page break */
-            .page-break {
-                page-break-before: always !important;
-                margin-top: 10px !important;
-                padding-top: 10px !important;
-                border-top: 2px dashed #ccc !important;
             }
             .proposal-manfaat-wrap {
                 page-break-before: always !important;
@@ -932,7 +943,6 @@
                     <tbody id="pPremiumBody"></tbody>
                 </table>
 
-                <!-- Manfaat akan di page berikutnya -->
                 <div class="proposal-manfaat-wrap">
                     <div class="section-title section-title-manfaat" style="margin-top:20px;">C. MANFAAT PERLINDUNGAN</div>
                     <div id="proposalManfaatContent"></div>
@@ -1203,7 +1213,7 @@
         }
 
         // ============================================================
-        // GET PREMI TAMBAHAN
+        // GET PREMI TAMBAHAN & LIST MANFAAT TAMBAHAN YANG DIPILIH
         // ============================================================
         function getPremiTambahan() {
             const area = document.getElementById('area').value;
@@ -1213,10 +1223,11 @@
             const usiaKey = usia >= 70 ? 'usia_70_plus' : 'usia_1_69';
 
             const checks = document.querySelectorAll('#tambahanGrid input[type="checkbox"]:checked');
-            if (checks.length === 0) return { total: 0, detail: [] };
+            if (checks.length === 0) return { total: 0, detail: [], selectedList: [] };
 
             let total = 0;
             let detail = [];
+            let selectedList = [];
             let dataTambahan = null;
 
             if (jenis === 'internasional') {
@@ -1233,7 +1244,7 @@
                 }
             }
 
-            if (!dataTambahan) return { total: 0, detail: [] };
+            if (!dataTambahan) return { total: 0, detail: [], selectedList: [] };
 
             const labels = {
                 'visa': 'Perlindungan Visa',
@@ -1249,17 +1260,18 @@
                 const premi = dataTambahan[val];
                 if (premi !== undefined && premi > 0) {
                     total += premi;
-                    detail.push({ nama: labels[val] || val, premi: premi });
+                    detail.push({ nama: labels[val] || val, premi: premi, key: val });
+                    selectedList.push({ key: val, nama: labels[val] || val, premi: premi });
                 }
             });
 
-            return { total, detail };
+            return { total, detail, selectedList };
         }
 
         // ============================================================
-        // GET MANFAAT
+        // GET MANFAAT - tanpa manfaat tambahan
         // ============================================================
-        function getManfaat() {
+        function getManfaatDasar() {
             const jenis = document.getElementById('jenisPerjalanan').value;
             const tier = document.getElementById('tier').value;
 
@@ -1275,7 +1287,13 @@
             const daftar = manfaatData.daftar || [];
             const filtered = [];
 
+            // Hanya ambil yang BUKAN manfaat tambahan (bagian G)
+            // dan yang sesuai dengan usia
             daftar.forEach(item => {
+                const bagian = item.bagian || '';
+                // Skip jika bagian G (manfaat tambahan) - ini akan ditampilkan terpisah
+                if (bagian.startsWith('G')) return;
+
                 const ket = item.keterangan || '';
                 const match = ket.match(/Usia\s*(\d+)\s*ke\s*(bawah|atas)/i) ||
                     ket.match(/Usia\s*(\d+)\s*-\s*(\d+)/);
@@ -1298,7 +1316,7 @@
                 }
             });
 
-            return filtered.length > 0 ? filtered : daftar;
+            return filtered;
         }
 
         // ============================================================
@@ -1319,6 +1337,7 @@
 
             const hasilTambahan = getPremiTambahan();
             const premiTambahan = hasilTambahan.total;
+            const selectedTambahan = hasilTambahan.selectedList || [];
 
             const total = premiDasar + premiTambahan;
 
@@ -1346,21 +1365,40 @@
             detailHtml += `<tr class="total-row"><td>Total Premi</td><td style="text-align:right;">Rp ${formatRupiahFull(total)}</td></tr>`;
             detailBody.innerHTML = detailHtml;
 
-            // Manfaat
-            const manfaatList = getManfaat();
+            // Manfaat Dasar (tanpa G)
+            const manfaatDasar = getManfaatDasar();
+            // Manfaat Tambahan yang dipilih
+            const manfaatTambahan = selectedTambahan;
+
             const manfaatBody = document.getElementById('resultManfaat');
-            if (manfaatList.length === 0) {
+            if (manfaatDasar.length === 0 && manfaatTambahan.length === 0) {
                 manfaatBody.innerHTML = `<tr><td colspan="2" class="no-data">Tidak ada manfaat yang tersedia</td></tr>`;
             } else {
                 let mHtml = '';
                 let groupMap = {};
 
-                manfaatList.forEach(item => {
+                // Kelompokkan manfaat dasar
+                manfaatDasar.forEach(item => {
                     const bagian = item.bagian || '';
                     const groupKey = bagian.charAt(0) || '';
                     if (!groupMap[groupKey]) groupMap[groupKey] = [];
-                    groupMap[groupKey].push(item);
+                    groupMap[groupKey].push({ type: 'dasar', item: item });
                 });
+
+                // Tambahkan manfaat tambahan yang dipilih ke grup 'G'
+                if (manfaatTambahan.length > 0) {
+                    if (!groupMap['G']) groupMap['G'] = [];
+                    manfaatTambahan.forEach(t => {
+                        groupMap['G'].push({
+                            type: 'tambahan',
+                            item: {
+                                manfaat: t.nama,
+                                keterangan: '(Tambahan)',
+                                nilai: t.premi
+                            }
+                        });
+                    });
+                }
 
                 const groupLabels = {
                     'A': 'Kecelakaan Diri & Pendidikan',
@@ -1375,15 +1413,18 @@
                 Object.keys(groupMap).forEach(key => {
                     const label = groupLabels[key] || 'Manfaat';
                     mHtml += `<tr class="section-header"><td colspan="2"><strong>${label}</strong></td></tr>`;
-                    groupMap[key].forEach(item => {
+                    groupMap[key].forEach(entry => {
+                        const item = entry.item;
+                        const isTambahan = entry.type === 'tambahan';
                         const nilai = item.nilai;
                         const displayNilai = (nilai === 'Dijamin' || nilai === 'Biaya Sebenarnya' || nilai ===
                             '-') ? nilai :
                             'Rp ' + formatRupiahFull(parseInt(String(nilai).replace(/[^0-9]/g, '')) || 0);
                         const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' :
                             '';
+                        const style = isTambahan ? 'style="color:#1e7e34;"' : '';
                         mHtml +=
-                            `<tr><td style="padding-left:12px;">${item.manfaat}${ket}</td><td style="text-align:right;font-weight:600;">${displayNilai}</td></tr>`;
+                            `<tr ${style}><td style="padding-left:12px;">${item.manfaat}${ket}</td><td style="text-align:right;font-weight:600;">${displayNilai}</td></tr>`;
                     });
                 });
 
@@ -1405,7 +1446,8 @@
                 total: total,
                 detailDasar: hasilDasar.detail,
                 detailTambahan: hasilTambahan.detail,
-                manfaat: manfaatList
+                manfaatDasar: manfaatDasar,
+                manfaatTambahan: manfaatTambahan
             };
 
             document.getElementById('btnCetak').disabled = false;
@@ -1427,7 +1469,7 @@
             const wrapper = document.getElementById('proposalWrapper');
             wrapper.classList.add('show');
 
-            const areaLabels = { worldwide: 'Worldwide', eropa: 'Eropa', asia: 'Asia', domestik: 'Domestik' };
+            const areaLabels = { worldwide: 'Worldwide', eropa: 'Europa', asia: 'Asia', domestik: 'Domestik' };
             const tierLabels = {
                 prime: 'Prime',
                 edge: 'Edge',
@@ -1451,7 +1493,7 @@
                 1).padStart(2, '0') + String(now.getDate()).padStart(2, '0') + String(Math.floor(Math.random() * 1000))
                 .padStart(3, '0');
 
-            // Data Pertanggungan - 2 kolom
+            // Data Pertanggungan
             document.getElementById('proposalDataContent').innerHTML = `
                 <div class="proposal-data-grid">
                     <div class="item"><span class="label">Nama Lengkap</span><span class="value">${h.nama}</span></div>
@@ -1490,9 +1532,14 @@
                 `<tr class="highlight-row"><td><strong>Total Premi</strong></td><td style="text-align:right;"></td><td style="text-align:right;"><strong>Rp ${formatRupiahFull(h.total)}</strong></td></tr>`;
             premiumBody.innerHTML = pHtml;
 
-            // Manfaat Perlindungan - table rapi tanpa jarak berlebih
+            // Manfaat Perlindungan - hanya yang relevan
             const manfaatContainer = document.getElementById('proposalManfaatContent');
-            if (h.manfaat && h.manfaat.length > 0) {
+            const manfaatDasar = h.manfaatDasar || [];
+            const manfaatTambahan = h.manfaatTambahan || [];
+
+            if (manfaatDasar.length === 0 && manfaatTambahan.length === 0) {
+                manfaatContainer.innerHTML = '<p style="color:#5e7a93;font-size:13px;">Tidak ada manfaat yang tersedia</p>';
+            } else {
                 let mHtml = '<table class="proposal-manfaat-table">';
                 let groupMap = {};
                 const groupLabels = {
@@ -1505,31 +1552,48 @@
                     'G': 'Manfaat Tambahan'
                 };
 
-                h.manfaat.forEach(item => {
+                // Manfaat Dasar
+                manfaatDasar.forEach(item => {
                     const bagian = item.bagian || '';
                     const groupKey = bagian.charAt(0) || '';
                     if (!groupMap[groupKey]) groupMap[groupKey] = [];
-                    groupMap[groupKey].push(item);
+                    groupMap[groupKey].push({ type: 'dasar', item: item });
                 });
+
+                // Manfaat Tambahan yang dipilih
+                if (manfaatTambahan.length > 0) {
+                    if (!groupMap['G']) groupMap['G'] = [];
+                    manfaatTambahan.forEach(t => {
+                        groupMap['G'].push({
+                            type: 'tambahan',
+                            item: {
+                                manfaat: t.nama,
+                                keterangan: '(Tambahan)',
+                                nilai: t.premi
+                            }
+                        });
+                    });
+                }
 
                 Object.keys(groupMap).forEach(key => {
                     const label = groupLabels[key] || 'Manfaat';
                     mHtml += `<tr class="group-header"><td colspan="2"><strong>${label}</strong></td></tr>`;
-                    groupMap[key].forEach(item => {
+                    groupMap[key].forEach(entry => {
+                        const item = entry.item;
+                        const isTambahan = entry.type === 'tambahan';
                         const nilai = item.nilai;
                         const displayNilai = (nilai === 'Dijamin' || nilai === 'Biaya Sebenarnya' || nilai ===
                             '-') ? nilai :
                             'Rp ' + formatRupiahFull(parseInt(String(nilai).replace(/[^0-9]/g, '')) || 0);
                         const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' :
                             '';
+                        const className = isTambahan ? 'tambahan-item' : 'manfaat-item';
                         mHtml +=
-                            `<tr class="manfaat-item"><td>${item.manfaat}${ket}</td><td class="nilai">${displayNilai}</td></tr>`;
+                            `<tr class="${className}"><td>${item.manfaat}${ket}</td><td class="nilai">${displayNilai}</td></tr>`;
                     });
                 });
                 mHtml += '</table>';
                 manfaatContainer.innerHTML = mHtml;
-            } else {
-                manfaatContainer.innerHTML = '<p style="color:#5e7a93;font-size:13px;">Tidak ada manfaat yang tersedia</p>';
             }
 
             document.getElementById('footerNotes').innerHTML = `
