@@ -188,6 +188,10 @@
             cursor: not-allowed;
             transform: none !important;
         }
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 13px;
+        }
 
         /* ===== RESULT ===== */
         .result-box {
@@ -306,6 +310,218 @@
             padding: 6px 0;
         }
 
+        /* ===== PROPOSAL ===== */
+        .proposal-wrapper {
+            display: none;
+            margin-top: 30px;
+            border-top: 2px dashed #dce3ec;
+            padding-top: 25px;
+        }
+        .proposal-wrapper.show {
+            display: block;
+        }
+        .proposal-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 12px;
+            padding: 40px 45px 35px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .proposal-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 3px double #1a2a4a;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+        .proposal-logo {
+            flex-shrink: 0;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0057a8;
+            border-radius: 50%;
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+        }
+        .proposal-title-area {
+            flex: 1;
+        }
+        .proposal-title-area .title-main {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a2a4a;
+            letter-spacing: 1px;
+        }
+        .proposal-title-area .title-sub {
+            font-size: 17px;
+            font-weight: 600;
+            color: #2c3e6b;
+            margin-top: 4px;
+        }
+        .proposal-title-area .title-desc {
+            font-size: 12px;
+            color: #6b7a8f;
+            margin-top: 4px;
+            letter-spacing: .3px;
+        }
+
+        .proposal-container .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a2a4a;
+            border-left: 5px solid #0057a8;
+            padding-left: 12px;
+            margin-top: 22px;
+            margin-bottom: 12px;
+        }
+        .proposal-container .section-title-first {
+            margin-top: 0;
+        }
+        .proposal-container .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        .proposal-container .data-table td {
+            padding: 6px 10px 6px 0;
+            vertical-align: top;
+            border-bottom: 1px solid #eef1f6;
+        }
+        .proposal-container .data-table .label {
+            width: 35%;
+            font-weight: 600;
+            color: #2c3e6b;
+        }
+        .proposal-container .data-table .value {
+            width: 65%;
+            color: #1e2f4a;
+        }
+        .proposal-container .premium-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+        .proposal-container .premium-table th {
+            background: #f0f3f8;
+            font-weight: 700;
+            color: #1a2a4a;
+            text-align: left;
+            padding: 8px 12px;
+            border-bottom: 2px solid #d0d7e3;
+        }
+        .proposal-container .premium-table td {
+            padding: 7px 12px;
+            border-bottom: 1px solid #e8ecf3;
+            color: #1e2f4a;
+        }
+        .proposal-container .premium-table .highlight-row td {
+            background: #f7f9fc;
+            font-weight: 700;
+        }
+        .proposal-container .premium-table .total-label {
+            font-weight: 700;
+            color: #1a2a4a;
+        }
+        .proposal-container .premium-table .total-value {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1a2a4a;
+        }
+        .proposal-container .signature-area {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 32px;
+            padding-top: 18px;
+            border-top: 2px solid #eef1f6;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        .proposal-container .signature-box {
+            font-size: 14px;
+            color: #1e2f4a;
+        }
+        .proposal-container .signature-box .label {
+            font-weight: 600;
+            color: #2c3e6b;
+        }
+        .proposal-container .signature-box .line {
+            display: inline-block;
+            width: 180px;
+            border-bottom: 1px solid #1a2a4a;
+            margin-top: 28px;
+            margin-bottom: 4px;
+        }
+        .proposal-container .signature-box .city-date {
+            margin-top: 4px;
+            font-size: 13px;
+            color: #4a5a72;
+        }
+        .proposal-container .footer-notes {
+            margin-top: 28px;
+            font-size: 12px;
+            color: #5a6a7f;
+            border-top: 1px solid #e0e5ed;
+            padding-top: 14px;
+            line-height: 1.6;
+        }
+        .proposal-container .footer-notes ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .proposal-container .footer-notes ul li::before {
+            content: "• ";
+            color: #0057a8;
+            font-weight: 700;
+        }
+
+        .proposal-actions {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .print-instruction {
+            background: #f8f9fa;
+            border: 2px solid #0057a8;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+            display: none;
+        }
+        .print-instruction.show {
+            display: block;
+        }
+        .print-instruction h4 {
+            color: #0057a8;
+            margin-bottom: 10px;
+        }
+        .print-instruction ol {
+            padding-left: 20px;
+            color: #2c3e6b;
+            line-height: 1.8;
+        }
+        .print-instruction .highlight-step {
+            background: #e8edf3;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            color: #0057a8;
+            margin: 5px 0;
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .container {
@@ -328,6 +544,47 @@
                 width: 100%;
                 justify-content: center;
             }
+            .proposal-container {
+                padding: 16px;
+            }
+            .proposal-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            .proposal-title-area .title-main {
+                font-size: 18px;
+            }
+            .proposal-title-area .title-sub {
+                font-size: 14px;
+            }
+            .proposal-container .data-table td {
+                display: block;
+                padding: 4px 0;
+                border-bottom: 0;
+            }
+            .proposal-container .data-table .label {
+                width: 100%;
+                font-weight: 700;
+                margin-top: 6px;
+            }
+            .proposal-container .data-table .value {
+                width: 100%;
+                padding-left: 8px;
+                margin-bottom: 4px;
+                border-bottom: 1px dashed #eef1f6;
+            }
+            .proposal-container .premium-table td,
+            .proposal-container .premium-table th {
+                font-size: 12px;
+                padding: 6px 8px;
+            }
+            .proposal-container .signature-box .line {
+                width: 120px;
+            }
+            .proposal-actions {
+                flex-direction: column;
+            }
         }
         @media (max-width: 480px) {
             .checkbox-grid {
@@ -341,6 +598,100 @@
             }
             .result-card .value {
                 font-size: 17px;
+            }
+            .proposal-container {
+                padding: 12px 10px;
+            }
+            .proposal-container .proposal-header .title-main {
+                font-size: 16px;
+            }
+            .proposal-container .proposal-header .title-sub {
+                font-size: 13px;
+            }
+            .proposal-container .section-title {
+                font-size: 13px;
+                padding-left: 8px;
+            }
+            .proposal-container .data-table td {
+                font-size: 12px;
+            }
+        }
+
+        @media print {
+            body {
+                background: #fff !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .container>*:not(.proposal-wrapper) {
+                display: none !important;
+            }
+            .proposal-wrapper .no-print {
+                display: none !important;
+            }
+            .proposal-wrapper .print-instruction {
+                display: none !important;
+            }
+            .proposal-wrapper {
+                display: block !important;
+                border-top: 0 !important;
+                padding-top: 0 !important;
+                margin-top: 0 !important;
+                background: #fff !important;
+            }
+            .proposal-container {
+                max-width: 100% !important;
+                padding: 20px 25px !important;
+                border: 0 !important;
+                border-radius: 0 !important;
+                background: #fff !important;
+                box-shadow: none !important;
+                margin: 0 !important;
+            }
+            .proposal-container .section-title {
+                page-break-after: avoid !important;
+                page-break-inside: avoid !important;
+            }
+            .proposal-container .data-table,
+            .proposal-container .premium-table {
+                page-break-inside: avoid !important;
+            }
+            .proposal-container .signature-area,
+            .proposal-container .footer-notes {
+                page-break-inside: avoid !important;
+            }
+            .proposal-container .data-table tr,
+            .proposal-container .premium-table tr {
+                page-break-inside: avoid !important;
+            }
+            .proposal-container .proposal-header {
+                page-break-inside: avoid !important;
+            }
+            .proposal-container .data-table td {
+                padding: 4px 8px 4px 0 !important;
+                border-bottom: 1px solid #eef1f6 !important;
+            }
+            .proposal-container .premium-table th {
+                background: #f0f3f8 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .proposal-container .premium-table .highlight-row td {
+                background: #f7f9fc !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .proposal-container .proposal-header {
+                border-bottom: 3px double #1a2a4a !important;
+            }
+            .proposal-container .signature-area {
+                border-top: 2px solid #eef1f6 !important;
+            }
+            .proposal-container .footer-notes {
+                border-top: 1px solid #e0e5ed !important;
+            }
+            .proposal-container {
+                page-break-after: avoid;
             }
         }
     </style>
@@ -434,6 +785,7 @@
 
         <div class="btn-group">
             <button class="btn btn-primary" onclick="hitungPremi()">🔍 Hitung Premi</button>
+            <button class="btn btn-success" onclick="cetakProposal()" id="btnCetak" disabled>📄 Cetak Proposal</button>
             <button class="btn btn-outline" onclick="resetForm()">↺ Reset</button>
         </div>
 
@@ -463,6 +815,70 @@
             </div>
         </div>
 
+        <!-- ===== PROPOSAL ===== -->
+        <div class="proposal-wrapper" id="proposalWrapper">
+            <div class="proposal-container" id="proposalContainer">
+                <div class="proposal-header">
+                    <div class="proposal-logo">✈️</div>
+                    <div class="proposal-title-area">
+                        <div class="title-main">PROPOSAL ASURANSI PERJALANAN</div>
+                        <div class="title-sub" id="proposalSubTitle">Zurich Travel Insurance</div>
+                        <div class="title-desc" id="proposalDesc">Dokumen Penawaran Perlindungan Perjalanan</div>
+                    </div>
+                </div>
+
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;font-size:14px;flex-wrap:wrap;gap:10px;">
+                    <div><strong>Kepada Yth.</strong><br />Bapak / Ibu <strong id="pNama">-</strong><br /><span style="font-size:13px;color:#4a5a72;" id="pInfoTambahan"></span></div>
+                    <div style="background:#f0f3f8;padding:5px 14px;border-radius:20px;font-weight:600;color:#1a2a4a;font-size:13px;white-space:nowrap;">No. Proposal: <strong id="pNoProposal">ZUR/PROP/2026/001</strong></div>
+                </div>
+
+                <div class="section-title section-title-first">A. DATA PERTANGGUNGAN</div>
+                <div id="proposalDataContent"></div>
+
+                <div class="section-title">B. PERHITUNGAN PREMI</div>
+                <table class="premium-table">
+                    <thead><tr><th style="width:60%;">Komponen</th><th style="width:20%;text-align:right;">Detail</th><th style="width:20%;text-align:right;">Premi (Rp)</th></tr></thead>
+                    <tbody id="pPremiumBody"></tbody>
+                </table>
+
+                <div class="section-title">C. MANFAAT PERLINDUNGAN</div>
+                <div id="proposalManfaatContent"></div>
+
+                <div class="section-title">D. PERNYATAAN &amp; PERSETUJUAN</div>
+                <p style="font-size:14px;color:#1e2f4a;line-height:1.6;margin-bottom:14px;">Dengan ini saya menyatakan bahwa data dan keterangan yang saya berikan adalah benar dan dapat dipertanggungjawabkan. Saya telah membaca, memahami, dan menyetujui ketentuan-ketentuan yang berlaku.</p>
+
+                <div class="signature-area">
+                    <div class="signature-box">
+                        <div class="label">Tanda Tangan Pemohon</div>
+                        <div class="line">&nbsp;</div>
+                        <div class="city-date" id="pKotaTanggal">-</div>
+                    </div>
+                    <div class="signature-box" style="text-align:right;">
+                        <div class="label">Penerima / Agen</div>
+                        <div class="line">&nbsp;</div>
+                        <div class="city-date">&nbsp;</div>
+                    </div>
+                </div>
+
+                <div class="footer-notes" id="footerNotes"></div>
+
+                <div class="proposal-actions no-print">
+                    <button class="btn btn-success btn-sm" onclick="downloadPDF()">📥 Download PDF</button>
+                    <button class="btn btn-danger btn-sm" onclick="tutupProposal()">✖️ Tutup</button>
+                </div>
+
+                <div class="print-instruction no-print" id="printInstruction">
+                    <h4>📋 Cara Menyimpan sebagai PDF:</h4>
+                    <ol>
+                        <li>Klik tombol <span class="highlight-step">"Download PDF"</span> di atas</li>
+                        <li>Pada jendela print, pilih <span class="highlight-step">"Save as PDF"</span></li>
+                        <li>Klik <span class="highlight-step">"Save"</span></li>
+                        <li>Pilih lokasi penyimpanan</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
         <!-- ===== LOADING ===== -->
         <div id="loadingStatus" style="text-align:center;padding:20px;color:#5e7a93;display:none;">
             <div style="border:4px solid #f3f3f3;border-top:4px solid #0057a8;border-radius:50%;width:40px;height:40px;animation:spin 1s linear infinite;margin:0 auto 10px;"></div>
@@ -484,8 +900,9 @@
         // ============================================================
         // GLOBAL VARIABLES
         // ============================================================
-        let db = null; // akan diisi dari JSON
+        let db = null;
         let usia = 0;
+        let hasilPerhitungan = null;
 
         // ============================================================
         // LOAD DATABASE
@@ -499,7 +916,6 @@
                 db = await response.json();
                 console.log('✅ Database loaded:', db.meta.nama_produk, 'v' + db.meta.versi);
                 loading.style.display = 'none';
-                // inisialisasi form
                 updateAreaOptions();
                 updateTierOptions();
                 updateTambahanOptions();
@@ -587,33 +1003,30 @@
             const grid = document.getElementById('tambahanGrid');
             const checks = grid.querySelectorAll('input[type="checkbox"]');
 
-            // Tentukan mana yang tersedia
             let available = [];
             if (jenis === 'internasional') {
-                // Cek apakah ada data tambahan untuk kombinasi ini
                 const tambah = db.tambahan.internasional;
                 if (polis === 'pulang_pergi') {
                     const usiaKey = usia >= 70 ? 'usia_70_plus' : 'usia_1_69';
-                    if (tambah.pulang_pergi[usiaKey] && tambah.pulang_pergi[usiaKey][area] && tambah.pulang_pergi[usiaKey][area][tier]) {
+                    if (tambah.pulang_pergi[usiaKey] && tambah.pulang_pergi[usiaKey][area] && tambah.pulang_pergi[usiaKey][
+                            area][tier]) {
                         available = Object.keys(tambah.pulang_pergi[usiaKey][area][tier]);
                     }
                 } else if (polis === 'tahunan') {
-                    if (area === 'worldwide' && tambah.tahunan && tambah.tahunan.worldwide && tambah.tahunan.worldwide[tier]) {
+                    if (area === 'worldwide' && tambah.tahunan && tambah.tahunan.worldwide && tambah.tahunan.worldwide[
+                            tier]) {
                         available = Object.keys(tambah.tahunan.worldwide[tier]);
                     }
                 }
             } else {
-                // Domestik
                 const tambah = db.tambahan.domestik;
                 if (polis === 'pulang_pergi') {
                     if (tambah.pulang_pergi && tambah.pulang_pergi[tier]) {
                         available = Object.keys(tambah.pulang_pergi[tier]);
                     }
                 }
-                // Tahunan domestik tidak ada tambahan
             }
 
-            // Map checkbox value ke id
             const mapId = {
                 'visa': 'tmb_visa',
                 'olahraga_salju': 'tmb_olahraga_salju',
@@ -628,7 +1041,6 @@
                 const isAvailable = available.includes(val);
                 cb.disabled = !isAvailable;
                 if (!isAvailable) cb.checked = false;
-                // Label styling
                 const label = cb.closest('label');
                 if (label) {
                     label.style.opacity = isAvailable ? '1' : '0.4';
@@ -656,9 +1068,7 @@
             const tierData = areaData[tier];
             if (!tierData) return { premi: 0, detail: 'Tier tidak ditemukan' };
 
-            // Cek apakah polis tahunan
             if (polis === 'tahunan') {
-                // Cek apakah tersedia untuk area ini
                 if (area !== 'worldwide' && area !== 'domestik') {
                     return { premi: 0, detail: 'Polis Tahunan hanya tersedia untuk Worldwide dan Domestik' };
                 }
@@ -673,7 +1083,6 @@
                 return { premi: 0, detail: 'Paket tahunan tidak tersedia untuk tier ini' };
             }
 
-            // Pulang Pergi
             let rangeKey = null;
             const ranges = db.range_durasi || [];
             for (let r of ranges) {
@@ -687,7 +1096,6 @@
                 return { premi: tierData[rangeKey], detail: rangeKey.replace('_', ' - ') + ' hari' };
             }
 
-            // Jika durasi > 31 hari, hitung dengan per_minggu
             if (durasi > 31 && tierData['per_minggu'] !== undefined) {
                 const base = tierData['26_31'] || 0;
                 const extraDays = durasi - 31;
@@ -709,7 +1117,6 @@
             const jenis = document.getElementById('jenisPerjalanan').value;
             const usiaKey = usia >= 70 ? 'usia_70_plus' : 'usia_1_69';
 
-            // Ambil semua checkbox yang dicentang
             const checks = document.querySelectorAll('#tambahanGrid input[type="checkbox"]:checked');
             if (checks.length === 0) return { total: 0, detail: [] };
 
@@ -725,7 +1132,6 @@
                     dataTambahan = tambah.tahunan?.worldwide?.[tier];
                 }
             } else {
-                // Domestik
                 const tambah = db.tambahan.domestik;
                 if (polis === 'pulang_pergi') {
                     dataTambahan = tambah.pulang_pergi?.[tier];
@@ -771,17 +1177,14 @@
 
             if (!manfaatData) return [];
 
-            // Filter berdasarkan usia
-            const usiaRange = getUsiaRange(usia);
-            const filtered = [];
             const daftar = manfaatData.daftar || [];
+            const filtered = [];
+
             daftar.forEach(item => {
-                // Cek apakah item memiliki keterangan usia
                 const ket = item.keterangan || '';
                 const match = ket.match(/Usia\s*(\d+)\s*ke\s*(bawah|atas)/i) ||
                     ket.match(/Usia\s*(\d+)\s*-\s*(\d+)/);
                 if (match) {
-                    // Ada filter usia, cek apakah sesuai
                     let include = false;
                     if (ket.includes('ke bawah')) {
                         const max = parseInt(match[1]);
@@ -796,32 +1199,17 @@
                     }
                     if (include) filtered.push(item);
                 } else {
-                    // Tidak ada filter usia, tampilkan semua
-                    // Kecuali item dengan keterangan "Per anak" atau "Maksimum" - tetap tampilkan
                     filtered.push(item);
                 }
             });
 
-            // Jika tidak ada hasil filter, tampilkan semua (fallback)
-            if (filtered.length === 0) {
-                return daftar;
-            }
-            return filtered;
-        }
-
-        function getUsiaRange(usia) {
-            const ranges = db.range_usia || [];
-            for (let r of ranges) {
-                if (usia >= r.min && usia <= r.max) return r.kode;
-            }
-            return '19_65'; // default
+            return filtered.length > 0 ? filtered : daftar;
         }
 
         // ============================================================
         // MAIN HITUNG
         // ============================================================
         function hitungPremi() {
-            // Validasi
             const nama = document.getElementById('nama').value.trim();
             const noHp = document.getElementById('noHp').value.trim();
             if (!nama) { alert('Isi Nama Lengkap!'); return; }
@@ -831,23 +1219,18 @@
             const resultBox = document.getElementById('resultBox');
             resultBox.classList.add('show');
 
-            // 1. Premi Dasar
             const hasilDasar = getPremiDasar();
             const premiDasar = hasilDasar.premi;
 
-            // 2. Premi Tambahan
             const hasilTambahan = getPremiTambahan();
             const premiTambahan = hasilTambahan.total;
 
-            // 3. Total
             const total = premiDasar + premiTambahan;
 
-            // 4. Tampilkan
             document.getElementById('totalPremi').textContent = 'Rp ' + formatRupiah(total);
             document.getElementById('premiDasar').textContent = 'Rp ' + formatRupiah(premiDasar);
             document.getElementById('premiTambahan').textContent = 'Rp ' + formatRupiah(premiTambahan);
 
-            // Detail
             const detailBody = document.getElementById('resultDetail');
             let detailHtml = '';
             detailHtml += `<tr><td>Premi Dasar</td><td style="text-align:right;">Rp ${formatRupiah(premiDasar)}</td></tr>`;
@@ -868,7 +1251,6 @@
             detailHtml += `<tr class="total-row"><td>Total Premi</td><td style="text-align:right;">Rp ${formatRupiah(total)}</td></tr>`;
             detailBody.innerHTML = detailHtml;
 
-            // 5. Manfaat
             const manfaatList = getManfaat();
             const manfaatBody = document.getElementById('resultManfaat');
             if (manfaatList.length === 0) {
@@ -886,13 +1268,162 @@
                     const displayNilai = (nilai === 'Dijamin' || nilai === 'Biaya Sebenarnya' || nilai === '-') ? nilai :
                         'Rp ' + formatRupiah(parseInt(String(nilai).replace(/[^0-9]/g, '')) || 0);
                     const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' : '';
-                    mHtml += `<tr><td style="padding-left:12px;">${item.manfaat}${ket}</td><td style="text-align:right;font-weight:600;">${displayNilai}</td></tr>`;
+                    mHtml +=
+                        `<tr><td style="padding-left:12px;">${item.manfaat}${ket}</td><td style="text-align:right;font-weight:600;">${displayNilai}</td></tr>`;
                 });
                 manfaatBody.innerHTML = mHtml;
             }
 
-            // Scroll ke hasil
+            // Simpan hasil untuk proposal
+            hasilPerhitungan = {
+                nama: nama,
+                noHp: noHp,
+                usia: usia,
+                jenisPerjalanan: document.getElementById('jenisPerjalanan').value,
+                area: document.getElementById('area').value,
+                tier: document.getElementById('tier').value,
+                jenisPolis: document.getElementById('jenisPolis').value,
+                durasi: parseInt(document.getElementById('durasi').value) || 1,
+                premiDasar: premiDasar,
+                premiTambahan: premiTambahan,
+                total: total,
+                detailDasar: hasilDasar.detail,
+                detailTambahan: hasilTambahan.detail,
+                manfaat: manfaatList
+            };
+
+            document.getElementById('btnCetak').disabled = false;
             resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ============================================================
+        // CETAK PROPOSAL
+        // ============================================================
+        function cetakProposal() {
+            if (!hasilPerhitungan) {
+                alert('Hitung premi terlebih dahulu!');
+                return;
+            }
+            tampilkanProposal(hasilPerhitungan);
+        }
+
+        function tampilkanProposal(h) {
+            const wrapper = document.getElementById('proposalWrapper');
+            wrapper.classList.add('show');
+
+            const areaLabels = { worldwide: 'Worldwide', eropa: 'Eropa', asia: 'Asia', domestik: 'Domestik' };
+            const tierLabels = {
+                prime: 'Prime',
+                edge: 'Edge',
+                lite: 'Lite',
+                boost: 'Boost',
+                joy: 'Joy',
+                roadtrip: 'Roadtrip'
+            };
+            const jenisPerjalananLabel = h.jenisPerjalanan === 'internasional' ? 'Internasional' : 'Domestik';
+            const jenisPolisLabel = h.jenisPolis === 'pulang_pergi' ? 'Perjalanan Pulang Pergi' : 'Tahunan';
+
+            document.getElementById('pNama').textContent = h.nama;
+            document.getElementById('pInfoTambahan').textContent = 'No. HP: ' + h.noHp + ' | Usia: ' + h.usia + ' tahun';
+            document.getElementById('proposalSubTitle').textContent = 'Zurich Travel Insurance - ' + jenisPerjalananLabel;
+            document.getElementById('proposalDesc').textContent = 'Dokumen Penawaran Perlindungan Perjalanan ' + jenisPerjalananLabel;
+
+            const now = new Date();
+            const tgl = formatTanggal(now);
+            document.getElementById('pKotaTanggal').textContent = tgl;
+            document.getElementById('pNoProposal').textContent = 'ZUR/PROP/' + now.getFullYear() + '/' + String(now.getMonth() +
+                1).padStart(2, '0') + String(now.getDate()).padStart(2, '0') + String(Math.floor(Math.random() * 1000))
+                .padStart(3, '0');
+
+            // Data Pertanggungan
+            document.getElementById('proposalDataContent').innerHTML = `
+                <table class="data-table">
+                    <tr><td class="label">Nama Lengkap</td><td class="value"><strong>${h.nama}</strong></td></tr>
+                    <tr><td class="label">No. HP</td><td class="value"><strong>${h.noHp}</strong></td></tr>
+                    <tr><td class="label">Usia</td><td class="value"><strong>${h.usia} tahun</strong></td></tr>
+                    <tr><td class="label">Jenis Perjalanan</td><td class="value"><strong>${jenisPerjalananLabel}</strong></td></tr>
+                    <tr><td class="label">Area / Zona</td><td class="value"><strong>${areaLabels[h.area] || h.area}</strong></td></tr>
+                    <tr><td class="label">Paket / Tier</td><td class="value"><strong>${tierLabels[h.tier] || h.tier}</strong></td></tr>
+                    <tr><td class="label">Jenis Polis</td><td class="value"><strong>${jenisPolisLabel}</strong></td></tr>
+                    <tr><td class="label">Durasi Perjalanan</td><td class="value"><strong>${h.durasi} hari</strong></td></tr>
+                    <tr><td class="label">Tanggal Proposal</td><td class="value"><strong>${tgl}</strong></td></tr>
+                </table>
+            `;
+
+            // Perhitungan Premi
+            const premiumBody = document.getElementById('pPremiumBody');
+            let pHtml = '';
+            pHtml +=
+                `<tr><td>Premi Dasar</td><td style="text-align:right;">${h.detailDasar || '-'}</td><td style="text-align:right;">Rp ${formatRupiah(h.premiDasar)}</td></tr>`;
+
+            if (h.detailTambahan && h.detailTambahan.length > 0) {
+                pHtml += `<tr><td style="font-weight:600;padding-top:8px;color:#2c3e6b;" colspan="3">Manfaat Tambahan:</td></tr>`;
+                h.detailTambahan.forEach(item => {
+                    pHtml +=
+                        `<tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">${item.nama}</td><td style="text-align:right;"></td><td style="text-align:right;">Rp ${formatRupiah(item.premi)}</td></tr>`;
+                });
+                const totalTambahan = h.detailTambahan.reduce((sum, i) => sum + i.premi, 0);
+                pHtml +=
+                    `<tr style="border-top:1px solid #dce3ec;"><td style="font-weight:600;color:#1a3a5c;">Total Tambahan</td><td style="text-align:right;"></td><td style="text-align:right;font-weight:600;color:#1a3a5c;">Rp ${formatRupiah(totalTambahan)}</td></tr>`;
+            } else {
+                pHtml +=
+                    `<tr><td style="padding-left:20px;color:#5e7a93;font-size:13px;" colspan="3">Tidak ada manfaat tambahan</td></tr>`;
+            }
+
+            pHtml +=
+                `<tr class="highlight-row"><td><strong>Total Premi</strong></td><td style="text-align:right;"></td><td style="text-align:right;"><strong>Rp ${formatRupiah(h.total)}</strong></td></tr>`;
+            premiumBody.innerHTML = pHtml;
+
+            // Manfaat Perlindungan
+            const manfaatContainer = document.getElementById('proposalManfaatContent');
+            if (h.manfaat && h.manfaat.length > 0) {
+                let mHtml = '<table class="data-table">';
+                let currentBagian = '';
+                h.manfaat.forEach(item => {
+                    const bagian = item.bagian || '';
+                    if (bagian !== currentBagian) {
+                        currentBagian = bagian;
+                        mHtml +=
+                            `<tr><td style="font-weight:700;color:#0057a8;padding-top:10px;" colspan="2">${bagian}</td></tr>`;
+                    }
+                    const nilai = item.nilai;
+                    const displayNilai = (nilai === 'Dijamin' || nilai === 'Biaya Sebenarnya' || nilai === '-') ? nilai :
+                        'Rp ' + formatRupiah(parseInt(String(nilai).replace(/[^0-9]/g, '')) || 0);
+                    const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' : '';
+                    mHtml +=
+                        `<tr><td style="padding-left:12px;">${item.manfaat}${ket}</td><td style="text-align:right;font-weight:600;">${displayNilai}</td></tr>`;
+                });
+                mHtml += '</table>';
+                manfaatContainer.innerHTML = mHtml;
+            } else {
+                manfaatContainer.innerHTML = '<p style="color:#5e7a93;">Tidak ada manfaat yang tersedia</p>';
+            }
+
+            document.getElementById('footerNotes').innerHTML = `
+                <ul>
+                    <li><strong>Catatan:</strong> Perhitungan premi ini adalah perkiraan berdasarkan data yang diberikan.</li>
+                    <li>Premi final dapat berubah setelah verifikasi data dan dokumen pendukung.</li>
+                    <li style="margin-top:4px;font-size:11px;color:#7a8a9f;">Dokumen ini adalah proposal / penawaran awal.</li>
+                    <li style="font-size:11px;color:#7a8a9f;">PT Zurich Asuransi Indonesia Tbk berizin dan diawasi oleh OJK.</li>
+                </ul>
+            `;
+
+            document.getElementById('printInstruction').classList.remove('show');
+            wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ============================================================
+        // PROPOSAL ACTIONS
+        // ============================================================
+        function downloadPDF() {
+            document.getElementById('proposalWrapper').classList.add('show');
+            document.getElementById('printInstruction').classList.add('show');
+            setTimeout(function() { window.print(); }, 500);
+        }
+
+        function tutupProposal() {
+            document.getElementById('proposalWrapper').classList.remove('show');
+            document.getElementById('printInstruction').classList.remove('show');
         }
 
         // ============================================================
@@ -913,6 +1444,26 @@
             updateAreaOptions();
             updateTambahanOptions();
             document.getElementById('resultBox').classList.remove('show');
+            document.getElementById('btnCetak').disabled = true;
+            hasilPerhitungan = null;
+            tutupProposal();
+        }
+
+        // ============================================================
+        // HELPERS
+        // ============================================================
+        function formatRupiah(angka) {
+            if (!angka || isNaN(angka) || angka === 0) return '0';
+            if (angka >= 1000000000) return (angka / 1000000000).toFixed(1) + ' Miliar';
+            if (angka >= 1000000) return (angka / 1000000).toFixed(0) + ' Juta';
+            return angka.toLocaleString('id-ID');
+        }
+
+        function formatTanggal(date) {
+            const bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober',
+                'November', 'Desember'
+            ];
+            return date.getDate() + ' ' + bulan[date.getMonth()] + ' ' + date.getFullYear();
         }
 
         // ============================================================
@@ -926,7 +1477,6 @@
         document.getElementById('jenisPerjalanan').addEventListener('change', function() {
             updateAreaOptions();
             updateTambahanOptions();
-            // Update label tier
             const tierSelect = document.getElementById('tier');
             const labels = {
                 prime: 'Prime (Tertinggi)',
@@ -955,19 +1505,6 @@
             updateTambahanOptions();
         });
 
-        // ============================================================
-        // HELPERS
-        // ============================================================
-        function formatRupiah(angka) {
-            if (!angka || isNaN(angka) || angka === 0) return '0';
-            if (angka >= 1000000000) return (angka / 1000000000).toFixed(1) + ' Miliar';
-            if (angka >= 1000000) return (angka / 1000000).toFixed(0) + ' Juta';
-            return angka.toLocaleString('id-ID');
-        }
-
-        // ============================================================
-        // ENTER KEY
-        // ============================================================
         document.querySelectorAll('input, select').forEach(el => {
             el.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') hitungPremi();
@@ -979,12 +1516,10 @@
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
             loadDatabase();
-            // Set default date
-            const today = new Date();
-            const defaultDate = new Date(1990, 2, 15);
             document.getElementById('tanggalLahir').value = '1990-03-15';
             hitungUsia();
             document.getElementById('tahunanInfo').style.display = 'none';
+            document.getElementById('btnCetak').disabled = true;
         });
     </script>
 </body>
