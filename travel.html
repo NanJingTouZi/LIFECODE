@@ -1311,7 +1311,7 @@
         }
 
         // ============================================================
-        // GET MANFAAT - tanpa manfaat tambahan (NILAI MANFAAT, BUKAN PREMI)
+        // GET MANFAAT DASAR (dari database) - TANPA MANFAAT TAMBAHAN
         // ============================================================
         function getManfaatDasar() {
             const jenis = document.getElementById('jenisPerjalanan').value;
@@ -1331,8 +1331,10 @@
 
             daftar.forEach(item => {
                 const bagian = item.bagian || '';
+                // Skip manfaat tambahan (bagian G) - ini ditangani terpisah
                 if (bagian.startsWith('G')) return;
 
+                // Filter berdasarkan usia
                 const ket = item.keterangan || '';
                 const match = ket.match(/Usia\s*(\d+)\s*ke\s*(bawah|atas)/i) ||
                     ket.match(/Usia\s*(\d+)\s*-\s*(\d+)/);
@@ -1359,13 +1361,13 @@
         }
 
         // ============================================================
-        // TAMPILKAN NILAI MANFAAT (PERTANGGUNGAN)
+        // FORMAT NILAI MANFAAT (PERTANGGUNGAN)
         // ============================================================
-        function displayManfaatValue(nilai) {
+        function formatManfaatValue(nilai) {
             if (nilai === 'Dijamin') return 'Dijamin';
             if (nilai === 'Biaya Sebenarnya') return 'Biaya Sebenarnya';
             if (nilai === '-') return '-';
-            // Jika nilai adalah string dengan format "1.000.000 / 10.000.000"
+            // Handle format "1.000.000 / 10.000.000"
             if (typeof nilai === 'string' && nilai.includes('/')) {
                 return nilai;
             }
@@ -1399,6 +1401,7 @@
             document.getElementById('premiDasar').textContent = 'Rp ' + formatRupiahFull(premiDasar);
             document.getElementById('premiTambahan').textContent = 'Rp ' + formatRupiahFull(premiTambahan);
 
+            // Detail Premi
             const detailBody = document.getElementById('resultDetail');
             let detailHtml = '';
             detailHtml += `<tr><td>Premi Dasar</td><td style="text-align:right;">Rp ${formatRupiahFull(premiDasar)}</td></tr>`;
@@ -1419,7 +1422,9 @@
             detailHtml += `<tr class="total-row"><td>Total Premi</td><td style="text-align:right;">Rp ${formatRupiahFull(total)}</td></tr>`;
             detailBody.innerHTML = detailHtml;
 
-            // Manfaat Dasar (tanpa G) - TAMPILKAN NILAI MANFAAT
+            // ==========================================================
+            // TABEL MANFAAT - TAMPILKAN NILAI PERTANGGUNGAN (bukan premi)
+            // ==========================================================
             const manfaatDasar = getManfaatDasar();
             const manfaatTambahan = selectedTambahan;
 
@@ -1430,6 +1435,7 @@
                 let mHtml = '';
                 let groupMap = {};
 
+                // Kelompokkan manfaat dasar berdasarkan bagian (A, B, C, D, E, F)
                 manfaatDasar.forEach(item => {
                     const bagian = item.bagian || '';
                     const groupKey = bagian.charAt(0) || '';
@@ -1437,6 +1443,7 @@
                     groupMap[groupKey].push({ type: 'dasar', item: item });
                 });
 
+                // Tambahkan manfaat tambahan yang dipilih ke grup G
                 if (manfaatTambahan.length > 0) {
                     if (!groupMap['G']) groupMap['G'] = [];
                     manfaatTambahan.forEach(t => {
@@ -1445,7 +1452,7 @@
                             item: {
                                 manfaat: t.nama,
                                 keterangan: '(Tambahan)',
-                                nilai: t.premi // untuk tambahan, tampilkan premi
+                                nilai: t.premi // untuk tambahan tampilkan premi-nya
                             }
                         });
                     });
@@ -1458,7 +1465,7 @@
                     'D': 'Ketidaknyamanan Perjalanan',
                     'E': 'Barang Pribadi',
                     'F': 'Manfaat Lain-Lain',
-                    'G': 'Manfaat Tambahan (Premi)'
+                    'G': 'Manfaat Tambahan'
                 };
 
                 Object.keys(groupMap).forEach(key => {
@@ -1467,11 +1474,12 @@
                     groupMap[key].forEach(entry => {
                         const item = entry.item;
                         const isTambahan = entry.type === 'tambahan';
-                        // Tampilkan nilai manfaat (bukan premi)
-                        const displayNilai = isTambahan ? 
-                            'Rp ' + formatRupiahFull(item.nilai) : 
-                            displayManfaatValue(item.nilai);
-                        const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' : '';
+                        // TAMPILKAN NILAI MANFAAT (PERTANGGUNGAN) dari database
+                        const displayNilai = isTambahan ?
+                            'Rp ' + formatRupiahFull(item.nilai) :
+                            formatManfaatValue(item.nilai);
+                        const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' :
+                            '';
                         const style = isTambahan ? 'style="color:#1e7e34;"' : '';
                         mHtml +=
                             `<tr ${style}><td style="padding-left:12px;">${item.manfaat}${ket}</td><td style="text-align:right;font-weight:600;">${displayNilai}</td></tr>`;
@@ -1582,7 +1590,9 @@
                 `<tr class="highlight-row"><td><strong>Total Premi</strong></td><td style="text-align:right;"></td><td style="text-align:right;"><strong>Rp ${formatRupiahFull(h.total)}</strong></td></tr>`;
             premiumBody.innerHTML = pHtml;
 
-            // Manfaat Perlindungan - TAMPILKAN NILAI MANFAAT
+            // ==========================================================
+            // TABEL MANFAAT DI PROPOSAL - TAMPILKAN NILAI PERTANGGUNGAN
+            // ==========================================================
             const manfaatContainer = document.getElementById('proposalManfaatContent');
             const manfaatDasar = h.manfaatDasar || [];
             const manfaatTambahan = h.manfaatTambahan || [];
@@ -1629,10 +1639,12 @@
                     groupMap[key].forEach(entry => {
                         const item = entry.item;
                         const isTambahan = entry.type === 'tambahan';
-                        const displayNilai = isTambahan ? 
-                            'Rp ' + formatRupiahFull(item.nilai) : 
-                            displayManfaatValue(item.nilai);
-                        const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' : '';
+                        // TAMPILKAN NILAI MANFAAT (PERTANGGUNGAN)
+                        const displayNilai = isTambahan ?
+                            'Rp ' + formatRupiahFull(item.nilai) :
+                            formatManfaatValue(item.nilai);
+                        const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' :
+                            '';
                         const className = isTambahan ? 'tambahan-item' : 'manfaat-item';
                         mHtml +=
                             `<tr class="${className}"><td>${item.manfaat}${ket}</td><td class="nilai">${displayNilai}</td></tr>`;
@@ -1697,17 +1709,6 @@
         function formatRupiahFull(angka) {
             if (!angka || isNaN(angka) || angka === 0) return '0';
             return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-        }
-
-        function displayManfaatValue(nilai) {
-            if (nilai === 'Dijamin') return 'Dijamin';
-            if (nilai === 'Biaya Sebenarnya') return 'Biaya Sebenarnya';
-            if (nilai === '-') return '-';
-            if (typeof nilai === 'string' && nilai.includes('/')) {
-                return nilai;
-            }
-            const num = parseInt(String(nilai).replace(/[^0-9]/g, '')) || 0;
-            return 'Rp ' + formatRupiahFull(num);
         }
 
         function formatTanggal(date) {
