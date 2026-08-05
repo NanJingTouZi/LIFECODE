@@ -252,201 +252,23 @@
         .quota-modal-overlay .quota-btn:hover{transform:scale(1.02);box-shadow:0 8px 24px rgba(37,211,102,.3)}
         .quota-modal-overlay .quota-btn-secondary{background:transparent;color:#5e7a93;border:1px solid #dce3ec;border-radius:10px;padding:10px 24px;font-size:14px;cursor:pointer;margin-top:10px;width:100%;transition:.2s}
         .quota-modal-overlay .quota-btn-secondary:hover{background:#f0f4f8}
-        
-        /* ===== TRAVEL SPECIFIC ===== */
-        .travel-checkbox-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 8px 16px;
-            padding: 12px 14px;
-            background: #f8fafc;
-            border-radius: 10px;
-            border: 1px solid #dce3ec;
-        }
-        .travel-checkbox-grid label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 500;
-            font-size: 13px;
-            color: #1a3a5c;
-            cursor: pointer;
-            margin-bottom: 0;
-        }
-        .travel-checkbox-grid label input[type="checkbox"] {
-            width: 17px;
-            height: 17px;
-            accent-color: #1a3a5c;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-        .travel-checkbox-grid label input[type="checkbox"]:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-        .travel-result-table {
-            background: #fff;
-            border-radius: 10px;
-            border: 1px solid #e2e8f0;
-            overflow: hidden;
-            margin-top: 12px;
-        }
-        .travel-result-table table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-        }
-        .travel-result-table th {
-            background: #1a3a5c;
-            color: #fff;
-            padding: 8px 12px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: .06em;
-        }
-        .travel-result-table td {
-            padding: 7px 12px;
-            border-bottom: 1px solid #edf2f7;
-            color: #1a3a5c;
-        }
-        .travel-result-table .total-row td {
-            font-weight: 700;
-            font-size: 15px;
-            border-top: 2px solid #1a3a5c;
-            padding-top: 10px;
-        }
-        .travel-result-table .sub-item td {
-            padding-left: 28px;
-            color: #5e7a93;
-            font-size: 12px;
-        }
-        .travel-result-table .section-header td {
-            font-weight: 600;
-            color: #1a3a5c;
-            padding-top: 10px;
-        }
-        .travel-result-table .no-data {
-            color: #5e7a93;
-            font-size: 13px;
-            padding: 6px 0;
-        }
-        .travel-result-summary {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 12px;
-            margin: 12px 0 16px;
-        }
-        .travel-result-card {
-            background: #fff;
-            padding: 14px 16px;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-            text-align: center;
-        }
-        .travel-result-card .label {
-            font-size: 11px;
-            color: #5e7a93;
-            text-transform: uppercase;
-            letter-spacing: .5px;
-            font-weight: 600;
-        }
-        .travel-result-card .value {
-            font-size: 20px;
-            font-weight: 700;
-            color: #1a3a5c;
-            margin-top: 4px;
-        }
-        .travel-result-card .value.green { color: #1e7e34; }
-        .travel-result-card .value.orange { color: #b45309; }
 
-        /* Proposal Travel */
-        .proposal-data-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2px 30px;
-            border: 1px solid #e8ecf3;
-            border-radius: 6px;
-            padding: 10px 14px;
-            background: #fafcff;
-        }
-        .proposal-data-grid .item {
-            display: flex;
-            padding: 3px 0;
-            border-bottom: 1px solid #f0f2f5;
-        }
-        .proposal-data-grid .item .label {
-            width: 120px;
-            font-weight: 600;
-            color: #2c3e6b;
-            flex-shrink: 0;
-        }
-        .proposal-data-grid .item .value {
-            color: #1e2f4a;
-            font-weight: 500;
-        }
-        .proposal-data-grid .item-full {
-            grid-column: 1 / -1;
-        }
-        .proposal-manfaat-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-            margin-top: 2px;
-        }
-        .proposal-manfaat-table td {
-            padding: 4px 8px;
-            border-bottom: 1px solid #edf2f7;
-            color: #1e2f4a;
-            vertical-align: top;
-        }
-        .proposal-manfaat-table .group-header td {
-            font-weight: 700;
-            color: #1a3a5c;
-            padding-top: 6px;
-            padding-bottom: 4px;
-            border-bottom: 2px solid #dce3ec;
-            background: #f8fafc;
-        }
-        .proposal-manfaat-table .manfaat-item td {
-            padding-left: 16px;
-            padding-top: 3px;
-            padding-bottom: 3px;
-        }
-        .proposal-manfaat-table .manfaat-item .nilai {
-            text-align: right;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-        .proposal-manfaat-table .tambahan-item td {
-            padding-left: 16px;
-            padding-top: 3px;
-            padding-bottom: 3px;
-            background: #fafff5;
-            color: #1e7e34;
-        }
-        .proposal-manfaat-table .tambahan-item .nilai {
-            text-align: right;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-        .proposal-container .premium-table .sub-item td {
-            padding-left: 28px;
-            color: #5e7a93;
-            font-size: 12px;
-        }
-        .proposal-container .premium-table .section-header td {
-            font-weight: 600;
-            color: #1a3a5c;
-            padding-top: 10px;
-        }
-        .proposal-manfaat-wrap {
-            page-break-before: auto;
-        }
-        .proposal-container .section-title-manfaat {
-            page-break-before: auto;
-        }
+        /* ===== TRAVEL: CHECKBOX GRID (3 kolom) & MANFAAT TABLE ===== */
+        .checkbox-grid-travel{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px 16px;padding:12px 14px;background:#f8fafc;border-radius:10px;border:1px solid #dce3ec}
+        .checkbox-grid-travel label{display:flex;align-items:center;gap:8px;font-weight:500;font-size:13px;color:#1a3a5c;cursor:pointer;margin-bottom:0}
+        .checkbox-grid-travel label input[type=checkbox]{width:17px;height:17px;accent-color:#1a5fb4;cursor:pointer;flex-shrink:0}
+        .checkbox-grid-travel label input[type=checkbox]:disabled{opacity:.4;cursor:not-allowed}
+        .checkbox-grid-travel label.disabled-label{opacity:.4;cursor:not-allowed}
+        .manfaat-table{width:100%;border-collapse:collapse;font-size:13px}
+        .manfaat-table td{padding:5px 8px;border-bottom:1px solid #edf2f7;color:#1e2f4a;vertical-align:top}
+        .manfaat-table .group-header td{font-weight:700;color:#1a3a5c;padding-top:10px;padding-bottom:5px;border-bottom:2px solid #dce3ec;background:#f8fafc}
+        .manfaat-table .manfaat-item td{padding-left:16px}
+        .manfaat-table .manfaat-item .nilai{text-align:right;font-weight:600;white-space:nowrap}
+        .manfaat-table .tambahan-item td{padding-left:16px;background:#fafff5;color:#1e7e34}
+        .manfaat-table .tambahan-item .nilai{text-align:right;font-weight:600;white-space:nowrap}
+        .proposal-container .manfaat-table .group-header td{background:#f8fafc;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+        .proposal-container .manfaat-table .tambahan-item td{background:#fafff5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+        #tahunanInfoTravel{display:none}
 
         @media print{
             body{background:#fff!important;padding:0!important;margin:0!important}
@@ -471,59 +293,8 @@
             .back-home{display:none!important}
             .no-print-rincian{display:none!important}
             .proposal-logo img{max-width:80px!important;max-height:80px!important}
-            .proposal-data-grid {
-                padding: 6px 10px !important;
-                border: 1px solid #d0d7e3 !important;
-            }
-            .proposal-data-grid .item {
-                padding: 2px 0 !important;
-                border-bottom: 1px solid #eef1f6 !important;
-            }
-            .proposal-data-grid .item .label {
-                width: 110px !important;
-                font-size: 12px !important;
-            }
-            .proposal-data-grid .item .value {
-                font-size: 12px !important;
-            }
-            .proposal-manfaat-table td {
-                font-size: 12px !important;
-                padding: 4px 8px !important;
-            }
-            .proposal-manfaat-table .group-header td {
-                padding-top: 6px !important;
-                padding-bottom: 4px !important;
-                background: #f8fafc !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-                font-size: 13px !important;
-            }
-            .proposal-manfaat-table .manfaat-item td {
-                padding-left: 12px !important;
-                padding-top: 3px !important;
-                padding-bottom: 3px !important;
-            }
-            .proposal-manfaat-table .tambahan-item td {
-                padding-left: 12px !important;
-                padding-top: 3px !important;
-                padding-bottom: 3px !important;
-                background: #fafff5 !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-            .proposal-manfaat-table .manfaat-item .nilai {
-                font-size: 12px !important;
-            }
-            .proposal-manfaat-table .tambahan-item .nilai {
-                font-size: 12px !important;
-            }
-            .proposal-manfaat-wrap {
-                page-break-before: always !important;
-                page-break-after: avoid !important;
-            }
-            .proposal-container .section-title-manfaat {
-                page-break-before: auto !important;
-            }
+            .manfaat-table{page-break-inside:auto!important}
+            .manfaat-table tr{page-break-inside:avoid!important}
         }
         @media (max-width:768px){
             .container{padding:20px 16px}
@@ -555,13 +326,7 @@
             .tjh-fields{margin-left:0;flex-wrap:wrap}
             .tjh-fields .field-group input{width:100px}
             .tjh-fields .field-group input.small{width:60px}
-            .travel-checkbox-grid{grid-template-columns:1fr 1fr}
-            .travel-result-summary{grid-template-columns:1fr 1fr}
-            .proposal-data-grid{grid-template-columns:1fr;gap:0}
-            .proposal-data-grid .item .label{width:100px}
-            .proposal-container .premium-table td,.proposal-container .premium-table th{font-size:11px;padding:4px 6px}
-            .proposal-container .signature-box .line{width:100px}
-            .proposal-manfaat-table td{font-size:12px;padding:3px 6px}
+            .checkbox-grid-travel{grid-template-columns:1fr 1fr}
         }
         @media (max-width:600px){
             .tab-btn{font-size:10px;padding:6px 8px;min-width:40px}
@@ -581,12 +346,6 @@
             .perluasan-row label{font-size:13px}
             .tjh-fields .field-group input{width:80px;font-size:12px;padding:4px 8px}
             .tjh-fields .field-group input.small{width:50px}
-            .travel-checkbox-grid{grid-template-columns:1fr}
-            .travel-result-summary{grid-template-columns:1fr}
-            .proposal-data-grid .item .label{width:80px;font-size:12px}
-            .proposal-data-grid .item .value{font-size:12px}
-            .proposal-container .section-title{font-size:13px;padding-left:8px}
-            .proposal-manfaat-table td{font-size:11px;padding:2px 4px}
         }
         @media (max-width:480px){
             .container{padding:12px 10px}
@@ -616,13 +375,7 @@
             .perluasan-row label{font-size:12px}
             .tjh-fields .field-group input{width:70px;font-size:11px;padding:4px 6px}
             .tjh-fields .field-group input.small{width:45px}
-            .travel-result-card .value{font-size:17px}
-            .proposal-container .proposal-header .title-main{font-size:14px}
-            .proposal-container .proposal-header .title-sub{font-size:12px}
-            .proposal-container .premium-table td,.proposal-container .premium-table th{font-size:10px;padding:3px 4px}
-            .proposal-manfaat-table td{font-size:10px;padding:2px 4px}
-            .proposal-data-grid .item .label{width:70px;font-size:11px}
-            .proposal-data-grid .item .value{font-size:11px}
+            .checkbox-grid-travel{grid-template-columns:1fr}
         }
     </style>
 </head>
@@ -823,26 +576,28 @@
 
     <!-- TAB TRAVEL -->
     <div id="tabTravel" class="tab-content">
-        <div id="formTravel">
+        <div class="loading" id="loadingTravel"><div class="spinner"></div><p>Memuat database asuransi perjalanan...</p></div>
+        <div class="data-status" id="dataStatusTravel"></div>
+        <div id="formTravel" style="display:none;">
             <div class="row">
                 <div class="form-group"><label>Nama Lengkap <span class="required">*</span></label><input type="text" id="namaTravel" placeholder="Contoh: Sutrisno" /></div>
                 <div class="form-group"><label>No. HP / Telepon <span class="required">*</span></label><input type="text" id="noHpTravel" placeholder="085270269090" /></div>
             </div>
             <div class="row">
-                <div class="form-group"><label>Tanggal Lahir <span class="required">*</span></label><input type="date" id="tanggalLahirTravel" value="1990-03-15" onchange="hitungUsiaTravel()" /></div>
-                <div class="form-group"><label>Usia Saat Ini</label><input type="text" id="usiaDisplayTravel" readonly placeholder="Akan terisi otomatis" /></div>
+                <div class="form-group"><label>Tanggal Lahir <span class="required">*</span></label><input type="date" id="tanggalLahirTravel" value="1990-03-15" /></div>
+                <div class="form-group"><label>Usia Saat Ini</label><input type="text" id="usiaSaatIniTravel" readonly placeholder="Akan terisi otomatis" /></div>
             </div>
             <div class="row">
                 <div class="form-group">
                     <label>Jenis Perjalanan <span class="required">*</span></label>
-                    <select id="jenisPerjalananTravel" onchange="updateAreaTravel(); updateTierTravel(); updateTambahanTravel();">
+                    <select id="jenisPerjalananTravel">
                         <option value="internasional">Internasional</option>
                         <option value="domestik">Domestik</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Area / Zona <span class="required">*</span></label>
-                    <select id="areaTravel" onchange="updateTambahanTravel()">
+                    <select id="areaTravel">
                         <option value="worldwide">Worldwide</option>
                         <option value="eropa">Eropa</option>
                         <option value="asia">Asia</option>
@@ -852,7 +607,7 @@
             <div class="row">
                 <div class="form-group">
                     <label>Paket / Tier <span class="required">*</span></label>
-                    <select id="tierTravel" onchange="updateTambahanTravel()">
+                    <select id="tierTravel">
                         <option value="prime">Prime (Tertinggi)</option>
                         <option value="edge">Edge (Menengah)</option>
                         <option value="lite">Lite (Dasar)</option>
@@ -860,35 +615,28 @@
                 </div>
                 <div class="form-group">
                     <label>Jenis Polis <span class="required">*</span></label>
-                    <select id="jenisPolisTravel" onchange="togglePolisTravel(); updateTambahanTravel();">
+                    <select id="jenisPolisTravel">
                         <option value="pulang_pergi">Perjalanan Pulang Pergi</option>
                         <option value="tahunan">Tahunan</option>
                     </select>
                 </div>
             </div>
             <div class="row">
-                <div class="form-group">
-                    <label>Durasi Perjalanan (hari) <span class="required">*</span></label>
-                    <input type="number" id="durasiTravel" value="7" min="1" max="365" />
-                    <span style="font-size:11px;color:#7a8fa5;">Untuk polis Tahunan, masukkan 90 atau 180</span>
-                </div>
-                <div class="form-group" id="tahunanInfoTravel" style="display:none;">
+                <div class="form-group"><label>Durasi Perjalanan (hari) <span class="required">*</span></label><input type="number" id="durasiTravel" value="7" min="1" max="365" /><span style="font-size:11px;color:#7a8fa5;">Untuk polis Tahunan, masukkan 90 atau 180</span></div>
+                <div class="form-group" id="tahunanInfoTravel">
                     <label>Pilih Paket Tahunan</label>
-                    <select id="tahunanPaketTravel" onchange="updateTambahanTravel()">
-                        <option value="90">90 hari</option>
-                        <option value="180">180 hari</option>
-                    </select>
+                    <select id="tahunanPaketTravel"><option value="90">90 hari</option><option value="180">180 hari</option></select>
                 </div>
             </div>
             <div class="form-group">
-                <label>Manfaat Tambahan (Opsional)</label>
-                <div class="travel-checkbox-grid" id="tambahanGridTravel">
-                    <label><input type="checkbox" id="tmb_visaTravel" value="visa" onchange="updateTambahanTravel()" /> Perlindungan Visa</label>
-                    <label><input type="checkbox" id="tmb_olahraga_saljuTravel" value="olahraga_salju" onchange="updateTambahanTravel()" /> Olahraga Salju</label>
-                    <label><input type="checkbox" id="tmb_kapal_pesiarTravel" value="kapal_pesiar" onchange="updateTambahanTravel()" /> Jaminan Kapal Pesiar</label>
-                    <label><input type="checkbox" id="tmb_petualanganTravel" value="petualangan" onchange="updateTambahanTravel()" /> Aktivitas Petualangan</label>
-                    <label><input type="checkbox" id="tmb_bisnisTravel" value="bisnis" onchange="updateTambahanTravel()" /> Perjalanan Bisnis</label>
-                    <label><input type="checkbox" id="tmb_olahraga_amatirTravel" value="olahraga_amatir" onchange="updateTambahanTravel()" /> Acara Olahraga Amatir</label>
+                <label style="margin-bottom:8px;">Manfaat Tambahan (Opsional)</label>
+                <div class="checkbox-grid-travel" id="tambahanGridTravel">
+                    <label><input type="checkbox" id="tmb_visaTravel" value="visa" /> Perlindungan Visa</label>
+                    <label><input type="checkbox" id="tmb_olahraga_saljuTravel" value="olahraga_salju" /> Olahraga Salju</label>
+                    <label><input type="checkbox" id="tmb_kapal_pesiarTravel" value="kapal_pesiar" /> Jaminan Kapal Pesiar</label>
+                    <label><input type="checkbox" id="tmb_petualanganTravel" value="petualangan" /> Aktivitas Petualangan</label>
+                    <label><input type="checkbox" id="tmb_bisnisTravel" value="bisnis" /> Perjalanan Bisnis</label>
+                    <label><input type="checkbox" id="tmb_olahraga_amatirTravel" value="olahraga_amatir" /> Acara Olahraga Amatir</label>
                 </div>
             </div>
             <div class="btn-group no-print">
@@ -899,28 +647,15 @@
         </div>
         <div class="result-box no-print" id="resultTravel">
             <div class="view-indicator" id="viewIndicatorTravel">🔄 Melihat ulang dari riwayat (tidak mengurangi kuota)</div>
-            <h3>💰 Hasil Perhitungan Asuransi Perjalanan</h3>
-            <div class="travel-result-summary">
-                <div class="travel-result-card"><div class="label">Total Premi</div><div class="value green" id="totalPremiTravel">Rp 0</div></div>
-                <div class="travel-result-card"><div class="label">Premi Dasar</div><div class="value" id="premiDasarTravel">Rp 0</div></div>
-                <div class="travel-result-card"><div class="label">Premi Tambahan</div><div class="value orange" id="premiTambahanTravel">Rp 0</div></div>
+            <h3>✈️ Hasil Perhitungan Premi Travel</h3>
+            <div class="summary-grid">
+                <div class="summary-card"><div class="label">Total Premi</div><div class="value green" id="sTotalPremiTravel">-</div></div>
+                <div class="summary-card"><div class="label">Premi Dasar</div><div class="value blue" id="sPremiDasarTravel">-</div></div>
+                <div class="summary-card"><div class="label">Premi Tambahan</div><div class="value orange" id="sPremiTambahanTravel">-</div></div>
             </div>
-            <div class="travel-result-table">
-                <table>
-                    <thead><tr><th style="width:50%;">Komponen</th><th style="text-align:right;">Nilai</th></tr></thead>
-                    <tbody id="resultDetailTravel">
-                        <tr><td colspan="2" class="no-data">Belum ada data</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="travel-result-table" style="margin-top:12px;">
-                <table>
-                    <thead><tr><th colspan="2">📋 Manfaat Perlindungan</th></tr></thead>
-                    <tbody id="resultManfaatTravel">
-                        <tr><td colspan="2" class="no-data">Belum ada data</td></tr>
-                    </tbody>
-                </table>
-            </div>
+            <div class="breakdown"><table class="detail-table"><tbody id="detailBodyTravel"></tbody></table></div>
+            <h3 style="margin-top:18px;font-size:16px;">📋 Manfaat Perlindungan</h3>
+            <div class="breakdown"><table class="manfaat-table" id="manfaatBodyWrapTravel"><tbody id="manfaatBodyTravel"></tbody></table></div>
         </div>
     </div>
 
@@ -1040,11 +775,13 @@
             <!-- ===== KOP SURAT DENGAN LOGO ===== -->
             <div class="proposal-header">
                 <div class="proposal-logo">
+                    <!-- Logo dari file nanjing-ico1.png -->
                     <img src="nanjing-ico1.png" 
                          alt="Logo Perusahaan" 
                          id="proposalLogo" 
                          style="display:block;width:80px;height:80px;object-fit:contain;"
                          onerror="this.style.display='none'; document.getElementById('logoPlaceholder').style.display='flex';" />
+                    <!-- Placeholder jika gambar gagal load -->
                     <div class="logo-placeholder" id="logoPlaceholder" style="display:none;">A</div>
                 </div>
                 <div class="proposal-title-area">
@@ -1065,20 +802,7 @@
             <div id="proposalWealthSection" style="display:none;"><div class="section-title">B. PERHITUNGAN DANA PENSIUN</div><div id="proposalWealthContent"></div></div>
             <div id="proposalRekomendasiSection" style="display:none;"><div class="section-title">C. REKOMENDASI</div><div id="proposalRekomendasiContent" style="font-size:14px;color:#1e2f4a;line-height:1.8;padding:0 4px;"></div></div>
             <div id="proposalJiwaSection" style="display:none;"><div class="section-title">B. PERHITUNGAN KEBUTUHAN</div><div id="proposalJiwaContent"></div><div class="section-title">C. REKOMENDASI</div><div id="proposalRekomendasiJiwa" style="font-size:14px;color:#1e2f4a;line-height:1.8;padding:0 4px;"></div></div>
-            
-            <!-- Travel Proposal Sections -->
-            <div id="proposalTravelSection" style="display:none;">
-                <div class="section-title">B. PERHITUNGAN PREMI</div>
-                <table class="premium-table">
-                    <thead><tr><th style="width:50%;">Komponen</th><th style="width:25%;text-align:right;">Detail</th><th style="width:25%;text-align:right;">Premi (Rp)</th></tr></thead>
-                    <tbody id="pPremiumBodyTravel"></tbody>
-                </table>
-                <div class="proposal-manfaat-wrap">
-                    <div class="section-title section-title-manfaat" style="margin-top:20px;">C. MANFAAT PERLINDUNGAN</div>
-                    <div id="proposalManfaatContentTravel"></div>
-                </div>
-            </div>
-            
+            <div id="proposalManfaatSection" style="display:none;"><div class="section-title">C. MANFAAT PERLINDUNGAN</div><div id="proposalManfaatContent"></div></div>
             <div class="section-title" id="pernyataanTitle">E. PERNYATAAN &amp; PERSETUJUAN</div>
             <p style="font-size:14px;color:#1e2f4a;line-height:1.6;margin-bottom:14px;">Dengan ini saya menyatakan bahwa data dan keterangan yang saya berikan adalah benar dan dapat dipertanggungjawabkan. Saya telah membaca, memahami, dan menyetujui ketentuan-ketentuan yang berlaku.</p>
             <div class="signature-area"><div class="signature-box"><div class="label">Tanda Tangan Pemohon</div><div class="line">&nbsp;</div><div class="city-date" id="pKotaTanggal">-</div></div><div class="signature-box" style="text-align:right;"><div class="label">Penerima / Agen</div><div class="line">&nbsp;</div><div class="city-date">&nbsp;</div></div></div>
@@ -1414,409 +1138,6 @@ const TARIF_PROPERTI = {
 };
 
 // ============================================================
-// TRAVEL DATABASE (EMBEDDED)
-// ============================================================
-const TRAVEL_DB = {
-    meta: { nama_produk: "Asuransi Perjalanan Individu", versi: "1.0" },
-    range_durasi: [
-        { min: 1, max: 3, kode: "1_3" },
-        { min: 4, max: 5, kode: "4_5" },
-        { min: 6, max: 10, kode: "6_10" },
-        { min: 11, max: 15, kode: "11_15" },
-        { min: 16, max: 20, kode: "16_20" },
-        { min: 21, max: 25, kode: "21_25" },
-        { min: 26, max: 31, kode: "26_31" },
-        { min: 32, max: 45, kode: "32_45" },
-        { min: 46, max: 60, kode: "46_60" },
-        { min: 61, max: 90, kode: "61_90" },
-        { min: 91, max: 120, kode: "91_120" },
-        { min: 121, max: 150, kode: "121_150" },
-        { min: 151, max: 180, kode: "151_180" }
-    ],
-    area: { internasional: ['worldwide', 'eropa', 'asia'] },
-    premi: {
-        individu: {
-            usia_1_69: {
-                worldwide: {
-                    prime: {
-                        "1_3": 420000, "4_5": 550000, "6_10": 650000,
-                        "11_15": 750000, "16_20": 850000, "21_25": 950000,
-                        "26_31": 1050000, "32_45": 1250000, "46_60": 1450000,
-                        "61_90": 1750000, "91_120": 2150000, "121_150": 2550000,
-                        "151_180": 2950000,
-                        tahunan_90: 4500000, tahunan_180: 6000000,
-                        per_minggu: 75000
-                    },
-                    edge: {
-                        "1_3": 300000, "4_5": 380000, "6_10": 460000,
-                        "11_15": 540000, "16_20": 620000, "21_25": 700000,
-                        "26_31": 780000, "32_45": 920000, "46_60": 1100000,
-                        "61_90": 1350000, "91_120": 1650000, "121_150": 1950000,
-                        "151_180": 2250000,
-                        tahunan_90: 3200000, tahunan_180: 4500000,
-                        per_minggu: 55000
-                    },
-                    lite: {
-                        "1_3": 150000, "4_5": 200000, "6_10": 250000,
-                        "11_15": 300000, "16_20": 350000, "21_25": 400000,
-                        "26_31": 450000, "32_45": 550000, "46_60": 650000,
-                        "61_90": 800000, "91_120": 1000000, "121_150": 1200000,
-                        "151_180": 1400000,
-                        tahunan_90: 1800000, tahunan_180: 2500000,
-                        per_minggu: 30000
-                    }
-                },
-                eropa: {
-                    prime: {
-                        "1_3": 310000, "4_5": 410000, "6_10": 490000,
-                        "11_15": 560000, "16_20": 640000, "21_25": 710000,
-                        "26_31": 790000, "32_45": 940000, "46_60": 1090000,
-                        "61_90": 1310000, "91_120": 1610000, "121_150": 1910000,
-                        "151_180": 2210000,
-                        per_minggu: 55000
-                    },
-                    edge: {
-                        "1_3": 225000, "4_5": 285000, "6_10": 345000,
-                        "11_15": 405000, "16_20": 465000, "21_25": 525000,
-                        "26_31": 585000, "32_45": 690000, "46_60": 825000,
-                        "61_90": 1010000, "91_120": 1240000, "121_150": 1460000,
-                        "151_180": 1690000,
-                        per_minggu: 40000
-                    },
-                    lite: {
-                        "1_3": 112000, "4_5": 150000, "6_10": 188000,
-                        "11_15": 225000, "16_20": 262000, "21_25": 300000,
-                        "26_31": 338000, "32_45": 412000, "46_60": 488000,
-                        "61_90": 600000, "91_120": 750000, "121_150": 900000,
-                        "151_180": 1050000,
-                        per_minggu: 22000
-                    }
-                },
-                asia: {
-                    prime: {
-                        "1_3": 250000, "4_5": 330000, "6_10": 390000,
-                        "11_15": 450000, "16_20": 510000, "21_25": 570000,
-                        "26_31": 630000, "32_45": 750000, "46_60": 870000,
-                        "61_90": 1050000, "91_120": 1290000, "121_150": 1530000,
-                        "151_180": 1770000,
-                        per_minggu: 45000
-                    },
-                    edge: {
-                        "1_3": 180000, "4_5": 228000, "6_10": 276000,
-                        "11_15": 324000, "16_20": 372000, "21_25": 420000,
-                        "26_31": 468000, "32_45": 552000, "46_60": 660000,
-                        "61_90": 810000, "91_120": 990000, "121_150": 1170000,
-                        "151_180": 1350000,
-                        per_minggu: 33000
-                    },
-                    lite: {
-                        "1_3": 90000, "4_5": 120000, "6_10": 150000,
-                        "11_15": 180000, "16_20": 210000, "21_25": 240000,
-                        "26_31": 270000, "32_45": 330000, "46_60": 390000,
-                        "61_90": 480000, "91_120": 600000, "121_150": 720000,
-                        "151_180": 840000,
-                        per_minggu: 18000
-                    }
-                }
-            },
-            usia_70_plus: {
-                worldwide: {
-                    prime: {
-                        "1_3": 540000, "4_5": 700000, "6_10": 830000,
-                        "11_15": 960000, "16_20": 1090000, "21_25": 1220000,
-                        "26_31": 1350000, "32_45": 1600000, "46_60": 1850000,
-                        "61_90": 2250000, "91_120": 2750000, "121_150": 3250000,
-                        "151_180": 3750000,
-                        per_minggu: 95000
-                    },
-                    edge: {
-                        "1_3": 380000, "4_5": 480000, "6_10": 580000,
-                        "11_15": 680000, "16_20": 780000, "21_25": 880000,
-                        "26_31": 980000, "32_45": 1160000, "46_60": 1380000,
-                        "61_90": 1700000, "91_120": 2100000, "121_150": 2450000,
-                        "151_180": 2850000,
-                        per_minggu: 70000
-                    },
-                    lite: {
-                        "1_3": 190000, "4_5": 250000, "6_10": 310000,
-                        "11_15": 380000, "16_20": 440000, "21_25": 500000,
-                        "26_31": 560000, "32_45": 680000, "46_60": 800000,
-                        "61_90": 1000000, "91_120": 1250000, "121_150": 1500000,
-                        "151_180": 1750000,
-                        per_minggu: 38000
-                    }
-                },
-                eropa: {
-                    prime: {
-                        "1_3": 400000, "4_5": 520000, "6_10": 620000,
-                        "11_15": 720000, "16_20": 820000, "21_25": 910000,
-                        "26_31": 1010000, "32_45": 1200000, "46_60": 1400000,
-                        "61_90": 1700000, "91_120": 2050000, "121_150": 2450000,
-                        "151_180": 2800000,
-                        per_minggu: 70000
-                    },
-                    edge: {
-                        "1_3": 285000, "4_5": 365000, "6_10": 445000,
-                        "11_15": 525000, "16_20": 605000, "21_25": 685000,
-                        "26_31": 765000, "32_45": 900000, "46_60": 1075000,
-                        "61_90": 1300000, "91_120": 1600000, "121_150": 1900000,
-                        "151_180": 2200000,
-                        per_minggu: 52000
-                    },
-                    lite: {
-                        "1_3": 142000, "4_5": 190000, "6_10": 238000,
-                        "11_15": 285000, "16_20": 332000, "21_25": 380000,
-                        "26_31": 428000, "32_45": 520000, "46_60": 620000,
-                        "61_90": 760000, "91_120": 950000, "121_150": 1150000,
-                        "151_180": 1350000,
-                        per_minggu: 28000
-                    }
-                },
-                asia: {
-                    prime: {
-                        "1_3": 320000, "4_5": 420000, "6_10": 500000,
-                        "11_15": 580000, "16_20": 650000, "21_25": 730000,
-                        "26_31": 810000, "32_45": 960000, "46_60": 1120000,
-                        "61_90": 1350000, "91_120": 1650000, "121_150": 1950000,
-                        "151_180": 2250000,
-                        per_minggu: 58000
-                    },
-                    edge: {
-                        "1_3": 228000, "4_5": 290000, "6_10": 350000,
-                        "11_15": 410000, "16_20": 470000, "21_25": 530000,
-                        "26_31": 590000, "32_45": 700000, "46_60": 840000,
-                        "61_90": 1030000, "91_120": 1260000, "121_150": 1490000,
-                        "151_180": 1720000,
-                        per_minggu: 42000
-                    },
-                    lite: {
-                        "1_3": 114000, "4_5": 150000, "6_10": 190000,
-                        "11_15": 228000, "16_20": 266000, "21_25": 304000,
-                        "26_31": 342000, "32_45": 420000, "46_60": 500000,
-                        "61_90": 610000, "91_120": 760000, "121_150": 920000,
-                        "151_180": 1070000,
-                        per_minggu: 23000
-                    }
-                }
-            }
-        }
-    },
-    tambahan: {
-        internasional: {
-            pulang_pergi: {
-                usia_1_69: {
-                    worldwide: {
-                        prime: { visa: 70000, olahraga_salju: 60000, kapal_pesiar: 50000, petualangan: 40000, bisnis: 30000, olahraga_amatir: 20000 },
-                        edge: { visa: 50000, olahraga_salju: 40000, kapal_pesiar: 35000, petualangan: 25000, bisnis: 20000, olahraga_amatir: 15000 },
-                        lite: { visa: 30000, olahraga_salju: 25000, kapal_pesiar: 20000, petualangan: 15000, bisnis: 10000, olahraga_amatir: 10000 }
-                    },
-                    eropa: {
-                        prime: { visa: 50000, olahraga_salju: 45000, kapal_pesiar: 40000, petualangan: 30000, bisnis: 20000, olahraga_amatir: 15000 },
-                        edge: { visa: 35000, olahraga_salju: 30000, kapal_pesiar: 25000, petualangan: 18000, bisnis: 15000, olahraga_amatir: 10000 },
-                        lite: { visa: 20000, olahraga_salju: 15000, kapal_pesiar: 15000, petualangan: 10000, bisnis: 8000, olahraga_amatir: 8000 }
-                    },
-                    asia: {
-                        prime: { visa: 40000, olahraga_salju: 35000, kapal_pesiar: 30000, petualangan: 25000, bisnis: 15000, olahraga_amatir: 10000 },
-                        edge: { visa: 28000, olahraga_salju: 25000, kapal_pesiar: 20000, petualangan: 15000, bisnis: 10000, olahraga_amatir: 8000 },
-                        lite: { visa: 15000, olahraga_salju: 12000, kapal_pesiar: 12000, petualangan: 8000, bisnis: 5000, olahraga_amatir: 5000 }
-                    }
-                },
-                usia_70_plus: {
-                    worldwide: {
-                        prime: { visa: 90000, olahraga_salju: 80000, kapal_pesiar: 70000, petualangan: 60000, bisnis: 50000, olahraga_amatir: 40000 },
-                        edge: { visa: 65000, olahraga_salju: 55000, kapal_pesiar: 45000, petualangan: 35000, bisnis: 25000, olahraga_amatir: 20000 },
-                        lite: { visa: 40000, olahraga_salju: 35000, kapal_pesiar: 30000, petualangan: 25000, bisnis: 15000, olahraga_amatir: 15000 }
-                    },
-                    eropa: {
-                        prime: { visa: 65000, olahraga_salju: 60000, kapal_pesiar: 55000, petualangan: 45000, bisnis: 35000, olahraga_amatir: 25000 },
-                        edge: { visa: 45000, olahraga_salju: 40000, kapal_pesiar: 35000, petualangan: 28000, bisnis: 20000, olahraga_amatir: 15000 },
-                        lite: { visa: 28000, olahraga_salju: 25000, kapal_pesiar: 20000, petualangan: 15000, bisnis: 10000, olahraga_amatir: 10000 }
-                    },
-                    asia: {
-                        prime: { visa: 50000, olahraga_salju: 45000, kapal_pesiar: 40000, petualangan: 35000, bisnis: 25000, olahraga_amatir: 20000 },
-                        edge: { visa: 35000, olahraga_salju: 30000, kapal_pesiar: 28000, petualangan: 22000, bisnis: 15000, olahraga_amatir: 12000 },
-                        lite: { visa: 20000, olahraga_salju: 18000, kapal_pesiar: 15000, petualangan: 12000, bisnis: 8000, olahraga_amatir: 8000 }
-                    }
-                }
-            },
-            tahunan: {
-                worldwide: {
-                    prime: { visa: 150000, olahraga_salju: 120000, kapal_pesiar: 100000, petualangan: 80000, bisnis: 60000, olahraga_amatir: 50000 },
-                    edge: { visa: 100000, olahraga_salju: 80000, kapal_pesiar: 70000, petualangan: 50000, bisnis: 40000, olahraga_amatir: 30000 },
-                    lite: { visa: 60000, olahraga_salju: 50000, kapal_pesiar: 40000, petualangan: 30000, bisnis: 20000, olahraga_amatir: 20000 }
-                }
-            }
-        },
-        domestik: {
-            pulang_pergi: {
-                boost: { visa: 20000, olahraga_salju: 20000, kapal_pesiar: 20000, petualangan: 15000, bisnis: 10000, olahraga_amatir: 10000 },
-                joy: { visa: 15000, olahraga_salju: 15000, kapal_pesiar: 15000, petualangan: 10000, bisnis: 8000, olahraga_amatir: 8000 },
-                roadtrip: { visa: 10000, olahraga_salju: 10000, kapal_pesiar: 10000, petualangan: 8000, bisnis: 5000, olahraga_amatir: 5000 }
-            }
-        }
-    },
-    manfaat: {
-        internasional: {
-            prime: {
-                daftar: [
-                    { bagian: 'A.33', manfaat: 'Kecelakaan Diri (Meninggal)', nilai: '1,000,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'A.34', manfaat: 'Kecelakaan Diri (Cacat Tetap)', nilai: '1,000,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'A.35', manfaat: 'Kecelakaan Diri (Meninggal)', nilai: '500,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'A.36', manfaat: 'Kecelakaan Diri (Cacat Tetap)', nilai: '500,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'A.37', manfaat: 'Biaya Pendidikan (Kematian/ Cacat Tetap)', nilai: '100,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'A.38', manfaat: 'Biaya Pendidikan (Kematian/ Cacat Tetap)', nilai: '50,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'B.40', manfaat: 'Perawatan Medis Darurat', nilai: '1,500,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'B.41', manfaat: 'Perawatan Medis Darurat', nilai: '750,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'B.42', manfaat: 'Biaya Repatriasi Jenazah', nilai: '250,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'B.43', manfaat: 'Biaya Repatriasi Jenazah', nilai: '150,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'C.45', manfaat: 'Kunjungan Darurat Keluarga', nilai: '50,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'C.46', manfaat: 'Kunjungan Darurat Keluarga', nilai: '25,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'D.50', manfaat: 'Pembatalan Perjalanan', nilai: '100,000,000', keterangan: '-' },
-                    { bagian: 'D.51', manfaat: 'Keterlambatan Penerbangan', nilai: '5,000,000', keterangan: '-' },
-                    { bagian: 'D.52', manfaat: 'Bagasi Terlambat', nilai: '5,000,000', keterangan: '-' },
-                    { bagian: 'E.55', manfaat: 'Kehilangan Bagasi', nilai: '25,000,000', keterangan: '-' },
-                    { bagian: 'E.56', manfaat: 'Kehilangan Uang Tunai & Dokumen', nilai: '5,000,000', keterangan: '-' },
-                    { bagian: 'F.60', manfaat: 'Bantuan Hukum Darurat', nilai: '10,000,000', keterangan: '-' },
-                    { bagian: 'F.61', manfaat: 'Kecelakaan Lalu Lintas', nilai: '25,000,000', keterangan: '-' },
-                    { bagian: 'G.33', manfaat: 'Perlindungan Visa', nilai: '25,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.34', manfaat: 'Olahraga Salju', nilai: '50,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.35', manfaat: 'Jaminan Kapal Pesiar', nilai: '50,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.36', manfaat: 'Aktivitas Petualangan', nilai: '50,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.37', manfaat: 'Perjalanan Bisnis', nilai: '50,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.38', manfaat: 'Acara Olahraga Amatir', nilai: '25,000,000', keterangan: 'Tambahan' }
-                ]
-            },
-            edge: {
-                daftar: [
-                    { bagian: 'A.33', manfaat: 'Kecelakaan Diri (Meninggal)', nilai: '500,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'A.34', manfaat: 'Kecelakaan Diri (Cacat Tetap)', nilai: '500,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'A.35', manfaat: 'Kecelakaan Diri (Meninggal)', nilai: '250,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'A.36', manfaat: 'Kecelakaan Diri (Cacat Tetap)', nilai: '250,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'A.37', manfaat: 'Biaya Pendidikan (Kematian/ Cacat Tetap)', nilai: '50,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'A.38', manfaat: 'Biaya Pendidikan (Kematian/ Cacat Tetap)', nilai: '25,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'B.40', manfaat: 'Perawatan Medis Darurat', nilai: '750,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'B.41', manfaat: 'Perawatan Medis Darurat', nilai: '350,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'B.42', manfaat: 'Biaya Repatriasi Jenazah', nilai: '100,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'B.43', manfaat: 'Biaya Repatriasi Jenazah', nilai: '75,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'C.45', manfaat: 'Kunjungan Darurat Keluarga', nilai: '25,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'C.46', manfaat: 'Kunjungan Darurat Keluarga', nilai: '15,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'D.50', manfaat: 'Pembatalan Perjalanan', nilai: '50,000,000', keterangan: '-' },
-                    { bagian: 'D.51', manfaat: 'Keterlambatan Penerbangan', nilai: '3,000,000', keterangan: '-' },
-                    { bagian: 'D.52', manfaat: 'Bagasi Terlambat', nilai: '3,000,000', keterangan: '-' },
-                    { bagian: 'E.55', manfaat: 'Kehilangan Bagasi', nilai: '15,000,000', keterangan: '-' },
-                    { bagian: 'E.56', manfaat: 'Kehilangan Uang Tunai & Dokumen', nilai: '3,000,000', keterangan: '-' },
-                    { bagian: 'F.60', manfaat: 'Bantuan Hukum Darurat', nilai: '5,000,000', keterangan: '-' },
-                    { bagian: 'F.61', manfaat: 'Kecelakaan Lalu Lintas', nilai: '15,000,000', keterangan: '-' },
-                    { bagian: 'G.33', manfaat: 'Perlindungan Visa', nilai: '15,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.34', manfaat: 'Olahraga Salju', nilai: '25,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.35', manfaat: 'Jaminan Kapal Pesiar', nilai: '25,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.36', manfaat: 'Aktivitas Petualangan', nilai: '25,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.37', manfaat: 'Perjalanan Bisnis', nilai: '25,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.38', manfaat: 'Acara Olahraga Amatir', nilai: '15,000,000', keterangan: 'Tambahan' }
-                ]
-            },
-            lite: {
-                daftar: [
-                    { bagian: 'A.33', manfaat: 'Kecelakaan Diri (Meninggal)', nilai: '250,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'A.34', manfaat: 'Kecelakaan Diri (Cacat Tetap)', nilai: '250,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'A.35', manfaat: 'Kecelakaan Diri (Meninggal)', nilai: '125,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'A.36', manfaat: 'Kecelakaan Diri (Cacat Tetap)', nilai: '125,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'A.37', manfaat: 'Biaya Pendidikan (Kematian/ Cacat Tetap)', nilai: '25,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'A.38', manfaat: 'Biaya Pendidikan (Kematian/ Cacat Tetap)', nilai: '15,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'B.40', manfaat: 'Perawatan Medis Darurat', nilai: '500,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'B.41', manfaat: 'Perawatan Medis Darurat', nilai: '250,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'B.42', manfaat: 'Biaya Repatriasi Jenazah', nilai: '100,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'B.43', manfaat: 'Biaya Repatriasi Jenazah', nilai: '50,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'C.45', manfaat: 'Kunjungan Darurat Keluarga', nilai: '15,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'C.46', manfaat: 'Kunjungan Darurat Keluarga', nilai: '10,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'D.50', manfaat: 'Pembatalan Perjalanan', nilai: '25,000,000', keterangan: '-' },
-                    { bagian: 'D.51', manfaat: 'Keterlambatan Penerbangan', nilai: '2,000,000', keterangan: '-' },
-                    { bagian: 'D.52', manfaat: 'Bagasi Terlambat', nilai: '2,000,000', keterangan: '-' },
-                    { bagian: 'E.55', manfaat: 'Kehilangan Bagasi', nilai: '10,000,000', keterangan: '-' },
-                    { bagian: 'E.56', manfaat: 'Kehilangan Uang Tunai & Dokumen', nilai: '2,000,000', keterangan: '-' },
-                    { bagian: 'F.60', manfaat: 'Bantuan Hukum Darurat', nilai: '5,000,000', keterangan: '-' },
-                    { bagian: 'F.61', manfaat: 'Kecelakaan Lalu Lintas', nilai: '10,000,000', keterangan: '-' },
-                    { bagian: 'G.33', manfaat: 'Perlindungan Visa', nilai: '10,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.34', manfaat: 'Olahraga Salju', nilai: '15,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.35', manfaat: 'Jaminan Kapal Pesiar', nilai: '15,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.36', manfaat: 'Aktivitas Petualangan', nilai: '15,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.37', manfaat: 'Perjalanan Bisnis', nilai: '15,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.38', manfaat: 'Acara Olahraga Amatir', nilai: '10,000,000', keterangan: 'Tambahan' }
-                ]
-            }
-        },
-        domestik: {
-            boost: {
-                daftar: [
-                    { bagian: 'A.33', manfaat: 'Kecelakaan Diri (Meninggal)', nilai: '200,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'A.34', manfaat: 'Kecelakaan Diri (Cacat Tetap)', nilai: '200,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'A.35', manfaat: 'Kecelakaan Diri (Meninggal)', nilai: '100,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'A.36', manfaat: 'Kecelakaan Diri (Cacat Tetap)', nilai: '100,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'B.40', manfaat: 'Perawatan Medis Darurat', nilai: '300,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'B.41', manfaat: 'Perawatan Medis Darurat', nilai: '150,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'B.42', manfaat: 'Biaya Repatriasi Jenazah', nilai: '50,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'B.43', manfaat: 'Biaya Repatriasi Jenazah', nilai: '25,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'D.50', manfaat: 'Pembatalan Perjalanan', nilai: '25,000,000', keterangan: '-' },
-                    { bagian: 'D.51', manfaat: 'Keterlambatan Transportasi', nilai: '3,000,000', keterangan: '-' },
-                    { bagian: 'D.52', manfaat: 'Bagasi Terlambat', nilai: '3,000,000', keterangan: '-' },
-                    { bagian: 'E.55', manfaat: 'Kehilangan Bagasi', nilai: '10,000,000', keterangan: '-' },
-                    { bagian: 'G.33', manfaat: 'Perlindungan Visa', nilai: '10,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.34', manfaat: 'Olahraga Salju', nilai: '15,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.35', manfaat: 'Jaminan Kapal Pesiar', nilai: '15,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.36', manfaat: 'Aktivitas Petualangan', nilai: '15,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.37', manfaat: 'Perjalanan Bisnis', nilai: '15,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.38', manfaat: 'Acara Olahraga Amatir', nilai: '10,000,000', keterangan: 'Tambahan' }
-                ]
-            },
-            joy: {
-                daftar: [
-                    { bagian: 'A.33', manfaat: 'Kecelakaan Diri (Meninggal)', nilai: '150,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'A.34', manfaat: 'Kecelakaan Diri (Cacat Tetap)', nilai: '150,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'A.35', manfaat: 'Kecelakaan Diri (Meninggal)', nilai: '75,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'A.36', manfaat: 'Kecelakaan Diri (Cacat Tetap)', nilai: '75,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'B.40', manfaat: 'Perawatan Medis Darurat', nilai: '150,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'B.41', manfaat: 'Perawatan Medis Darurat', nilai: '75,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'B.42', manfaat: 'Biaya Repatriasi Jenazah', nilai: '25,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'B.43', manfaat: 'Biaya Repatriasi Jenazah', nilai: '15,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'D.50', manfaat: 'Pembatalan Perjalanan', nilai: '15,000,000', keterangan: '-' },
-                    { bagian: 'D.51', manfaat: 'Keterlambatan Transportasi', nilai: '2,000,000', keterangan: '-' },
-                    { bagian: 'D.52', manfaat: 'Bagasi Terlambat', nilai: '2,000,000', keterangan: '-' },
-                    { bagian: 'E.55', manfaat: 'Kehilangan Bagasi', nilai: '7,500,000', keterangan: '-' },
-                    { bagian: 'G.33', manfaat: 'Perlindungan Visa', nilai: '7,500,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.34', manfaat: 'Olahraga Salju', nilai: '10,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.35', manfaat: 'Jaminan Kapal Pesiar', nilai: '10,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.36', manfaat: 'Aktivitas Petualangan', nilai: '10,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.37', manfaat: 'Perjalanan Bisnis', nilai: '10,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.38', manfaat: 'Acara Olahraga Amatir', nilai: '7,500,000', keterangan: 'Tambahan' }
-                ]
-            },
-            roadtrip: {
-                daftar: [
-                    { bagian: 'A.33', manfaat: 'Kecelakaan Diri (Meninggal)', nilai: '100,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'A.34', manfaat: 'Kecelakaan Diri (Cacat Tetap)', nilai: '100,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'A.35', manfaat: 'Kecelakaan Diri (Meninggal)', nilai: '50,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'A.36', manfaat: 'Kecelakaan Diri (Cacat Tetap)', nilai: '50,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'B.40', manfaat: 'Perawatan Medis Darurat', nilai: '100,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'B.41', manfaat: 'Perawatan Medis Darurat', nilai: '50,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'B.42', manfaat: 'Biaya Repatriasi Jenazah', nilai: '15,000,000', keterangan: 'Usia 1-69' },
-                    { bagian: 'B.43', manfaat: 'Biaya Repatriasi Jenazah', nilai: '10,000,000', keterangan: 'Usia 70 ke atas' },
-                    { bagian: 'D.50', manfaat: 'Pembatalan Perjalanan', nilai: '10,000,000', keterangan: '-' },
-                    { bagian: 'D.51', manfaat: 'Keterlambatan Transportasi', nilai: '1,500,000', keterangan: '-' },
-                    { bagian: 'D.52', manfaat: 'Bagasi Terlambat', nilai: '1,500,000', keterangan: '-' },
-                    { bagian: 'E.55', manfaat: 'Kehilangan Bagasi', nilai: '5,000,000', keterangan: '-' },
-                    { bagian: 'G.33', manfaat: 'Perlindungan Visa', nilai: '5,000,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.34', manfaat: 'Olahraga Salju', nilai: '7,500,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.35', manfaat: 'Jaminan Kapal Pesiar', nilai: '7,500,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.36', manfaat: 'Aktivitas Petualangan', nilai: '7,500,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.37', manfaat: 'Perjalanan Bisnis', nilai: '7,500,000', keterangan: 'Tambahan' },
-                    { bagian: 'G.38', manfaat: 'Acara Olahraga Amatir', nilai: '5,000,000', keterangan: 'Tambahan' }
-                ]
-            }
-        }
-    }
-};
-
-// ============================================================
 // FUNGSI BANTU GLOBAL
 // ============================================================
 function formatRupiah(angka) {
@@ -1827,8 +1148,8 @@ function formatRupiah(angka) {
     return 'Rp ' + Math.round(angka).toLocaleString('id-ID');
 }
 function formatRupiahFull(angka) {
-    if (!angka || isNaN(angka)) return '0';
-    return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    if (!angka || isNaN(angka)) return 'Rp 0';
+    return 'Rp ' + Math.round(angka).toLocaleString('id-ID');
 }
 function formatTanggal(tanggal) {
     if (!tanggal) return '-';
@@ -1854,7 +1175,7 @@ function getWilayahText(id) {
 }
 
 // ============================================================
-// FUNGSI MOBIL (SAMA SEPERTI SEBELUMNYA)
+// FUNGSI MOBIL
 // ============================================================
 let dataKendaraan = {};
 let isDataLoaded = false;
@@ -1864,8 +1185,9 @@ let hasilTerakhirMobil = null;
 let hasilTerakhirProperti = null;
 let hasilPensiun = null;
 let hasilJiwa = null;
-let hasilTravel = null;
+let dbTravel = null;
 let usiaTravel = 0;
+let hasilTerakhirTravel = null;
 
 function getTahunKategori(tahun) {
     if (tahun >= 2023 && tahun <= 2026) return '2026-2023';
@@ -2278,7 +1600,6 @@ function tampilkanProposalMobil(h) {
     document.getElementById('proposalWealthSection').style.display = 'none';
     document.getElementById('proposalRekomendasiSection').style.display = 'none';
     document.getElementById('proposalJiwaSection').style.display = 'none';
-    document.getElementById('proposalTravelSection').style.display = 'none';
     document.getElementById('proposalKondisiSection').style.display = 'table';
     document.getElementById('proposalPerhitunganSection').style.display = 'table';
     document.getElementById('proposalDeductibleSection').style.display = 'block';
@@ -2577,7 +1898,6 @@ function tampilkanProposalProperti(h) {
     document.getElementById('proposalWealthSection').style.display = 'none';
     document.getElementById('proposalRekomendasiSection').style.display = 'none';
     document.getElementById('proposalJiwaSection').style.display = 'none';
-    document.getElementById('proposalTravelSection').style.display = 'none';
     document.getElementById('proposalKondisiSection').style.display = 'table';
     document.getElementById('proposalPerhitunganSection').style.display = 'table';
     document.getElementById('proposalDeductibleSection').style.display = 'block';
@@ -2650,697 +1970,6 @@ function resetFormProperti() {
     document.getElementById('viewIndicatorProperti').classList.remove('show');
     isViewingHistory = false;
     hasilTerakhirProperti = null;
-    tutupProposal();
-}
-
-// ============================================================
-// FUNGSI TRAVEL
-// ============================================================
-function hitungUsiaTravel() {
-    const tgl = document.getElementById('tanggalLahirTravel').value;
-    if (!tgl) { document.getElementById('usiaDisplayTravel').value = ''; return; }
-    const u = hitungUsia(tgl);
-    usiaTravel = u;
-    document.getElementById('usiaDisplayTravel').value = u > 0 ? u + ' tahun' : '';
-    updateTambahanTravel();
-}
-
-function updateAreaTravel() {
-    const jenis = document.getElementById('jenisPerjalananTravel').value;
-    const areaSelect = document.getElementById('areaTravel');
-    areaSelect.innerHTML = '';
-    if (jenis === 'internasional') {
-        const areas = TRAVEL_DB.area.internasional || ['worldwide', 'eropa', 'asia'];
-        const labels = { worldwide: 'Worldwide', eropa: 'Eropa', asia: 'Asia' };
-        areas.forEach(a => {
-            const opt = document.createElement('option');
-            opt.value = a;
-            opt.textContent = labels[a] || a;
-            areaSelect.appendChild(opt);
-        });
-    } else {
-        const opt = document.createElement('option');
-        opt.value = 'domestik';
-        opt.textContent = 'Domestik';
-        areaSelect.appendChild(opt);
-    }
-    updateTierTravel();
-    updateTambahanTravel();
-}
-
-function updateTierTravel() {
-    const jenis = document.getElementById('jenisPerjalananTravel').value;
-    const tierSelect = document.getElementById('tierTravel');
-    tierSelect.innerHTML = '';
-    let tiers = [];
-    if (jenis === 'internasional') {
-        tiers = ['prime', 'edge', 'lite'];
-    } else {
-        tiers = ['boost', 'joy', 'roadtrip'];
-    }
-    const labels = {
-        prime: 'Prime (Tertinggi)',
-        edge: 'Edge (Menengah)',
-        lite: 'Lite (Dasar)',
-        boost: 'Boost (Tertinggi)',
-        joy: 'Joy (Menengah)',
-        roadtrip: 'Roadtrip (Dasar)'
-    };
-    tiers.forEach(t => {
-        const opt = document.createElement('option');
-        opt.value = t;
-        opt.textContent = labels[t] || t;
-        tierSelect.appendChild(opt);
-    });
-    updateTambahanTravel();
-}
-
-function updateTambahanTravel() {
-    const jenis = document.getElementById('jenisPerjalananTravel').value;
-    const area = document.getElementById('areaTravel').value;
-    const tier = document.getElementById('tierTravel').value;
-    const polis = document.getElementById('jenisPolisTravel').value;
-    const grid = document.getElementById('tambahanGridTravel');
-    const checks = grid.querySelectorAll('input[type="checkbox"]');
-
-    let available = [];
-    if (jenis === 'internasional') {
-        const tambah = TRAVEL_DB.tambahan.internasional;
-        if (polis === 'pulang_pergi') {
-            const usiaKey = usiaTravel >= 70 ? 'usia_70_plus' : 'usia_1_69';
-            if (tambah.pulang_pergi[usiaKey] && tambah.pulang_pergi[usiaKey][area] && tambah.pulang_pergi[usiaKey][area][tier]) {
-                available = Object.keys(tambah.pulang_pergi[usiaKey][area][tier]);
-            }
-        } else if (polis === 'tahunan') {
-            if (area === 'worldwide' && tambah.tahunan && tambah.tahunan.worldwide && tambah.tahunan.worldwide[tier]) {
-                available = Object.keys(tambah.tahunan.worldwide[tier]);
-            }
-        }
-    } else {
-        const tambah = TRAVEL_DB.tambahan.domestik;
-        if (polis === 'pulang_pergi') {
-            if (tambah.pulang_pergi && tambah.pulang_pergi[tier]) {
-                available = Object.keys(tambah.pulang_pergi[tier]);
-            }
-        }
-    }
-
-    const mapId = {
-        'visa': 'tmb_visaTravel',
-        'olahraga_salju': 'tmb_olahraga_saljuTravel',
-        'kapal_pesiar': 'tmb_kapal_pesiarTravel',
-        'petualangan': 'tmb_petualanganTravel',
-        'bisnis': 'tmb_bisnisTravel',
-        'olahraga_amatir': 'tmb_olahraga_amatirTravel'
-    };
-
-    checks.forEach(cb => {
-        const val = cb.value;
-        const isAvailable = available.includes(val);
-        cb.disabled = !isAvailable;
-        if (!isAvailable) cb.checked = false;
-        const label = cb.closest('label');
-        if (label) {
-            label.style.opacity = isAvailable ? '1' : '0.4';
-            label.style.cursor = isAvailable ? 'pointer' : 'not-allowed';
-        }
-    });
-}
-
-function togglePolisTravel() {
-    const isTahunan = document.getElementById('jenisPolisTravel').value === 'tahunan';
-    document.getElementById('tahunanInfoTravel').style.display = isTahunan ? 'block' : 'none';
-    if (isTahunan) {
-        document.getElementById('durasiTravel').disabled = true;
-        document.getElementById('durasiTravel').value = '90';
-    } else {
-        document.getElementById('durasiTravel').disabled = false;
-    }
-    updateTambahanTravel();
-}
-
-function getPremiDasarTravel() {
-    const area = document.getElementById('areaTravel').value;
-    const tier = document.getElementById('tierTravel').value;
-    const durasi = parseInt(document.getElementById('durasiTravel').value) || 1;
-    const polis = document.getElementById('jenisPolisTravel').value;
-    const usiaKey = usiaTravel >= 70 ? 'usia_70_plus' : 'usia_1_69';
-
-    const premiData = TRAVEL_DB.premi.individu[usiaKey];
-    if (!premiData) return { premi: 0, detail: 'Data premi tidak ditemukan' };
-
-    const areaData = premiData[area];
-    if (!areaData) return { premi: 0, detail: 'Area tidak ditemukan' };
-
-    const tierData = areaData[tier];
-    if (!tierData) return { premi: 0, detail: 'Tier tidak ditemukan' };
-
-    if (polis === 'tahunan') {
-        if (area !== 'worldwide' && area !== 'domestik') {
-            return { premi: 0, detail: 'Polis Tahunan hanya tersedia untuk Worldwide dan Domestik' };
-        }
-        if (usiaTravel >= 70) {
-            return { premi: 0, detail: 'Polis Tahunan tidak tersedia untuk usia 70+' };
-        }
-        const paket = document.getElementById('tahunanPaketTravel').value;
-        const key = paket === '90' ? 'tahunan_90' : 'tahunan_180';
-        if (tierData[key] !== undefined) {
-            return { premi: tierData[key], detail: 'Tahunan ' + paket + ' hari' };
-        }
-        return { premi: 0, detail: 'Paket tahunan tidak tersedia untuk tier ini' };
-    }
-
-    let rangeKey = null;
-    const ranges = TRAVEL_DB.range_durasi || [];
-    for (let r of ranges) {
-        if (durasi >= r.min && durasi <= r.max) {
-            rangeKey = r.kode;
-            break;
-        }
-    }
-
-    if (rangeKey && tierData[rangeKey] !== undefined) {
-        return { premi: tierData[rangeKey], detail: rangeKey.replace('_', ' - ') + ' hari' };
-    }
-
-    if (durasi > 31 && tierData['per_minggu'] !== undefined) {
-        const base = tierData['26_31'] || 0;
-        const extraDays = durasi - 31;
-        const extraWeeks = Math.ceil(extraDays / 7);
-        const extraPremi = extraWeeks * tierData['per_minggu'];
-        const total = base + extraPremi;
-        return { premi: total, detail: '26-31 hari + ' + extraWeeks + ' minggu tambahan' };
-    }
-
-    return { premi: 0, detail: 'Durasi tidak valid' };
-}
-
-function getPremiTambahanTravel() {
-    const area = document.getElementById('areaTravel').value;
-    const tier = document.getElementById('tierTravel').value;
-    const polis = document.getElementById('jenisPolisTravel').value;
-    const jenis = document.getElementById('jenisPerjalananTravel').value;
-    const usiaKey = usiaTravel >= 70 ? 'usia_70_plus' : 'usia_1_69';
-
-    const checks = document.querySelectorAll('#tambahanGridTravel input[type="checkbox"]:checked');
-    if (checks.length === 0) return { total: 0, detail: [], selectedKeys: [] };
-
-    let total = 0;
-    let detail = [];
-    let selectedKeys = [];
-    let dataTambahan = null;
-
-    if (jenis === 'internasional') {
-        const tambah = TRAVEL_DB.tambahan.internasional;
-        if (polis === 'pulang_pergi') {
-            dataTambahan = tambah.pulang_pergi?.[usiaKey]?.[area]?.[tier];
-        } else if (polis === 'tahunan' && area === 'worldwide') {
-            dataTambahan = tambah.tahunan?.worldwide?.[tier];
-        }
-    } else {
-        const tambah = TRAVEL_DB.tambahan.domestik;
-        if (polis === 'pulang_pergi') {
-            dataTambahan = tambah.pulang_pergi?.[tier];
-        }
-    }
-
-    if (!dataTambahan) return { total: 0, detail: [], selectedKeys: [] };
-
-    const labels = {
-        'visa': 'Perlindungan Visa',
-        'olahraga_salju': 'Olahraga Salju',
-        'kapal_pesiar': 'Jaminan Kapal Pesiar',
-        'petualangan': 'Aktivitas Petualangan',
-        'bisnis': 'Perjalanan Bisnis',
-        'olahraga_amatir': 'Acara Olahraga Amatir'
-    };
-
-    checks.forEach(cb => {
-        const val = cb.value;
-        const premi = dataTambahan[val];
-        if (premi !== undefined && premi > 0) {
-            total += premi;
-            detail.push({ nama: labels[val] || val, premi: premi, key: val });
-            selectedKeys.push(val);
-        }
-    });
-
-    return { total, detail, selectedKeys };
-}
-
-function getManfaatTravel(selectedKeys) {
-    const jenis = document.getElementById('jenisPerjalananTravel').value;
-    const tier = document.getElementById('tierTravel').value;
-
-    let manfaatData = null;
-    if (jenis === 'internasional') {
-        manfaatData = TRAVEL_DB.manfaat.internasional?.[tier];
-    } else {
-        manfaatData = TRAVEL_DB.manfaat.domestik?.[tier];
-    }
-
-    if (!manfaatData) return [];
-
-    const daftar = manfaatData.daftar || [];
-    const filtered = [];
-
-    daftar.forEach(item => {
-        const bagian = item.bagian || '';
-
-        // Jika bagian G (manfaat tambahan), cek apakah key-nya dipilih
-        if (bagian.startsWith('G')) {
-            const keyMap = {
-                'G.33': 'visa',
-                'G.34': 'olahraga_salju',
-                'G.35': 'kapal_pesiar',
-                'G.36': 'petualangan',
-                'G.37': 'bisnis',
-                'G.38': 'olahraga_amatir'
-            };
-            const key = keyMap[bagian] || '';
-            if (!selectedKeys.includes(key)) return;
-        }
-
-        // Filter berdasarkan usia untuk bagian A-F
-        if (!bagian.startsWith('G')) {
-            const ket = item.keterangan || '';
-            const match = ket.match(/Usia\s*(\d+)\s*ke\s*(bawah|atas)/i) ||
-                ket.match(/Usia\s*(\d+)\s*-\s*(\d+)/);
-            if (match) {
-                let include = false;
-                if (ket.includes('ke bawah')) {
-                    const max = parseInt(match[1]);
-                    include = usiaTravel <= max;
-                } else if (ket.includes('ke atas')) {
-                    const min = parseInt(match[1]);
-                    include = usiaTravel >= min;
-                } else if (ket.includes('-')) {
-                    const min = parseInt(match[1]);
-                    const max = parseInt(match[2]);
-                    include = usiaTravel >= min && usiaTravel <= max;
-                }
-                if (!include) return;
-            }
-        }
-
-        filtered.push(item);
-    });
-
-    return filtered;
-}
-
-function formatManfaatValue(nilai) {
-    if (nilai === 'Dijamin') return 'Dijamin';
-    if (nilai === 'Biaya Sebenarnya') return 'Biaya Sebenarnya';
-    if (nilai === '-') return '-';
-    if (typeof nilai === 'string' && nilai.includes('/')) {
-        return nilai;
-    }
-    const num = parseInt(String(nilai).replace(/[^0-9]/g, '')) || 0;
-    if (num === 0) return 'Rp 0';
-    if (num >= 1e9) return 'Rp ' + (num/1e9).toFixed(1) + ' M';
-    if (num >= 1e6) return 'Rp ' + (num/1e6).toFixed(1) + ' Jt';
-    return 'Rp ' + num.toLocaleString('id-ID');
-}
-
-async function hitungPremiTravel() {
-    const session = getSession();
-    if (!session) { showAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu.'); return; }
-
-    const nama = document.getElementById('namaTravel').value.trim();
-    const noHp = document.getElementById('noHpTravel').value.trim();
-    const tglLahir = document.getElementById('tanggalLahirTravel').value;
-    
-    if (!nama) { showAlert('warning', 'Info', 'Isi Nama Lengkap!'); return; }
-    if (!noHp) { showAlert('warning', 'Info', 'Isi No. HP!'); return; }
-    if (!tglLahir) { showAlert('warning', 'Info', 'Pilih Tanggal Lahir!'); return; }
-    if (usiaTravel <= 0) { showAlert('warning', 'Info', 'Tanggal Lahir tidak valid!'); return; }
-
-    const hasilDasar = getPremiDasarTravel();
-    const premiDasar = hasilDasar.premi;
-
-    const hasilTambahan = getPremiTambahanTravel();
-    const premiTambahan = hasilTambahan.total;
-    const selectedKeys = hasilTambahan.selectedKeys || [];
-
-    const total = premiDasar + premiTambahan;
-
-    // Tampilkan hasil
-    const resultBox = document.getElementById('resultTravel');
-    const viewIndicator = document.getElementById('viewIndicatorTravel');
-    viewIndicator.classList.remove('show');
-    isViewingHistory = false;
-    resultBox.classList.add('show');
-
-    document.getElementById('totalPremiTravel').textContent = 'Rp ' + formatRupiahFull(total);
-    document.getElementById('premiDasarTravel').textContent = 'Rp ' + formatRupiahFull(premiDasar);
-    document.getElementById('premiTambahanTravel').textContent = 'Rp ' + formatRupiahFull(premiTambahan);
-
-    // Detail Premi
-    const detailBody = document.getElementById('resultDetailTravel');
-    let detailHtml = '';
-    detailHtml += `<tr><td>Premi Dasar</td><td style="text-align:right;">Rp ${formatRupiahFull(premiDasar)}</td></tr>`;
-    if (hasilDasar.detail) {
-        detailHtml += `<tr class="sub-item"><td>${hasilDasar.detail}</td><td style="text-align:right;"></td></tr>`;
-    }
-
-    if (hasilTambahan.detail && hasilTambahan.detail.length > 0) {
-        detailHtml += `<tr class="section-header"><td colspan="2">Manfaat Tambahan</td></tr>`;
-        hasilTambahan.detail.forEach(item => {
-            detailHtml += `<tr><td style="padding-left:20px;">${item.nama}</td><td style="text-align:right;">Rp ${formatRupiahFull(item.premi)}</td></tr>`;
-        });
-    } else {
-        detailHtml += `<tr class="sub-item"><td>Tidak ada manfaat tambahan</td><td style="text-align:right;"></td></tr>`;
-    }
-
-    detailHtml += `<tr class="total-row"><td>Total Premi</td><td style="text-align:right;">Rp ${formatRupiahFull(total)}</td></tr>`;
-    detailBody.innerHTML = detailHtml;
-
-    // Manfaat
-    const manfaatList = getManfaatTravel(selectedKeys);
-    const manfaatBody = document.getElementById('resultManfaatTravel');
-    if (manfaatList.length === 0) {
-        manfaatBody.innerHTML = `<tr><td colspan="2" class="no-data">Tidak ada manfaat yang tersedia</td></tr>`;
-    } else {
-        let mHtml = '';
-        let groupMap = {};
-        const groupLabels = {
-            'A': 'Kecelakaan Diri & Pendidikan',
-            'B': 'Perawatan Medis Darurat',
-            'C': 'Bantuan Perjalanan',
-            'D': 'Ketidaknyamanan Perjalanan',
-            'E': 'Barang Pribadi',
-            'F': 'Manfaat Lain-Lain',
-            'G': 'Manfaat Tambahan'
-        };
-
-        manfaatList.forEach(item => {
-            const bagian = item.bagian || '';
-            const groupKey = bagian.charAt(0) || '';
-            if (!groupMap[groupKey]) groupMap[groupKey] = [];
-            groupMap[groupKey].push(item);
-        });
-
-        Object.keys(groupMap).forEach(key => {
-            const label = groupLabels[key] || 'Manfaat';
-            mHtml += `<tr class="section-header"><td colspan="2"><strong>${label}</strong></td></tr>`;
-            groupMap[key].forEach(item => {
-                const displayNilai = formatManfaatValue(item.nilai);
-                const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' : '';
-                const isTambahan = key === 'G';
-                const style = isTambahan ? 'style="color:#1e7e34;"' : '';
-                mHtml += `<tr ${style}><td style="padding-left:12px;">${item.manfaat}${ket}</td><td style="text-align:right;font-weight:600;">${displayNilai}</td></tr>`;
-            });
-        });
-
-        manfaatBody.innerHTML = mHtml;
-    }
-
-    // Simpan hasil untuk proposal
-    hasilTravel = {
-        nama: nama,
-        noHp: noHp,
-        usia: usiaTravel,
-        tglLahir: tglLahir,
-        jenisPerjalanan: document.getElementById('jenisPerjalananTravel').value,
-        area: document.getElementById('areaTravel').value,
-        tier: document.getElementById('tierTravel').value,
-        jenisPolis: document.getElementById('jenisPolisTravel').value,
-        durasi: parseInt(document.getElementById('durasiTravel').value) || 1,
-        premiDasar: premiDasar,
-        premiTambahan: premiTambahan,
-        total: total,
-        detailDasar: hasilDasar.detail,
-        detailTambahan: hasilTambahan.detail,
-        manfaatList: manfaatList,
-        selectedKeys: selectedKeys
-    };
-
-    document.getElementById('btnCetakTravel').disabled = false;
-    resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-    // Simpan ke Firebase
-    const result = { total: total, formatted: 'Rp ' + formatRupiahFull(total), premiDasar: premiDasar, premiTambahan: premiTambahan };
-    const input = { 
-        nama: nama, 
-        noHp: noHp, 
-        tglLahir: formatTanggal(tglLahir), 
-        usia: usiaTravel,
-        jenisPerjalanan: document.getElementById('jenisPerjalananTravel').options[document.getElementById('jenisPerjalananTravel').selectedIndex].text,
-        area: document.getElementById('areaTravel').options[document.getElementById('areaTravel').selectedIndex].text,
-        tier: document.getElementById('tierTravel').options[document.getElementById('tierTravel').selectedIndex].text,
-        jenisPolis: document.getElementById('jenisPolisTravel').options[document.getElementById('jenisPolisTravel').selectedIndex].text,
-        durasi: document.getElementById('durasiTravel').value,
-        manfaatTambahan: hasilTambahan.detail.map(d=>d.nama).join(', ') || 'Tidak ada'
-    };
-    const detail = { 
-        detailDasar: hasilDasar.detail, 
-        detailTambahan: hasilTambahan.detail,
-        selectedKeys: selectedKeys
-    };
-    const remainingQuota = (await getLicenseStatus(session.email)).remaining;
-    await saveCalculation('travel', result, input, detail, remainingQuota);
-    updateStatusBar();
-}
-
-function viewHistoryTravel(item) {
-    const data = item;
-    const result = data.result || {};
-    const input = data.input || {};
-    const detail = data.detail || {};
-
-    document.getElementById('namaTravel').value = input.nama || '';
-    document.getElementById('noHpTravel').value = input.noHp || '';
-    document.getElementById('tanggalLahirTravel').value = input.tglLahir || '1990-03-15';
-    hitungUsiaTravel();
-
-    const resultBox = document.getElementById('resultTravel');
-    const viewIndicator = document.getElementById('viewIndicatorTravel');
-    viewIndicator.classList.add('show');
-    isViewingHistory = true;
-    resultBox.classList.add('show');
-
-    const total = result.total || 0;
-    const formatted = result.formatted || 'Rp ' + formatRupiahFull(total);
-    document.getElementById('totalPremiTravel').textContent = formatted;
-    document.getElementById('premiDasarTravel').textContent = 'Rp ' + formatRupiahFull(result.premiDasar || 0);
-    document.getElementById('premiTambahanTravel').textContent = 'Rp ' + formatRupiahFull(result.premiTambahan || 0);
-
-    // Detail
-    const detailBody = document.getElementById('resultDetailTravel');
-    let detailHtml = '';
-    detailHtml += `<tr><td>Premi Dasar</td><td style="text-align:right;">Rp ${formatRupiahFull(result.premiDasar || 0)}</td></tr>`;
-    if (detail.detailDasar) {
-        detailHtml += `<tr class="sub-item"><td>${detail.detailDasar}</td><td style="text-align:right;"></td></tr>`;
-    }
-    const tambahanDetail = detail.detailTambahan || [];
-    if (tambahanDetail.length > 0) {
-        detailHtml += `<tr class="section-header"><td colspan="2">Manfaat Tambahan</td></tr>`;
-        tambahanDetail.forEach(item => {
-            detailHtml += `<tr><td style="padding-left:20px;">${item.nama}</td><td style="text-align:right;">Rp ${formatRupiahFull(item.premi)}</td></tr>`;
-        });
-    } else {
-        detailHtml += `<tr class="sub-item"><td>Tidak ada manfaat tambahan</td><td style="text-align:right;"></td></tr>`;
-    }
-    detailHtml += `<tr class="total-row"><td>Total Premi</td><td style="text-align:right;">${formatted}</td></tr>`;
-    detailBody.innerHTML = detailHtml;
-
-    // Manfaat
-    const selectedKeys = detail.selectedKeys || [];
-    const manfaatList = getManfaatTravel(selectedKeys);
-    const manfaatBody = document.getElementById('resultManfaatTravel');
-    if (manfaatList.length === 0) {
-        manfaatBody.innerHTML = `<tr><td colspan="2" class="no-data">Tidak ada manfaat yang tersedia</td></tr>`;
-    } else {
-        let mHtml = '';
-        let groupMap = {};
-        const groupLabels = {
-            'A': 'Kecelakaan Diri & Pendidikan',
-            'B': 'Perawatan Medis Darurat',
-            'C': 'Bantuan Perjalanan',
-            'D': 'Ketidaknyamanan Perjalanan',
-            'E': 'Barang Pribadi',
-            'F': 'Manfaat Lain-Lain',
-            'G': 'Manfaat Tambahan'
-        };
-        manfaatList.forEach(item => {
-            const bagian = item.bagian || '';
-            const groupKey = bagian.charAt(0) || '';
-            if (!groupMap[groupKey]) groupMap[groupKey] = [];
-            groupMap[groupKey].push(item);
-        });
-        Object.keys(groupMap).forEach(key => {
-            const label = groupLabels[key] || 'Manfaat';
-            mHtml += `<tr class="section-header"><td colspan="2"><strong>${label}</strong></td></tr>`;
-            groupMap[key].forEach(item => {
-                const displayNilai = formatManfaatValue(item.nilai);
-                const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' : '';
-                const isTambahan = key === 'G';
-                const style = isTambahan ? 'style="color:#1e7e34;"' : '';
-                mHtml += `<tr ${style}><td style="padding-left:12px;">${item.manfaat}${ket}</td><td style="text-align:right;font-weight:600;">${displayNilai}</td></tr>`;
-            });
-        });
-        manfaatBody.innerHTML = mHtml;
-    }
-
-    document.getElementById('btnCetakTravel').disabled = false;
-
-    hasilTravel = {
-        nama: input.nama || '',
-        noHp: input.noHp || '',
-        usia: input.usia || 0,
-        tglLahir: input.tglLahir || '',
-        jenisPerjalanan: input.jenisPerjalanan || 'internasional',
-        area: input.area || 'worldwide',
-        tier: input.tier || 'prime',
-        jenisPolis: input.jenisPolis || 'pulang_pergi',
-        durasi: parseInt(input.durasi) || 7,
-        premiDasar: result.premiDasar || 0,
-        premiTambahan: result.premiTambahan || 0,
-        total: total,
-        detailDasar: detail.detailDasar || '',
-        detailTambahan: tambahanDetail,
-        manfaatList: manfaatList,
-        selectedKeys: selectedKeys
-    };
-
-    resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-function cetakProposalTravel() {
-    if (!hasilTravel) { showAlert('warning', 'Info', 'Hitung premi terlebih dahulu!'); return; }
-    tampilkanProposalTravel(hasilTravel);
-}
-
-function tampilkanProposalTravel(h) {
-    document.getElementById('proposalWealthSection').style.display = 'none';
-    document.getElementById('proposalRekomendasiSection').style.display = 'none';
-    document.getElementById('proposalJiwaSection').style.display = 'none';
-    document.getElementById('proposalKondisiSection').style.display = 'none';
-    document.getElementById('proposalPerhitunganSection').style.display = 'none';
-    document.getElementById('proposalDeductibleSection').style.display = 'none';
-    document.getElementById('proposalTravelSection').style.display = 'block';
-    document.getElementById('pernyataanTitle').textContent = 'D. PERNYATAAN & PERSETUJUAN';
-    document.getElementById('pNoLabel').textContent = 'Proposal';
-    document.getElementById('proposalSubTitle').textContent = 'ASURANSI PERJALANAN - ' + (h.jenisPerjalanan === 'internasional' ? 'Internasional' : 'Domestik');
-    document.getElementById('proposalDesc').textContent = 'Dokumen Penawaran Perlindungan Perjalanan';
-
-    const areaLabels = { worldwide: 'Worldwide', eropa: 'Eropa', asia: 'Asia', domestik: 'Domestik' };
-    const tierLabels = { prime: 'Prime', edge: 'Edge', lite: 'Lite', boost: 'Boost', joy: 'Joy', roadtrip: 'Roadtrip' };
-    const jenisPerjalananLabel = h.jenisPerjalanan === 'internasional' ? 'Internasional' : 'Domestik';
-    const jenisPolisLabel = h.jenisPolis === 'pulang_pergi' ? 'Perjalanan Pulang Pergi' : 'Tahunan';
-
-    document.getElementById('pNama').textContent = h.nama;
-    document.getElementById('pInfoTambahan').textContent = 'No. HP: ' + h.noHp + ' | Usia: ' + h.usia + ' tahun';
-    document.getElementById('proposalDataContent').innerHTML = `
-        <div class="proposal-data-grid">
-            <div class="item"><span class="label">Nama Lengkap</span><span class="value">${h.nama}</span></div>
-            <div class="item"><span class="label">No. HP</span><span class="value">${h.noHp}</span></div>
-            <div class="item"><span class="label">Usia</span><span class="value">${h.usia} tahun</span></div>
-            <div class="item"><span class="label">Jenis Perjalanan</span><span class="value">${jenisPerjalananLabel}</span></div>
-            <div class="item"><span class="label">Area / Zona</span><span class="value">${areaLabels[h.area] || h.area}</span></div>
-            <div class="item"><span class="label">Paket / Tier</span><span class="value">${tierLabels[h.tier] || h.tier}</span></div>
-            <div class="item"><span class="label">Jenis Polis</span><span class="value">${jenisPolisLabel}</span></div>
-            <div class="item"><span class="label">Durasi Perjalanan</span><span class="value">${h.durasi} hari</span></div>
-        </div>
-    `;
-
-    const premiumBody = document.getElementById('pPremiumBodyTravel');
-    let pHtml = '';
-    pHtml += `<tr><td>Premi Dasar</td><td style="text-align:right;">${h.detailDasar || '-'}</td><td style="text-align:right;">Rp ${formatRupiahFull(h.premiDasar)}</td></tr>`;
-
-    if (h.detailTambahan && h.detailTambahan.length > 0) {
-        pHtml += `<tr><td style="font-weight:600;padding-top:6px;color:#2c3e6b;" colspan="3">Manfaat Tambahan:</td></tr>`;
-        h.detailTambahan.forEach(item => {
-            pHtml += `<tr><td style="padding-left:16px;font-size:12px;color:#2c3e6b;">${item.nama}</td><td style="text-align:right;"></td><td style="text-align:right;">Rp ${formatRupiahFull(item.premi)}</td></tr>`;
-        });
-        const totalTambahan = h.detailTambahan.reduce((sum, i) => sum + i.premi, 0);
-        pHtml += `<tr style="border-top:1px solid #dce3ec;"><td style="font-weight:600;color:#1a3a5c;">Total Tambahan</td><td style="text-align:right;"></td><td style="text-align:right;font-weight:600;color:#1a3a5c;">Rp ${formatRupiahFull(totalTambahan)}</td></tr>`;
-    } else {
-        pHtml += `<tr><td style="padding-left:16px;color:#5e7a93;font-size:12px;" colspan="3">Tidak ada manfaat tambahan</td></tr>`;
-    }
-
-    pHtml += `<tr class="highlight-row"><td><strong>Total Premi</strong></td><td style="text-align:right;"></td><td style="text-align:right;"><strong>Rp ${formatRupiahFull(h.total)}</strong></td></tr>`;
-    premiumBody.innerHTML = pHtml;
-
-    // Manfaat
-    const manfaatContainer = document.getElementById('proposalManfaatContentTravel');
-    const manfaatList = h.manfaatList || [];
-
-    if (manfaatList.length === 0) {
-        manfaatContainer.innerHTML = '<p style="color:#5e7a93;font-size:13px;">Tidak ada manfaat yang tersedia</p>';
-    } else {
-        let mHtml = '<table class="proposal-manfaat-table">';
-        let groupMap = {};
-        const groupLabels = {
-            'A': 'Kecelakaan Diri & Pendidikan',
-            'B': 'Perawatan Medis Darurat',
-            'C': 'Bantuan Perjalanan',
-            'D': 'Ketidaknyamanan Perjalanan',
-            'E': 'Barang Pribadi',
-            'F': 'Manfaat Lain-Lain',
-            'G': 'Manfaat Tambahan'
-        };
-        manfaatList.forEach(item => {
-            const bagian = item.bagian || '';
-            const groupKey = bagian.charAt(0) || '';
-            if (!groupMap[groupKey]) groupMap[groupKey] = [];
-            groupMap[groupKey].push(item);
-        });
-        Object.keys(groupMap).forEach(key => {
-            const label = groupLabels[key] || 'Manfaat';
-            mHtml += `<tr class="group-header"><td colspan="2"><strong>${label}</strong></td></tr>`;
-            groupMap[key].forEach(item => {
-                const displayNilai = formatManfaatValue(item.nilai);
-                const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' : '';
-                const isTambahan = key === 'G';
-                const className = isTambahan ? 'tambahan-item' : 'manfaat-item';
-                mHtml += `<tr class="${className}"><td>${item.manfaat}${ket}</td><td class="nilai">${displayNilai}</td></tr>`;
-            });
-        });
-        mHtml += '</table>';
-        manfaatContainer.innerHTML = mHtml;
-    }
-
-    const now = new Date();
-    const tgl = formatTanggal(now);
-    document.getElementById('pKotaTanggal').textContent = tgl;
-    document.getElementById('pNoProposal').textContent = 'PROP/' + now.getFullYear() + '/' + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0') + String(Math.floor(Math.random()*1000)).padStart(3,'0');
-
-    document.getElementById('footerNotes').innerHTML = `
-        <ul>
-            <li><strong>Catatan:</strong> Perhitungan premi ini adalah perkiraan berdasarkan data yang diberikan.</li>
-            <li>Premi final dapat berubah setelah verifikasi data dan dokumen pendukung.</li>
-            <li style="margin-top:2px;font-size:10px;color:#7a8a9f;">Dokumen ini adalah proposal / penawaran awal.</li>
-        </ul>
-    `;
-
-    document.getElementById('proposalWrapper').classList.add('show');
-    document.getElementById('printInstruction').classList.remove('show');
-    document.getElementById('proposalWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-function resetFormTravel() {
-    document.getElementById('namaTravel').value = '';
-    document.getElementById('noHpTravel').value = '';
-    document.getElementById('tanggalLahirTravel').value = '1990-03-15';
-    document.getElementById('jenisPerjalananTravel').value = 'internasional';
-    document.getElementById('areaTravel').value = 'worldwide';
-    document.getElementById('tierTravel').value = 'prime';
-    document.getElementById('jenisPolisTravel').value = 'pulang_pergi';
-    document.getElementById('durasiTravel').value = '7';
-    document.getElementById('tahunanPaketTravel').value = '90';
-    document.getElementById('tahunanInfoTravel').style.display = 'none';
-    document.getElementById('durasiTravel').disabled = false;
-    document.querySelectorAll('#tambahanGridTravel input[type="checkbox"]').forEach(cb => cb.checked = false);
-    hitungUsiaTravel();
-    updateAreaTravel();
-    updateTambahanTravel();
-    document.getElementById('resultTravel').classList.remove('show');
-    document.getElementById('btnCetakTravel').disabled = true;
-    document.getElementById('viewIndicatorTravel').classList.remove('show');
-    isViewingHistory = false;
-    hasilTravel = null;
     tutupProposal();
 }
 
@@ -3519,7 +2148,6 @@ function tampilkanProposalJiwa(h) {
     document.getElementById('proposalKondisiSection').style.display = 'none';
     document.getElementById('proposalPerhitunganSection').style.display = 'none';
     document.getElementById('proposalDeductibleSection').style.display = 'none';
-    document.getElementById('proposalTravelSection').style.display = 'none';
     document.getElementById('proposalJiwaSection').style.display = 'block';
     document.getElementById('pernyataanTitle').textContent = 'D. PERNYATAAN & PERSETUJUAN';
     document.getElementById('pNoLabel').textContent = 'Laporan';
@@ -3723,7 +2351,6 @@ function tampilkanProposalWealth(h) {
     document.getElementById('proposalWealthSection').style.display = 'block';
     document.getElementById('proposalRekomendasiSection').style.display = 'block';
     document.getElementById('proposalJiwaSection').style.display = 'none';
-    document.getElementById('proposalTravelSection').style.display = 'none';
     document.getElementById('proposalKondisiSection').style.display = 'none';
     document.getElementById('proposalPerhitunganSection').style.display = 'none';
     document.getElementById('proposalDeductibleSection').style.display = 'none';
@@ -3779,6 +2406,426 @@ function resetFormWealth() {
     document.getElementById('viewIndicatorWealth').classList.remove('show');
     isViewingHistory = false;
     hasilPensiun = null;
+    tutupProposal();
+}
+
+// ============================================================
+// FUNGSI TRAVEL (ASURANSI PERJALANAN)
+// ============================================================
+async function loadDatabaseTravel() {
+    const loading = document.getElementById('loadingTravel');
+    const statusEl = document.getElementById('dataStatusTravel');
+    loading.classList.add('show');
+    try {
+        const response = await fetch('travel-insurance-database.json');
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        dbTravel = await response.json();
+        console.log('✅ Database Travel loaded:', dbTravel.meta ? dbTravel.meta.nama_produk : '-', dbTravel.meta ? ('v' + dbTravel.meta.versi) : '');
+        loading.classList.remove('show');
+        statusEl.textContent = '';
+        statusEl.className = 'data-status';
+        document.getElementById('formTravel').style.display = 'block';
+        updateAreaOptionsTravel();
+        updateTierOptionsTravel();
+        updateTambahanOptionsTravel();
+        hitungUsiaTravel();
+    } catch (error) {
+        console.error('❌ Gagal load database travel:', error);
+        loading.classList.remove('show');
+        statusEl.textContent = '⚠️ Gagal memuat database travel. Pastikan file travel-insurance-database.json berada di folder yang sama. (' + error.message + ')';
+        statusEl.className = 'data-status error';
+    }
+}
+
+function hitungUsiaTravel() {
+    const tgl = document.getElementById('tanggalLahirTravel').value;
+    const u = hitungUsia(tgl);
+    usiaTravel = u;
+    document.getElementById('usiaSaatIniTravel').value = u > 0 ? u + ' tahun' : '';
+}
+
+function updateAreaOptionsTravel() {
+    if (!dbTravel) return;
+    const jenis = document.getElementById('jenisPerjalananTravel').value;
+    const areaSelect = document.getElementById('areaTravel');
+    areaSelect.innerHTML = '';
+    if (jenis === 'internasional') {
+        const areas = dbTravel.area.internasional || ['worldwide', 'eropa', 'asia'];
+        const labels = { worldwide: 'Worldwide', eropa: 'Eropa', asia: 'Asia' };
+        areas.forEach(a => {
+            const opt = document.createElement('option');
+            opt.value = a; opt.textContent = labels[a] || a;
+            areaSelect.appendChild(opt);
+        });
+    } else {
+        const opt = document.createElement('option');
+        opt.value = 'domestik'; opt.textContent = 'Domestik';
+        areaSelect.appendChild(opt);
+    }
+    updateTierOptionsTravel();
+    updateTambahanOptionsTravel();
+}
+
+function updateTierOptionsTravel() {
+    if (!dbTravel) return;
+    const jenis = document.getElementById('jenisPerjalananTravel').value;
+    const tierSelect = document.getElementById('tierTravel');
+    tierSelect.innerHTML = '';
+    let tiers = jenis === 'internasional' ? ['prime', 'edge', 'lite'] : ['boost', 'joy', 'roadtrip'];
+    const labels = { prime: 'Prime (Tertinggi)', edge: 'Edge (Menengah)', lite: 'Lite (Dasar)', boost: 'Boost (Tertinggi)', joy: 'Joy (Menengah)', roadtrip: 'Roadtrip (Dasar)' };
+    tiers.forEach(t => {
+        const opt = document.createElement('option');
+        opt.value = t; opt.textContent = labels[t] || t;
+        tierSelect.appendChild(opt);
+    });
+    updateTambahanOptionsTravel();
+}
+
+function updateTambahanOptionsTravel() {
+    if (!dbTravel) return;
+    const jenis = document.getElementById('jenisPerjalananTravel').value;
+    const area = document.getElementById('areaTravel').value;
+    const tier = document.getElementById('tierTravel').value;
+    const polis = document.getElementById('jenisPolisTravel').value;
+    const grid = document.getElementById('tambahanGridTravel');
+    const checks = grid.querySelectorAll('input[type="checkbox"]');
+    let available = [];
+    if (jenis === 'internasional') {
+        const tambah = dbTravel.tambahan.internasional;
+        if (polis === 'pulang_pergi') {
+            const usiaKey = usiaTravel >= 70 ? 'usia_70_plus' : 'usia_1_69';
+            if (tambah.pulang_pergi[usiaKey] && tambah.pulang_pergi[usiaKey][area] && tambah.pulang_pergi[usiaKey][area][tier]) {
+                available = Object.keys(tambah.pulang_pergi[usiaKey][area][tier]);
+            }
+        } else if (polis === 'tahunan') {
+            if (area === 'worldwide' && tambah.tahunan && tambah.tahunan.worldwide && tambah.tahunan.worldwide[tier]) {
+                available = Object.keys(tambah.tahunan.worldwide[tier]);
+            }
+        }
+    } else {
+        const tambah = dbTravel.tambahan.domestik;
+        if (polis === 'pulang_pergi') {
+            if (tambah.pulang_pergi && tambah.pulang_pergi[tier]) {
+                available = Object.keys(tambah.pulang_pergi[tier]);
+            }
+        }
+    }
+    checks.forEach(cb => {
+        const val = cb.value;
+        const isAvailable = available.includes(val);
+        cb.disabled = !isAvailable;
+        if (!isAvailable) cb.checked = false;
+        const label = cb.closest('label');
+        if (label) label.classList.toggle('disabled-label', !isAvailable);
+    });
+}
+
+function getPremiDasarTravel() {
+    const area = document.getElementById('areaTravel').value;
+    const tier = document.getElementById('tierTravel').value;
+    const durasi = parseInt(document.getElementById('durasiTravel').value) || 1;
+    const polis = document.getElementById('jenisPolisTravel').value;
+    const usiaKey = usiaTravel >= 70 ? 'usia_70_plus' : 'usia_1_69';
+    const premiData = dbTravel.premi.individu[usiaKey];
+    if (!premiData) return { premi: 0, detail: 'Data premi tidak ditemukan' };
+    const areaData = premiData[area];
+    if (!areaData) return { premi: 0, detail: 'Area tidak ditemukan' };
+    const tierData = areaData[tier];
+    if (!tierData) return { premi: 0, detail: 'Tier tidak ditemukan' };
+    if (polis === 'tahunan') {
+        if (area !== 'worldwide' && area !== 'domestik') return { premi: 0, detail: 'Polis Tahunan hanya tersedia untuk Worldwide dan Domestik' };
+        if (usiaTravel >= 70) return { premi: 0, detail: 'Polis Tahunan tidak tersedia untuk usia 70+' };
+        const paket = document.getElementById('tahunanPaketTravel').value;
+        const key = paket === '90' ? 'tahunan_90' : 'tahunan_180';
+        if (tierData[key] !== undefined) return { premi: tierData[key], detail: 'Tahunan ' + paket + ' hari' };
+        return { premi: 0, detail: 'Paket tahunan tidak tersedia untuk tier ini' };
+    }
+    let rangeKey = null;
+    const ranges = dbTravel.range_durasi || [];
+    for (let r of ranges) { if (durasi >= r.min && durasi <= r.max) { rangeKey = r.kode; break; } }
+    if (rangeKey && tierData[rangeKey] !== undefined) return { premi: tierData[rangeKey], detail: rangeKey.replace('_', ' - ') + ' hari' };
+    if (durasi > 31 && tierData['per_minggu'] !== undefined) {
+        const base = tierData['26_31'] || 0;
+        const extraDays = durasi - 31;
+        const extraWeeks = Math.ceil(extraDays / 7);
+        const extraPremi = extraWeeks * tierData['per_minggu'];
+        return { premi: base + extraPremi, detail: '26-31 hari + ' + extraWeeks + ' minggu tambahan' };
+    }
+    return { premi: 0, detail: 'Durasi tidak valid' };
+}
+
+function getPremiTambahanTravel() {
+    const area = document.getElementById('areaTravel').value;
+    const tier = document.getElementById('tierTravel').value;
+    const polis = document.getElementById('jenisPolisTravel').value;
+    const jenis = document.getElementById('jenisPerjalananTravel').value;
+    const usiaKey = usiaTravel >= 70 ? 'usia_70_plus' : 'usia_1_69';
+    const checks = document.querySelectorAll('#tambahanGridTravel input[type="checkbox"]:checked');
+    if (checks.length === 0) return { total: 0, detail: [], selectedKeys: [] };
+    let total = 0, detail = [], selectedKeys = [], dataTambahan = null;
+    if (jenis === 'internasional') {
+        const tambah = dbTravel.tambahan.internasional;
+        if (polis === 'pulang_pergi') dataTambahan = tambah.pulang_pergi?.[usiaKey]?.[area]?.[tier];
+        else if (polis === 'tahunan' && area === 'worldwide') dataTambahan = tambah.tahunan?.worldwide?.[tier];
+    } else {
+        const tambah = dbTravel.tambahan.domestik;
+        if (polis === 'pulang_pergi') dataTambahan = tambah.pulang_pergi?.[tier];
+    }
+    if (!dataTambahan) return { total: 0, detail: [], selectedKeys: [] };
+    const labels = { visa: 'Perlindungan Visa', olahraga_salju: 'Olahraga Salju', kapal_pesiar: 'Jaminan Kapal Pesiar', petualangan: 'Aktivitas Petualangan', bisnis: 'Perjalanan Bisnis', olahraga_amatir: 'Acara Olahraga Amatir' };
+    checks.forEach(cb => {
+        const val = cb.value;
+        const premi = dataTambahan[val];
+        if (premi !== undefined && premi > 0) { total += premi; detail.push({ nama: labels[val] || val, premi, key: val }); selectedKeys.push(val); }
+    });
+    return { total, detail, selectedKeys };
+}
+
+function getManfaatLengkapTravel(selectedKeys) {
+    const jenis = document.getElementById('jenisPerjalananTravel').value;
+    const tier = document.getElementById('tierTravel').value;
+    let manfaatData = jenis === 'internasional' ? dbTravel.manfaat.internasional?.[tier] : dbTravel.manfaat.domestik?.[tier];
+    if (!manfaatData) return [];
+    const daftar = manfaatData.daftar || [];
+    const filtered = [];
+    daftar.forEach(item => {
+        const bagian = item.bagian || '';
+        if (bagian.startsWith('G')) {
+            const keyMap = { 'G.33': 'visa', 'G.34': 'olahraga_salju', 'G.35': 'kapal_pesiar', 'G.36': 'petualangan', 'G.37': 'bisnis', 'G.38': 'olahraga_amatir' };
+            const key = keyMap[bagian] || '';
+            if (!selectedKeys.includes(key)) return;
+        }
+        if (!bagian.startsWith('G')) {
+            const ket = item.keterangan || '';
+            const match = ket.match(/Usia\s*(\d+)\s*ke\s*(bawah|atas)/i) || ket.match(/Usia\s*(\d+)\s*-\s*(\d+)/);
+            if (match) {
+                let include = false;
+                if (ket.includes('ke bawah')) { include = usiaTravel <= parseInt(match[1]); }
+                else if (ket.includes('ke atas')) { include = usiaTravel >= parseInt(match[1]); }
+                else if (ket.includes('-')) { include = usiaTravel >= parseInt(match[1]) && usiaTravel <= parseInt(match[2]); }
+                if (!include) return;
+            }
+        }
+        filtered.push(item);
+    });
+    return filtered;
+}
+
+function formatAngkaTravel(angka) {
+    if (!angka || isNaN(angka) || angka === 0) return '0';
+    return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
+function formatManfaatValueTravel(nilai) {
+    if (nilai === 'Dijamin') return 'Dijamin';
+    if (nilai === 'Biaya Sebenarnya') return 'Biaya Sebenarnya';
+    if (nilai === '-') return '-';
+    if (typeof nilai === 'string' && nilai.includes('/')) return nilai;
+    const num = parseInt(String(nilai).replace(/[^0-9]/g, '')) || 0;
+    return 'Rp ' + formatAngkaTravel(num);
+}
+
+const GROUP_LABELS_TRAVEL = { A: 'Kecelakaan Diri & Pendidikan', B: 'Perawatan Medis Darurat', C: 'Bantuan Perjalanan', D: 'Ketidaknyamanan Perjalanan', E: 'Barang Pribadi', F: 'Manfaat Lain-Lain', G: 'Manfaat Tambahan' };
+
+function renderManfaatTableTravel(manfaatList) {
+    if (manfaatList.length === 0) return '<tr><td colspan="2" class="no-data">Tidak ada manfaat yang tersedia</td></tr>';
+    let groupMap = {};
+    manfaatList.forEach(item => {
+        const groupKey = (item.bagian || '').charAt(0) || '';
+        if (!groupMap[groupKey]) groupMap[groupKey] = [];
+        groupMap[groupKey].push(item);
+    });
+    let html = '';
+    Object.keys(groupMap).forEach(key => {
+        const label = GROUP_LABELS_TRAVEL[key] || 'Manfaat';
+        html += `<tr class="group-header"><td colspan="2"><strong>${label}</strong></td></tr>`;
+        groupMap[key].forEach(item => {
+            const displayNilai = formatManfaatValueTravel(item.nilai);
+            const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' : '';
+            const isTambahan = key === 'G';
+            html += `<tr class="${isTambahan ? 'tambahan-item' : 'manfaat-item'}"><td>${item.manfaat}${ket}</td><td class="nilai">${displayNilai}</td></tr>`;
+        });
+    });
+    return html;
+}
+
+async function hitungPremiTravel() {
+    const session = getSession();
+    if (!session) { showAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu.'); return; }
+    if (!dbTravel) { showAlert('warning', 'Info', 'Database travel belum dimuat.'); return; }
+    const nama = document.getElementById('namaTravel').value.trim();
+    const noHp = document.getElementById('noHpTravel').value.trim();
+    if (!nama) { showAlert('warning', 'Info', 'Isi Nama Lengkap!'); return; }
+    if (!noHp) { showAlert('warning', 'Info', 'Isi No. HP!'); return; }
+    if (usiaTravel <= 0) { showAlert('warning', 'Info', 'Tanggal Lahir tidak valid!'); return; }
+
+    const hasilDasar = getPremiDasarTravel();
+    const premiDasar = hasilDasar.premi;
+    const hasilTambahan = getPremiTambahanTravel();
+    const premiTambahan = hasilTambahan.total;
+    const selectedKeys = hasilTambahan.selectedKeys || [];
+    const total = premiDasar + premiTambahan;
+    const manfaatList = getManfaatLengkapTravel(selectedKeys);
+
+    const jenisPerjalanan = document.getElementById('jenisPerjalananTravel').value;
+    const area = document.getElementById('areaTravel').value;
+    const tier = document.getElementById('tierTravel').value;
+    const jenisPolis = document.getElementById('jenisPolisTravel').value;
+    const durasi = parseInt(document.getElementById('durasiTravel').value) || 1;
+
+    hasilTerakhirTravel = { nama, noHp, usia: usiaTravel, jenisPerjalanan, area, tier, jenisPolis, durasi, premiDasar, premiTambahan, total, detailDasar: hasilDasar.detail, detailTambahan: hasilTambahan.detail, manfaatList, selectedKeys };
+
+    const resultBox = document.getElementById('resultTravel');
+    const viewIndicator = document.getElementById('viewIndicatorTravel');
+    viewIndicator.classList.remove('show');
+    isViewingHistory = false;
+    resultBox.classList.add('show');
+    document.getElementById('sTotalPremiTravel').textContent = 'Rp ' + formatAngkaTravel(total);
+    document.getElementById('sPremiDasarTravel').textContent = 'Rp ' + formatAngkaTravel(premiDasar);
+    document.getElementById('sPremiTambahanTravel').textContent = 'Rp ' + formatAngkaTravel(premiTambahan);
+
+    let detailHtml = `<tr><td class="label">Nama</td><td class="value">${nama}</td></tr><tr><td class="label">Jenis Perjalanan</td><td class="value">${jenisPerjalanan === 'internasional' ? 'Internasional' : 'Domestik'}</td></tr><tr><td class="label">Area / Zona</td><td class="value">${document.getElementById('areaTravel').options[document.getElementById('areaTravel').selectedIndex].text}</td></tr><tr><td class="label">Paket / Tier</td><td class="value">${document.getElementById('tierTravel').options[document.getElementById('tierTravel').selectedIndex].text}</td></tr><tr><td class="label">Jenis Polis</td><td class="value">${jenisPolis === 'pulang_pergi' ? 'Perjalanan Pulang Pergi' : 'Tahunan'}</td></tr><tr><td class="label">Durasi</td><td class="value">${durasi} hari</td></tr><tr><td class="label">Premi Dasar</td><td class="value">Rp ${formatAngkaTravel(premiDasar)}${hasilDasar.detail ? ' (' + hasilDasar.detail + ')' : ''}</td></tr>`;
+    if (hasilTambahan.detail && hasilTambahan.detail.length > 0) {
+        detailHtml += `<tr><td class="label" colspan="2" style="padding-top:10px;color:#2c3e6b;font-weight:700;">Manfaat Tambahan:</td></tr>`;
+        hasilTambahan.detail.forEach(item => { detailHtml += `<tr><td class="label" style="padding-left:16px;font-weight:500;">${item.nama}</td><td class="value">Rp ${formatAngkaTravel(item.premi)}</td></tr>`; });
+    } else {
+        detailHtml += `<tr><td class="label" colspan="2" style="color:#7a8fa5;">Tidak ada manfaat tambahan</td></tr>`;
+    }
+    detailHtml += `<tr class="total"><td><strong>Total Premi</strong></td><td class="value"><strong>Rp ${formatAngkaTravel(total)}</strong></td></tr>`;
+    document.getElementById('detailBodyTravel').innerHTML = detailHtml;
+    document.getElementById('manfaatBodyTravel').innerHTML = renderManfaatTableTravel(manfaatList);
+
+    document.getElementById('btnCetakTravel').disabled = false;
+    resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    const session2 = session;
+    const remainingQuota = (await getLicenseStatus(session2.email)).remaining;
+    const result = { total, formatted: 'Rp ' + formatAngkaTravel(total), premiDasar, premiTambahan };
+    const input = { nama, noHp, usia: usiaTravel, jenisPerjalanan, area, tier, jenisPolis, durasi };
+    const detail = { detailDasar: hasilDasar.detail, detailTambahan: hasilTambahan.detail, manfaatList, selectedKeys };
+    await saveCalculation('travel', result, input, detail, remainingQuota);
+    updateStatusBar();
+}
+
+function viewHistoryTravel(item) {
+    const data = item;
+    const result = data.result || {};
+    const input = data.input || {};
+    const detail = data.detail || {};
+    document.getElementById('namaTravel').value = input.nama || '';
+    document.getElementById('noHpTravel').value = input.noHp || '';
+    document.getElementById('jenisPerjalananTravel').value = input.jenisPerjalanan || 'internasional';
+    updateAreaOptionsTravel();
+    if (input.area) document.getElementById('areaTravel').value = input.area;
+    updateTierOptionsTravel();
+    if (input.tier) document.getElementById('tierTravel').value = input.tier;
+    document.getElementById('jenisPolisTravel').value = input.jenisPolis || 'pulang_pergi';
+    document.getElementById('tahunanInfoTravel').style.display = input.jenisPolis === 'tahunan' ? 'block' : 'none';
+    document.getElementById('durasiTravel').value = input.durasi || 7;
+    usiaTravel = input.usia || 0;
+    document.getElementById('usiaSaatIniTravel').value = usiaTravel > 0 ? usiaTravel + ' tahun' : '';
+    updateTambahanOptionsTravel();
+    const selectedKeys = detail.selectedKeys || [];
+    document.querySelectorAll('#tambahanGridTravel input[type="checkbox"]').forEach(cb => { cb.checked = selectedKeys.includes(cb.value) && !cb.disabled; });
+
+    const resultBox = document.getElementById('resultTravel');
+    const viewIndicator = document.getElementById('viewIndicatorTravel');
+    viewIndicator.classList.add('show');
+    isViewingHistory = true;
+    resultBox.classList.add('show');
+    const total = result.total || 0;
+    document.getElementById('sTotalPremiTravel').textContent = 'Rp ' + formatAngkaTravel(total);
+    document.getElementById('sPremiDasarTravel').textContent = 'Rp ' + formatAngkaTravel(result.premiDasar || 0);
+    document.getElementById('sPremiTambahanTravel').textContent = 'Rp ' + formatAngkaTravel(result.premiTambahan || 0);
+
+    let detailHtml = `<tr><td class="label">Nama</td><td class="value">${input.nama || '-'}</td></tr><tr><td class="label">Jenis Perjalanan</td><td class="value">${input.jenisPerjalanan === 'internasional' ? 'Internasional' : 'Domestik'}</td></tr><tr><td class="label">Durasi</td><td class="value">${input.durasi || '-'} hari</td></tr><tr><td class="label">Premi Dasar</td><td class="value">Rp ${formatAngkaTravel(result.premiDasar || 0)}${detail.detailDasar ? ' (' + detail.detailDasar + ')' : ''}</td></tr>`;
+    if (detail.detailTambahan && detail.detailTambahan.length > 0) {
+        detailHtml += `<tr><td class="label" colspan="2" style="padding-top:10px;color:#2c3e6b;font-weight:700;">Manfaat Tambahan:</td></tr>`;
+        detail.detailTambahan.forEach(it => { detailHtml += `<tr><td class="label" style="padding-left:16px;font-weight:500;">${it.nama}</td><td class="value">Rp ${formatAngkaTravel(it.premi)}</td></tr>`; });
+    } else {
+        detailHtml += `<tr><td class="label" colspan="2" style="color:#7a8fa5;">Tidak ada manfaat tambahan</td></tr>`;
+    }
+    detailHtml += `<tr class="total"><td><strong>Total Premi</strong></td><td class="value"><strong>Rp ${formatAngkaTravel(total)}</strong></td></tr>`;
+    document.getElementById('detailBodyTravel').innerHTML = detailHtml;
+    const manfaatList = detail.manfaatList || [];
+    document.getElementById('manfaatBodyTravel').innerHTML = renderManfaatTableTravel(manfaatList);
+    document.getElementById('btnCetakTravel').disabled = false;
+
+    hasilTerakhirTravel = { nama: input.nama || '', noHp: input.noHp || '', usia: usiaTravel, jenisPerjalanan: input.jenisPerjalanan || 'internasional', area: input.area || '', tier: input.tier || '', jenisPolis: input.jenisPolis || 'pulang_pergi', durasi: input.durasi || 7, premiDasar: result.premiDasar || 0, premiTambahan: result.premiTambahan || 0, total, detailDasar: detail.detailDasar || '', detailTambahan: detail.detailTambahan || [], manfaatList, selectedKeys };
+    resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function cetakProposalTravel() { if (!hasilTerakhirTravel) { showAlert('warning', 'Info', 'Hitung premi dahulu!'); return; } tampilkanProposalTravel(hasilTerakhirTravel); }
+
+function tampilkanProposalTravel(h) {
+    document.getElementById('proposalWealthSection').style.display = 'none';
+    document.getElementById('proposalRekomendasiSection').style.display = 'none';
+    document.getElementById('proposalJiwaSection').style.display = 'none';
+    document.getElementById('proposalKondisiSection').style.display = 'none';
+    document.getElementById('proposalDeductibleSection').style.display = 'none';
+    document.getElementById('proposalPerhitunganSection').style.display = 'table';
+    document.getElementById('proposalManfaatSection').style.display = 'block';
+    document.getElementById('pernyataanTitle').textContent = 'D. PERNYATAAN & PERSETUJUAN';
+    document.getElementById('pNoLabel').textContent = 'Proposal';
+    document.getElementById('proposalSubTitle').textContent = 'PERLINDUNGAN PERJALANAN';
+    const jenisPerjalananLabel = h.jenisPerjalanan === 'internasional' ? 'Internasional' : 'Domestik';
+    document.getElementById('proposalDesc').textContent = 'Dokumen Penawaran Perlindungan Perjalanan ' + jenisPerjalananLabel;
+    document.getElementById('pNama').textContent = h.nama;
+    document.getElementById('pInfoTambahan').textContent = 'No. HP: ' + h.noHp + ' | Usia: ' + h.usia + ' tahun';
+
+    const areaLabels = { worldwide: 'Worldwide', eropa: 'Eropa', asia: 'Asia', domestik: 'Domestik' };
+    const tierLabels = { prime: 'Prime', edge: 'Edge', lite: 'Lite', boost: 'Boost', joy: 'Joy', roadtrip: 'Roadtrip' };
+    const jenisPolisLabel = h.jenisPolis === 'pulang_pergi' ? 'Perjalanan Pulang Pergi' : 'Tahunan';
+    document.getElementById('proposalDataContent').innerHTML = `<table class="data-table"><tr><td class="label">Nama Lengkap</td><td class="value"><strong>${h.nama}</strong></td></tr><tr><td class="label">No. HP</td><td class="value"><strong>${h.noHp}</strong></td></tr><tr><td class="label">Usia</td><td class="value">${h.usia} tahun</td></tr><tr><td class="label">Jenis Perjalanan</td><td class="value">${jenisPerjalananLabel}</td></tr><tr><td class="label">Area / Zona</td><td class="value">${areaLabels[h.area] || h.area}</td></tr><tr><td class="label">Paket / Tier</td><td class="value">${tierLabels[h.tier] || h.tier}</td></tr><tr><td class="label">Jenis Polis</td><td class="value">${jenisPolisLabel}</td></tr><tr><td class="label">Durasi Perjalanan</td><td class="value">${h.durasi} hari</td></tr></table>`;
+
+    let pHtml = `<tr><td>Premi Dasar</td><td style="text-align:right;">${h.detailDasar || '-'}</td><td style="text-align:right;">${formatRupiahFull(h.premiDasar)}</td></tr>`;
+    if (h.detailTambahan && h.detailTambahan.length > 0) {
+        pHtml += `<tr><td style="font-weight:600;padding-top:8px;color:#2c3e6b;" colspan="3">Manfaat Tambahan:</td></tr>`;
+        h.detailTambahan.forEach(item => { pHtml += `<tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">${item.nama}</td><td style="text-align:right;"></td><td style="text-align:right;font-size:13px;">${formatRupiahFull(item.premi)}</td></tr>`; });
+        const totalTambahan = h.detailTambahan.reduce((sum, i) => sum + i.premi, 0);
+        pHtml += `<tr style="border-top:1px solid #dce3ec;"><td style="font-weight:600;color:#1a3a5c;">Total Tambahan</td><td style="text-align:right;"></td><td style="text-align:right;font-weight:600;color:#1a3a5c;">${formatRupiahFull(totalTambahan)}</td></tr>`;
+    } else {
+        pHtml += `<tr><td style="padding-left:20px;color:#5e7a93;font-size:13px;" colspan="3">Tidak ada manfaat tambahan</td></tr>`;
+    }
+    pHtml += `<tr class="highlight-row"><td><strong>Total Premi</strong></td><td style="text-align:right;"></td><td style="text-align:right;"><strong>${formatRupiahFull(h.total)}</strong></td></tr>`;
+    document.getElementById('pPremiumBody').innerHTML = pHtml;
+
+    document.getElementById('proposalManfaatContent').innerHTML = '<table class="manfaat-table">' + renderManfaatTableTravel(h.manfaatList || []) + '</table>';
+
+    const now = new Date();
+    const tgl = formatTanggal(now);
+    document.getElementById('pTanggal') && (document.getElementById('pTanggal').textContent = tgl);
+    document.getElementById('pKotaTanggal').textContent = tgl;
+    document.getElementById('pNoProposal').textContent = 'AVR/TRV/' + now.getFullYear() + '/' + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0') + String(Math.floor(Math.random()*1000)).padStart(3,'0');
+    document.getElementById('footerNotes').innerHTML = `<ul><li><strong>Catatan:</strong> Perhitungan premi ini adalah perkiraan awal berdasarkan data yang diberikan.</li><li>Premi final dapat berubah setelah verifikasi data dan dokumen pendukung.</li><li style="margin-top:4px;font-size:11px;color:#7a8a9f;">Dokumen ini adalah proposal / penawaran awal.</li></ul>`;
+    document.getElementById('proposalWrapper').classList.add('show');
+    document.getElementById('printInstruction').classList.remove('show');
+    document.getElementById('proposalWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const btn = document.getElementById('btnCetakTravel');
+    btn.textContent = '✅ Proposal Siap!';
+    setTimeout(() => { btn.textContent = '📄 Cetak Proposal'; }, 2000);
+}
+
+function resetFormTravel() {
+    document.getElementById('namaTravel').value = '';
+    document.getElementById('noHpTravel').value = '';
+    document.getElementById('tanggalLahirTravel').value = '1990-03-15';
+    document.getElementById('jenisPerjalananTravel').value = 'internasional';
+    updateAreaOptionsTravel();
+    document.getElementById('tierTravel').value = 'prime';
+    document.getElementById('jenisPolisTravel').value = 'pulang_pergi';
+    document.getElementById('tahunanInfoTravel').style.display = 'none';
+    document.getElementById('durasiTravel').disabled = false;
+    document.getElementById('durasiTravel').value = '7';
+    document.getElementById('tahunanPaketTravel').value = '90';
+    document.querySelectorAll('#tambahanGridTravel input[type="checkbox"]').forEach(cb => cb.checked = false);
+    hitungUsiaTravel();
+    updateTambahanOptionsTravel();
+    document.getElementById('resultTravel').classList.remove('show');
+    document.getElementById('btnCetakTravel').disabled = true;
+    document.getElementById('viewIndicatorTravel').classList.remove('show');
+    isViewingHistory = false;
+    hasilTerakhirTravel = null;
     tutupProposal();
 }
 
@@ -3910,6 +2957,31 @@ document.querySelectorAll('#formMobil input, #formMobil select, #formProperti in
 });
 
 // ============================================================
+// TRAVEL FORM EVENT LISTENERS
+// ============================================================
+document.getElementById('tanggalLahirTravel').addEventListener('change', function() {
+    hitungUsiaTravel();
+    updateTambahanOptionsTravel();
+});
+document.getElementById('jenisPerjalananTravel').addEventListener('change', function() {
+    updateAreaOptionsTravel();
+    updateTambahanOptionsTravel();
+});
+document.getElementById('areaTravel').addEventListener('change', updateTambahanOptionsTravel);
+document.getElementById('tierTravel').addEventListener('change', updateTambahanOptionsTravel);
+document.getElementById('jenisPolisTravel').addEventListener('change', function() {
+    const isTahunan = this.value === 'tahunan';
+    document.getElementById('tahunanInfoTravel').style.display = isTahunan ? 'block' : 'none';
+    if (isTahunan) {
+        document.getElementById('durasiTravel').disabled = true;
+        document.getElementById('durasiTravel').value = '90';
+    } else {
+        document.getElementById('durasiTravel').disabled = false;
+    }
+    updateTambahanOptionsTravel();
+});
+
+// ============================================================
 // AUTH STATE OBSERVER
 // ============================================================
 auth.onAuthStateChanged(function(user) {
@@ -3922,6 +2994,7 @@ auth.onAuthStateChanged(function(user) {
 // ============================================================
 document.addEventListener('DOMContentLoaded', function() {
     loadDataKendaraan();
+    loadDatabaseTravel();
     updateStatusBar();
 
     const jenisMobilSelect = document.getElementById('jenisMobil');
@@ -3935,14 +3008,6 @@ document.addEventListener('DOMContentLoaded', function() {
         cbTjh.addEventListener('change', toggleTjhMobil);
     }
 
-    // Travel
-    document.getElementById('tanggalLahirTravel').value = '1990-03-15';
-    hitungUsiaTravel();
-    document.getElementById('tahunanInfoTravel').style.display = 'none';
-    document.getElementById('durasiTravel').disabled = false;
-    document.getElementById('btnCetakTravel').disabled = true;
-    
-    // Jiwa
     const defaultDate = '1990-03-15';
     document.getElementById('tanggalLahirJiwa').value = defaultDate;
     const usiaJiwa = hitungUsia(defaultDate);
@@ -3955,23 +3020,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('sisaWaktuWealth').value = (usiaPensiun - usiaWealth) > 0 ? (usiaPensiun - usiaWealth) + ' tahun' : '';
     }
 
-    // Event listener untuk travel
-    document.getElementById('jenisPerjalananTravel').addEventListener('change', function() {
-        updateAreaTravel();
-        updateTierTravel();
-        updateTambahanTravel();
-    });
-    document.getElementById('areaTravel').addEventListener('change', updateTambahanTravel);
-    document.getElementById('tierTravel').addEventListener('change', updateTambahanTravel);
-    document.getElementById('jenisPolisTravel').addEventListener('change', function() {
-        togglePolisTravel();
-        updateTambahanTravel();
-    });
-    document.getElementById('tanggalLahirTravel').addEventListener('change', function() {
-        hitungUsiaTravel();
-        updateTambahanTravel();
-    });
-
     const activeTab = document.querySelector('.tab-content.active');
     if (activeTab && activeTab.id === 'tabHistory') loadHistory();
 });
@@ -3982,10 +3030,12 @@ document.addEventListener('visibilitychange', function() {
     }
 });
 
-console.log('🚀 File HTML LENGKAP - Dengan Tab TRAVEL');
-console.log('✅ Mobil, Properti, Travel, Jiwa, Wealth');
-console.log('✅ Travel: semua fungsi dari travel.html terintegrasi');
-console.log('✅ Riwayat: load, lihat, hapus berfungsi untuk semua jenis');
+console.log('🚀 File HTML LENGKAP - Revisi Properti: Premi Dasar dari FLEXAS');
+console.log('✅ Premi Dasar = Flexas × Nilai × Faktor Usia × Faktor Luas');
+console.log('✅ FWTWD, RSMDCC, Others = Perluasan Opsional (terpisah)');
+console.log('✅ Mobil: Roda 2 disable perluasan & TLO only.');
+console.log('✅ Jiwa & Wealth: otomatisasi usia berfungsi.');
+console.log('✅ Riwayat: load, lihat, hapus berfungsi.');
 console.log('✅ Kop surat dengan LOGO dari nanjing-ico1.png');
 </script>
 </body>
