@@ -1174,7 +1174,7 @@
 <div class="container" id="appContainer">
 
     <a href="menu.html" class="back-home no-print">← Kembali ke Beranda</a>
-    <h1>🏦 Portal Asuransi Indonesia <span class="badge-ojk">OJK 2017</span></h1>
+    <h1>🏦 Portall Asuransi Indonesia <span class="badge-ojk">OJK 2017</span></h1>
     <p class="subtitle">Pilih jenis asuransi di bawah ini untuk menghitung premi dan membuat proposal</p>
 
     <div class="user-status-bar" id="userStatusBar">
@@ -1977,6 +1977,31 @@ let dbTravel = null;
 let usiaTravel = 0;
 let hasilTerakhirTravel = null;
 
+// ============================================================
+// RESET PROPOSAL SECTIONS - FIX DATA TERTIMPA
+// ============================================================
+function resetProposalSections() {
+    // Sembunyikan semua section
+    document.getElementById('proposalKondisiSection').style.display = 'none';
+    document.getElementById('proposalPerhitunganSection').style.display = 'none';
+    document.getElementById('proposalDeductibleSection').style.display = 'none';
+    document.getElementById('proposalWealthSection').style.display = 'none';
+    document.getElementById('proposalRekomendasiSection').style.display = 'none';
+    document.getElementById('proposalJiwaSection').style.display = 'none';
+    document.getElementById('proposalManfaatSection').style.display = 'none';
+    
+    // Kosongkan semua konten
+    document.getElementById('proposalDataContent').innerHTML = '';
+    document.getElementById('proposalKondisiContent').innerHTML = '';
+    document.getElementById('proposalPerhitunganContent').innerHTML = '';
+    document.getElementById('proposalDeductibleContent').innerHTML = '';
+    document.getElementById('proposalWealthContent').innerHTML = '';
+    document.getElementById('proposalRekomendasiContent').innerHTML = '';
+    document.getElementById('proposalJiwaContent').innerHTML = '';
+    document.getElementById('proposalRekomendasiJiwa').innerHTML = '';
+    document.getElementById('proposalManfaatContent').innerHTML = '';
+}
+
 function getTahunKategori(tahun) {
     if (tahun >= 2023 && tahun <= 2026) return '2026-2023';
     if (tahun >= 2021 && tahun <= 2022) return '2022-2021';
@@ -2385,9 +2410,9 @@ function viewHistoryMobil(item) {
 function cetakProposalMobil() { if (!hasilTerakhirMobil) { showAlert('warning', 'Info', 'Hitung premi dahulu!'); return; } tampilkanProposalMobil(hasilTerakhirMobil); }
 
 function tampilkanProposalMobil(h) {
-    document.getElementById('proposalWealthSection').style.display = 'none';
-    document.getElementById('proposalRekomendasiSection').style.display = 'none';
-    document.getElementById('proposalJiwaSection').style.display = 'none';
+    // RESET semua section terlebih dahulu agar tidak ada data tertinggal
+    resetProposalSections();
+    
     document.getElementById('proposalKondisiSection').style.display = 'block';
     document.getElementById('proposalPerhitunganSection').style.display = 'block';
     document.getElementById('proposalDeductibleSection').style.display = 'block';
@@ -2398,7 +2423,6 @@ function tampilkanProposalMobil(h) {
     document.getElementById('pNama').textContent = h.nama;
     document.getElementById('pInfoTambahan').textContent = 'No. HP: ' + h.noHp;
     
-    // DATA PERTANGGUNGAN - Full width 2 kolom
     document.getElementById('proposalDataContent').innerHTML = `
         <table class="data-table">
             <tr><td class="label">Merek Kendaraan</td><td class="value"><strong>${h.merk}</strong></td></tr>
@@ -2410,7 +2434,6 @@ function tampilkanProposalMobil(h) {
         </table>
     `;
     
-    // KONDISI PERTANGGUNGAN - Full width 2 kolom
     const extNames = h.detailPerluasan ? h.detailPerluasan.map(d=>d.nama).join(', ') : 'Tidak ada';
     const now = new Date();
     const tgl = formatTanggal(now.toISOString().split('T')[0]);
@@ -2422,7 +2445,6 @@ function tampilkanProposalMobil(h) {
         </table>
     `;
     
-    // PERHITUNGAN PREMI - Full width 2 kolom
     let rincianHTML = '', totalExt = 0;
     if (h.detailPerluasan && h.detailPerluasan.length > 0) {
         h.detailPerluasan.forEach(item => {
@@ -2702,9 +2724,9 @@ function viewHistoryProperti(item) {
 function cetakProposalProperti() { if (!hasilTerakhirProperti) { showAlert('warning', 'Info', 'Hitung premi dahulu!'); return; } tampilkanProposalProperti(hasilTerakhirProperti); }
 
 function tampilkanProposalProperti(h) {
-    document.getElementById('proposalWealthSection').style.display = 'none';
-    document.getElementById('proposalRekomendasiSection').style.display = 'none';
-    document.getElementById('proposalJiwaSection').style.display = 'none';
+    // RESET semua section terlebih dahulu agar tidak ada data tertinggal
+    resetProposalSections();
+    
     document.getElementById('proposalKondisiSection').style.display = 'block';
     document.getElementById('proposalPerhitunganSection').style.display = 'block';
     document.getElementById('proposalDeductibleSection').style.display = 'block';
@@ -2964,11 +2986,9 @@ function viewHistoryJiwa(item) {
 function cetakProposalJiwa() { if (!hasilJiwa) { showAlert('warning', 'Info', 'Hitung kebutuhan dahulu!'); return; } tampilkanProposalJiwa(hasilJiwa); }
 
 function tampilkanProposalJiwa(h) {
-    document.getElementById('proposalWealthSection').style.display = 'none';
-    document.getElementById('proposalRekomendasiSection').style.display = 'none';
-    document.getElementById('proposalKondisiSection').style.display = 'none';
-    document.getElementById('proposalPerhitunganSection').style.display = 'none';
-    document.getElementById('proposalDeductibleSection').style.display = 'none';
+    // RESET semua section terlebih dahulu agar tidak ada data tertinggal
+    resetProposalSections();
+    
     document.getElementById('proposalJiwaSection').style.display = 'block';
     document.getElementById('pernyataanTitle').textContent = 'D. PERNYATAAN & PERSETUJUAN';
     document.getElementById('pNoLabel').textContent = 'Laporan';
@@ -3199,12 +3219,11 @@ function viewHistoryWealth(item) {
 function cetakProposalWealth() { if (!hasilPensiun) { showAlert('warning', 'Info', 'Hitung dana pensiun dahulu!'); return; } tampilkanProposalWealth(hasilPensiun); }
 
 function tampilkanProposalWealth(h) {
+    // RESET semua section terlebih dahulu agar tidak ada data tertinggal
+    resetProposalSections();
+    
     document.getElementById('proposalWealthSection').style.display = 'block';
     document.getElementById('proposalRekomendasiSection').style.display = 'block';
-    document.getElementById('proposalJiwaSection').style.display = 'none';
-    document.getElementById('proposalKondisiSection').style.display = 'none';
-    document.getElementById('proposalPerhitunganSection').style.display = 'none';
-    document.getElementById('proposalDeductibleSection').style.display = 'none';
     document.getElementById('pernyataanTitle').textContent = 'D. PERNYATAAN & PERSETUJUAN';
     document.getElementById('pNoLabel').textContent = 'Laporan';
     document.getElementById('proposalSubTitle').textContent = 'PERENCANAAN DANA PENSIUN';
@@ -3632,11 +3651,9 @@ function viewHistoryTravel(item) {
 function cetakProposalTravel() { if (!hasilTerakhirTravel) { showAlert('warning', 'Info', 'Hitung premi dahulu!'); return; } tampilkanProposalTravel(hasilTerakhirTravel); }
 
 function tampilkanProposalTravel(h) {
-    document.getElementById('proposalWealthSection').style.display = 'none';
-    document.getElementById('proposalRekomendasiSection').style.display = 'none';
-    document.getElementById('proposalJiwaSection').style.display = 'none';
-    document.getElementById('proposalKondisiSection').style.display = 'none';
-    document.getElementById('proposalDeductibleSection').style.display = 'none';
+    // RESET semua section terlebih dahulu agar tidak ada data tertinggal
+    resetProposalSections();
+    
     document.getElementById('proposalPerhitunganSection').style.display = 'block';
     document.getElementById('proposalManfaatSection').style.display = 'block';
     document.getElementById('pernyataanTitle').textContent = 'D. PERNYATAAN & PERSETUJUAN';
@@ -3919,11 +3936,12 @@ document.addEventListener('visibilitychange', function() {
     }
 });
 
-console.log('🚀 File HTML LENGKAP - Revisi Tampilan Proposal');
+console.log('🚀 File HTML LENGKAP - Revisi Tampilan Proposal + Fix Data Tertimpa');
 console.log('✅ Semua proposal menggunakan format FULL WIDTH 2 KOLOM');
 console.log('✅ Responsive: HP >= 600px tetap 2 kolom, HP < 600px stack 1 kolom');
 console.log('✅ Print PDF tetap 2 kolom seperti tampilan desktop');
 console.log('✅ Semua fungsi perhitungan TIDAK BERUBAH');
+console.log('✅ FIX: Data proposal tidak tertimpa antar tab (resetProposalSections)');
 </script>
 </body>
 </html>
