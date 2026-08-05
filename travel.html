@@ -752,7 +752,6 @@
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
-            /* Tabel Manfaat - ukuran font lebih besar */
             .proposal-manfaat-table {
                 font-size: 13px !important;
             }
@@ -1312,7 +1311,7 @@
         }
 
         // ============================================================
-        // GET MANFAAT - tanpa manfaat tambahan
+        // GET MANFAAT - tanpa manfaat tambahan (NILAI MANFAAT, BUKAN PREMI)
         // ============================================================
         function getManfaatDasar() {
             const jenis = document.getElementById('jenisPerjalanan').value;
@@ -1357,6 +1356,21 @@
             });
 
             return filtered;
+        }
+
+        // ============================================================
+        // TAMPILKAN NILAI MANFAAT (PERTANGGUNGAN)
+        // ============================================================
+        function displayManfaatValue(nilai) {
+            if (nilai === 'Dijamin') return 'Dijamin';
+            if (nilai === 'Biaya Sebenarnya') return 'Biaya Sebenarnya';
+            if (nilai === '-') return '-';
+            // Jika nilai adalah string dengan format "1.000.000 / 10.000.000"
+            if (typeof nilai === 'string' && nilai.includes('/')) {
+                return nilai;
+            }
+            const num = parseInt(String(nilai).replace(/[^0-9]/g, '')) || 0;
+            return 'Rp ' + formatRupiahFull(num);
         }
 
         // ============================================================
@@ -1405,9 +1419,8 @@
             detailHtml += `<tr class="total-row"><td>Total Premi</td><td style="text-align:right;">Rp ${formatRupiahFull(total)}</td></tr>`;
             detailBody.innerHTML = detailHtml;
 
-            // Manfaat Dasar (tanpa G)
+            // Manfaat Dasar (tanpa G) - TAMPILKAN NILAI MANFAAT
             const manfaatDasar = getManfaatDasar();
-            // Manfaat Tambahan yang dipilih
             const manfaatTambahan = selectedTambahan;
 
             const manfaatBody = document.getElementById('resultManfaat');
@@ -1432,7 +1445,7 @@
                             item: {
                                 manfaat: t.nama,
                                 keterangan: '(Tambahan)',
-                                nilai: t.premi
+                                nilai: t.premi // untuk tambahan, tampilkan premi
                             }
                         });
                     });
@@ -1445,7 +1458,7 @@
                     'D': 'Ketidaknyamanan Perjalanan',
                     'E': 'Barang Pribadi',
                     'F': 'Manfaat Lain-Lain',
-                    'G': 'Manfaat Tambahan'
+                    'G': 'Manfaat Tambahan (Premi)'
                 };
 
                 Object.keys(groupMap).forEach(key => {
@@ -1454,12 +1467,11 @@
                     groupMap[key].forEach(entry => {
                         const item = entry.item;
                         const isTambahan = entry.type === 'tambahan';
-                        const nilai = item.nilai;
-                        const displayNilai = (nilai === 'Dijamin' || nilai === 'Biaya Sebenarnya' || nilai ===
-                            '-') ? nilai :
-                            'Rp ' + formatRupiahFull(parseInt(String(nilai).replace(/[^0-9]/g, '')) || 0);
-                        const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' :
-                            '';
+                        // Tampilkan nilai manfaat (bukan premi)
+                        const displayNilai = isTambahan ? 
+                            'Rp ' + formatRupiahFull(item.nilai) : 
+                            displayManfaatValue(item.nilai);
+                        const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' : '';
                         const style = isTambahan ? 'style="color:#1e7e34;"' : '';
                         mHtml +=
                             `<tr ${style}><td style="padding-left:12px;">${item.manfaat}${ket}</td><td style="text-align:right;font-weight:600;">${displayNilai}</td></tr>`;
@@ -1570,7 +1582,7 @@
                 `<tr class="highlight-row"><td><strong>Total Premi</strong></td><td style="text-align:right;"></td><td style="text-align:right;"><strong>Rp ${formatRupiahFull(h.total)}</strong></td></tr>`;
             premiumBody.innerHTML = pHtml;
 
-            // Manfaat Perlindungan
+            // Manfaat Perlindungan - TAMPILKAN NILAI MANFAAT
             const manfaatContainer = document.getElementById('proposalManfaatContent');
             const manfaatDasar = h.manfaatDasar || [];
             const manfaatTambahan = h.manfaatTambahan || [];
@@ -1617,12 +1629,10 @@
                     groupMap[key].forEach(entry => {
                         const item = entry.item;
                         const isTambahan = entry.type === 'tambahan';
-                        const nilai = item.nilai;
-                        const displayNilai = (nilai === 'Dijamin' || nilai === 'Biaya Sebenarnya' || nilai ===
-                            '-') ? nilai :
-                            'Rp ' + formatRupiahFull(parseInt(String(nilai).replace(/[^0-9]/g, '')) || 0);
-                        const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' :
-                            '';
+                        const displayNilai = isTambahan ? 
+                            'Rp ' + formatRupiahFull(item.nilai) : 
+                            displayManfaatValue(item.nilai);
+                        const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' : '';
                         const className = isTambahan ? 'tambahan-item' : 'manfaat-item';
                         mHtml +=
                             `<tr class="${className}"><td>${item.manfaat}${ket}</td><td class="nilai">${displayNilai}</td></tr>`;
@@ -1687,6 +1697,17 @@
         function formatRupiahFull(angka) {
             if (!angka || isNaN(angka) || angka === 0) return '0';
             return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        function displayManfaatValue(nilai) {
+            if (nilai === 'Dijamin') return 'Dijamin';
+            if (nilai === 'Biaya Sebenarnya') return 'Biaya Sebenarnya';
+            if (nilai === '-') return '-';
+            if (typeof nilai === 'string' && nilai.includes('/')) {
+                return nilai;
+            }
+            const num = parseInt(String(nilai).replace(/[^0-9]/g, '')) || 0;
+            return 'Rp ' + formatRupiahFull(num);
         }
 
         function formatTanggal(date) {
