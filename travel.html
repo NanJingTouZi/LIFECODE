@@ -703,7 +703,6 @@
 
         <!-- ===== FORM ===== -->
         <div class="form-grid">
-            <!-- Data Diri -->
             <div class="form-group">
                 <label>Nama Lengkap <span class="required">*</span></label>
                 <input type="text" id="nama" placeholder="Contoh: Sutrisno" />
@@ -721,7 +720,6 @@
                 <input type="text" id="usiaDisplay" readonly placeholder="Akan terisi otomatis" />
             </div>
 
-            <!-- Jenis Perjalanan -->
             <div class="form-group">
                 <label>Jenis Perjalanan <span class="required">*</span></label>
                 <select id="jenisPerjalanan">
@@ -738,7 +736,6 @@
                 </select>
             </div>
 
-            <!-- Tier -->
             <div class="form-group">
                 <label>Paket / Tier <span class="required">*</span></label>
                 <select id="tier">
@@ -755,7 +752,6 @@
                 </select>
             </div>
 
-            <!-- Durasi -->
             <div class="form-group">
                 <label>Durasi Perjalanan (hari) <span class="required">*</span></label>
                 <input type="number" id="durasi" value="7" min="1" max="365" />
@@ -769,7 +765,6 @@
                 </select>
             </div>
 
-            <!-- Manfaat Tambahan -->
             <div class="form-group full">
                 <label>Manfaat Tambahan (Opsional)</label>
                 <div class="checkbox-grid" id="tambahanGrid">
@@ -837,7 +832,7 @@
 
                 <div class="section-title">B. PERHITUNGAN PREMI</div>
                 <table class="premium-table">
-                    <thead><tr><th style="width:60%;">Komponen</th><th style="width:20%;text-align:right;">Detail</th><th style="width:20%;text-align:right;">Premi (Rp)</th></tr></thead>
+                    <thead><tr><th style="width:50%;">Komponen</th><th style="width:25%;text-align:right;">Detail</th><th style="width:25%;text-align:right;">Premi (Rp)</th></tr></thead>
                     <tbody id="pPremiumBody"></tbody>
                 </table>
 
@@ -1101,7 +1096,8 @@
                 const extraDays = durasi - 31;
                 const extraWeeks = Math.ceil(extraDays / 7);
                 const extraPremi = extraWeeks * tierData['per_minggu'];
-                return { premi: base + extraPremi, detail: '26-31 hari + ' + extraWeeks + ' minggu tambahan' };
+                const total = base + extraPremi;
+                return { premi: total, detail: '26-31 hari + ' + extraWeeks + ' minggu tambahan' };
             }
 
             return { premi: 0, detail: 'Durasi tidak valid' };
@@ -1162,7 +1158,7 @@
         }
 
         // ============================================================
-        // GET MANFAAT
+        // GET MANFAAT (tanpa A.1, A.2, dst)
         // ============================================================
         function getManfaat() {
             const jenis = document.getElementById('jenisPerjalanan').value;
@@ -1251,26 +1247,50 @@
             detailHtml += `<tr class="total-row"><td>Total Premi</td><td style="text-align:right;">Rp ${formatRupiah(total)}</td></tr>`;
             detailBody.innerHTML = detailHtml;
 
+            // Manfaat - tanpa kode A.1, A.2, dst
             const manfaatList = getManfaat();
             const manfaatBody = document.getElementById('resultManfaat');
             if (manfaatList.length === 0) {
                 manfaatBody.innerHTML = `<tr><td colspan="2" class="no-data">Tidak ada manfaat yang tersedia</td></tr>`;
             } else {
                 let mHtml = '';
-                let currentBagian = '';
+                let currentGroup = '';
+                let groupMap = {};
+
+                // Kelompokkan berdasarkan bagian (A, B, C, dst) tapi tanpa menampilkan kode
                 manfaatList.forEach(item => {
                     const bagian = item.bagian || '';
-                    if (bagian !== currentBagian) {
-                        currentBagian = bagian;
-                        mHtml += `<tr class="section-header"><td colspan="2"><strong>${bagian}</strong></td></tr>`;
-                    }
-                    const nilai = item.nilai;
-                    const displayNilai = (nilai === 'Dijamin' || nilai === 'Biaya Sebenarnya' || nilai === '-') ? nilai :
-                        'Rp ' + formatRupiah(parseInt(String(nilai).replace(/[^0-9]/g, '')) || 0);
-                    const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' : '';
-                    mHtml +=
-                        `<tr><td style="padding-left:12px;">${item.manfaat}${ket}</td><td style="text-align:right;font-weight:600;">${displayNilai}</td></tr>`;
+                    const groupKey = bagian.charAt(0) || '';
+                    if (!groupMap[groupKey]) groupMap[groupKey] = [];
+                    groupMap[groupKey].push(item);
                 });
+
+                // Tampilkan per kelompok
+                const groupLabels = {
+                    'A': 'Kecelakaan Diri & Pendidikan',
+                    'B': 'Perawatan Medis Darurat',
+                    'C': 'Bantuan Perjalanan',
+                    'D': 'Ketidaknyamanan Perjalanan',
+                    'E': 'Barang Pribadi',
+                    'F': 'Manfaat Lain-Lain',
+                    'G': 'Manfaat Tambahan'
+                };
+
+                Object.keys(groupMap).forEach(key => {
+                    const label = groupLabels[key] || 'Manfaat';
+                    mHtml += `<tr class="section-header"><td colspan="2"><strong>${label}</strong></td></tr>`;
+                    groupMap[key].forEach(item => {
+                        const nilai = item.nilai;
+                        const displayNilai = (nilai === 'Dijamin' || nilai === 'Biaya Sebenarnya' || nilai ===
+                            '-') ? nilai :
+                            'Rp ' + formatRupiah(parseInt(String(nilai).replace(/[^0-9]/g, '')) || 0);
+                        const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' :
+                            '';
+                        mHtml +=
+                            `<tr><td style="padding-left:12px;">${item.manfaat}${ket}</td><td style="text-align:right;font-weight:600;">${displayNilai}</td></tr>`;
+                    });
+                });
+
                 manfaatBody.innerHTML = mHtml;
             }
 
@@ -1374,24 +1394,43 @@
                 `<tr class="highlight-row"><td><strong>Total Premi</strong></td><td style="text-align:right;"></td><td style="text-align:right;"><strong>Rp ${formatRupiah(h.total)}</strong></td></tr>`;
             premiumBody.innerHTML = pHtml;
 
-            // Manfaat Perlindungan
+            // Manfaat Perlindungan (tanpa A.1, A.2, dst)
             const manfaatContainer = document.getElementById('proposalManfaatContent');
             if (h.manfaat && h.manfaat.length > 0) {
                 let mHtml = '<table class="data-table">';
-                let currentBagian = '';
+                let currentGroup = '';
+                let groupMap = {};
+                const groupLabels = {
+                    'A': 'Kecelakaan Diri & Pendidikan',
+                    'B': 'Perawatan Medis Darurat',
+                    'C': 'Bantuan Perjalanan',
+                    'D': 'Ketidaknyamanan Perjalanan',
+                    'E': 'Barang Pribadi',
+                    'F': 'Manfaat Lain-Lain',
+                    'G': 'Manfaat Tambahan'
+                };
+
                 h.manfaat.forEach(item => {
                     const bagian = item.bagian || '';
-                    if (bagian !== currentBagian) {
-                        currentBagian = bagian;
-                        mHtml +=
-                            `<tr><td style="font-weight:700;color:#0057a8;padding-top:10px;" colspan="2">${bagian}</td></tr>`;
-                    }
-                    const nilai = item.nilai;
-                    const displayNilai = (nilai === 'Dijamin' || nilai === 'Biaya Sebenarnya' || nilai === '-') ? nilai :
-                        'Rp ' + formatRupiah(parseInt(String(nilai).replace(/[^0-9]/g, '')) || 0);
-                    const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' : '';
+                    const groupKey = bagian.charAt(0) || '';
+                    if (!groupMap[groupKey]) groupMap[groupKey] = [];
+                    groupMap[groupKey].push(item);
+                });
+
+                Object.keys(groupMap).forEach(key => {
+                    const label = groupLabels[key] || 'Manfaat';
                     mHtml +=
-                        `<tr><td style="padding-left:12px;">${item.manfaat}${ket}</td><td style="text-align:right;font-weight:600;">${displayNilai}</td></tr>`;
+                        `<tr><td style="font-weight:700;color:#0057a8;padding-top:10px;" colspan="2">${label}</td></tr>`;
+                    groupMap[key].forEach(item => {
+                        const nilai = item.nilai;
+                        const displayNilai = (nilai === 'Dijamin' || nilai === 'Biaya Sebenarnya' || nilai ===
+                            '-') ? nilai :
+                            'Rp ' + formatRupiah(parseInt(String(nilai).replace(/[^0-9]/g, '')) || 0);
+                        const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' :
+                            '';
+                        mHtml +=
+                            `<tr><td style="padding-left:12px;">${item.manfaat}${ket}</td><td style="text-align:right;font-weight:600;">${displayNilai}</td></tr>`;
+                    });
                 });
                 mHtml += '</table>';
                 manfaatContainer.innerHTML = mHtml;
