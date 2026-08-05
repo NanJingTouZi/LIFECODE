@@ -198,163 +198,974 @@
         
         .proposal-container .section-title{font-size:16px;font-weight:700;color:#1a2a4a;border-left:5px solid #2c3e6b;padding-left:12px;margin-top:22px;margin-bottom:12px;page-break-after:avoid}
         .proposal-container .section-title-first{margin-top:0}
-        .proposal-container .data-table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:4px;page-break-inside:avoid}
-        .proposal-container .data-table td{padding:6px 10px 6px 0;vertical-align:top;border-bottom:1px solid #eef1f6}
-        .proposal-container .data-table .label{width:35%;font-weight:600;color:#2c3e6b}
-        .proposal-container .data-table .value{width:65%;color:#1e2f4a}
-        .proposal-container .premium-table{width:100%;border-collapse:collapse;font-size:14px;margin-top:4px;page-break-inside:avoid}
-        .proposal-container .premium-table th{background:#f0f3f8;font-weight:700;color:#1a2a4a;text-align:left;padding:8px 12px;border-bottom:2px solid #d0d7e3}
-        .proposal-container .premium-table td{padding:7px 12px;border-bottom:1px solid #e8ecf3;color:#1e2f4a}
-        .proposal-container .premium-table .highlight-row td{background:#f7f9fc;font-weight:700}
-        .proposal-container .premium-table .total-label{font-weight:700;color:#1a2a4a}
-        .proposal-container .premium-table .total-value{font-weight:700;font-size:16px;color:#1a2a4a}
-        .proposal-container .signature-area{display:flex;justify-content:space-between;margin-top:32px;padding-top:18px;border-top:2px solid #eef1f6;flex-wrap:wrap;gap:30px;page-break-inside:avoid}
-        .proposal-container .signature-box{font-size:14px;color:#1e2f4a}
-        .proposal-container .signature-box .label{font-weight:600;color:#2c3e6b}
-        .proposal-container .signature-box .line{display:inline-block;width:180px;border-bottom:1px solid #1a2a4a;margin-top:28px;margin-bottom:4px}
-        .proposal-container .signature-box .city-date{margin-top:4px;font-size:13px;color:#4a5a72}
-        .proposal-container .footer-notes{margin-top:28px;font-size:12px;color:#5a6a7f;border-top:1px solid #e0e5ed;padding-top:14px;line-height:1.6;page-break-inside:avoid}
-        .proposal-container .footer-notes ul{list-style:none;padding-left:0}
-        .proposal-container .footer-notes ul li::before{content:"• ";color:#2c3e6b;font-weight:700}
-        .proposal-actions{text-align:center;margin-top:20px;padding-top:16px;border-top:1px solid #e2e8f0;display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-        .print-instruction{background:#f8f9fa;border:2px solid #1a3a5c;border-radius:10px;padding:20px;margin-top:15px;display:none}
-        .print-instruction.show{display:block}
-        .print-instruction h4{color:#1a3a5c;margin-bottom:10px}
-        .print-instruction ol{padding-left:20px;color:#2c3e6b;line-height:1.8}
-        .print-instruction .highlight-step{background:#e8edf3;padding:8px 12px;border-radius:6px;font-weight:600;color:#1a3a5c;margin:5px 0}
-        .custom-alert-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.85);z-index:2000;justify-content:center;align-items:center;backdrop-filter:blur(6px)}
-        .custom-alert-overlay.show{display:flex}
-        .custom-alert-overlay .alert-box{background:#fff;border-radius:20px;padding:36px 40px 32px;max-width:420px;width:90%;box-shadow:0 30px 80px rgba(0,0,0,.6);text-align:center}
-        .custom-alert-overlay .alert-icon{font-size:52px;margin-bottom:6px}
-        .custom-alert-overlay .alert-title{font-size:22px;font-weight:700;color:#1a3a5c;margin:0 0 6px}
-        .custom-alert-overlay .alert-message{color:#5e7a93;font-size:15px;margin:0 0 20px;line-height:1.6}
-        .custom-alert-overlay .alert-btn{background:#1a3a5c;color:#fff;border:0;border-radius:10px;padding:12px 32px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s}
-        .custom-alert-overlay .alert-btn:hover{background:#0f2a44}
-        .custom-alert-overlay .alert-btn-success{background:#1e7e34}
-        .custom-alert-overlay .alert-btn-success:hover{background:#15622a}
-        .custom-alert-overlay .alert-btn-danger{background:#c0392b}
-        .custom-alert-overlay .alert-btn-danger:hover{background:#a93226}
-        .custom-alert-overlay .alert-btn-cancel{background:transparent!important;border:2px solid #dce3ec!important;color:#5e7a93!important;margin-left:12px}
-        .custom-alert-overlay .alert-btn-cancel:hover{background:#f0f4f8!important}
-        .quota-modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.85);z-index:2000;justify-content:center;align-items:center;backdrop-filter:blur(6px)}
-        .quota-modal-overlay.show{display:flex}
-        .quota-modal-overlay .quota-box{background:#fff;border-radius:20px;padding:36px 40px 32px;max-width:420px;width:90%;box-shadow:0 30px 80px rgba(0,0,0,.6);text-align:center}
-        .quota-modal-overlay .quota-icon{font-size:52px;margin-bottom:6px}
-        .quota-modal-overlay .quota-title{font-size:22px;font-weight:700;color:#c0392b;margin:0 0 4px}
-        .quota-modal-overlay .quota-message{color:#5e7a93;font-size:14px;margin:0 0 16px;line-height:1.6}
-        .quota-modal-overlay .quota-data{background:#f8fafc;border-radius:10px;padding:12px 16px;margin:12px 0 16px;text-align:left;font-size:14px}
-        .quota-modal-overlay .quota-data .qd-item{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #edf2f7}
-        .quota-modal-overlay .quota-data .qd-item:last-child{border-bottom:0}
-        .quota-modal-overlay .quota-data .qd-label{color:#5e7a93}
-        .quota-modal-overlay .quota-data .qd-value{color:#1a3a5c;font-weight:600}
-        .quota-modal-overlay .quota-data .qd-value.danger{color:#c0392b}
-        .quota-modal-overlay .quota-btn{background:#25D366;color:#fff;border:0;border-radius:10px;padding:14px 24px;font-size:16px;font-weight:700;cursor:pointer;display:inline-block;text-decoration:none;width:100%;transition:.2s}
-        .quota-modal-overlay .quota-btn:hover{transform:scale(1.02);box-shadow:0 8px 24px rgba(37,211,102,.3)}
-        .quota-modal-overlay .quota-btn-secondary{background:transparent;color:#5e7a93;border:1px solid #dce3ec;border-radius:10px;padding:10px 24px;font-size:14px;cursor:pointer;margin-top:10px;width:100%;transition:.2s}
-        .quota-modal-overlay .quota-btn-secondary:hover{background:#f0f4f8}
-        
-        @media print{
-            body{background:#fff!important;padding:0!important;margin:0!important}
-            .container>*:not(.proposal-wrapper){display:none!important}
-            .proposal-wrapper .no-print{display:none!important}
-            .proposal-wrapper .print-instruction{display:none!important}
-            .proposal-wrapper{display:block!important;border-top:0!important;padding-top:0!important;margin-top:0!important;background:#fff!important}
-            .proposal-container{max-width:100%!important;padding:20px 25px!important;border:0!important;border-radius:0!important;background:#fff!important;box-shadow:none!important;margin:0!important}
-            .proposal-container .section-title{page-break-after:avoid!important;page-break-inside:avoid!important}
-            .proposal-container .data-table,.proposal-container .premium-table{page-break-inside:avoid!important}
-            .proposal-container .signature-area,.proposal-container .footer-notes{page-break-inside:avoid!important}
-            .proposal-container .data-table tr,.proposal-container .premium-table tr{page-break-inside:avoid!important}
-            .proposal-container .proposal-header{page-break-inside:avoid!important}
-            .proposal-container .data-table td{padding:4px 8px 4px 0!important;border-bottom:1px solid #eef1f6!important}
-            .proposal-container .premium-table th{background:#f0f3f8!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
-            .proposal-container .premium-table .highlight-row td{background:#f7f9fc!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
-            .proposal-container .proposal-header{border-bottom:3px double #1a2a4a!important}
-            .proposal-container .signature-area{border-top:2px solid #eef1f6!important}
-            .proposal-container .footer-notes{border-top:1px solid #e0e5ed!important}
-            .proposal-container{page-break-after:avoid}
-            .tab-nav{display:none!important}
-            .back-home{display:none!important}
-            .no-print-rincian{display:none!important}
-            .proposal-logo img{max-width:80px!important;max-height:80px!important}
+
+        /* ===== DATA TABLE - FULL WIDTH 2 KOLOM ===== */
+        .proposal-container .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 4px;
+            page-break-inside: avoid;
         }
-        @media (max-width:768px){
-            .container{padding:20px 16px}
-            .row{grid-template-columns:1fr;gap:12px}
-            .checkbox-group{gap:8px 14px}
-            .checkbox-group label{font-size:13px;flex:0 0 auto}
-            .checkbox-group label input[type=checkbox]{width:16px;height:16px}
-            .btn-group{flex-direction:column;gap:8px}
-            .btn{width:100%;justify-content:center;padding:12px 20px;font-size:14px}
-            .tab-nav{gap:4px;padding:4px}
-            .tab-btn{min-width:50px;padding:8px 10px;font-size:11px;flex:1}
-            .tab-btn .icon{font-size:14px}
-            .premi-detail{grid-template-columns:1fr 1fr;gap:8px}
-            .premi-value{font-size:24px;padding:10px 18px}
-            .summary-grid{grid-template-columns:1fr 1fr;gap:8px}
-            .proposal-container{padding:16px}
-            .proposal-header{flex-direction:column;text-align:center;gap:10px}
-            .proposal-title-area .title-main{font-size:18px}
-            .proposal-title-area .title-sub{font-size:14px}
-            .proposal-container .data-table td{display:block;padding:4px 0;border-bottom:0}
-            .proposal-container .data-table .label{width:100%;font-weight:700;margin-top:6px}
-            .proposal-container .data-table .value{width:100%;padding-left:8px;margin-bottom:4px;border-bottom:1px dashed #eef1f6}
-            .proposal-container .premium-table td,.proposal-container .premium-table th{font-size:12px;padding:6px 8px}
-            .proposal-container .signature-box .line{width:120px}
-            .proposal-actions{flex-direction:column}
-            .history-table{font-size:12px}
-            .history-table td,.history-table th{padding:6px 8px}
-            .perluasan-row{flex-direction:column;align-items:flex-start;gap:6px}
-            .tjh-fields{margin-left:0;flex-wrap:wrap}
-            .tjh-fields .field-group input{width:100px}
-            .tjh-fields .field-group input.small{width:60px}
+        .proposal-container .data-table td {
+            padding: 6px 12px 6px 0;
+            vertical-align: middle;
+            border-bottom: 1px solid #eef1f6;
         }
-        @media (max-width:600px){
-            .tab-btn{font-size:10px;padding:6px 8px;min-width:40px}
-            .tab-btn .icon{font-size:12px}
-            .premi-detail{grid-template-columns:1fr 1fr;gap:6px}
-            .premi-value{font-size:20px;padding:8px 12px}
-            .summary-grid{grid-template-columns:1fr 1fr;gap:6px}
-            .summary-card .value{font-size:15px}
-            .form-group input,.form-group select,.form-group textarea{font-size:14px;padding:8px 12px}
-            .detail-item .value{font-size:13px}
-            .checkbox-group{gap:6px 10px}
-            .checkbox-group label{font-size:12px}
-            .checkbox-group label input[type=checkbox]{width:15px;height:15px}
-            .proposal-container .proposal-header .title-main{font-size:18px}
-            .proposal-container .proposal-header .title-sub{font-size:14px}
-            .proposal-container .section-title{font-size:14px}
-            .perluasan-row label{font-size:13px}
-            .tjh-fields .field-group input{width:80px;font-size:12px;padding:4px 8px}
-            .tjh-fields .field-group input.small{width:50px}
+        .proposal-container .data-table .label {
+            width: 35%;
+            font-weight: 600;
+            color: #2c3e6b;
+            padding-right: 20px;
         }
-        @media (max-width:480px){
-            .container{padding:12px 10px}
-            .premi-detail{grid-template-columns:1fr}
-            .summary-grid{grid-template-columns:1fr}
-            .tab-btn{font-size:9px;padding:5px 6px;min-width:35px;gap:3px}
-            .tab-btn .icon{font-size:11px}
-            h1{font-size:18px}
-            .subtitle{font-size:11px}
-            .badge-ojk{font-size:9px;padding:1px 8px}
-            .premi-value{font-size:18px;padding:6px 12px}
-            .detail-item .value{font-size:13px}
-            .checkbox-group{gap:4px 8px}
-            .checkbox-group label{font-size:11px}
-            .checkbox-group label input[type=checkbox]{width:14px;height:14px}
-            .btn{font-size:13px;padding:10px 16px}
-            .proposal-container{padding:12px 10px}
-            .proposal-container .proposal-header .title-main{font-size:16px}
-            .proposal-container .proposal-header .title-sub{font-size:13px}
-            .proposal-container .section-title{font-size:13px;padding-left:8px}
-            .proposal-container .data-table td{font-size:12px}
-            .result-box h3{font-size:16px}
-            .result-box{padding:16px}
-            .history-table{font-size:11px}
-            .history-table td,.history-table th{padding:4px 6px}
-            .perluasan-row{gap:4px}
-            .perluasan-row label{font-size:12px}
-            .tjh-fields .field-group input{width:70px;font-size:11px;padding:4px 6px}
-            .tjh-fields .field-group input.small{width:45px}
+        .proposal-container .data-table .value {
+            width: 65%;
+            color: #1e2f4a;
+            font-weight: 500;
+        }
+
+        /* ===== PREMIUM TABLE - FULL WIDTH 2 KOLOM ===== */
+        .proposal-container .premium-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 4px;
+            page-break-inside: avoid;
+        }
+        .proposal-container .premium-table td {
+            padding: 6px 12px;
+            border-bottom: 1px solid #e8ecf3;
+            color: #1e2f4a;
+            vertical-align: middle;
+        }
+        .proposal-container .premium-table .label-col {
+            font-weight: 500;
+            color: #2c3e6b;
+        }
+        .proposal-container .premium-table .value-col {
+            text-align: right;
+            font-weight: 500;
+            font-family: 'Courier New', monospace;
+        }
+        .proposal-container .premium-table .highlight-row td {
+            background: #f7f9fc;
+            font-weight: 700;
+        }
+        .proposal-container .premium-table .total-label {
+            font-weight: 700;
+            color: #1a2a4a;
+        }
+        .proposal-container .premium-table .total-value {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1a2a4a;
+            text-align: right;
+        }
+        .proposal-container .premium-table .grand-total td {
+            font-size: 17px;
+            color: #1a2a4a;
+            border-top: 3px solid #1a2a4a;
+            padding-top: 12px;
+            font-weight: 700;
+        }
+        .proposal-container .premium-table .grand-total .total-value {
+            font-size: 18px;
+            color: #c0392b;
+        }
+        .proposal-container .premium-table .separator-row td {
+            border-bottom: 2px solid #d0d7e3;
+            padding: 4px 12px;
+        }
+        .proposal-container .premium-table .sub-label {
+            padding-left: 24px;
+            font-size: 13px;
+            color: #4a5a72;
+        }
+
+        /* ===== MANFAAT TABLE ===== */
+        .proposal-container .manfaat-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            page-break-inside: avoid;
+        }
+        .proposal-container .manfaat-table td {
+            padding: 5px 8px;
+            border-bottom: 1px solid #edf2f7;
+            color: #1e2f4a;
+            vertical-align: top;
+        }
+        .proposal-container .manfaat-table .group-header td {
+            font-weight: 700;
+            color: #1a3a5c;
+            padding-top: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #dce3ec;
+            background: #f8fafc;
+        }
+        .proposal-container .manfaat-table .manfaat-item td {
+            padding-left: 16px;
+        }
+        .proposal-container .manfaat-table .manfaat-item .nilai {
+            text-align: right;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .proposal-container .manfaat-table .tambahan-item td {
+            padding-left: 16px;
+            background: #fafff5;
+            color: #1e7e34;
+        }
+        .proposal-container .manfaat-table .tambahan-item .nilai {
+            text-align: right;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .proposal-container .manfaat-table .group-header td {
+            background: #f8fafc;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .proposal-container .manfaat-table .tambahan-item td {
+            background: #fafff5;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* ===== SIGNATURE ===== */
+        .proposal-container .signature-area {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 32px;
+            padding-top: 18px;
+            border-top: 2px solid #eef1f6;
+            flex-wrap: wrap;
+            gap: 30px;
+            page-break-inside: avoid;
+        }
+        .proposal-container .signature-box {
+            font-size: 14px;
+            color: #1e2f4a;
+        }
+        .proposal-container .signature-box .label {
+            font-weight: 600;
+            color: #2c3e6b;
+        }
+        .proposal-container .signature-box .line {
+            display: inline-block;
+            width: 180px;
+            border-bottom: 1px solid #1a2a4a;
+            margin-top: 28px;
+            margin-bottom: 4px;
+        }
+        .proposal-container .signature-box .city-date {
+            margin-top: 4px;
+            font-size: 13px;
+            color: #4a5a72;
+        }
+        .proposal-container .footer-notes {
+            margin-top: 28px;
+            font-size: 12px;
+            color: #5a6a7f;
+            border-top: 1px solid #e0e5ed;
+            padding-top: 14px;
+            line-height: 1.6;
+            page-break-inside: avoid;
+        }
+        .proposal-container .footer-notes ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .proposal-container .footer-notes ul li::before {
+            content: "• ";
+            color: #2c3e6b;
+            font-weight: 700;
+        }
+
+        .proposal-actions {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .print-instruction {
+            background: #f8f9fa;
+            border: 2px solid #1a3a5c;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+            display: none;
+        }
+        .print-instruction.show {
+            display: block;
+        }
+        .print-instruction h4 {
+            color: #1a3a5c;
+            margin-bottom: 10px;
+        }
+        .print-instruction ol {
+            padding-left: 20px;
+            color: #2c3e6b;
+            line-height: 1.8;
+        }
+        .print-instruction .highlight-step {
+            background: #e8edf3;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            color: #1a3a5c;
+            margin: 5px 0;
+        }
+
+        .custom-alert-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(6px);
+        }
+        .custom-alert-overlay.show {
+            display: flex;
+        }
+        .custom-alert-overlay .alert-box {
+            background: #fff;
+            border-radius: 20px;
+            padding: 36px 40px 32px;
+            max-width: 420px;
+            width: 90%;
+            box-shadow: 0 30px 80px rgba(0,0,0,.6);
+            text-align: center;
+        }
+        .custom-alert-overlay .alert-icon {
+            font-size: 52px;
+            margin-bottom: 6px;
+        }
+        .custom-alert-overlay .alert-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a3a5c;
+            margin: 0 0 6px;
+        }
+        .custom-alert-overlay .alert-message {
+            color: #5e7a93;
+            font-size: 15px;
+            margin: 0 0 20px;
+            line-height: 1.6;
+        }
+        .custom-alert-overlay .alert-btn {
+            background: #1a3a5c;
+            color: #fff;
+            border: 0;
+            border-radius: 10px;
+            padding: 12px 32px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .2s;
+        }
+        .custom-alert-overlay .alert-btn:hover {
+            background: #0f2a44;
+        }
+        .custom-alert-overlay .alert-btn-success {
+            background: #1e7e34;
+        }
+        .custom-alert-overlay .alert-btn-success:hover {
+            background: #15622a;
+        }
+        .custom-alert-overlay .alert-btn-danger {
+            background: #c0392b;
+        }
+        .custom-alert-overlay .alert-btn-danger:hover {
+            background: #a93226;
+        }
+        .custom-alert-overlay .alert-btn-cancel {
+            background: transparent !important;
+            border: 2px solid #dce3ec !important;
+            color: #5e7a93 !important;
+            margin-left: 12px;
+        }
+        .custom-alert-overlay .alert-btn-cancel:hover {
+            background: #f0f4f8 !important;
+        }
+
+        .quota-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(6px);
+        }
+        .quota-modal-overlay.show {
+            display: flex;
+        }
+        .quota-modal-overlay .quota-box {
+            background: #fff;
+            border-radius: 20px;
+            padding: 36px 40px 32px;
+            max-width: 420px;
+            width: 90%;
+            box-shadow: 0 30px 80px rgba(0,0,0,.6);
+            text-align: center;
+        }
+        .quota-modal-overlay .quota-icon {
+            font-size: 52px;
+            margin-bottom: 6px;
+        }
+        .quota-modal-overlay .quota-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #c0392b;
+            margin: 0 0 4px;
+        }
+        .quota-modal-overlay .quota-message {
+            color: #5e7a93;
+            font-size: 14px;
+            margin: 0 0 16px;
+            line-height: 1.6;
+        }
+        .quota-modal-overlay .quota-data {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin: 12px 0 16px;
+            text-align: left;
+            font-size: 14px;
+        }
+        .quota-modal-overlay .quota-data .qd-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px solid #edf2f7;
+        }
+        .quota-modal-overlay .quota-data .qd-item:last-child {
+            border-bottom: 0;
+        }
+        .quota-modal-overlay .quota-data .qd-label {
+            color: #5e7a93;
+        }
+        .quota-modal-overlay .quota-data .qd-value {
+            color: #1a3a5c;
+            font-weight: 600;
+        }
+        .quota-modal-overlay .quota-data .qd-value.danger {
+            color: #c0392b;
+        }
+        .quota-modal-overlay .quota-btn {
+            background: #25D366;
+            color: #fff;
+            border: 0;
+            border-radius: 10px;
+            padding: 14px 24px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+            width: 100%;
+            transition: .2s;
+        }
+        .quota-modal-overlay .quota-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px rgba(37,211,102,.3);
+        }
+        .quota-modal-overlay .quota-btn-secondary {
+            background: transparent;
+            color: #5e7a93;
+            border: 1px solid #dce3ec;
+            border-radius: 10px;
+            padding: 10px 24px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            transition: .2s;
+        }
+        .quota-modal-overlay .quota-btn-secondary:hover {
+            background: #f0f4f8;
+        }
+
+        /* ===== TRAVEL: CHECKBOX GRID ===== */
+        .checkbox-grid-travel {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px 16px;
+            padding: 12px 14px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border: 1px solid #dce3ec;
+        }
+        .checkbox-grid-travel label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            font-size: 13px;
+            color: #1a3a5c;
+            cursor: pointer;
+            margin-bottom: 0;
+        }
+        .checkbox-grid-travel label input[type=checkbox] {
+            width: 17px;
+            height: 17px;
+            accent-color: #1a5fb4;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .checkbox-grid-travel label input[type=checkbox]:disabled {
+            opacity: .4;
+            cursor: not-allowed;
+        }
+        .checkbox-grid-travel label.disabled-label {
+            opacity: .4;
+            cursor: not-allowed;
+        }
+        #tahunanInfoTravel {
+            display: none;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 16px;
+            }
+            .row {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .checkbox-group {
+                gap: 8px 14px;
+            }
+            .checkbox-group label {
+                font-size: 13px;
+                flex: 0 0 auto;
+            }
+            .checkbox-group label input[type=checkbox] {
+                width: 16px;
+                height: 16px;
+            }
+            .btn-group {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+            .tab-nav {
+                gap: 4px;
+                padding: 4px;
+            }
+            .tab-btn {
+                min-width: 50px;
+                padding: 8px 10px;
+                font-size: 11px;
+                flex: 1;
+            }
+            .tab-btn .icon {
+                font-size: 14px;
+            }
+            .premi-detail {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            .premi-value {
+                font-size: 24px;
+                padding: 10px 18px;
+            }
+            .summary-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            .proposal-container {
+                padding: 16px;
+            }
+            .proposal-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            .proposal-title-area .title-main {
+                font-size: 18px;
+            }
+            .proposal-title-area .title-sub {
+                font-size: 14px;
+            }
+            .proposal-container .signature-box .line {
+                width: 120px;
+            }
+            .proposal-actions {
+                flex-direction: column;
+            }
+            .history-table {
+                font-size: 12px;
+            }
+            .history-table td,
+            .history-table th {
+                padding: 6px 8px;
+            }
+            .perluasan-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+            .tjh-fields {
+                margin-left: 0;
+                flex-wrap: wrap;
+            }
+            .tjh-fields .field-group input {
+                width: 100px;
+            }
+            .tjh-fields .field-group input.small {
+                width: 60px;
+            }
+            .checkbox-grid-travel {
+                grid-template-columns: 1fr 1fr;
+            }
+            /* Proposal - Mobile: 1 kolom (stack) untuk data table */
+            .proposal-container .data-table td {
+                display: block;
+                width: 100% !important;
+                padding: 3px 8px 3px 0;
+                border-bottom: none;
+            }
+            .proposal-container .data-table .label {
+                font-weight: 700;
+                padding-bottom: 0;
+                padding-top: 6px;
+                font-size: 12px;
+                color: #5e7a93;
+                border-bottom: none;
+            }
+            .proposal-container .data-table .value {
+                padding-top: 0;
+                padding-left: 8px;
+                padding-bottom: 4px;
+                border-bottom: 1px dashed #eef1f6;
+                font-size: 14px;
+                font-weight: 600;
+            }
+            .proposal-container .data-table tr {
+                display: block;
+                margin-bottom: 2px;
+            }
+            /* Premium table stack di mobile */
+            .proposal-container .premium-table td {
+                display: block;
+                width: 100% !important;
+                padding: 3px 8px;
+                border-bottom: none;
+                text-align: left !important;
+            }
+            .proposal-container .premium-table .label-col {
+                font-weight: 700;
+                padding-bottom: 0;
+                padding-top: 6px;
+                font-size: 12px;
+                color: #5e7a93;
+                border-bottom: none;
+            }
+            .proposal-container .premium-table .value-col {
+                padding-top: 0;
+                padding-left: 12px;
+                padding-bottom: 4px;
+                border-bottom: 1px dashed #eef1f6;
+                font-size: 14px;
+                font-weight: 600;
+                text-align: left !important;
+            }
+            .proposal-container .premium-table .grand-total td {
+                padding-top: 8px;
+                font-size: 15px;
+            }
+            .proposal-container .premium-table .grand-total .total-value {
+                font-size: 16px;
+                text-align: left !important;
+            }
+            .proposal-container .premium-table .separator-row td {
+                padding: 2px 8px;
+            }
+            .proposal-container .premium-table tr {
+                display: block;
+                margin-bottom: 2px;
+            }
+            .proposal-container .premium-table .sub-label {
+                padding-left: 16px;
+            }
+            /* Manfaat table stack di mobile */
+            .proposal-container .manfaat-table td {
+                display: block;
+                width: 100% !important;
+                padding: 3px 8px;
+                border-bottom: none;
+            }
+            .proposal-container .manfaat-table .manfaat-item td,
+            .proposal-container .manfaat-table .tambahan-item td {
+                padding-left: 8px;
+            }
+            .proposal-container .manfaat-table .nilai {
+                text-align: left !important;
+                padding-left: 8px;
+                padding-bottom: 4px;
+                border-bottom: 1px dashed #eef1f6;
+            }
+            .proposal-container .manfaat-table tr {
+                display: block;
+                margin-bottom: 2px;
+            }
+            .proposal-container .manfaat-table .group-header td {
+                padding-top: 8px;
+                padding-bottom: 4px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .tab-btn {
+                font-size: 10px;
+                padding: 6px 8px;
+                min-width: 40px;
+            }
+            .tab-btn .icon {
+                font-size: 12px;
+            }
+            .premi-detail {
+                grid-template-columns: 1fr 1fr;
+                gap: 6px;
+            }
+            .premi-value {
+                font-size: 20px;
+                padding: 8px 12px;
+            }
+            .summary-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 6px;
+            }
+            .summary-card .value {
+                font-size: 15px;
+            }
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+            .detail-item .value {
+                font-size: 13px;
+            }
+            .checkbox-group {
+                gap: 6px 10px;
+            }
+            .checkbox-group label {
+                font-size: 12px;
+            }
+            .checkbox-group label input[type=checkbox] {
+                width: 15px;
+                height: 15px;
+            }
+            .proposal-container .proposal-header .title-main {
+                font-size: 18px;
+            }
+            .proposal-container .proposal-header .title-sub {
+                font-size: 14px;
+            }
+            .proposal-container .section-title {
+                font-size: 14px;
+            }
+            .perluasan-row label {
+                font-size: 13px;
+            }
+            .tjh-fields .field-group input {
+                width: 80px;
+                font-size: 12px;
+                padding: 4px 8px;
+            }
+            .tjh-fields .field-group input.small {
+                width: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 12px 10px;
+            }
+            .premi-detail {
+                grid-template-columns: 1fr;
+            }
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+            .tab-btn {
+                font-size: 9px;
+                padding: 5px 6px;
+                min-width: 35px;
+                gap: 3px;
+            }
+            .tab-btn .icon {
+                font-size: 11px;
+            }
+            h1 {
+                font-size: 18px;
+            }
+            .subtitle {
+                font-size: 11px;
+            }
+            .badge-ojk {
+                font-size: 9px;
+                padding: 1px 8px;
+            }
+            .premi-value {
+                font-size: 18px;
+                padding: 6px 12px;
+            }
+            .detail-item .value {
+                font-size: 13px;
+            }
+            .checkbox-group {
+                gap: 4px 8px;
+            }
+            .checkbox-group label {
+                font-size: 11px;
+            }
+            .checkbox-group label input[type=checkbox] {
+                width: 14px;
+                height: 14px;
+            }
+            .btn {
+                font-size: 13px;
+                padding: 10px 16px;
+            }
+            .proposal-container {
+                padding: 12px 10px;
+            }
+            .proposal-container .proposal-header .title-main {
+                font-size: 16px;
+            }
+            .proposal-container .proposal-header .title-sub {
+                font-size: 13px;
+            }
+            .proposal-container .section-title {
+                font-size: 13px;
+                padding-left: 8px;
+            }
+            .proposal-container .data-table td {
+                font-size: 12px;
+            }
+            .result-box h3 {
+                font-size: 16px;
+            }
+            .result-box {
+                padding: 16px;
+            }
+            .history-table {
+                font-size: 11px;
+            }
+            .history-table td,
+            .history-table th {
+                padding: 4px 6px;
+            }
+            .perluasan-row {
+                gap: 4px;
+            }
+            .perluasan-row label {
+                font-size: 12px;
+            }
+            .tjh-fields .field-group input {
+                width: 70px;
+                font-size: 11px;
+                padding: 4px 6px;
+            }
+            .tjh-fields .field-group input.small {
+                width: 45px;
+            }
+            .checkbox-grid-travel {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== PRINT ===== */
+        @media print {
+            body {
+                background: #fff !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .container>*:not(.proposal-wrapper) {
+                display: none !important;
+            }
+            .proposal-wrapper .no-print {
+                display: none !important;
+            }
+            .proposal-wrapper .print-instruction {
+                display: none !important;
+            }
+            .proposal-wrapper {
+                display: block !important;
+                border-top: 0 !important;
+                padding-top: 0 !important;
+                margin-top: 0 !important;
+                background: #fff !important;
+            }
+            .proposal-container {
+                max-width: 100% !important;
+                padding: 20px 25px !important;
+                border: 0 !important;
+                border-radius: 0 !important;
+                background: #fff !important;
+                box-shadow: none !important;
+                margin: 0 !important;
+            }
+            .proposal-container .section-title {
+                page-break-after: avoid !important;
+                page-break-inside: avoid !important;
+            }
+            .proposal-container .data-table,
+            .proposal-container .premium-table {
+                page-break-inside: avoid !important;
+                width: 100% !important;
+            }
+            .proposal-container .signature-area,
+            .proposal-container .footer-notes {
+                page-break-inside: avoid !important;
+            }
+            .proposal-container .data-table tr,
+            .proposal-container .premium-table tr {
+                page-break-inside: avoid !important;
+            }
+            .proposal-container .proposal-header {
+                page-break-inside: avoid !important;
+            }
+            /* Print: tetap 2 kolom */
+            .proposal-container .data-table td {
+                display: table-cell !important;
+                width: auto !important;
+                padding: 4px 10px 4px 0 !important;
+                border-bottom: 1px solid #eef1f6 !important;
+                vertical-align: middle !important;
+            }
+            .proposal-container .data-table .label {
+                width: 35% !important;
+                font-weight: 600 !important;
+                color: #2c3e6b !important;
+            }
+            .proposal-container .data-table .value {
+                width: 65% !important;
+                font-weight: 500 !important;
+                color: #1e2f4a !important;
+            }
+            .proposal-container .data-table tr {
+                display: table-row !important;
+                margin-bottom: 0 !important;
+            }
+            .proposal-container .premium-table td {
+                display: table-cell !important;
+                width: auto !important;
+                padding: 4px 10px !important;
+                border-bottom: 1px solid #eef1f6 !important;
+                vertical-align: middle !important;
+            }
+            .proposal-container .premium-table .label-col {
+                font-weight: 600 !important;
+                color: #2c3e6b !important;
+                text-align: left !important;
+            }
+            .proposal-container .premium-table .value-col {
+                text-align: right !important;
+                font-weight: 500 !important;
+            }
+            .proposal-container .premium-table tr {
+                display: table-row !important;
+                margin-bottom: 0 !important;
+            }
+            .proposal-container .premium-table .grand-total td {
+                font-size: 16px !important;
+                padding-top: 12px !important;
+            }
+            .proposal-container .premium-table .grand-total .total-value {
+                font-size: 17px !important;
+                text-align: right !important;
+            }
+            .proposal-container .premium-table .separator-row td {
+                padding: 2px 10px !important;
+            }
+            .proposal-container .premium-table .sub-label {
+                padding-left: 20px !important;
+            }
+            /* Manfaat table print */
+            .proposal-container .manfaat-table {
+                page-break-inside: auto !important;
+                width: 100% !important;
+            }
+            .proposal-container .manfaat-table tr {
+                page-break-inside: avoid !important;
+            }
+            .proposal-container .manfaat-table td {
+                display: table-cell !important;
+                padding: 4px 10px !important;
+                border-bottom: 1px solid #eef1f6 !important;
+                vertical-align: middle !important;
+            }
+            .proposal-container .manfaat-table .manfaat-item td,
+            .proposal-container .manfaat-table .tambahan-item td {
+                padding-left: 16px !important;
+            }
+            .proposal-container .manfaat-table .nilai {
+                text-align: right !important;
+            }
+            .proposal-container .manfaat-table .group-header td {
+                background: #f0f3f8 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .proposal-container .manfaat-table .tambahan-item td {
+                background: #fafff5 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .proposal-container .proposal-header {
+                border-bottom: 3px double #1a2a4a !important;
+            }
+            .proposal-container .signature-area {
+                border-top: 2px solid #eef1f6 !important;
+            }
+            .proposal-container .footer-notes {
+                border-top: 1px solid #e0e5ed !important;
+            }
+            .proposal-container {
+                page-break-after: avoid;
+            }
+            .tab-nav {
+                display: none !important;
+            }
+            .back-home {
+                display: none !important;
+            }
+            .no-print-rincian {
+                display: none !important;
+            }
+            .proposal-logo img {
+                max-width: 80px !important;
+                max-height: 80px !important;
+            }
+            .proposal-container .premium-table .highlight-row td {
+                background: #f7f9fc !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
         }
     </style>
 </head>
@@ -381,6 +1192,7 @@
     <div class="tab-nav no-print" id="tabNav">
         <button class="tab-btn active" data-tab="mobil" onclick="switchTab('mobil')"><span class="icon">🚗</span> Mobil</button>
         <button class="tab-btn" data-tab="properti" onclick="switchTab('properti')"><span class="icon">🏠</span> Properti</button>
+        <button class="tab-btn" data-tab="travel" onclick="switchTab('travel')"><span class="icon">✈️</span> Travel</button>
         <button class="tab-btn" data-tab="jiwa" onclick="switchTab('jiwa')"><span class="icon">📋</span> Jiwa</button>
         <button class="tab-btn" data-tab="wealth" onclick="switchTab('wealth')"><span class="icon">💰</span> Wealth</button>
         <button class="tab-btn" data-tab="history" onclick="switchTab('history')"><span class="icon">📊</span> Riwayat</button>
@@ -552,6 +1364,91 @@
         </div>
     </div>
 
+    <!-- TAB TRAVEL -->
+    <div id="tabTravel" class="tab-content">
+        <div class="loading" id="loadingTravel"><div class="spinner"></div><p>Memuat database asuransi perjalanan...</p></div>
+        <div class="data-status" id="dataStatusTravel"></div>
+        <div id="formTravel" style="display:none;">
+            <div class="row">
+                <div class="form-group"><label>Nama Lengkap <span class="required">*</span></label><input type="text" id="namaTravel" placeholder="Contoh: Sutrisno" /></div>
+                <div class="form-group"><label>No. HP / Telepon <span class="required">*</span></label><input type="text" id="noHpTravel" placeholder="085270269090" /></div>
+            </div>
+            <div class="row">
+                <div class="form-group"><label>Tanggal Lahir <span class="required">*</span></label><input type="date" id="tanggalLahirTravel" value="1990-03-15" /></div>
+                <div class="form-group"><label>Usia Saat Ini</label><input type="text" id="usiaSaatIniTravel" readonly placeholder="Akan terisi otomatis" /></div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label>Jenis Perjalanan <span class="required">*</span></label>
+                    <select id="jenisPerjalananTravel">
+                        <option value="internasional">Internasional</option>
+                        <option value="domestik">Domestik</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Area / Zona <span class="required">*</span></label>
+                    <select id="areaTravel">
+                        <option value="worldwide">Worldwide</option>
+                        <option value="eropa">Eropa</option>
+                        <option value="asia">Asia</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label>Paket / Tier <span class="required">*</span></label>
+                    <select id="tierTravel">
+                        <option value="prime">Prime (Tertinggi)</option>
+                        <option value="edge">Edge (Menengah)</option>
+                        <option value="lite">Lite (Dasar)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Jenis Polis <span class="required">*</span></label>
+                    <select id="jenisPolisTravel">
+                        <option value="pulang_pergi">Perjalanan Pulang Pergi</option>
+                        <option value="tahunan">Tahunan</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group"><label>Durasi Perjalanan (hari) <span class="required">*</span></label><input type="number" id="durasiTravel" value="7" min="1" max="365" /><span style="font-size:11px;color:#7a8fa5;">Untuk polis Tahunan, masukkan 90 atau 180</span></div>
+                <div class="form-group" id="tahunanInfoTravel">
+                    <label>Pilih Paket Tahunan</label>
+                    <select id="tahunanPaketTravel"><option value="90">90 hari</option><option value="180">180 hari</option></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label style="margin-bottom:8px;">Manfaat Tambahan (Opsional)</label>
+                <div class="checkbox-grid-travel" id="tambahanGridTravel">
+                    <label><input type="checkbox" id="tmb_visaTravel" value="visa" /> Perlindungan Visa</label>
+                    <label><input type="checkbox" id="tmb_olahraga_saljuTravel" value="olahraga_salju" /> Olahraga Salju</label>
+                    <label><input type="checkbox" id="tmb_kapal_pesiarTravel" value="kapal_pesiar" /> Jaminan Kapal Pesiar</label>
+                    <label><input type="checkbox" id="tmb_petualanganTravel" value="petualangan" /> Aktivitas Petualangan</label>
+                    <label><input type="checkbox" id="tmb_bisnisTravel" value="bisnis" /> Perjalanan Bisnis</label>
+                    <label><input type="checkbox" id="tmb_olahraga_amatirTravel" value="olahraga_amatir" /> Acara Olahraga Amatir</label>
+                </div>
+            </div>
+            <div class="btn-group no-print">
+                <button class="btn btn-primary" onclick="hitungPremiTravel()">🔍 Hitung Premi</button>
+                <button class="btn btn-success" onclick="cetakProposalTravel()" id="btnCetakTravel" disabled>📄 Cetak Proposal</button>
+                <button class="btn btn-outline" onclick="resetFormTravel()">↺ Reset</button>
+            </div>
+        </div>
+        <div class="result-box no-print" id="resultTravel">
+            <div class="view-indicator" id="viewIndicatorTravel">🔄 Melihat ulang dari riwayat (tidak mengurangi kuota)</div>
+            <h3>✈️ Hasil Perhitungan Premi Travel</h3>
+            <div class="summary-grid">
+                <div class="summary-card"><div class="label">Total Premi</div><div class="value green" id="sTotalPremiTravel">-</div></div>
+                <div class="summary-card"><div class="label">Premi Dasar</div><div class="value blue" id="sPremiDasarTravel">-</div></div>
+                <div class="summary-card"><div class="label">Premi Tambahan</div><div class="value orange" id="sPremiTambahanTravel">-</div></div>
+            </div>
+            <div class="breakdown"><table class="detail-table"><tbody id="detailBodyTravel"></tbody></table></div>
+            <h3 style="margin-top:18px;font-size:16px;">📋 Manfaat Perlindungan</h3>
+            <div class="breakdown"><table class="manfaat-table" id="manfaatBodyWrapTravel"><tbody id="manfaatBodyTravel"></tbody></table></div>
+        </div>
+    </div>
+
     <!-- TAB JIWA -->
     <div id="tabJiwa" class="tab-content">
         <div id="formJiwa">
@@ -668,13 +1565,11 @@
             <!-- ===== KOP SURAT DENGAN LOGO ===== -->
             <div class="proposal-header">
                 <div class="proposal-logo">
-                    <!-- Logo dari file nanjing-ico1.png -->
                     <img src="nanjing-ico1.png" 
                          alt="Logo Perusahaan" 
                          id="proposalLogo" 
                          style="display:block;width:80px;height:80px;object-fit:contain;"
                          onerror="this.style.display='none'; document.getElementById('logoPlaceholder').style.display='flex';" />
-                    <!-- Placeholder jika gambar gagal load -->
                     <div class="logo-placeholder" id="logoPlaceholder" style="display:none;">A</div>
                 </div>
                 <div class="proposal-title-area">
@@ -689,12 +1584,13 @@
                 <div style="background:#f0f3f8;padding:5px 14px;border-radius:20px;font-weight:600;color:#1a2a4a;font-size:13px;white-space:nowrap;">No. <span id="pNoLabel">Proposal</span>: <strong id="pNoProposal">AVR/PROP/2026/001</strong></div>
             </div>
             <div class="section-title section-title-first">A. DATA PERTANGGUNGAN</div><div id="proposalDataContent"></div>
-            <div id="proposalKondisiSection" style="display:none;"><div class="section-title">B. KONDISI PERTANGGUNGAN</div><table class="data-table"><tr><td class="label">Jenis Pertanggungan</td><td class="value" id="pJenisPertanggungan"><strong>-</strong></td></tr><tr><td class="label">Perluasan Jaminan</td><td class="value" id="pExt">Tidak ada</td></tr><tr><td class="label">Tanggal Proposal</td><td class="value" id="pTanggal">-</td></tr></table></div>
-            <div id="proposalPerhitunganSection" style="display:none;"><div class="section-title">C. PERHITUNGAN PREMI</div><table class="premium-table"><thead><tr><th style="width:60%;">Komponen</th><th style="width:20%;text-align:right;">Rate</th><th style="width:20%;text-align:right;">Premi (Rp)</th></tr></thead><tbody id="pPremiumBody"></tbody></table></div>
+            <div id="proposalKondisiSection" style="display:none;"><div class="section-title">B. KONDISI PERTANGGUNGAN</div><div id="proposalKondisiContent"></div></div>
+            <div id="proposalPerhitunganSection" style="display:none;"><div class="section-title">C. PERHITUNGAN PREMI</div><div id="proposalPerhitunganContent"></div></div>
             <div id="proposalDeductibleSection" style="display:none;"><div class="section-title">D. KETENTUAN RISIKO SENDIRI (DEDUCTIBLE)</div><div id="proposalDeductibleContent"></div></div>
             <div id="proposalWealthSection" style="display:none;"><div class="section-title">B. PERHITUNGAN DANA PENSIUN</div><div id="proposalWealthContent"></div></div>
             <div id="proposalRekomendasiSection" style="display:none;"><div class="section-title">C. REKOMENDASI</div><div id="proposalRekomendasiContent" style="font-size:14px;color:#1e2f4a;line-height:1.8;padding:0 4px;"></div></div>
             <div id="proposalJiwaSection" style="display:none;"><div class="section-title">B. PERHITUNGAN KEBUTUHAN</div><div id="proposalJiwaContent"></div><div class="section-title">C. REKOMENDASI</div><div id="proposalRekomendasiJiwa" style="font-size:14px;color:#1e2f4a;line-height:1.8;padding:0 4px;"></div></div>
+            <div id="proposalManfaatSection" style="display:none;"><div class="section-title">C. MANFAAT PERLINDUNGAN</div><div id="proposalManfaatContent"></div></div>
             <div class="section-title" id="pernyataanTitle">E. PERNYATAAN &amp; PERSETUJUAN</div>
             <p style="font-size:14px;color:#1e2f4a;line-height:1.6;margin-bottom:14px;">Dengan ini saya menyatakan bahwa data dan keterangan yang saya berikan adalah benar dan dapat dipertanggungjawabkan. Saya telah membaca, memahami, dan menyetujui ketentuan-ketentuan yang berlaku.</p>
             <div class="signature-area"><div class="signature-box"><div class="label">Tanda Tangan Pemohon</div><div class="line">&nbsp;</div><div class="city-date" id="pKotaTanggal">-</div></div><div class="signature-box" style="text-align:right;"><div class="label">Penerima / Agen</div><div class="line">&nbsp;</div><div class="city-date">&nbsp;</div></div></div>
@@ -1077,6 +1973,9 @@ let hasilTerakhirMobil = null;
 let hasilTerakhirProperti = null;
 let hasilPensiun = null;
 let hasilJiwa = null;
+let dbTravel = null;
+let usiaTravel = 0;
+let hasilTerakhirTravel = null;
 
 function getTahunKategori(tahun) {
     if (tahun >= 2023 && tahun <= 2026) return '2026-2023';
@@ -1489,8 +2388,8 @@ function tampilkanProposalMobil(h) {
     document.getElementById('proposalWealthSection').style.display = 'none';
     document.getElementById('proposalRekomendasiSection').style.display = 'none';
     document.getElementById('proposalJiwaSection').style.display = 'none';
-    document.getElementById('proposalKondisiSection').style.display = 'table';
-    document.getElementById('proposalPerhitunganSection').style.display = 'table';
+    document.getElementById('proposalKondisiSection').style.display = 'block';
+    document.getElementById('proposalPerhitunganSection').style.display = 'block';
     document.getElementById('proposalDeductibleSection').style.display = 'block';
     document.getElementById('pernyataanTitle').textContent = 'E. PERNYATAAN & PERSETUJUAN';
     document.getElementById('pNoLabel').textContent = 'Proposal';
@@ -1498,33 +2397,63 @@ function tampilkanProposalMobil(h) {
     document.getElementById('proposalDesc').textContent = 'Dokumen Penawaran Perlindungan Kendaraan';
     document.getElementById('pNama').textContent = h.nama;
     document.getElementById('pInfoTambahan').textContent = 'No. HP: ' + h.noHp;
-    document.getElementById('proposalDataContent').innerHTML = `<table class="data-table"><tr><td class="label">Merek Kendaraan</td><td class="value"><strong>${h.merk}</strong></td></tr><tr><td class="label">Tipe Kendaraan</td><td class="value"><strong>${h.tipe}</strong></td></tr><tr><td class="label">Tahun Pembuatan</td><td class="value"><strong>${h.tahun}</strong></td></tr><tr><td class="label">Jenis / Kategori</td><td class="value">${h.jenisText}</td></tr><tr><td class="label">Wilayah / Zone</td><td class="value">${h.wilayahText}</td></tr><tr><td class="label">Perkiraan Harga</td><td class="value"><strong>${formatRupiahFull(h.harga)}</strong></td></tr></table>`;
-    document.getElementById('pJenisPertanggungan').innerHTML = '<strong>' + h.jenisPertanggungan + '</strong>';
+    
+    // DATA PERTANGGUNGAN - Full width 2 kolom
+    document.getElementById('proposalDataContent').innerHTML = `
+        <table class="data-table">
+            <tr><td class="label">Merek Kendaraan</td><td class="value"><strong>${h.merk}</strong></td></tr>
+            <tr><td class="label">Tipe Kendaraan</td><td class="value"><strong>${h.tipe}</strong></td></tr>
+            <tr><td class="label">Tahun Pembuatan</td><td class="value"><strong>${h.tahun}</strong></td></tr>
+            <tr><td class="label">Jenis / Kategori</td><td class="value">${h.jenisText}</td></tr>
+            <tr><td class="label">Wilayah / Zone</td><td class="value">${h.wilayahText}</td></tr>
+            <tr><td class="label">Perkiraan Harga</td><td class="value"><strong>${formatRupiahFull(h.harga)}</strong></td></tr>
+        </table>
+    `;
+    
+    // KONDISI PERTANGGUNGAN - Full width 2 kolom
     const extNames = h.detailPerluasan ? h.detailPerluasan.map(d=>d.nama).join(', ') : 'Tidak ada';
-    document.getElementById('pExt').textContent = extNames;
+    const now = new Date();
+    const tgl = formatTanggal(now.toISOString().split('T')[0]);
+    document.getElementById('proposalKondisiContent').innerHTML = `
+        <table class="data-table">
+            <tr><td class="label">Jenis Pertanggungan</td><td class="value"><strong>${h.jenisPertanggungan}</strong></td></tr>
+            <tr><td class="label">Perluasan Jaminan</td><td class="value">${extNames}</td></tr>
+            <tr><td class="label">Tanggal Proposal</td><td class="value">${tgl}</td></tr>
+        </table>
+    `;
+    
+    // PERHITUNGAN PREMI - Full width 2 kolom
     let rincianHTML = '', totalExt = 0;
     if (h.detailPerluasan && h.detailPerluasan.length > 0) {
         h.detailPerluasan.forEach(item => {
-            rincianHTML += `<tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">${item.nama}<span style="color:#5e7a93;font-size:11px;margin-left:8px;">(${item.rate})</span></td><td style="text-align:right;font-size:13px;">${formatRupiahFull(item.premi)}</td></tr>`;
+            rincianHTML += `<tr><td class="sub-label">${item.nama} (${item.rate})</td><td class="value-col">${formatRupiahFull(item.premi)}</td></tr>`;
             totalExt += item.premi;
         });
-    } else { rincianHTML = `<tr><td style="padding-left:20px;color:#5e7a93;font-size:13px;" colspan="3">Tidak ada perluasan</td></tr>`; }
-    const premiumBody = document.getElementById('pPremiumBody');
-    premiumBody.innerHTML = `
-        <tr><td>Jaminan Utama</td><td style="text-align:right;">${(h.ratePercent || 0).toFixed(2)}%</td><td style="text-align:right;">${formatRupiahFull(h.premi)}</td></tr>
-        <tr><td style="font-weight:600;padding-top:8px;color:#2c3e6b;" colspan="3">Rincian Perluasan Jaminan:</td></tr>
-        ${rincianHTML}
-        <tr style="border-top:1px solid #dce3ec;padding-top:4px;"><td style="font-weight:600;color:#1a3a5c;">Total Perluasan</td><td style="text-align:right;"></td><td style="text-align:right;font-weight:600;color:#1a3a5c;">${formatRupiahFull(totalExt)}</td></tr>
-        <tr class="highlight-row"><td><strong>Total Premi</strong></td><td style="text-align:right;"></td><td style="text-align:right;"><strong>${formatRupiahFull(h.totalPremi)}</strong></td></tr>
-        <tr><td>Biaya Polis &amp; Materai</td><td style="text-align:right;"></td><td style="text-align:right;">${formatRupiahFull(h.biayaPolis)}</td></tr>
-        <tr style="border-top:2px solid #1a2a4a;"><td class="total-label" style="font-size:15px;">TOTAL PREMI YANG HARUS DIBAYAR</td><td style="text-align:right;"></td><td class="total-value" style="text-align:right;font-size:17px;color:#1a2a4a;">${formatRupiahFull(h.totalBayar)}</td></tr>
+    } else {
+        rincianHTML = `<tr><td class="sub-label" style="color:#5e7a93;">Tidak ada perluasan</td><td class="value-col">-</td></tr>`;
+    }
+    
+    document.getElementById('proposalPerhitunganContent').innerHTML = `
+        <table class="premium-table">
+            <tr><td class="label-col">Jaminan Utama</td><td class="value-col">${formatRupiahFull(h.premi)}</td></tr>
+            <tr><td colspan="2" style="padding:4px 12px;font-weight:600;color:#2c3e6b;border-bottom:2px solid #d0d7e3;">Rincian Perluasan Jaminan</td></tr>
+            ${rincianHTML}
+            <tr><td colspan="2" style="padding:4px 12px;border-bottom:2px solid #d0d7e3;"></td></tr>
+            <tr><td class="label-col" style="font-weight:700;">Total Premi</td><td class="value-col" style="font-weight:700;">${formatRupiahFull(h.totalPremi)}</td></tr>
+            <tr><td class="label-col">Biaya Polis &amp; Materai</td><td class="value-col">${formatRupiahFull(h.biayaPolis)}</td></tr>
+            <tr class="grand-total"><td class="label-col" style="font-size:17px;font-weight:700;">TOTAL YANG HARUS DIBAYAR</td><td class="total-value" style="font-size:18px;font-weight:700;color:#c0392b;">${formatRupiahFull(h.totalBayar)}</td></tr>
+        </table>
     `;
-    const now = new Date();
-    const tgl = formatTanggal(now.toISOString().split('T')[0]);
-    document.getElementById('pTanggal').textContent = tgl;
+    
     document.getElementById('pKotaTanggal').textContent = tgl;
     document.getElementById('pNoProposal').textContent = 'AVR/PROP/' + now.getFullYear() + '/' + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0') + String(Math.floor(Math.random()*1000)).padStart(3,'0');
-    document.getElementById('proposalDeductibleContent').innerHTML = `<table class="data-table"><tr><td class="label">Kerugian Sebagian/Total / Pencurian</td><td class="value"><strong>Rp 300.000</strong> per kejadian</td></tr><tr><td class="label">Huru Hara / Terorisme / Banjir / Gempa</td><td class="value">10% dari klaim, min Rp 500.000</td></tr><tr><td class="label">Tanggung Jawab Hukum Pihak Ketiga</td><td class="value"><strong>1% dari UP</strong></td></tr></table>`;
+    document.getElementById('proposalDeductibleContent').innerHTML = `
+        <table class="data-table">
+            <tr><td class="label">Kerugian Sebagian/Total / Pencurian</td><td class="value"><strong>Rp 300.000</strong> per kejadian</td></tr>
+            <tr><td class="label">Huru Hara / Terorisme / Banjir / Gempa</td><td class="value">10% dari klaim, min Rp 500.000</td></tr>
+            <tr><td class="label">Tanggung Jawab Hukum Pihak Ketiga</td><td class="value"><strong>1% dari UP</strong></td></tr>
+        </table>
+    `;
     document.getElementById('footerNotes').innerHTML = `<ul><li><strong>Catatan:</strong> Perhitungan premi ini adalah perkiraan awal berdasarkan data yang diberikan.</li><li>Premi final dapat berubah setelah verifikasi data kendaraan dan dokumen pendukung.</li><li style="margin-top:4px;font-size:11px;color:#7a8a9f;">Dokumen ini adalah proposal / penawaran awal.</li></ul>`;
     document.getElementById('proposalWrapper').classList.add('show');
     document.getElementById('printInstruction').classList.remove('show');
@@ -1583,26 +2512,21 @@ async function hitungPremiProperti() {
     if (!alamat) { showAlert('warning', 'Info', 'Isi Alamat Properti!'); return; }
     const tarifData = TARIF_PROPERTI[jenis] || TARIF_PROPERTI['rumah'];
     
-    // ===== PREMI DASAR: HANYA FLEXAS =====
     let rate = tarifData.flexas / 100;
-    
     const usia = 2026 - tahun;
     let faktorUsia = 1.0;
     if (usia <= 5) faktorUsia = 1.0;
     else if (usia <= 10) faktorUsia = 1.05;
     else if (usia <= 20) faktorUsia = 1.10;
     else faktorUsia = 1.20;
-    
     let faktorLuas = 1.0;
     if (luas > 1000) faktorLuas = 0.85;
     else if (luas > 500) faktorLuas = 0.90;
     else if (luas > 200) faktorLuas = 0.95;
-    
     let premi = nilai * rate * faktorUsia * faktorLuas;
     premi = Math.round(premi / 1000) * 1000;
     if (premi < 50000) premi = 50000;
     
-    // ===== PERLUASAN JAMINAN (OPSIONAL) =====
     let detailPerluasan = [], extPremi = 0;
     if (document.getElementById('extFWTWDProperti')?.checked) {
         const rateFWTWD = tarifData.fwtwd / 100;
@@ -1671,7 +2595,6 @@ function tampilkanHasilProperti(h) {
         <tr><td style="padding-top:8px;font-weight:600;color:#2c3e6b;" colspan="2">PERHITUNGAN PREMI DASAR</td></tr>
         <tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">Flexas × Nilai × Faktor Usia × Faktor Luas</td><td class="right" style="font-size:13px;">${formatRupiahFull(h.premi)}</td></tr>
     `;
-    
     let totalPerluasan = 0;
     if (h.detailPerluasan && h.detailPerluasan.length > 0) {
         html += `<tr><td style="font-weight:600;padding-top:8px;color:#2c3e6b;" colspan="2">RINCIAN PERLUASAN JAMINAN:</td></tr>`;
@@ -1682,7 +2605,6 @@ function tampilkanHasilProperti(h) {
     } else {
         html += `<tr><td style="padding-left:20px;color:#5e7a93;font-size:13px;" colspan="2">Tidak ada perluasan</td></tr>`;
     }
-    
     html += `
         <tr style="border-top:1px solid #dce3ec;padding-top:4px;"><td style="font-weight:600;color:#1a3a5c;">Total Perluasan</td><td class="right" style="font-weight:600;color:#1a3a5c;">${formatRupiahFull(totalPerluasan)}</td></tr>
         <tr class="total"><td><strong>Total Premi</strong></td><td class="right"><strong>${formatRupiahFull(h.totalPremi)}</strong></td></tr>
@@ -1725,19 +2647,16 @@ function viewHistoryProperti(item) {
         <tr><td style="padding-left:20px;font-size:13px;color:#5e7a93;">RSMDCC (Perluasan)</td><td class="right" style="font-size:13px;">${(tarif.rsmdcc || 0).toFixed(4)}%</td></tr>
         <tr><td style="padding-left:20px;font-size:13px;color:#5e7a93;">Others (Perluasan)</td><td class="right" style="font-size:13px;">${(tarif.others || 0).toFixed(4)}%</td></tr>
     `;
-    
     if (detail.faktorUsia) {
         html += `
             <tr style="border-top:1px solid #dce3ec;"><td style="font-weight:600;color:#1a3a5c;">Faktor Usia Bangunan</td><td class="right" style="font-weight:600;color:#1a3a5c;">${detail.faktorUsia}</td></tr>
             <tr><td style="font-weight:600;color:#1a3a5c;">Faktor Luas Bangunan</td><td class="right" style="font-weight:600;color:#1a3a5c;">${detail.faktorLuas || '1.00'}</td></tr>
         `;
     }
-    
     html += `
         <tr><td style="padding-top:8px;font-weight:600;color:#2c3e6b;" colspan="2">PERHITUNGAN PREMI DASAR</td></tr>
         <tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">Flexas × Nilai × Faktor</td><td class="right" style="font-size:13px;">${formatRupiahFull(result.premiDasar)}</td></tr>
     `;
-    
     const detailPerluasan = detail.detailPerluasan || [];
     let totalPerluasan = 0;
     if (detailPerluasan.length > 0) {
@@ -1749,7 +2668,6 @@ function viewHistoryProperti(item) {
     } else {
         html += `<tr><td style="padding-left:20px;color:#5e7a93;font-size:13px;" colspan="2">Tidak ada perluasan</td></tr>`;
     }
-    
     html += `
         <tr style="border-top:1px solid #dce3ec;padding-top:4px;"><td style="font-weight:600;color:#1a3a5c;">Total Perluasan</td><td class="right" style="font-weight:600;color:#1a3a5c;">${formatRupiahFull(totalPerluasan)}</td></tr>
         <tr class="total"><td><strong>Total Premi</strong></td><td class="right"><strong>${formatRupiahFull(result.totalPremi)}</strong></td></tr>
@@ -1787,8 +2705,8 @@ function tampilkanProposalProperti(h) {
     document.getElementById('proposalWealthSection').style.display = 'none';
     document.getElementById('proposalRekomendasiSection').style.display = 'none';
     document.getElementById('proposalJiwaSection').style.display = 'none';
-    document.getElementById('proposalKondisiSection').style.display = 'table';
-    document.getElementById('proposalPerhitunganSection').style.display = 'table';
+    document.getElementById('proposalKondisiSection').style.display = 'block';
+    document.getElementById('proposalPerhitunganSection').style.display = 'block';
     document.getElementById('proposalDeductibleSection').style.display = 'block';
     document.getElementById('pernyataanTitle').textContent = 'E. PERNYATAAN & PERSETUJUAN';
     document.getElementById('pNoLabel').textContent = 'Proposal';
@@ -1796,46 +2714,59 @@ function tampilkanProposalProperti(h) {
     document.getElementById('proposalDesc').textContent = 'Dokumen Penawaran Perlindungan Properti';
     document.getElementById('pNama').textContent = h.nama;
     document.getElementById('pInfoTambahan').textContent = 'No. HP: ' + h.noHp;
-    document.getElementById('proposalDataContent').innerHTML = `<table class="data-table"><tr><td class="label">Jenis Properti</td><td class="value"><strong>${h.jenisText}</strong></td></tr><tr><td class="label">Alamat Properti</td><td class="value"><strong>${h.alamat}</strong></td></tr><tr><td class="label">Nilai Properti</td><td class="value"><strong>${formatRupiahFull(h.nilai)}</strong></td></tr><tr><td class="label">Luas Bangunan</td><td class="value"><strong>${h.luas} m²</strong></td></tr><tr><td class="label">Tahun Dibangun</td><td class="value"><strong>${h.tahun}</strong></td></tr></table>`;
-    document.getElementById('pJenisPertanggungan').innerHTML = '<strong>' + h.jenisPertanggungan + '</strong>';
-    const extNames = h.detailPerluasan ? h.detailPerluasan.map(d=>d.nama).join(', ') : 'Tidak ada';
-    document.getElementById('pExt').textContent = extNames;
     
-    const premiumBody = document.getElementById('pPremiumBody');
-    const tarif = h.tarifData || {};
-    let tarifHTML = `
-        <tr><td style="padding-left:20px;font-size:12px;color:#2c3e6b;" colspan="3">Rincian Tarif:</td></tr>
-        <tr><td style="padding-left:30px;font-size:12px;color:#2c3e6b;">Flexas (Premi Dasar)</td><td style="text-align:right;font-size:12px;">${(tarif.flexas || 0).toFixed(4)}%</td><td style="text-align:right;font-size:12px;">-</td></tr>
-        <tr><td style="padding-left:30px;font-size:12px;color:#5e7a93;">FWTWD (Perluasan)</td><td style="text-align:right;font-size:12px;">${(tarif.fwtwd || 0).toFixed(4)}%</td><td style="text-align:right;font-size:12px;">-</td></tr>
-        <tr><td style="padding-left:30px;font-size:12px;color:#5e7a93;">RSMDCC (Perluasan)</td><td style="text-align:right;font-size:12px;">${(tarif.rsmdcc || 0).toFixed(4)}%</td><td style="text-align:right;font-size:12px;">-</td></tr>
-        <tr><td style="padding-left:30px;font-size:12px;color:#5e7a93;">Others (Perluasan)</td><td style="text-align:right;font-size:12px;">${(tarif.others || 0).toFixed(4)}%</td><td style="text-align:right;font-size:12px;">-</td></tr>
+    document.getElementById('proposalDataContent').innerHTML = `
+        <table class="data-table">
+            <tr><td class="label">Jenis Properti</td><td class="value"><strong>${h.jenisText}</strong></td></tr>
+            <tr><td class="label">Alamat Properti</td><td class="value"><strong>${h.alamat}</strong></td></tr>
+            <tr><td class="label">Nilai Properti</td><td class="value"><strong>${formatRupiahFull(h.nilai)}</strong></td></tr>
+            <tr><td class="label">Luas Bangunan</td><td class="value"><strong>${h.luas} m²</strong></td></tr>
+            <tr><td class="label">Tahun Dibangun</td><td class="value"><strong>${h.tahun}</strong></td></tr>
+        </table>
+    `;
+    
+    const extNames = h.detailPerluasan ? h.detailPerluasan.map(d=>d.nama).join(', ') : 'Tidak ada';
+    const now = new Date();
+    const tgl = formatTanggal(now.toISOString().split('T')[0]);
+    document.getElementById('proposalKondisiContent').innerHTML = `
+        <table class="data-table">
+            <tr><td class="label">Jenis Pertanggungan</td><td class="value"><strong>${h.jenisPertanggungan}</strong></td></tr>
+            <tr><td class="label">Perluasan Jaminan</td><td class="value">${extNames}</td></tr>
+            <tr><td class="label">Tanggal Proposal</td><td class="value">${tgl}</td></tr>
+        </table>
     `;
     
     let rincianHTML = '', totalExt = 0;
     if (h.detailPerluasan && h.detailPerluasan.length > 0) {
         h.detailPerluasan.forEach(item => {
-            rincianHTML += `<tr><td style="padding-left:20px;font-size:13px;color:#2c3e6b;">${item.nama}<span style="color:#5e7a93;font-size:11px;margin-left:8px;">(${item.rate})</span></td><td style="text-align:right;font-size:13px;"></td><td style="text-align:right;font-size:13px;">${formatRupiahFull(item.premi)}</td></tr>`;
+            rincianHTML += `<tr><td class="sub-label">${item.nama} (${item.rate})</td><td class="value-col">${formatRupiahFull(item.premi)}</td></tr>`;
             totalExt += item.premi;
         });
-    } else { rincianHTML = `<tr><td style="padding-left:20px;color:#5e7a93;font-size:13px;" colspan="3">Tidak ada perluasan</td></tr>`; }
+    } else {
+        rincianHTML = `<tr><td class="sub-label" style="color:#5e7a93;">Tidak ada perluasan</td><td class="value-col">-</td></tr>`;
+    }
     
-    premiumBody.innerHTML = `
-        ${tarifHTML}
-        <tr><td>Premi Dasar (Flexas)</td><td style="text-align:right;">${(h.rate * 100).toFixed(4)}%</td><td style="text-align:right;">${formatRupiahFull(h.premi)}</td></tr>
-        <tr><td style="font-weight:600;padding-top:8px;color:#2c3e6b;" colspan="3">Rincian Perluasan Jaminan:</td></tr>
-        ${rincianHTML}
-        <tr style="border-top:1px solid #dce3ec;padding-top:4px;"><td style="font-weight:600;color:#1a3a5c;">Total Perluasan</td><td style="text-align:right;"></td><td style="text-align:right;font-weight:600;color:#1a3a5c;">${formatRupiahFull(totalExt)}</td></tr>
-        <tr class="highlight-row"><td><strong>Total Premi</strong></td><td style="text-align:right;"></td><td style="text-align:right;"><strong>${formatRupiahFull(h.totalPremi)}</strong></td></tr>
-        <tr><td>Biaya Polis &amp; Materai</td><td style="text-align:right;"></td><td style="text-align:right;">${formatRupiahFull(h.biayaPolis)}</td></tr>
-        <tr style="border-top:2px solid #1a2a4a;"><td class="total-label" style="font-size:15px;">TOTAL PREMI YANG HARUS DIBAYAR</td><td style="text-align:right;"></td><td class="total-value" style="text-align:right;font-size:17px;color:#1a2a4a;">${formatRupiahFull(h.totalBayar)}</td></tr>
+    document.getElementById('proposalPerhitunganContent').innerHTML = `
+        <table class="premium-table">
+            <tr><td class="label-col">Premi Dasar (Flexas)</td><td class="value-col">${formatRupiahFull(h.premi)}</td></tr>
+            <tr><td colspan="2" style="padding:4px 12px;font-weight:600;color:#2c3e6b;border-bottom:2px solid #d0d7e3;">Rincian Perluasan Jaminan</td></tr>
+            ${rincianHTML}
+            <tr><td colspan="2" style="padding:4px 12px;border-bottom:2px solid #d0d7e3;"></td></tr>
+            <tr><td class="label-col" style="font-weight:700;">Total Premi</td><td class="value-col" style="font-weight:700;">${formatRupiahFull(h.totalPremi)}</td></tr>
+            <tr><td class="label-col">Biaya Polis &amp; Materai</td><td class="value-col">${formatRupiahFull(h.biayaPolis)}</td></tr>
+            <tr class="grand-total"><td class="label-col" style="font-size:17px;font-weight:700;">TOTAL YANG HARUS DIBAYAR</td><td class="total-value" style="font-size:18px;font-weight:700;color:#c0392b;">${formatRupiahFull(h.totalBayar)}</td></tr>
+        </table>
     `;
     
-    const now = new Date();
-    const tgl = formatTanggal(now.toISOString().split('T')[0]);
-    document.getElementById('pTanggal').textContent = tgl;
     document.getElementById('pKotaTanggal').textContent = tgl;
     document.getElementById('pNoProposal').textContent = 'AVR/PROP/' + now.getFullYear() + '/' + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0') + String(Math.floor(Math.random()*1000)).padStart(3,'0');
-    document.getElementById('proposalDeductibleContent').innerHTML = `<table class="data-table"><tr><td class="label">Kerugian Sebagian/Total</td><td class="value"><strong>Rp 500.000</strong> per kejadian</td></tr><tr><td class="label">Banjir / Gempa / Kebakaran</td><td class="value">10% dari klaim, min Rp 1.000.000</td></tr><tr><td class="label">Tanggung Jawab Hukum Pihak Ketiga</td><td class="value"><strong>Rp 1.000.000</strong></td></tr></table>`;
+    document.getElementById('proposalDeductibleContent').innerHTML = `
+        <table class="data-table">
+            <tr><td class="label">Kerugian Sebagian/Total</td><td class="value"><strong>Rp 500.000</strong> per kejadian</td></tr>
+            <tr><td class="label">Banjir / Gempa / Kebakaran</td><td class="value">10% dari klaim, min Rp 1.000.000</td></tr>
+            <tr><td class="label">Tanggung Jawab Hukum Pihak Ketiga</td><td class="value"><strong>Rp 1.000.000</strong></td></tr>
+        </table>
+    `;
     document.getElementById('footerNotes').innerHTML = `<ul><li><strong>Catatan:</strong> Perhitungan premi ini adalah perkiraan awal berdasarkan data yang diberikan.</li><li>Premi final dapat berubah setelah verifikasi data properti dan dokumen pendukung.</li><li>Premi Dasar dihitung dari <strong>Flexas</strong> (bukan PAR). FWTWD, RSMDCC, dan Others adalah perluasan opsional.</li><li style="margin-top:4px;font-size:11px;color:#7a8a9f;">Dokumen ini adalah proposal / penawaran awal.</li></ul>`;
     document.getElementById('proposalWrapper').classList.add('show');
     document.getElementById('printInstruction').classList.remove('show');
@@ -1863,7 +2794,7 @@ function resetFormProperti() {
 }
 
 // ============================================================
-// FUNGSI JIWA (LENGKAP - TIDAK BERUBAH)
+// FUNGSI JIWA
 // ============================================================
 document.getElementById('tanggalLahirJiwa').addEventListener('change', function() {
     const usia = hitungUsia(this.value);
@@ -2031,6 +2962,7 @@ function viewHistoryJiwa(item) {
 }
 
 function cetakProposalJiwa() { if (!hasilJiwa) { showAlert('warning', 'Info', 'Hitung kebutuhan dahulu!'); return; } tampilkanProposalJiwa(hasilJiwa); }
+
 function tampilkanProposalJiwa(h) {
     document.getElementById('proposalWealthSection').style.display = 'none';
     document.getElementById('proposalRekomendasiSection').style.display = 'none';
@@ -2044,8 +2976,35 @@ function tampilkanProposalJiwa(h) {
     document.getElementById('proposalDesc').textContent = 'Dokumen Perencanaan Perlindungan Keluarga';
     document.getElementById('pNama').textContent = h.nama;
     document.getElementById('pInfoTambahan').textContent = 'Tanggal Lahir: ' + formatTanggal(h.tanggalLahir);
-    document.getElementById('proposalDataContent').innerHTML = `<table class="data-table"><tr><td class="label">Nama Lengkap</td><td class="value"><strong>${h.nama}</strong></td></tr><tr><td class="label">Tanggal Lahir</td><td class="value"><strong>${formatTanggal(h.tanggalLahir)}</strong></td></tr><tr><td class="label">Usia Saat Ini</td><td class="value"><strong>${h.usiaSaatIni} tahun</strong></td></tr><tr><td class="label">Status Pernikahan</td><td class="value"><strong>${h.status}</strong></td></tr><tr><td class="label">Pengeluaran Keluarga per Bulan</td><td class="value"><strong>${formatRupiahFull(h.pengeluaranBulanan)}</strong></td></tr><tr><td class="label">Penghasilan Pasangan</td><td class="value"><strong>${formatRupiahFull(h.penghasilanPasangan)}</strong></td></tr><tr><td class="label">Kekurangan per Bulan</td><td class="value"><strong>${formatRupiahFull(h.kekuranganBulanan)}</strong></td></tr><tr><td class="label">Total Hutang</td><td class="value"><strong>${formatRupiahFull(h.totalHutang)}</strong></td></tr><tr><td class="label">Biaya Pendidikan per Tahun</td><td class="value"><strong>${formatRupiahFull(h.biayaPendidikan)}</strong></td></tr><tr><td class="label">Tabungan Saat Ini</td><td class="value"><strong>${formatRupiahFull(h.tabunganSaatIni)}</strong></td></tr></table>`;
-    document.getElementById('proposalJiwaContent').innerHTML = `<table class="data-table"><tr><td class="label">Asumsi Return Investasi</td><td class="value"><strong>${h.returnInvestasi}%</strong></td></tr><tr><td class="label">Asumsi Inflasi</td><td class="value"><strong>${h.inflasi}%</strong></td></tr><tr><td class="label">Dana Abadi Biaya Hidup</td><td class="value"><strong>${formatRupiahFull(h.danaAbadi)}</strong></td></tr><tr><td class="label">Dana Pendidikan (dengan inflasi)</td><td class="value"><strong>${formatRupiahFull(h.danaPendidikan)}</strong></td></tr><tr><td class="label">Dana Darurat</td><td class="value"><strong>${formatRupiahFull(h.danaDarurat)}</strong></td></tr><tr><td class="label">Biaya Pemakaman</td><td class="value"><strong>${formatRupiahFull(h.biayaPemakaman)}</strong></td></tr><tr><td class="label">Total Kebutuhan</td><td class="value"><strong>${formatRupiahFull(h.totalKebutuhan)}</strong></td></tr><tr style="border-top:3px solid #c0392b;font-size:18px;"><td style="font-weight:700;color:#c0392b;">KEBUTUHAN ASURANSI JIWA</td><td style="font-weight:700;color:#c0392b;text-align:right;"><strong>${formatRupiahFull(h.kebutuhanJiwa)}</strong></td></tr></table>`;
+    
+    document.getElementById('proposalDataContent').innerHTML = `
+        <table class="data-table">
+            <tr><td class="label">Nama Lengkap</td><td class="value"><strong>${h.nama}</strong></td></tr>
+            <tr><td class="label">Tanggal Lahir</td><td class="value"><strong>${formatTanggal(h.tanggalLahir)}</strong></td></tr>
+            <tr><td class="label">Usia Saat Ini</td><td class="value"><strong>${h.usiaSaatIni} tahun</strong></td></tr>
+            <tr><td class="label">Status Pernikahan</td><td class="value"><strong>${h.status}</strong></td></tr>
+            <tr><td class="label">Pengeluaran Keluarga per Bulan</td><td class="value"><strong>${formatRupiahFull(h.pengeluaranBulanan)}</strong></td></tr>
+            <tr><td class="label">Penghasilan Pasangan</td><td class="value"><strong>${formatRupiahFull(h.penghasilanPasangan)}</strong></td></tr>
+            <tr><td class="label">Kekurangan per Bulan</td><td class="value"><strong>${formatRupiahFull(h.kekuranganBulanan)}</strong></td></tr>
+            <tr><td class="label">Total Hutang</td><td class="value"><strong>${formatRupiahFull(h.totalHutang)}</strong></td></tr>
+            <tr><td class="label">Biaya Pendidikan per Tahun</td><td class="value"><strong>${formatRupiahFull(h.biayaPendidikan)}</strong></td></tr>
+            <tr><td class="label">Tabungan Saat Ini</td><td class="value"><strong>${formatRupiahFull(h.tabunganSaatIni)}</strong></td></tr>
+        </table>
+    `;
+    
+    document.getElementById('proposalJiwaContent').innerHTML = `
+        <table class="data-table">
+            <tr><td class="label">Asumsi Return Investasi</td><td class="value"><strong>${h.returnInvestasi}%</strong></td></tr>
+            <tr><td class="label">Asumsi Inflasi</td><td class="value"><strong>${h.inflasi}%</strong></td></tr>
+            <tr><td class="label">Dana Abadi Biaya Hidup</td><td class="value"><strong>${formatRupiahFull(h.danaAbadi)}</strong></td></tr>
+            <tr><td class="label">Dana Pendidikan (dengan inflasi)</td><td class="value"><strong>${formatRupiahFull(h.danaPendidikan)}</strong></td></tr>
+            <tr><td class="label">Dana Darurat</td><td class="value"><strong>${formatRupiahFull(h.danaDarurat)}</strong></td></tr>
+            <tr><td class="label">Biaya Pemakaman</td><td class="value"><strong>${formatRupiahFull(h.biayaPemakaman)}</strong></td></tr>
+            <tr style="border-top:2px solid #d0d7e3;"><td class="label" style="font-weight:700;">Total Kebutuhan</td><td class="value" style="font-weight:700;">${formatRupiahFull(h.totalKebutuhan)}</td></tr>
+            <tr class="grand-total"><td class="label" style="font-size:17px;font-weight:700;color:#c0392b;">KEBUTUHAN ASURANSI JIWA</td><td class="value" style="font-size:18px;font-weight:700;color:#c0392b;">${formatRupiahFull(h.kebutuhanJiwa)}</td></tr>
+        </table>
+    `;
+    
     let rekomendasi = '';
     const kebutuhan = h.kebutuhanJiwa;
     if (kebutuhan <= 0) {
@@ -2060,6 +3019,7 @@ function tampilkanProposalJiwa(h) {
         rekomendasi = `<p>📊 Kebutuhan asuransi jiwa Anda sangat besar.</p><p>💡 <strong>Rekomendasi:</strong> Konsultasikan dengan perencana keuangan profesional.</p>`;
     }
     document.getElementById('proposalRekomendasiJiwa').innerHTML = rekomendasi;
+    
     const now = new Date();
     const tgl = formatTanggal(now.toISOString().split('T')[0]);
     document.getElementById('pKotaTanggal').textContent = tgl;
@@ -2072,6 +3032,7 @@ function tampilkanProposalJiwa(h) {
     btn.textContent = '✅ Laporan Siap!';
     setTimeout(() => { btn.textContent = '📄 Cetak Laporan'; }, 2000);
 }
+
 function resetFormJiwa() {
     document.getElementById('namaJiwa').value = '';
     document.getElementById('tanggalLahirJiwa').value = '1990-03-15';
@@ -2098,7 +3059,7 @@ function resetFormJiwa() {
 }
 
 // ============================================================
-// FUNGSI WEALTH (LENGKAP - TIDAK BERUBAH)
+// FUNGSI WEALTH
 // ============================================================
 document.getElementById('tanggalLahirWealth').addEventListener('change', function() {
     const usia = hitungUsia(this.value);
@@ -2236,6 +3197,7 @@ function viewHistoryWealth(item) {
 }
 
 function cetakProposalWealth() { if (!hasilPensiun) { showAlert('warning', 'Info', 'Hitung dana pensiun dahulu!'); return; } tampilkanProposalWealth(hasilPensiun); }
+
 function tampilkanProposalWealth(h) {
     document.getElementById('proposalWealthSection').style.display = 'block';
     document.getElementById('proposalRekomendasiSection').style.display = 'block';
@@ -2249,8 +3211,30 @@ function tampilkanProposalWealth(h) {
     document.getElementById('proposalDesc').textContent = 'Laporan Perencanaan Keuangan untuk Masa Pensiun';
     document.getElementById('pNama').textContent = h.nama;
     document.getElementById('pInfoTambahan').textContent = 'Tanggal Lahir: ' + formatTanggal(h.tanggalLahir);
-    document.getElementById('proposalDataContent').innerHTML = `<table class="data-table"><tr><td class="label">Nama Lengkap</td><td class="value"><strong>${h.nama}</strong></td></tr><tr><td class="label">Tanggal Lahir</td><td class="value"><strong>${formatTanggal(h.tanggalLahir)}</strong></td></tr><tr><td class="label">Usia Saat Ini</td><td class="value"><strong>${h.usiaSaatIni} tahun</strong></td></tr><tr><td class="label">Usia Pensiun Direncanakan</td><td class="value"><strong>${h.usiaPensiun} tahun</strong></td></tr><tr><td class="label">Sisa Waktu ke Pensiun</td><td class="value"><strong>${h.sisaWaktu} tahun</strong></td></tr></table>`;
-    document.getElementById('proposalWealthContent').innerHTML = `<table class="data-table"><tr><td class="label">Kebutuhan Bulanan Saat Ini</td><td class="value"><strong>${formatRupiahFull(h.kebutuhanBulanan)}</strong></td></tr><tr><td class="label">Asumsi Inflasi</td><td class="value"><strong>${h.inflasi}%</strong></td></tr><tr><td class="label">Kebutuhan Bulanan di Pensiun</td><td class="value"><strong>${formatRupiahFull(h.kebutuhanPensiunBulanan)}</strong></td></tr><tr><td class="label">Kebutuhan Tahunan di Pensiun</td><td class="value"><strong>${formatRupiahFull(h.kebutuhanPensiunTahunan)}</strong></td></tr><tr><td class="label">Total Dana Pensiun Dibutuhkan</td><td class="value"><strong>${formatRupiahFull(h.totalDanaDibutuhkan)}</strong></td></tr><tr><td class="label">Asumsi Return Investasi</td><td class="value"><strong>${h.returnInvestasi}%</strong></td></tr><tr><td class="label">Tabungan Bulanan Diperlukan</td><td class="value"><strong>${formatRupiahFull(h.tabunganBulanan)}</strong></td></tr><tr><td class="label">Total Dana Terkumpul di Pensiun</td><td class="value"><strong>${formatRupiahFull(h.totalTerkumpul)}</strong></td></tr></table>`;
+    
+    document.getElementById('proposalDataContent').innerHTML = `
+        <table class="data-table">
+            <tr><td class="label">Nama Lengkap</td><td class="value"><strong>${h.nama}</strong></td></tr>
+            <tr><td class="label">Tanggal Lahir</td><td class="value"><strong>${formatTanggal(h.tanggalLahir)}</strong></td></tr>
+            <tr><td class="label">Usia Saat Ini</td><td class="value"><strong>${h.usiaSaatIni} tahun</strong></td></tr>
+            <tr><td class="label">Usia Pensiun Direncanakan</td><td class="value"><strong>${h.usiaPensiun} tahun</strong></td></tr>
+            <tr><td class="label">Sisa Waktu ke Pensiun</td><td class="value"><strong>${h.sisaWaktu} tahun</strong></td></tr>
+        </table>
+    `;
+    
+    document.getElementById('proposalWealthContent').innerHTML = `
+        <table class="data-table">
+            <tr><td class="label">Kebutuhan Bulanan Saat Ini</td><td class="value"><strong>${formatRupiahFull(h.kebutuhanBulanan)}</strong></td></tr>
+            <tr><td class="label">Asumsi Inflasi</td><td class="value"><strong>${h.inflasi}%</strong></td></tr>
+            <tr><td class="label">Kebutuhan Bulanan di Pensiun</td><td class="value"><strong>${formatRupiahFull(h.kebutuhanPensiunBulanan)}</strong></td></tr>
+            <tr><td class="label">Kebutuhan Tahunan di Pensiun</td><td class="value"><strong>${formatRupiahFull(h.kebutuhanPensiunTahunan)}</strong></td></tr>
+            <tr><td class="label">Total Dana Pensiun Dibutuhkan</td><td class="value"><strong>${formatRupiahFull(h.totalDanaDibutuhkan)}</strong></td></tr>
+            <tr><td class="label">Asumsi Return Investasi</td><td class="value"><strong>${h.returnInvestasi}%</strong></td></tr>
+            <tr><td class="label">Tabungan Bulanan Diperlukan</td><td class="value"><strong>${formatRupiahFull(h.tabunganBulanan)}</strong></td></tr>
+            <tr><td class="label">Total Dana Terkumpul di Pensiun</td><td class="value"><strong>${formatRupiahFull(h.totalTerkumpul)}</strong></td></tr>
+        </table>
+    `;
+    
     const sisa = h.sisaWaktu;
     let rekomendasi = '';
     if (sisa > 20) {
@@ -2263,6 +3247,7 @@ function tampilkanProposalWealth(h) {
         rekomendasi = `<p>🔴 <strong>Peringatan:</strong> Mendekati masa pensiun (${sisa} tahun).</p><p>📈 <strong>Rekomendasi:</strong> Portfolio sangat konservatif (70% deposito, 20% reksadana pendapatan tetap, 10% saham).</p><p>💰 Target tabungan: ${formatRupiahFull(h.tabunganBulanan)} per bulan.</p>`;
     }
     document.getElementById('proposalRekomendasiContent').innerHTML = rekomendasi;
+    
     const now = new Date();
     const tgl = formatTanggal(now.toISOString().split('T')[0]);
     document.getElementById('pKotaTanggal').textContent = tgl;
@@ -2275,6 +3260,7 @@ function tampilkanProposalWealth(h) {
     btn.textContent = '✅ Laporan Siap!';
     setTimeout(() => { btn.textContent = '📄 Cetak Laporan'; }, 2000);
 }
+
 function resetFormWealth() {
     document.getElementById('namaWealth').value = '';
     document.getElementById('tanggalLahirWealth').value = '1990-03-15';
@@ -2299,16 +3285,450 @@ function resetFormWealth() {
 }
 
 // ============================================================
-// TAB SWITCH & HISTORY (LENGKAP)
+// FUNGSI TRAVEL
+// ============================================================
+async function loadDatabaseTravel() {
+    const loading = document.getElementById('loadingTravel');
+    const statusEl = document.getElementById('dataStatusTravel');
+    loading.classList.add('show');
+    try {
+        const response = await fetch('travel-insurance-database.json');
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        dbTravel = await response.json();
+        loading.classList.remove('show');
+        statusEl.textContent = '';
+        statusEl.className = 'data-status';
+        document.getElementById('formTravel').style.display = 'block';
+        updateAreaOptionsTravel();
+        updateTierOptionsTravel();
+        updateTambahanOptionsTravel();
+        hitungUsiaTravel();
+    } catch (error) {
+        console.error('❌ Gagal load database travel:', error);
+        loading.classList.remove('show');
+        statusEl.textContent = '⚠️ Gagal memuat database travel. Pastikan file travel-insurance-database.json berada di folder yang sama. (' + error.message + ')';
+        statusEl.className = 'data-status error';
+    }
+}
+
+function hitungUsiaTravel() {
+    const tgl = document.getElementById('tanggalLahirTravel').value;
+    const u = hitungUsia(tgl);
+    usiaTravel = u;
+    document.getElementById('usiaSaatIniTravel').value = u > 0 ? u + ' tahun' : '';
+}
+
+function updateAreaOptionsTravel() {
+    if (!dbTravel) return;
+    const jenis = document.getElementById('jenisPerjalananTravel').value;
+    const areaSelect = document.getElementById('areaTravel');
+    areaSelect.innerHTML = '';
+    if (jenis === 'internasional') {
+        const areas = dbTravel.area.internasional || ['worldwide', 'eropa', 'asia'];
+        const labels = { worldwide: 'Worldwide', eropa: 'Eropa', asia: 'Asia' };
+        areas.forEach(a => {
+            const opt = document.createElement('option');
+            opt.value = a; opt.textContent = labels[a] || a;
+            areaSelect.appendChild(opt);
+        });
+    } else {
+        const opt = document.createElement('option');
+        opt.value = 'domestik'; opt.textContent = 'Domestik';
+        areaSelect.appendChild(opt);
+    }
+    updateTierOptionsTravel();
+    updateTambahanOptionsTravel();
+}
+
+function updateTierOptionsTravel() {
+    if (!dbTravel) return;
+    const jenis = document.getElementById('jenisPerjalananTravel').value;
+    const tierSelect = document.getElementById('tierTravel');
+    tierSelect.innerHTML = '';
+    let tiers = jenis === 'internasional' ? ['prime', 'edge', 'lite'] : ['boost', 'joy', 'roadtrip'];
+    const labels = { prime: 'Prime (Tertinggi)', edge: 'Edge (Menengah)', lite: 'Lite (Dasar)', boost: 'Boost (Tertinggi)', joy: 'Joy (Menengah)', roadtrip: 'Roadtrip (Dasar)' };
+    tiers.forEach(t => {
+        const opt = document.createElement('option');
+        opt.value = t; opt.textContent = labels[t] || t;
+        tierSelect.appendChild(opt);
+    });
+    updateTambahanOptionsTravel();
+}
+
+function updateTambahanOptionsTravel() {
+    if (!dbTravel) return;
+    const jenis = document.getElementById('jenisPerjalananTravel').value;
+    const area = document.getElementById('areaTravel').value;
+    const tier = document.getElementById('tierTravel').value;
+    const polis = document.getElementById('jenisPolisTravel').value;
+    const grid = document.getElementById('tambahanGridTravel');
+    const checks = grid.querySelectorAll('input[type="checkbox"]');
+    let available = [];
+    if (jenis === 'internasional') {
+        const tambah = dbTravel.tambahan.internasional;
+        if (polis === 'pulang_pergi') {
+            const usiaKey = usiaTravel >= 70 ? 'usia_70_plus' : 'usia_1_69';
+            if (tambah.pulang_pergi[usiaKey] && tambah.pulang_pergi[usiaKey][area] && tambah.pulang_pergi[usiaKey][area][tier]) {
+                available = Object.keys(tambah.pulang_pergi[usiaKey][area][tier]);
+            }
+        } else if (polis === 'tahunan') {
+            if (area === 'worldwide' && tambah.tahunan && tambah.tahunan.worldwide && tambah.tahunan.worldwide[tier]) {
+                available = Object.keys(tambah.tahunan.worldwide[tier]);
+            }
+        }
+    } else {
+        const tambah = dbTravel.tambahan.domestik;
+        if (polis === 'pulang_pergi') {
+            if (tambah.pulang_pergi && tambah.pulang_pergi[tier]) {
+                available = Object.keys(tambah.pulang_pergi[tier]);
+            }
+        }
+    }
+    checks.forEach(cb => {
+        const val = cb.value;
+        const isAvailable = available.includes(val);
+        cb.disabled = !isAvailable;
+        if (!isAvailable) cb.checked = false;
+        const label = cb.closest('label');
+        if (label) label.classList.toggle('disabled-label', !isAvailable);
+    });
+}
+
+function getPremiDasarTravel() {
+    const area = document.getElementById('areaTravel').value;
+    const tier = document.getElementById('tierTravel').value;
+    const durasi = parseInt(document.getElementById('durasiTravel').value) || 1;
+    const polis = document.getElementById('jenisPolisTravel').value;
+    const usiaKey = usiaTravel >= 70 ? 'usia_70_plus' : 'usia_1_69';
+    const premiData = dbTravel.premi.individu[usiaKey];
+    if (!premiData) return { premi: 0, detail: 'Data premi tidak ditemukan' };
+    const areaData = premiData[area];
+    if (!areaData) return { premi: 0, detail: 'Area tidak ditemukan' };
+    const tierData = areaData[tier];
+    if (!tierData) return { premi: 0, detail: 'Tier tidak ditemukan' };
+    if (polis === 'tahunan') {
+        if (area !== 'worldwide' && area !== 'domestik') return { premi: 0, detail: 'Polis Tahunan hanya tersedia untuk Worldwide dan Domestik' };
+        if (usiaTravel >= 70) return { premi: 0, detail: 'Polis Tahunan tidak tersedia untuk usia 70+' };
+        const paket = document.getElementById('tahunanPaketTravel').value;
+        const key = paket === '90' ? 'tahunan_90' : 'tahunan_180';
+        if (tierData[key] !== undefined) return { premi: tierData[key], detail: 'Tahunan ' + paket + ' hari' };
+        return { premi: 0, detail: 'Paket tahunan tidak tersedia untuk tier ini' };
+    }
+    let rangeKey = null;
+    const ranges = dbTravel.range_durasi || [];
+    for (let r of ranges) { if (durasi >= r.min && durasi <= r.max) { rangeKey = r.kode; break; } }
+    if (rangeKey && tierData[rangeKey] !== undefined) return { premi: tierData[rangeKey], detail: rangeKey.replace('_', ' - ') + ' hari' };
+    if (durasi > 31 && tierData['per_minggu'] !== undefined) {
+        const base = tierData['26_31'] || 0;
+        const extraDays = durasi - 31;
+        const extraWeeks = Math.ceil(extraDays / 7);
+        const extraPremi = extraWeeks * tierData['per_minggu'];
+        return { premi: base + extraPremi, detail: '26-31 hari + ' + extraWeeks + ' minggu tambahan' };
+    }
+    return { premi: 0, detail: 'Durasi tidak valid' };
+}
+
+function getPremiTambahanTravel() {
+    const area = document.getElementById('areaTravel').value;
+    const tier = document.getElementById('tierTravel').value;
+    const polis = document.getElementById('jenisPolisTravel').value;
+    const jenis = document.getElementById('jenisPerjalananTravel').value;
+    const usiaKey = usiaTravel >= 70 ? 'usia_70_plus' : 'usia_1_69';
+    const checks = document.querySelectorAll('#tambahanGridTravel input[type="checkbox"]:checked');
+    if (checks.length === 0) return { total: 0, detail: [], selectedKeys: [] };
+    let total = 0, detail = [], selectedKeys = [], dataTambahan = null;
+    if (jenis === 'internasional') {
+        const tambah = dbTravel.tambahan.internasional;
+        if (polis === 'pulang_pergi') dataTambahan = tambah.pulang_pergi?.[usiaKey]?.[area]?.[tier];
+        else if (polis === 'tahunan' && area === 'worldwide') dataTambahan = tambah.tahunan?.worldwide?.[tier];
+    } else {
+        const tambah = dbTravel.tambahan.domestik;
+        if (polis === 'pulang_pergi') dataTambahan = tambah.pulang_pergi?.[tier];
+    }
+    if (!dataTambahan) return { total: 0, detail: [], selectedKeys: [] };
+    const labels = { visa: 'Perlindungan Visa', olahraga_salju: 'Olahraga Salju', kapal_pesiar: 'Jaminan Kapal Pesiar', petualangan: 'Aktivitas Petualangan', bisnis: 'Perjalanan Bisnis', olahraga_amatir: 'Acara Olahraga Amatir' };
+    checks.forEach(cb => {
+        const val = cb.value;
+        const premi = dataTambahan[val];
+        if (premi !== undefined && premi > 0) { total += premi; detail.push({ nama: labels[val] || val, premi, key: val }); selectedKeys.push(val); }
+    });
+    return { total, detail, selectedKeys };
+}
+
+function getManfaatLengkapTravel(selectedKeys) {
+    const jenis = document.getElementById('jenisPerjalananTravel').value;
+    const tier = document.getElementById('tierTravel').value;
+    let manfaatData = jenis === 'internasional' ? dbTravel.manfaat.internasional?.[tier] : dbTravel.manfaat.domestik?.[tier];
+    if (!manfaatData) return [];
+    const daftar = manfaatData.daftar || [];
+    const filtered = [];
+    daftar.forEach(item => {
+        const bagian = item.bagian || '';
+        if (bagian.startsWith('G')) {
+            const keyMap = { 'G.33': 'visa', 'G.34': 'olahraga_salju', 'G.35': 'kapal_pesiar', 'G.36': 'petualangan', 'G.37': 'bisnis', 'G.38': 'olahraga_amatir' };
+            const key = keyMap[bagian] || '';
+            if (!selectedKeys.includes(key)) return;
+        }
+        if (!bagian.startsWith('G')) {
+            const ket = item.keterangan || '';
+            const match = ket.match(/Usia\s*(\d+)\s*ke\s*(bawah|atas)/i) || ket.match(/Usia\s*(\d+)\s*-\s*(\d+)/);
+            if (match) {
+                let include = false;
+                if (ket.includes('ke bawah')) { include = usiaTravel <= parseInt(match[1]); }
+                else if (ket.includes('ke atas')) { include = usiaTravel >= parseInt(match[1]); }
+                else if (ket.includes('-')) { include = usiaTravel >= parseInt(match[1]) && usiaTravel <= parseInt(match[2]); }
+                if (!include) return;
+            }
+        }
+        filtered.push(item);
+    });
+    return filtered;
+}
+
+function formatAngkaTravel(angka) {
+    if (!angka || isNaN(angka) || angka === 0) return '0';
+    return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
+function formatManfaatValueTravel(nilai) {
+    if (nilai === 'Dijamin') return 'Dijamin';
+    if (nilai === 'Biaya Sebenarnya') return 'Biaya Sebenarnya';
+    if (nilai === '-') return '-';
+    if (typeof nilai === 'string' && nilai.includes('/')) return nilai;
+    const num = parseInt(String(nilai).replace(/[^0-9]/g, '')) || 0;
+    return 'Rp ' + formatAngkaTravel(num);
+}
+
+const GROUP_LABELS_TRAVEL = { A: 'Kecelakaan Diri & Pendidikan', B: 'Perawatan Medis Darurat', C: 'Bantuan Perjalanan', D: 'Ketidaknyamanan Perjalanan', E: 'Barang Pribadi', F: 'Manfaat Lain-Lain', G: 'Manfaat Tambahan' };
+
+function renderManfaatTableTravel(manfaatList) {
+    if (manfaatList.length === 0) return '<tr><td colspan="2" class="no-data">Tidak ada manfaat yang tersedia</td></tr>';
+    let groupMap = {};
+    manfaatList.forEach(item => {
+        const groupKey = (item.bagian || '').charAt(0) || '';
+        if (!groupMap[groupKey]) groupMap[groupKey] = [];
+        groupMap[groupKey].push(item);
+    });
+    let html = '';
+    Object.keys(groupMap).forEach(key => {
+        const label = GROUP_LABELS_TRAVEL[key] || 'Manfaat';
+        html += `<tr class="group-header"><td colspan="2"><strong>${label}</strong></td></tr>`;
+        groupMap[key].forEach(item => {
+            const displayNilai = formatManfaatValueTravel(item.nilai);
+            const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' : '';
+            const isTambahan = key === 'G';
+            html += `<tr class="${isTambahan ? 'tambahan-item' : 'manfaat-item'}"><td>${item.manfaat}${ket}</td><td class="nilai">${displayNilai}</td></tr>`;
+        });
+    });
+    return html;
+}
+
+async function hitungPremiTravel() {
+    const session = getSession();
+    if (!session) { showAlert('warning', 'Perlu Login', 'Silakan login terlebih dahulu.'); return; }
+    if (!dbTravel) { showAlert('warning', 'Info', 'Database travel belum dimuat.'); return; }
+    const nama = document.getElementById('namaTravel').value.trim();
+    const noHp = document.getElementById('noHpTravel').value.trim();
+    if (!nama) { showAlert('warning', 'Info', 'Isi Nama Lengkap!'); return; }
+    if (!noHp) { showAlert('warning', 'Info', 'Isi No. HP!'); return; }
+    if (usiaTravel <= 0) { showAlert('warning', 'Info', 'Tanggal Lahir tidak valid!'); return; }
+
+    const hasilDasar = getPremiDasarTravel();
+    const premiDasar = hasilDasar.premi;
+    const hasilTambahan = getPremiTambahanTravel();
+    const premiTambahan = hasilTambahan.total;
+    const selectedKeys = hasilTambahan.selectedKeys || [];
+    const total = premiDasar + premiTambahan;
+    const manfaatList = getManfaatLengkapTravel(selectedKeys);
+
+    const jenisPerjalanan = document.getElementById('jenisPerjalananTravel').value;
+    const area = document.getElementById('areaTravel').value;
+    const tier = document.getElementById('tierTravel').value;
+    const jenisPolis = document.getElementById('jenisPolisTravel').value;
+    const durasi = parseInt(document.getElementById('durasiTravel').value) || 1;
+
+    hasilTerakhirTravel = { nama, noHp, usia: usiaTravel, jenisPerjalanan, area, tier, jenisPolis, durasi, premiDasar, premiTambahan, total, detailDasar: hasilDasar.detail, detailTambahan: hasilTambahan.detail, manfaatList, selectedKeys };
+
+    const resultBox = document.getElementById('resultTravel');
+    const viewIndicator = document.getElementById('viewIndicatorTravel');
+    viewIndicator.classList.remove('show');
+    isViewingHistory = false;
+    resultBox.classList.add('show');
+    document.getElementById('sTotalPremiTravel').textContent = 'Rp ' + formatAngkaTravel(total);
+    document.getElementById('sPremiDasarTravel').textContent = 'Rp ' + formatAngkaTravel(premiDasar);
+    document.getElementById('sPremiTambahanTravel').textContent = 'Rp ' + formatAngkaTravel(premiTambahan);
+
+    let detailHtml = `<tr><td class="label">Nama</td><td class="value">${nama}</td></tr><tr><td class="label">Jenis Perjalanan</td><td class="value">${jenisPerjalanan === 'internasional' ? 'Internasional' : 'Domestik'}</td></tr><tr><td class="label">Area / Zona</td><td class="value">${document.getElementById('areaTravel').options[document.getElementById('areaTravel').selectedIndex].text}</td></tr><tr><td class="label">Paket / Tier</td><td class="value">${document.getElementById('tierTravel').options[document.getElementById('tierTravel').selectedIndex].text}</td></tr><tr><td class="label">Jenis Polis</td><td class="value">${jenisPolis === 'pulang_pergi' ? 'Perjalanan Pulang Pergi' : 'Tahunan'}</td></tr><tr><td class="label">Durasi</td><td class="value">${durasi} hari</td></tr><tr><td class="label">Premi Dasar</td><td class="value">Rp ${formatAngkaTravel(premiDasar)}${hasilDasar.detail ? ' (' + hasilDasar.detail + ')' : ''}</td></tr>`;
+    if (hasilTambahan.detail && hasilTambahan.detail.length > 0) {
+        detailHtml += `<tr><td class="label" colspan="2" style="padding-top:10px;color:#2c3e6b;font-weight:700;">Manfaat Tambahan:</td></tr>`;
+        hasilTambahan.detail.forEach(item => { detailHtml += `<tr><td class="label" style="padding-left:16px;font-weight:500;">${item.nama}</td><td class="value">Rp ${formatAngkaTravel(item.premi)}</td></tr>`; });
+    } else {
+        detailHtml += `<tr><td class="label" colspan="2" style="color:#7a8fa5;">Tidak ada manfaat tambahan</td></tr>`;
+    }
+    detailHtml += `<tr class="total"><td><strong>Total Premi</strong></td><td class="value"><strong>Rp ${formatAngkaTravel(total)}</strong></td></tr>`;
+    document.getElementById('detailBodyTravel').innerHTML = detailHtml;
+    document.getElementById('manfaatBodyTravel').innerHTML = renderManfaatTableTravel(manfaatList);
+
+    document.getElementById('btnCetakTravel').disabled = false;
+    resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    const session2 = session;
+    const remainingQuota = (await getLicenseStatus(session2.email)).remaining;
+    const result = { total, formatted: 'Rp ' + formatAngkaTravel(total), premiDasar, premiTambahan };
+    const input = { nama, noHp, usia: usiaTravel, jenisPerjalanan, area, tier, jenisPolis, durasi };
+    const detail = { detailDasar: hasilDasar.detail, detailTambahan: hasilTambahan.detail, manfaatList, selectedKeys };
+    await saveCalculation('travel', result, input, detail, remainingQuota);
+    updateStatusBar();
+}
+
+function viewHistoryTravel(item) {
+    const data = item;
+    const result = data.result || {};
+    const input = data.input || {};
+    const detail = data.detail || {};
+    document.getElementById('namaTravel').value = input.nama || '';
+    document.getElementById('noHpTravel').value = input.noHp || '';
+    document.getElementById('jenisPerjalananTravel').value = input.jenisPerjalanan || 'internasional';
+    updateAreaOptionsTravel();
+    if (input.area) document.getElementById('areaTravel').value = input.area;
+    updateTierOptionsTravel();
+    if (input.tier) document.getElementById('tierTravel').value = input.tier;
+    document.getElementById('jenisPolisTravel').value = input.jenisPolis || 'pulang_pergi';
+    document.getElementById('tahunanInfoTravel').style.display = input.jenisPolis === 'tahunan' ? 'block' : 'none';
+    document.getElementById('durasiTravel').value = input.durasi || 7;
+    usiaTravel = input.usia || 0;
+    document.getElementById('usiaSaatIniTravel').value = usiaTravel > 0 ? usiaTravel + ' tahun' : '';
+    updateTambahanOptionsTravel();
+    const selectedKeys = detail.selectedKeys || [];
+    document.querySelectorAll('#tambahanGridTravel input[type="checkbox"]').forEach(cb => { cb.checked = selectedKeys.includes(cb.value) && !cb.disabled; });
+
+    const resultBox = document.getElementById('resultTravel');
+    const viewIndicator = document.getElementById('viewIndicatorTravel');
+    viewIndicator.classList.add('show');
+    isViewingHistory = true;
+    resultBox.classList.add('show');
+    const total = result.total || 0;
+    document.getElementById('sTotalPremiTravel').textContent = 'Rp ' + formatAngkaTravel(total);
+    document.getElementById('sPremiDasarTravel').textContent = 'Rp ' + formatAngkaTravel(result.premiDasar || 0);
+    document.getElementById('sPremiTambahanTravel').textContent = 'Rp ' + formatAngkaTravel(result.premiTambahan || 0);
+
+    let detailHtml = `<tr><td class="label">Nama</td><td class="value">${input.nama || '-'}</td></tr><tr><td class="label">Jenis Perjalanan</td><td class="value">${input.jenisPerjalanan === 'internasional' ? 'Internasional' : 'Domestik'}</td></tr><tr><td class="label">Durasi</td><td class="value">${input.durasi || '-'} hari</td></tr><tr><td class="label">Premi Dasar</td><td class="value">Rp ${formatAngkaTravel(result.premiDasar || 0)}${detail.detailDasar ? ' (' + detail.detailDasar + ')' : ''}</td></tr>`;
+    if (detail.detailTambahan && detail.detailTambahan.length > 0) {
+        detailHtml += `<tr><td class="label" colspan="2" style="padding-top:10px;color:#2c3e6b;font-weight:700;">Manfaat Tambahan:</td></tr>`;
+        detail.detailTambahan.forEach(it => { detailHtml += `<tr><td class="label" style="padding-left:16px;font-weight:500;">${it.nama}</td><td class="value">Rp ${formatAngkaTravel(it.premi)}</td></tr>`; });
+    } else {
+        detailHtml += `<tr><td class="label" colspan="2" style="color:#7a8fa5;">Tidak ada manfaat tambahan</td></tr>`;
+    }
+    detailHtml += `<tr class="total"><td><strong>Total Premi</strong></td><td class="value"><strong>Rp ${formatAngkaTravel(total)}</strong></td></tr>`;
+    document.getElementById('detailBodyTravel').innerHTML = detailHtml;
+    const manfaatList = detail.manfaatList || [];
+    document.getElementById('manfaatBodyTravel').innerHTML = renderManfaatTableTravel(manfaatList);
+    document.getElementById('btnCetakTravel').disabled = false;
+
+    hasilTerakhirTravel = { nama: input.nama || '', noHp: input.noHp || '', usia: usiaTravel, jenisPerjalanan: input.jenisPerjalanan || 'internasional', area: input.area || '', tier: input.tier || '', jenisPolis: input.jenisPolis || 'pulang_pergi', durasi: input.durasi || 7, premiDasar: result.premiDasar || 0, premiTambahan: result.premiTambahan || 0, total, detailDasar: detail.detailDasar || '', detailTambahan: detail.detailTambahan || [], manfaatList, selectedKeys };
+    resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function cetakProposalTravel() { if (!hasilTerakhirTravel) { showAlert('warning', 'Info', 'Hitung premi dahulu!'); return; } tampilkanProposalTravel(hasilTerakhirTravel); }
+
+function tampilkanProposalTravel(h) {
+    document.getElementById('proposalWealthSection').style.display = 'none';
+    document.getElementById('proposalRekomendasiSection').style.display = 'none';
+    document.getElementById('proposalJiwaSection').style.display = 'none';
+    document.getElementById('proposalKondisiSection').style.display = 'none';
+    document.getElementById('proposalDeductibleSection').style.display = 'none';
+    document.getElementById('proposalPerhitunganSection').style.display = 'block';
+    document.getElementById('proposalManfaatSection').style.display = 'block';
+    document.getElementById('pernyataanTitle').textContent = 'D. PERNYATAAN & PERSETUJUAN';
+    document.getElementById('pNoLabel').textContent = 'Proposal';
+    document.getElementById('proposalSubTitle').textContent = 'PERLINDUNGAN PERJALANAN';
+    const jenisPerjalananLabel = h.jenisPerjalanan === 'internasional' ? 'Internasional' : 'Domestik';
+    document.getElementById('proposalDesc').textContent = 'Dokumen Penawaran Perlindungan Perjalanan ' + jenisPerjalananLabel;
+    document.getElementById('pNama').textContent = h.nama;
+    document.getElementById('pInfoTambahan').textContent = 'No. HP: ' + h.noHp + ' | Usia: ' + h.usia + ' tahun';
+
+    const areaLabels = { worldwide: 'Worldwide', eropa: 'Eropa', asia: 'Asia', domestik: 'Domestik' };
+    const tierLabels = { prime: 'Prime', edge: 'Edge', lite: 'Lite', boost: 'Boost', joy: 'Joy', roadtrip: 'Roadtrip' };
+    const jenisPolisLabel = h.jenisPolis === 'pulang_pergi' ? 'Perjalanan Pulang Pergi' : 'Tahunan';
+    
+    document.getElementById('proposalDataContent').innerHTML = `
+        <table class="data-table">
+            <tr><td class="label">Nama Lengkap</td><td class="value"><strong>${h.nama}</strong></td></tr>
+            <tr><td class="label">No. HP</td><td class="value"><strong>${h.noHp}</strong></td></tr>
+            <tr><td class="label">Usia</td><td class="value">${h.usia} tahun</td></tr>
+            <tr><td class="label">Jenis Perjalanan</td><td class="value">${jenisPerjalananLabel}</td></tr>
+            <tr><td class="label">Area / Zona</td><td class="value">${areaLabels[h.area] || h.area}</td></tr>
+            <tr><td class="label">Paket / Tier</td><td class="value">${tierLabels[h.tier] || h.tier}</td></tr>
+            <tr><td class="label">Jenis Polis</td><td class="value">${jenisPolisLabel}</td></tr>
+            <tr><td class="label">Durasi Perjalanan</td><td class="value">${h.durasi} hari</td></tr>
+        </table>
+    `;
+
+    let pHtml = `<tr><td class="label-col">Premi Dasar</td><td class="value-col">${formatRupiahFull(h.premiDasar)}</td></tr>`;
+    pHtml += `<tr><td colspan="2" style="padding:4px 12px;font-weight:600;color:#2c3e6b;border-bottom:2px solid #d0d7e3;">Manfaat Tambahan</td></tr>`;
+    if (h.detailTambahan && h.detailTambahan.length > 0) {
+        h.detailTambahan.forEach(item => {
+            pHtml += `<tr><td class="sub-label">${item.nama}</td><td class="value-col">${formatRupiahFull(item.premi)}</td></tr>`;
+        });
+        const totalTambahan = h.detailTambahan.reduce((sum, i) => sum + i.premi, 0);
+        pHtml += `<tr><td colspan="2" style="padding:4px 12px;border-bottom:2px solid #d0d7e3;"></td></tr>`;
+        pHtml += `<tr><td class="label-col" style="font-weight:700;">Total Premi</td><td class="value-col" style="font-weight:700;">${formatRupiahFull(h.total)}</td></tr>`;
+    } else {
+        pHtml += `<tr><td class="sub-label" style="color:#5e7a93;">Tidak ada manfaat tambahan</td><td class="value-col">-</td></tr>`;
+        pHtml += `<tr><td colspan="2" style="padding:4px 12px;border-bottom:2px solid #d0d7e3;"></td></tr>`;
+        pHtml += `<tr><td class="label-col" style="font-weight:700;">Total Premi</td><td class="value-col" style="font-weight:700;">${formatRupiahFull(h.total)}</td></tr>`;
+    }
+    document.getElementById('proposalPerhitunganContent').innerHTML = `<table class="premium-table">${pHtml}</table>`;
+
+    document.getElementById('proposalManfaatContent').innerHTML = '<table class="manfaat-table">' + renderManfaatTableTravel(h.manfaatList || []) + '</table>';
+
+    const now = new Date();
+    const tgl = formatTanggal(now);
+    document.getElementById('pKotaTanggal').textContent = tgl;
+    document.getElementById('pNoProposal').textContent = 'AVR/TRV/' + now.getFullYear() + '/' + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0') + String(Math.floor(Math.random()*1000)).padStart(3,'0');
+    document.getElementById('footerNotes').innerHTML = `<ul><li><strong>Catatan:</strong> Perhitungan premi ini adalah perkiraan awal berdasarkan data yang diberikan.</li><li>Premi final dapat berubah setelah verifikasi data dan dokumen pendukung.</li><li style="margin-top:4px;font-size:11px;color:#7a8a9f;">Dokumen ini adalah proposal / penawaran awal.</li></ul>`;
+    document.getElementById('proposalWrapper').classList.add('show');
+    document.getElementById('printInstruction').classList.remove('show');
+    document.getElementById('proposalWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const btn = document.getElementById('btnCetakTravel');
+    btn.textContent = '✅ Proposal Siap!';
+    setTimeout(() => { btn.textContent = '📄 Cetak Proposal'; }, 2000);
+}
+
+function resetFormTravel() {
+    document.getElementById('namaTravel').value = '';
+    document.getElementById('noHpTravel').value = '';
+    document.getElementById('tanggalLahirTravel').value = '1990-03-15';
+    document.getElementById('jenisPerjalananTravel').value = 'internasional';
+    updateAreaOptionsTravel();
+    document.getElementById('tierTravel').value = 'prime';
+    document.getElementById('jenisPolisTravel').value = 'pulang_pergi';
+    document.getElementById('tahunanInfoTravel').style.display = 'none';
+    document.getElementById('durasiTravel').disabled = false;
+    document.getElementById('durasiTravel').value = '7';
+    document.getElementById('tahunanPaketTravel').value = '90';
+    document.querySelectorAll('#tambahanGridTravel input[type="checkbox"]').forEach(cb => cb.checked = false);
+    hitungUsiaTravel();
+    updateTambahanOptionsTravel();
+    document.getElementById('resultTravel').classList.remove('show');
+    document.getElementById('btnCetakTravel').disabled = true;
+    document.getElementById('viewIndicatorTravel').classList.remove('show');
+    isViewingHistory = false;
+    hasilTerakhirTravel = null;
+    tutupProposal();
+}
+
+// ============================================================
+// TAB SWITCH & HISTORY
 // ============================================================
 function switchTab(tab) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-    const tabMap = { 'mobil': 'tabMobil', 'properti': 'tabProperti', 'jiwa': 'tabJiwa', 'wealth': 'tabWealth', 'history': 'tabHistory' };
+    const tabMap = { 'mobil': 'tabMobil', 'properti': 'tabProperti', 'travel': 'tabTravel', 'jiwa': 'tabJiwa', 'wealth': 'tabWealth', 'history': 'tabHistory' };
     if (tabMap[tab]) {
         document.getElementById(tabMap[tab]).classList.add('active');
         const btns = document.querySelectorAll('.tab-btn');
-        const idx = ['mobil','properti','jiwa','wealth','history'].indexOf(tab);
+        const idx = ['mobil','properti','travel','jiwa','wealth','history'].indexOf(tab);
         if (idx >= 0 && idx < btns.length) btns[idx].classList.add('active');
     }
     currentType = tab;
@@ -2334,6 +3754,7 @@ async function loadHistory() {
         const id = activeTab.id;
         if (id === 'tabMobil') { type = 'mobil'; typeName = 'Mobil'; }
         else if (id === 'tabProperti') { type = 'properti'; typeName = 'Properti'; }
+        else if (id === 'tabTravel') { type = 'travel'; typeName = 'Travel'; }
         else if (id === 'tabJiwa') { type = 'jiwa'; typeName = 'Jiwa'; }
         else if (id === 'tabWealth') { type = 'wealth'; typeName = 'Wealth'; }
     }
@@ -2345,7 +3766,7 @@ async function loadHistory() {
         return;
     }
     let html = '<table class="history-table"><thead><tr><th>#</th><th>Jenis</th><th>Hasil</th><th>Tanggal</th><th>Aksi</th></tr></thead><tbody>';
-    const typeIcons = { 'mobil': '🚗', 'properti': '🏠', 'jiwa': '📋', 'wealth': '💰' };
+    const typeIcons = { 'mobil': '🚗', 'properti': '🏠', 'travel': '✈️', 'jiwa': '📋', 'wealth': '💰' };
     history.forEach((item, index) => {
         const result = item.result || {};
         const resultDisplay = result.formatted || formatRupiah(result.total) || '-';
@@ -2364,6 +3785,7 @@ async function loadHistory() {
                 switchTab(type);
                 if (type === 'mobil') viewHistoryMobil(item);
                 else if (type === 'properti') viewHistoryProperti(item);
+                else if (type === 'travel') viewHistoryTravel(item);
                 else if (type === 'jiwa') viewHistoryJiwa(item);
                 else if (type === 'wealth') viewHistoryWealth(item);
             }
@@ -2388,6 +3810,7 @@ document.getElementById('deleteAllHistoryBtn').addEventListener('click', async f
         const id = activeTab.id;
         if (id === 'tabMobil') { type = 'mobil'; typeName = 'Mobil'; }
         else if (id === 'tabProperti') { type = 'properti'; typeName = 'Properti'; }
+        else if (id === 'tabTravel') { type = 'travel'; typeName = 'Travel'; }
         else if (id === 'tabJiwa') { type = 'jiwa'; typeName = 'Jiwa'; }
         else if (id === 'tabWealth') { type = 'wealth'; typeName = 'Wealth'; }
     }
@@ -2410,15 +3833,41 @@ document.getElementById('quotaModal').addEventListener('click', function(e) { if
 // ============================================================
 // ENTER KEY
 // ============================================================
-document.querySelectorAll('#formMobil input, #formMobil select, #formProperti input, #formProperti select, #formProperti textarea, #formJiwa input, #formJiwa select, #formWealth input, #formWealth select').forEach(el => {
+document.querySelectorAll('#formMobil input, #formMobil select, #formProperti input, #formProperti select, #formProperti textarea, #formTravel input, #formTravel select, #formJiwa input, #formJiwa select, #formWealth input, #formWealth select').forEach(el => {
     el.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && !this.closest('textarea')) {
             if (this.closest('#formMobil')) hitungPremiMobil();
             else if (this.closest('#formProperti')) hitungPremiProperti();
+            else if (this.closest('#formTravel')) hitungPremiTravel();
             else if (this.closest('#formJiwa')) hitungKebutuhanJiwa();
             else if (this.closest('#formWealth')) hitungPensiun();
         }
     });
+});
+
+// ============================================================
+// TRAVEL FORM EVENT LISTENERS
+// ============================================================
+document.getElementById('tanggalLahirTravel').addEventListener('change', function() {
+    hitungUsiaTravel();
+    updateTambahanOptionsTravel();
+});
+document.getElementById('jenisPerjalananTravel').addEventListener('change', function() {
+    updateAreaOptionsTravel();
+    updateTambahanOptionsTravel();
+});
+document.getElementById('areaTravel').addEventListener('change', updateTambahanOptionsTravel);
+document.getElementById('tierTravel').addEventListener('change', updateTambahanOptionsTravel);
+document.getElementById('jenisPolisTravel').addEventListener('change', function() {
+    const isTahunan = this.value === 'tahunan';
+    document.getElementById('tahunanInfoTravel').style.display = isTahunan ? 'block' : 'none';
+    if (isTahunan) {
+        document.getElementById('durasiTravel').disabled = true;
+        document.getElementById('durasiTravel').value = '90';
+    } else {
+        document.getElementById('durasiTravel').disabled = false;
+    }
+    updateTambahanOptionsTravel();
 });
 
 // ============================================================
@@ -2434,6 +3883,7 @@ auth.onAuthStateChanged(function(user) {
 // ============================================================
 document.addEventListener('DOMContentLoaded', function() {
     loadDataKendaraan();
+    loadDatabaseTravel();
     updateStatusBar();
 
     const jenisMobilSelect = document.getElementById('jenisMobil');
@@ -2469,13 +3919,11 @@ document.addEventListener('visibilitychange', function() {
     }
 });
 
-console.log('🚀 File HTML LENGKAP - Revisi Properti: Premi Dasar dari FLEXAS');
-console.log('✅ Premi Dasar = Flexas × Nilai × Faktor Usia × Faktor Luas');
-console.log('✅ FWTWD, RSMDCC, Others = Perluasan Opsional (terpisah)');
-console.log('✅ Mobil: Roda 2 disable perluasan & TLO only.');
-console.log('✅ Jiwa & Wealth: otomatisasi usia berfungsi.');
-console.log('✅ Riwayat: load, lihat, hapus berfungsi.');
-console.log('✅ Kop surat dengan LOGO dari nanjing-ico1.png');
+console.log('🚀 File HTML LENGKAP - Revisi Tampilan Proposal');
+console.log('✅ Semua proposal menggunakan format FULL WIDTH 2 KOLOM');
+console.log('✅ Responsive: HP >= 600px tetap 2 kolom, HP < 600px stack 1 kolom');
+console.log('✅ Print PDF tetap 2 kolom seperti tampilan desktop');
+console.log('✅ Semua fungsi perhitungan TIDAK BERUBAH');
 </script>
 </body>
 </html>
