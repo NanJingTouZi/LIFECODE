@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalkulator Asuransi Perjalanan Zurich</title>
+    <style>
+        /* ===== RESET & GLOBAL ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px 35px;
+        }
+        h1 {
+            text-align: center;
+            color: #0057a8;
+            font-size: 26px;
+            margin-bottom: 4px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #5e7a93;
+            margin-bottom: 24px;
+            font-size: 14px;
+        }
+        .badge {
+            display: inline-block;
+            background: #0057a8;
+            color: #fff;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .5px;
+            margin-left: 8px;
+        }
+
+        /* ===== FORM ===== */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+        .form-group {
+            margin-bottom: 6px;
+        }
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #1a3a5c;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+        .form-group label .required {
+            color: #c0392b;
+            font-weight: 700;
+        }
+        .form-group label .hint {
+            font-weight: 400;
+            color: #7a8fa5;
+            font-size: 12px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #dce3ec;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: .2s;
+            background: #fafcff;
+            font-family: inherit;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: 0;
+            border-color: #0057a8;
+            box-shadow: 0 0 0 3px rgba(0, 87, 168, 0.15);
+        }
+        .form-group input[readonly] {
+            background: #f0f2f5;
+            cursor: not-allowed;
+        }
+
+        /* ===== CHECKBOX GRID ===== */
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px 16px;
+            padding: 12px 14px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border: 1px solid #dce3ec;
+        }
+        .checkbox-grid label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            font-size: 13px;
+            color: #1a3a5c;
+            cursor: pointer;
+            margin-bottom: 0;
+        }
+        .checkbox-grid label input[type="checkbox"] {
+            width: 17px;
+            height: 17px;
+            accent-color: #0057a8;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .checkbox-grid label input[type="checkbox"]:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        .btn {
+            padding: 12px 28px;
+            border: 0;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: .2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .btn-primary {
+            background: #0057a8;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: #003d7a;
+            transform: translateY(-1px);
+        }
+        .btn-success {
+            background: #1e7e34;
+            color: #fff;
+        }
+        .btn-success:hover {
+            background: #15622a;
+            transform: translateY(-1px);
+        }
+        .btn-outline {
+            background: transparent;
+            color: #0057a8;
+            border: 2px solid #0057a8;
+        }
+        .btn-outline:hover {
+            background: #e8edf3;
+        }
+        .btn-danger {
+            background: #c0392b;
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background: #a93226;
+            transform: translateY(-1px);
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* ===== RESULT ===== */
+        .result-box {
+            margin-top: 24px;
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            display: none;
+        }
+        .result-box.show {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .result-box h3 {
+            color: #0057a8;
+            margin-bottom: 8px;
+            font-size: 20px;
+        }
+        .result-summary {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin: 12px 0 16px;
+        }
+        .result-card {
+            background: #fff;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+        .result-card .label {
+            font-size: 11px;
+            color: #5e7a93;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            font-weight: 600;
+        }
+        .result-card .value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0057a8;
+            margin-top: 4px;
+        }
+        .result-card .value.green {
+            color: #1e7e34;
+        }
+        .result-card .value.orange {
+            color: #b45309;
+        }
+        .result-card .value.red {
+            color: #c0392b;
+        }
+
+        .result-table-wrap {
+            background: #fff;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+        .result-table-wrap table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .result-table-wrap th {
+            background: #0057a8;
+            color: #fff;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+        .result-table-wrap td {
+            padding: 7px 12px;
+            border-bottom: 1px solid #edf2f7;
+            color: #1a3a5c;
+        }
+        .result-table-wrap tr:last-child td {
+            border-bottom: 0;
+        }
+        .result-table-wrap .total-row td {
+            font-weight: 700;
+            font-size: 15px;
+            border-top: 2px solid #0057a8;
+            padding-top: 10px;
+        }
+        .result-table-wrap .sub-item td {
+            padding-left: 28px;
+            color: #5e7a93;
+            font-size: 12px;
+        }
+        .result-table-wrap .section-header td {
+            font-weight: 600;
+            color: #0057a8;
+            padding-top: 10px;
+        }
+
+        .no-data {
+            color: #5e7a93;
+            font-size: 13px;
+            padding: 6px 0;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 16px;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .checkbox-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .result-summary {
+                grid-template-columns: 1fr 1fr;
+            }
+            .btn-group {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        @media (max-width: 480px) {
+            .checkbox-grid {
+                grid-template-columns: 1fr;
+            }
+            .result-summary {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 20px;
+            }
+            .result-card .value {
+                font-size: 17px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✈️ Asuransi Perjalanan Zurich <span class="badge">Individu</span></h1>
+        <p class="subtitle">Hitung premi dan lihat manfaat perlindungan perjalanan Anda</p>
+
+        <!-- ===== FORM ===== -->
+        <div class="form-grid">
+            <!-- Data Diri -->
+            <div class="form-group">
+                <label>Nama Lengkap <span class="required">*</span></label>
+                <input type="text" id="nama" placeholder="Contoh: Sutrisno" />
+            </div>
+            <div class="form-group">
+                <label>No. HP / Telepon <span class="required">*</span></label>
+                <input type="text" id="noHp" placeholder="085270269090" />
+            </div>
+            <div class="form-group">
+                <label>Tanggal Lahir <span class="required">*</span></label>
+                <input type="date" id="tanggalLahir" value="1990-03-15" />
+            </div>
+            <div class="form-group">
+                <label>Usia Saat Ini</label>
+                <input type="text" id="usiaDisplay" readonly placeholder="Akan terisi otomatis" />
+            </div>
+
+            <!-- Jenis Perjalanan -->
+            <div class="form-group">
+                <label>Jenis Perjalanan <span class="required">*</span></label>
+                <select id="jenisPerjalanan">
+                    <option value="internasional">Internasional</option>
+                    <option value="domestik">Domestik</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Area / Zona <span class="required">*</span></label>
+                <select id="area">
+                    <option value="worldwide">Worldwide</option>
+                    <option value="eropa">Eropa</option>
+                    <option value="asia">Asia</option>
+                </select>
+            </div>
+
+            <!-- Tier -->
+            <div class="form-group">
+                <label>Paket / Tier <span class="required">*</span></label>
+                <select id="tier">
+                    <option value="prime">Prime (Tertinggi)</option>
+                    <option value="edge">Edge (Menengah)</option>
+                    <option value="lite">Lite (Dasar)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Jenis Polis <span class="required">*</span></label>
+                <select id="jenisPolis">
+                    <option value="pulang_pergi">Perjalanan Pulang Pergi</option>
+                    <option value="tahunan">Tahunan</option>
+                </select>
+            </div>
+
+            <!-- Durasi -->
+            <div class="form-group">
+                <label>Durasi Perjalanan (hari) <span class="required">*</span></label>
+                <input type="number" id="durasi" value="7" min="1" max="365" />
+                <span style="font-size:11px;color:#7a8fa5;">Untuk polis Tahunan, masukkan 90 atau 180</span>
+            </div>
+            <div class="form-group" id="tahunanInfo" style="display:none;">
+                <label>Pilih Paket Tahunan</label>
+                <select id="tahunanPaket">
+                    <option value="90">90 hari</option>
+                    <option value="180">180 hari</option>
+                </select>
+            </div>
+
+            <!-- Manfaat Tambahan -->
+            <div class="form-group full">
+                <label>Manfaat Tambahan (Opsional)</label>
+                <div class="checkbox-grid" id="tambahanGrid">
+                    <label><input type="checkbox" id="tmb_visa" value="visa" /> Perlindungan Visa</label>
+                    <label><input type="checkbox" id="tmb_olahraga_salju" value="olahraga_salju" /> Olahraga Salju</label>
+                    <label><input type="checkbox" id="tmb_kapal_pesiar" value="kapal_pesiar" /> Jaminan Kapal Pesiar</label>
+                    <label><input type="checkbox" id="tmb_petualangan" value="petualangan" /> Aktivitas Petualangan</label>
+                    <label><input type="checkbox" id="tmb_bisnis" value="bisnis" /> Perjalanan Bisnis</label>
+                    <label><input type="checkbox" id="tmb_olahraga_amatir" value="olahraga_amatir" /> Acara Olahraga Amatir</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="hitungPremi()">🔍 Hitung Premi</button>
+            <button class="btn btn-outline" onclick="resetForm()">↺ Reset</button>
+        </div>
+
+        <!-- ===== RESULT ===== -->
+        <div class="result-box" id="resultBox">
+            <h3>💰 Hasil Perhitungan</h3>
+            <div class="result-summary">
+                <div class="result-card"><div class="label">Total Premi</div><div class="value green" id="totalPremi">Rp 0</div></div>
+                <div class="result-card"><div class="label">Premi Dasar</div><div class="value" id="premiDasar">Rp 0</div></div>
+                <div class="result-card"><div class="label">Premi Tambahan</div><div class="value orange" id="premiTambahan">Rp 0</div></div>
+            </div>
+            <div class="result-table-wrap">
+                <table>
+                    <thead><tr><th style="width:50%;">Komponen</th><th style="text-align:right;">Nilai</th></tr></thead>
+                    <tbody id="resultDetail">
+                        <tr><td colspan="2" class="no-data">Belum ada data</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="result-table-wrap" style="margin-top:12px;">
+                <table>
+                    <thead><tr><th colspan="2">📋 Manfaat Perlindungan</th></tr></thead>
+                    <tbody id="resultManfaat">
+                        <tr><td colspan="2" class="no-data">Belum ada data</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===== LOADING ===== -->
+        <div id="loadingStatus" style="text-align:center;padding:20px;color:#5e7a93;display:none;">
+            <div style="border:4px solid #f3f3f3;border-top:4px solid #0057a8;border-radius:50%;width:40px;height:40px;animation:spin 1s linear infinite;margin:0 auto 10px;"></div>
+            <p>Memuat database...</p>
+        </div>
+        <style>
+            @keyframes spin {
+                0% {
+                    transform: rotate(0);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+    </div>
+
+    <script>
+        // ============================================================
+        // GLOBAL VARIABLES
+        // ============================================================
+        let db = null; // akan diisi dari JSON
+        let usia = 0;
+
+        // ============================================================
+        // LOAD DATABASE
+        // ============================================================
+        async function loadDatabase() {
+            const loading = document.getElementById('loadingStatus');
+            loading.style.display = 'block';
+            try {
+                const response = await fetch('travel-insurance-database.json');
+                if (!response.ok) throw new Error('HTTP ' + response.status);
+                db = await response.json();
+                console.log('✅ Database loaded:', db.meta.nama_produk, 'v' + db.meta.versi);
+                loading.style.display = 'none';
+                // inisialisasi form
+                updateAreaOptions();
+                updateTierOptions();
+                updateTambahanOptions();
+                hitungUsia();
+            } catch (error) {
+                console.error('❌ Gagal load database:', error);
+                loading.innerHTML = `
+                    <p style="color:#c0392b;font-weight:600;">⚠️ Gagal memuat database.</p>
+                    <p style="font-size:13px;color:#5e7a93;">Pastikan file <strong>travel-insurance-database.json</strong> berada di folder yang sama.</p>
+                    <p style="font-size:12px;color:#7a8fa5;">Error: ${error.message}</p>
+                `;
+            }
+        }
+
+        // ============================================================
+        // FORM HELPERS
+        // ============================================================
+        function hitungUsia() {
+            const tgl = document.getElementById('tanggalLahir').value;
+            if (!tgl) { document.getElementById('usiaDisplay').value = ''; return; }
+            const today = new Date();
+            const birth = new Date(tgl);
+            let u = today.getFullYear() - birth.getFullYear();
+            const m = today.getMonth() - birth.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) u--;
+            usia = u;
+            document.getElementById('usiaDisplay').value = u > 0 ? u + ' tahun' : '';
+        }
+
+        function updateAreaOptions() {
+            const jenis = document.getElementById('jenisPerjalanan').value;
+            const areaSelect = document.getElementById('area');
+            areaSelect.innerHTML = '';
+            if (jenis === 'internasional') {
+                const areas = db.area.internasional || ['worldwide', 'eropa', 'asia'];
+                const labels = { worldwide: 'Worldwide', eropa: 'Eropa', asia: 'Asia' };
+                areas.forEach(a => {
+                    const opt = document.createElement('option');
+                    opt.value = a;
+                    opt.textContent = labels[a] || a;
+                    areaSelect.appendChild(opt);
+                });
+            } else {
+                const opt = document.createElement('option');
+                opt.value = 'domestik';
+                opt.textContent = 'Domestik';
+                areaSelect.appendChild(opt);
+            }
+            updateTierOptions();
+            updateTambahanOptions();
+        }
+
+        function updateTierOptions() {
+            const jenis = document.getElementById('jenisPerjalanan').value;
+            const tierSelect = document.getElementById('tier');
+            tierSelect.innerHTML = '';
+            let tiers = [];
+            if (jenis === 'internasional') {
+                tiers = ['prime', 'edge', 'lite'];
+            } else {
+                tiers = ['boost', 'joy', 'roadtrip'];
+            }
+            const labels = {
+                prime: 'Prime (Tertinggi)',
+                edge: 'Edge (Menengah)',
+                lite: 'Lite (Dasar)',
+                boost: 'Boost (Tertinggi)',
+                joy: 'Joy (Menengah)',
+                roadtrip: 'Roadtrip (Dasar)'
+            };
+            tiers.forEach(t => {
+                const opt = document.createElement('option');
+                opt.value = t;
+                opt.textContent = labels[t] || t;
+                tierSelect.appendChild(opt);
+            });
+            updateTambahanOptions();
+        }
+
+        function updateTambahanOptions() {
+            const jenis = document.getElementById('jenisPerjalanan').value;
+            const area = document.getElementById('area').value;
+            const tier = document.getElementById('tier').value;
+            const polis = document.getElementById('jenisPolis').value;
+            const grid = document.getElementById('tambahanGrid');
+            const checks = grid.querySelectorAll('input[type="checkbox"]');
+
+            // Tentukan mana yang tersedia
+            let available = [];
+            if (jenis === 'internasional') {
+                // Cek apakah ada data tambahan untuk kombinasi ini
+                const tambah = db.tambahan.internasional;
+                if (polis === 'pulang_pergi') {
+                    const usiaKey = usia >= 70 ? 'usia_70_plus' : 'usia_1_69';
+                    if (tambah.pulang_pergi[usiaKey] && tambah.pulang_pergi[usiaKey][area] && tambah.pulang_pergi[usiaKey][area][tier]) {
+                        available = Object.keys(tambah.pulang_pergi[usiaKey][area][tier]);
+                    }
+                } else if (polis === 'tahunan') {
+                    if (area === 'worldwide' && tambah.tahunan && tambah.tahunan.worldwide && tambah.tahunan.worldwide[tier]) {
+                        available = Object.keys(tambah.tahunan.worldwide[tier]);
+                    }
+                }
+            } else {
+                // Domestik
+                const tambah = db.tambahan.domestik;
+                if (polis === 'pulang_pergi') {
+                    if (tambah.pulang_pergi && tambah.pulang_pergi[tier]) {
+                        available = Object.keys(tambah.pulang_pergi[tier]);
+                    }
+                }
+                // Tahunan domestik tidak ada tambahan
+            }
+
+            // Map checkbox value ke id
+            const mapId = {
+                'visa': 'tmb_visa',
+                'olahraga_salju': 'tmb_olahraga_salju',
+                'kapal_pesiar': 'tmb_kapal_pesiar',
+                'petualangan': 'tmb_petualangan',
+                'bisnis': 'tmb_bisnis',
+                'olahraga_amatir': 'tmb_olahraga_amatir'
+            };
+
+            checks.forEach(cb => {
+                const val = cb.value;
+                const isAvailable = available.includes(val);
+                cb.disabled = !isAvailable;
+                if (!isAvailable) cb.checked = false;
+                // Label styling
+                const label = cb.closest('label');
+                if (label) {
+                    label.style.opacity = isAvailable ? '1' : '0.4';
+                    label.style.cursor = isAvailable ? 'pointer' : 'not-allowed';
+                }
+            });
+        }
+
+        // ============================================================
+        // GET PREMI DASAR
+        // ============================================================
+        function getPremiDasar() {
+            const area = document.getElementById('area').value;
+            const tier = document.getElementById('tier').value;
+            const durasi = parseInt(document.getElementById('durasi').value) || 1;
+            const polis = document.getElementById('jenisPolis').value;
+            const usiaKey = usia >= 70 ? 'usia_70_plus' : 'usia_1_69';
+
+            const premiData = db.premi.individu[usiaKey];
+            if (!premiData) return { premi: 0, detail: 'Data premi tidak ditemukan' };
+
+            const areaData = premiData[area];
+            if (!areaData) return { premi: 0, detail: 'Area tidak ditemukan' };
+
+            const tierData = areaData[tier];
+            if (!tierData) return { premi: 0, detail: 'Tier tidak ditemukan' };
+
+            // Cek apakah polis tahunan
+            if (polis === 'tahunan') {
+                // Cek apakah tersedia untuk area ini
+                if (area !== 'worldwide' && area !== 'domestik') {
+                    return { premi: 0, detail: 'Polis Tahunan hanya tersedia untuk Worldwide dan Domestik' };
+                }
+                if (usia >= 70) {
+                    return { premi: 0, detail: 'Polis Tahunan tidak tersedia untuk usia 70+' };
+                }
+                const paket = document.getElementById('tahunanPaket').value;
+                const key = paket === '90' ? 'tahunan_90' : 'tahunan_180';
+                if (tierData[key] !== undefined) {
+                    return { premi: tierData[key], detail: 'Tahunan ' + paket + ' hari' };
+                }
+                return { premi: 0, detail: 'Paket tahunan tidak tersedia untuk tier ini' };
+            }
+
+            // Pulang Pergi
+            let rangeKey = null;
+            const ranges = db.range_durasi || [];
+            for (let r of ranges) {
+                if (durasi >= r.min && durasi <= r.max) {
+                    rangeKey = r.kode;
+                    break;
+                }
+            }
+
+            if (rangeKey && tierData[rangeKey] !== undefined) {
+                return { premi: tierData[rangeKey], detail: rangeKey.replace('_', ' - ') + ' hari' };
+            }
+
+            // Jika durasi > 31 hari, hitung dengan per_minggu
+            if (durasi > 31 && tierData['per_minggu'] !== undefined) {
+                const base = tierData['26_31'] || 0;
+                const extraDays = durasi - 31;
+                const extraWeeks = Math.ceil(extraDays / 7);
+                const extraPremi = extraWeeks * tierData['per_minggu'];
+                return { premi: base + extraPremi, detail: '26-31 hari + ' + extraWeeks + ' minggu tambahan' };
+            }
+
+            return { premi: 0, detail: 'Durasi tidak valid' };
+        }
+
+        // ============================================================
+        // GET PREMI TAMBAHAN
+        // ============================================================
+        function getPremiTambahan() {
+            const area = document.getElementById('area').value;
+            const tier = document.getElementById('tier').value;
+            const polis = document.getElementById('jenisPolis').value;
+            const jenis = document.getElementById('jenisPerjalanan').value;
+            const usiaKey = usia >= 70 ? 'usia_70_plus' : 'usia_1_69';
+
+            // Ambil semua checkbox yang dicentang
+            const checks = document.querySelectorAll('#tambahanGrid input[type="checkbox"]:checked');
+            if (checks.length === 0) return { total: 0, detail: [] };
+
+            let total = 0;
+            let detail = [];
+            let dataTambahan = null;
+
+            if (jenis === 'internasional') {
+                const tambah = db.tambahan.internasional;
+                if (polis === 'pulang_pergi') {
+                    dataTambahan = tambah.pulang_pergi?.[usiaKey]?.[area]?.[tier];
+                } else if (polis === 'tahunan' && area === 'worldwide') {
+                    dataTambahan = tambah.tahunan?.worldwide?.[tier];
+                }
+            } else {
+                // Domestik
+                const tambah = db.tambahan.domestik;
+                if (polis === 'pulang_pergi') {
+                    dataTambahan = tambah.pulang_pergi?.[tier];
+                }
+            }
+
+            if (!dataTambahan) return { total: 0, detail: [] };
+
+            const labels = {
+                'visa': 'Perlindungan Visa',
+                'olahraga_salju': 'Olahraga Salju',
+                'kapal_pesiar': 'Jaminan Kapal Pesiar',
+                'petualangan': 'Aktivitas Petualangan',
+                'bisnis': 'Perjalanan Bisnis',
+                'olahraga_amatir': 'Acara Olahraga Amatir'
+            };
+
+            checks.forEach(cb => {
+                const val = cb.value;
+                const premi = dataTambahan[val];
+                if (premi !== undefined && premi > 0) {
+                    total += premi;
+                    detail.push({ nama: labels[val] || val, premi: premi });
+                }
+            });
+
+            return { total, detail };
+        }
+
+        // ============================================================
+        // GET MANFAAT
+        // ============================================================
+        function getManfaat() {
+            const jenis = document.getElementById('jenisPerjalanan').value;
+            const tier = document.getElementById('tier').value;
+
+            let manfaatData = null;
+            if (jenis === 'internasional') {
+                manfaatData = db.manfaat.internasional?.[tier];
+            } else {
+                manfaatData = db.manfaat.domestik?.[tier];
+            }
+
+            if (!manfaatData) return [];
+
+            // Filter berdasarkan usia
+            const usiaRange = getUsiaRange(usia);
+            const filtered = [];
+            const daftar = manfaatData.daftar || [];
+            daftar.forEach(item => {
+                // Cek apakah item memiliki keterangan usia
+                const ket = item.keterangan || '';
+                const match = ket.match(/Usia\s*(\d+)\s*ke\s*(bawah|atas)/i) ||
+                    ket.match(/Usia\s*(\d+)\s*-\s*(\d+)/);
+                if (match) {
+                    // Ada filter usia, cek apakah sesuai
+                    let include = false;
+                    if (ket.includes('ke bawah')) {
+                        const max = parseInt(match[1]);
+                        include = usia <= max;
+                    } else if (ket.includes('ke atas')) {
+                        const min = parseInt(match[1]);
+                        include = usia >= min;
+                    } else if (ket.includes('-')) {
+                        const min = parseInt(match[1]);
+                        const max = parseInt(match[2]);
+                        include = usia >= min && usia <= max;
+                    }
+                    if (include) filtered.push(item);
+                } else {
+                    // Tidak ada filter usia, tampilkan semua
+                    // Kecuali item dengan keterangan "Per anak" atau "Maksimum" - tetap tampilkan
+                    filtered.push(item);
+                }
+            });
+
+            // Jika tidak ada hasil filter, tampilkan semua (fallback)
+            if (filtered.length === 0) {
+                return daftar;
+            }
+            return filtered;
+        }
+
+        function getUsiaRange(usia) {
+            const ranges = db.range_usia || [];
+            for (let r of ranges) {
+                if (usia >= r.min && usia <= r.max) return r.kode;
+            }
+            return '19_65'; // default
+        }
+
+        // ============================================================
+        // MAIN HITUNG
+        // ============================================================
+        function hitungPremi() {
+            // Validasi
+            const nama = document.getElementById('nama').value.trim();
+            const noHp = document.getElementById('noHp').value.trim();
+            if (!nama) { alert('Isi Nama Lengkap!'); return; }
+            if (!noHp) { alert('Isi No. HP!'); return; }
+            if (usia <= 0) { alert('Tanggal Lahir tidak valid!'); return; }
+
+            const resultBox = document.getElementById('resultBox');
+            resultBox.classList.add('show');
+
+            // 1. Premi Dasar
+            const hasilDasar = getPremiDasar();
+            const premiDasar = hasilDasar.premi;
+
+            // 2. Premi Tambahan
+            const hasilTambahan = getPremiTambahan();
+            const premiTambahan = hasilTambahan.total;
+
+            // 3. Total
+            const total = premiDasar + premiTambahan;
+
+            // 4. Tampilkan
+            document.getElementById('totalPremi').textContent = 'Rp ' + formatRupiah(total);
+            document.getElementById('premiDasar').textContent = 'Rp ' + formatRupiah(premiDasar);
+            document.getElementById('premiTambahan').textContent = 'Rp ' + formatRupiah(premiTambahan);
+
+            // Detail
+            const detailBody = document.getElementById('resultDetail');
+            let detailHtml = '';
+            detailHtml += `<tr><td>Premi Dasar</td><td style="text-align:right;">Rp ${formatRupiah(premiDasar)}</td></tr>`;
+            if (hasilDasar.detail) {
+                detailHtml += `<tr class="sub-item"><td>${hasilDasar.detail}</td><td style="text-align:right;"></td></tr>`;
+            }
+
+            if (hasilTambahan.detail && hasilTambahan.detail.length > 0) {
+                detailHtml += `<tr class="section-header"><td colspan="2">Manfaat Tambahan</td></tr>`;
+                hasilTambahan.detail.forEach(item => {
+                    detailHtml +=
+                        `<tr><td style="padding-left:20px;">${item.nama}</td><td style="text-align:right;">Rp ${formatRupiah(item.premi)}</td></tr>`;
+                });
+            } else {
+                detailHtml += `<tr class="sub-item"><td>Tidak ada manfaat tambahan</td><td style="text-align:right;"></td></tr>`;
+            }
+
+            detailHtml += `<tr class="total-row"><td>Total Premi</td><td style="text-align:right;">Rp ${formatRupiah(total)}</td></tr>`;
+            detailBody.innerHTML = detailHtml;
+
+            // 5. Manfaat
+            const manfaatList = getManfaat();
+            const manfaatBody = document.getElementById('resultManfaat');
+            if (manfaatList.length === 0) {
+                manfaatBody.innerHTML = `<tr><td colspan="2" class="no-data">Tidak ada manfaat yang tersedia</td></tr>`;
+            } else {
+                let mHtml = '';
+                let currentBagian = '';
+                manfaatList.forEach(item => {
+                    const bagian = item.bagian || '';
+                    if (bagian !== currentBagian) {
+                        currentBagian = bagian;
+                        mHtml += `<tr class="section-header"><td colspan="2"><strong>${bagian}</strong></td></tr>`;
+                    }
+                    const nilai = item.nilai;
+                    const displayNilai = (nilai === 'Dijamin' || nilai === 'Biaya Sebenarnya' || nilai === '-') ? nilai :
+                        'Rp ' + formatRupiah(parseInt(String(nilai).replace(/[^0-9]/g, '')) || 0);
+                    const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' : '';
+                    mHtml += `<tr><td style="padding-left:12px;">${item.manfaat}${ket}</td><td style="text-align:right;font-weight:600;">${displayNilai}</td></tr>`;
+                });
+                manfaatBody.innerHTML = mHtml;
+            }
+
+            // Scroll ke hasil
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ============================================================
+        // RESET FORM
+        // ============================================================
+        function resetForm() {
+            document.getElementById('nama').value = '';
+            document.getElementById('noHp').value = '';
+            document.getElementById('tanggalLahir').value = '1990-03-15';
+            document.getElementById('jenisPerjalanan').value = 'internasional';
+            document.getElementById('area').value = 'worldwide';
+            document.getElementById('tier').value = 'prime';
+            document.getElementById('jenisPolis').value = 'pulang_pergi';
+            document.getElementById('durasi').value = '7';
+            document.getElementById('tahunanPaket').value = '90';
+            document.querySelectorAll('#tambahanGrid input[type="checkbox"]').forEach(cb => cb.checked = false);
+            hitungUsia();
+            updateAreaOptions();
+            updateTambahanOptions();
+            document.getElementById('resultBox').classList.remove('show');
+        }
+
+        // ============================================================
+        // EVENT LISTENERS
+        // ============================================================
+        document.getElementById('tanggalLahir').addEventListener('change', function() {
+            hitungUsia();
+            updateTambahanOptions();
+        });
+
+        document.getElementById('jenisPerjalanan').addEventListener('change', function() {
+            updateAreaOptions();
+            updateTambahanOptions();
+            // Update label tier
+            const tierSelect = document.getElementById('tier');
+            const labels = {
+                prime: 'Prime (Tertinggi)',
+                edge: 'Edge (Menengah)',
+                lite: 'Lite (Dasar)',
+                boost: 'Boost (Tertinggi)',
+                joy: 'Joy (Menengah)',
+                roadtrip: 'Roadtrip (Dasar)'
+            };
+            Array.from(tierSelect.options).forEach(opt => {
+                if (labels[opt.value]) opt.textContent = labels[opt.value];
+            });
+        });
+
+        document.getElementById('area').addEventListener('change', updateTambahanOptions);
+        document.getElementById('tier').addEventListener('change', updateTambahanOptions);
+        document.getElementById('jenisPolis').addEventListener('change', function() {
+            const isTahunan = this.value === 'tahunan';
+            document.getElementById('tahunanInfo').style.display = isTahunan ? 'block' : 'none';
+            if (isTahunan) {
+                document.getElementById('durasi').disabled = true;
+                document.getElementById('durasi').value = '90';
+            } else {
+                document.getElementById('durasi').disabled = false;
+            }
+            updateTambahanOptions();
+        });
+
+        // ============================================================
+        // HELPERS
+        // ============================================================
+        function formatRupiah(angka) {
+            if (!angka || isNaN(angka) || angka === 0) return '0';
+            if (angka >= 1000000000) return (angka / 1000000000).toFixed(1) + ' Miliar';
+            if (angka >= 1000000) return (angka / 1000000).toFixed(0) + ' Juta';
+            return angka.toLocaleString('id-ID');
+        }
+
+        // ============================================================
+        // ENTER KEY
+        // ============================================================
+        document.querySelectorAll('input, select').forEach(el => {
+            el.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') hitungPremi();
+            });
+        });
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDatabase();
+            // Set default date
+            const today = new Date();
+            const defaultDate = new Date(1990, 2, 15);
+            document.getElementById('tanggalLahir').value = '1990-03-15';
+            hitungUsia();
+            document.getElementById('tahunanInfo').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
