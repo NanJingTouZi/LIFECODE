@@ -1255,7 +1255,7 @@
         }
 
         // ============================================================
-        // GET PREMI TAMBAHAN & LIST MANFAAT TAMBAHAN YANG DIPILIH
+        // GET PREMI TAMBAHAN (hitung biaya tambahan)
         // ============================================================
         function getPremiTambahan() {
             const area = document.getElementById('area').value;
@@ -1265,11 +1265,11 @@
             const usiaKey = usia >= 70 ? 'usia_70_plus' : 'usia_1_69';
 
             const checks = document.querySelectorAll('#tambahanGrid input[type="checkbox"]:checked');
-            if (checks.length === 0) return { total: 0, detail: [], selectedList: [] };
+            if (checks.length === 0) return { total: 0, detail: [], selectedKeys: [] };
 
             let total = 0;
             let detail = [];
-            let selectedList = [];
+            let selectedKeys = [];
             let dataTambahan = null;
 
             if (jenis === 'internasional') {
@@ -1286,7 +1286,7 @@
                 }
             }
 
-            if (!dataTambahan) return { total: 0, detail: [], selectedList: [] };
+            if (!dataTambahan) return { total: 0, detail: [], selectedKeys: [] };
 
             const labels = {
                 'visa': 'Perlindungan Visa',
@@ -1303,17 +1303,17 @@
                 if (premi !== undefined && premi > 0) {
                     total += premi;
                     detail.push({ nama: labels[val] || val, premi: premi, key: val });
-                    selectedList.push({ key: val, nama: labels[val] || val, premi: premi });
+                    selectedKeys.push(val);
                 }
             });
 
-            return { total, detail, selectedList };
+            return { total, detail, selectedKeys };
         }
 
         // ============================================================
-        // GET MANFAAT DASAR (dari database) - TANPA MANFAAT TAMBAHAN
+        // GET MANFAAT LENGKAP (dari database) - termasuk G jika dipilih
         // ============================================================
-        function getManfaatDasar() {
+        function getManfaatLengkap(selectedKeys) {
             const jenis = document.getElementById('jenisPerjalanan').value;
             const tier = document.getElementById('tier').value;
 
@@ -1331,30 +1331,45 @@
 
             daftar.forEach(item => {
                 const bagian = item.bagian || '';
-                // Skip manfaat tambahan (bagian G) - ini ditangani terpisah
-                if (bagian.startsWith('G')) return;
 
-                // Filter berdasarkan usia
-                const ket = item.keterangan || '';
-                const match = ket.match(/Usia\s*(\d+)\s*ke\s*(bawah|atas)/i) ||
-                    ket.match(/Usia\s*(\d+)\s*-\s*(\d+)/);
-                if (match) {
-                    let include = false;
-                    if (ket.includes('ke bawah')) {
-                        const max = parseInt(match[1]);
-                        include = usia <= max;
-                    } else if (ket.includes('ke atas')) {
-                        const min = parseInt(match[1]);
-                        include = usia >= min;
-                    } else if (ket.includes('-')) {
-                        const min = parseInt(match[1]);
-                        const max = parseInt(match[2]);
-                        include = usia >= min && usia <= max;
-                    }
-                    if (include) filtered.push(item);
-                } else {
-                    filtered.push(item);
+                // Jika bagian G (manfaat tambahan), cek apakah key-nya dipilih
+                if (bagian.startsWith('G')) {
+                    // Map bagian ke key checkbox
+                    const keyMap = {
+                        'G.33': 'visa',
+                        'G.34': 'olahraga_salju',
+                        'G.35': 'kapal_pesiar',
+                        'G.36': 'petualangan',
+                        'G.37': 'bisnis',
+                        'G.38': 'olahraga_amatir'
+                    };
+                    const key = keyMap[bagian] || '';
+                    if (!selectedKeys.includes(key)) return; // skip jika tidak dipilih
                 }
+
+                // Filter berdasarkan usia untuk bagian A-F
+                if (!bagian.startsWith('G')) {
+                    const ket = item.keterangan || '';
+                    const match = ket.match(/Usia\s*(\d+)\s*ke\s*(bawah|atas)/i) ||
+                        ket.match(/Usia\s*(\d+)\s*-\s*(\d+)/);
+                    if (match) {
+                        let include = false;
+                        if (ket.includes('ke bawah')) {
+                            const max = parseInt(match[1]);
+                            include = usia <= max;
+                        } else if (ket.includes('ke atas')) {
+                            const min = parseInt(match[1]);
+                            include = usia >= min;
+                        } else if (ket.includes('-')) {
+                            const min = parseInt(match[1]);
+                            const max = parseInt(match[2]);
+                            include = usia >= min && usia <= max;
+                        }
+                        if (!include) return;
+                    }
+                }
+
+                filtered.push(item);
             });
 
             return filtered;
@@ -1367,7 +1382,6 @@
             if (nilai === 'Dijamin') return 'Dijamin';
             if (nilai === 'Biaya Sebenarnya') return 'Biaya Sebenarnya';
             if (nilai === '-') return '-';
-            // Handle format "1.000.000 / 10.000.000"
             if (typeof nilai === 'string' && nilai.includes('/')) {
                 return nilai;
             }
@@ -1393,7 +1407,7 @@
 
             const hasilTambahan = getPremiTambahan();
             const premiTambahan = hasilTambahan.total;
-            const selectedTambahan = hasilTambahan.selectedList || [];
+            const selectedKeys = hasilTambahan.selectedKeys || [];
 
             const total = premiDasar + premiTambahan;
 
@@ -1423,40 +1437,23 @@
             detailBody.innerHTML = detailHtml;
 
             // ==========================================================
-            // TABEL MANFAAT - TAMPILKAN NILAI PERTANGGUNGAN (bukan premi)
+            // TABEL MANFAAT - TAMPILKAN NILAI PERTANGGUNGAN
             // ==========================================================
-            const manfaatDasar = getManfaatDasar();
-            const manfaatTambahan = selectedTambahan;
+            const manfaatList = getManfaatLengkap(selectedKeys);
 
             const manfaatBody = document.getElementById('resultManfaat');
-            if (manfaatDasar.length === 0 && manfaatTambahan.length === 0) {
+            if (manfaatList.length === 0) {
                 manfaatBody.innerHTML = `<tr><td colspan="2" class="no-data">Tidak ada manfaat yang tersedia</td></tr>`;
             } else {
                 let mHtml = '';
                 let groupMap = {};
 
-                // Kelompokkan manfaat dasar berdasarkan bagian (A, B, C, D, E, F)
-                manfaatDasar.forEach(item => {
+                manfaatList.forEach(item => {
                     const bagian = item.bagian || '';
                     const groupKey = bagian.charAt(0) || '';
                     if (!groupMap[groupKey]) groupMap[groupKey] = [];
-                    groupMap[groupKey].push({ type: 'dasar', item: item });
+                    groupMap[groupKey].push(item);
                 });
-
-                // Tambahkan manfaat tambahan yang dipilih ke grup G
-                if (manfaatTambahan.length > 0) {
-                    if (!groupMap['G']) groupMap['G'] = [];
-                    manfaatTambahan.forEach(t => {
-                        groupMap['G'].push({
-                            type: 'tambahan',
-                            item: {
-                                manfaat: t.nama,
-                                keterangan: '(Tambahan)',
-                                nilai: t.premi // untuk tambahan tampilkan premi-nya
-                            }
-                        });
-                    });
-                }
 
                 const groupLabels = {
                     'A': 'Kecelakaan Diri & Pendidikan',
@@ -1471,15 +1468,11 @@
                 Object.keys(groupMap).forEach(key => {
                     const label = groupLabels[key] || 'Manfaat';
                     mHtml += `<tr class="section-header"><td colspan="2"><strong>${label}</strong></td></tr>`;
-                    groupMap[key].forEach(entry => {
-                        const item = entry.item;
-                        const isTambahan = entry.type === 'tambahan';
-                        // TAMPILKAN NILAI MANFAAT (PERTANGGUNGAN) dari database
-                        const displayNilai = isTambahan ?
-                            'Rp ' + formatRupiahFull(item.nilai) :
-                            formatManfaatValue(item.nilai);
+                    groupMap[key].forEach(item => {
+                        const displayNilai = formatManfaatValue(item.nilai);
                         const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' :
                             '';
+                        const isTambahan = key === 'G';
                         const style = isTambahan ? 'style="color:#1e7e34;"' : '';
                         mHtml +=
                             `<tr ${style}><td style="padding-left:12px;">${item.manfaat}${ket}</td><td style="text-align:right;font-weight:600;">${displayNilai}</td></tr>`;
@@ -1504,8 +1497,8 @@
                 total: total,
                 detailDasar: hasilDasar.detail,
                 detailTambahan: hasilTambahan.detail,
-                manfaatDasar: manfaatDasar,
-                manfaatTambahan: manfaatTambahan
+                manfaatList: manfaatList,
+                selectedKeys: selectedKeys
             };
 
             document.getElementById('btnCetak').disabled = false;
@@ -1594,10 +1587,9 @@
             // TABEL MANFAAT DI PROPOSAL - TAMPILKAN NILAI PERTANGGUNGAN
             // ==========================================================
             const manfaatContainer = document.getElementById('proposalManfaatContent');
-            const manfaatDasar = h.manfaatDasar || [];
-            const manfaatTambahan = h.manfaatTambahan || [];
+            const manfaatList = h.manfaatList || [];
 
-            if (manfaatDasar.length === 0 && manfaatTambahan.length === 0) {
+            if (manfaatList.length === 0) {
                 manfaatContainer.innerHTML = '<p style="color:#5e7a93;font-size:13px;">Tidak ada manfaat yang tersedia</p>';
             } else {
                 let mHtml = '<table class="proposal-manfaat-table">';
@@ -1612,39 +1604,21 @@
                     'G': 'Manfaat Tambahan'
                 };
 
-                manfaatDasar.forEach(item => {
+                manfaatList.forEach(item => {
                     const bagian = item.bagian || '';
                     const groupKey = bagian.charAt(0) || '';
                     if (!groupMap[groupKey]) groupMap[groupKey] = [];
-                    groupMap[groupKey].push({ type: 'dasar', item: item });
+                    groupMap[groupKey].push(item);
                 });
-
-                if (manfaatTambahan.length > 0) {
-                    if (!groupMap['G']) groupMap['G'] = [];
-                    manfaatTambahan.forEach(t => {
-                        groupMap['G'].push({
-                            type: 'tambahan',
-                            item: {
-                                manfaat: t.nama,
-                                keterangan: '(Tambahan)',
-                                nilai: t.premi
-                            }
-                        });
-                    });
-                }
 
                 Object.keys(groupMap).forEach(key => {
                     const label = groupLabels[key] || 'Manfaat';
                     mHtml += `<tr class="group-header"><td colspan="2"><strong>${label}</strong></td></tr>`;
-                    groupMap[key].forEach(entry => {
-                        const item = entry.item;
-                        const isTambahan = entry.type === 'tambahan';
-                        // TAMPILKAN NILAI MANFAAT (PERTANGGUNGAN)
-                        const displayNilai = isTambahan ?
-                            'Rp ' + formatRupiahFull(item.nilai) :
-                            formatManfaatValue(item.nilai);
+                    groupMap[key].forEach(item => {
+                        const displayNilai = formatManfaatValue(item.nilai);
                         const ket = item.keterangan && item.keterangan !== '-' ? ' (' + item.keterangan + ')' :
                             '';
+                        const isTambahan = key === 'G';
                         const className = isTambahan ? 'tambahan-item' : 'manfaat-item';
                         mHtml +=
                             `<tr class="${className}"><td>${item.manfaat}${ket}</td><td class="nilai">${displayNilai}</td></tr>`;
