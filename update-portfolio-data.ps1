@@ -19,9 +19,9 @@ foreach ($folder in $folders) {
         $content = Get-Content -Path $indexFile -Raw -ErrorAction SilentlyContinue
         
         $totalReturn = if ($content -match 'Total Return:?\s*<strong[^>]*>(.*?)</strong>') { $matches[1].Trim() } else { "—" }
-        $winRate = if ($content -match 'Win Rate:</strong>\s*<span[^>]*>(.*?)</span>') { $matches[1].Trim() } else { "—" }
-        $maxDD = if ($content -match 'Max Drawdown:</strong>\s*<span[^>]*>(.*?)</span>') { $matches[1].Trim() } else { "—" }
-        $profitFactor = if ($content -match 'Profit Factor:</strong>\s*<span[^>]*>(.*?)</span>') { $matches[1].Trim() } else { "—" }
+        $winRate = if ($content -match 'Win Rate</div>\s*<div[^>]*>(.*?)</div>') { $matches[1].Trim() } else { "—" }
+        $maxDD = if ($content -match 'Max Drawdown \(Equity\)</div>\s*<div[^>]*>(.*?)</div>') { $matches[1].Trim() } else { "—" }
+        $profitFactor = if ($content -match 'Profit Factor</div>\s*<div[^>]*>(.*?)</div>') { $matches[1].Trim() } else { "—" }
         
         $portfolioData += @{
             id = $id
