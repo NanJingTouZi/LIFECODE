@@ -298,12 +298,47 @@
         function startImageRotation() {
             detectImages().then(function() {
                 const imgEl = document.getElementById('splashImage');
-                imgEl.src = nanjingImages[0];
+                currentImageIndex = Math.floor(Math.random() * nanjingImages.length);
+                imgEl.src = nanjingImages[currentImageIndex];
                 imgEl.style.transition = 'opacity 0.3s ease';
                 if (nanjingImages.length > 1) {
                     setInterval(rotateImage, 4000);
                 }
             });
+        }
+
+        // ============================================================
+        // 1.6. COUNTDOWN 5 DETIK
+        // ============================================================
+        function startCountdown() {
+            let countdown = 5;
+            const btn = document.getElementById('btnLanjut');
+            const imgEl = document.getElementById('splashImage');
+            const container = document.querySelector('.splash-container');
+            
+            btn.disabled = true;
+            btn.style.opacity = '0.5';
+            btn.style.cursor = 'not-allowed';
+            btn.textContent = 'Lanjutkan (' + countdown + 's)';
+            
+            imgEl.style.pointerEvents = 'none';
+            container.style.pointerEvents = 'none';
+
+            const timer = setInterval(function() {
+                countdown--;
+                if (countdown > 0) {
+                    btn.textContent = 'Lanjutkan (' + countdown + 's)';
+                } else {
+                    clearInterval(timer);
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                    btn.style.cursor = 'pointer';
+                    btn.textContent = 'Lanjutkan →';
+                    imgEl.style.pointerEvents = 'auto';
+                    container.style.pointerEvents = 'auto';
+                    console.log('✅ Countdown selesai, tombol aktif!');
+                }
+            }, 1000);
         }
 
         // ============================================================
@@ -332,47 +367,16 @@
         })();
 
         // ============================================================
-        // 3. CEK WAKTU KUNJUNGAN
+        // 3. CEK WAKTU KUNJUNGAN (NON-AKTIF - user harus klik)
         // ============================================================
         function checkLastVisit() {
-            const lastVisit = localStorage.getItem(STORAGE_KEY);
-            const currentTime = Date.now();
-            
-            const justFromMenu = sessionStorage.getItem(SESSION_KEY);
-
-            if (justFromMenu === 'true') {
-                sessionStorage.removeItem(SESSION_KEY);
-                console.log('🔄 Kembali dari menu, tampilkan splash (harus klik)');
-                return false;
-            }
-
-            if (lastVisit) {
-                const timeDiff = currentTime - parseInt(lastVisit, 10);
-                
-                if (timeDiff < ONE_HOUR) {
-                    console.log('⏳ Masih dalam 1 jam, langsung ke menu...');
-                    window.location.href = TARGET_URL;
-                    return true;
-                } else {
-                    console.log('⏰ Sudah lebih dari 1 jam, tampilkan splash (harus klik)');
-                    return false;
-                }
-            } else {
-                console.log('🆕 Pertama kali buka, tampilkan splash (harus klik)');
-                return false;
-            }
+            return false;
         }
 
         // ============================================================
         // 4. FUNGSI REDIRECT KE MENU
         // ============================================================
         function goToMenu() {
-            const currentTime = Date.now();
-            localStorage.setItem(STORAGE_KEY, currentTime.toString());
-            
-            sessionStorage.setItem(SESSION_KEY, 'true');
-            
-            console.log('💾 Waktu kunjungan disimpan, menuju menu...');
             window.location.href = TARGET_URL;
         }
 
@@ -424,6 +428,7 @@
         // ============================================================
         const isRedirected = checkLastVisit();
         startImageRotation();
+        startCountdown();
 
         if (!isRedirected) {
             const btnLanjut = document.getElementById('btnLanjut');

@@ -820,7 +820,7 @@
          ============================================================ -->
     <header class="page-header">
       <div class="header-logo">
-        <img src="https://nanjingtouzi.github.io/LIFECODE/nanjing-ico1.png" alt="Nanjing Logo" onerror="this.style.display='none'">
+         <img src="nanjing-ico1.png" alt="Nanjing Logo" onerror="this.style.display='none'">
         <span class="logo-divider"></span>
         <span class="logo-text">✦ Nanjing Investasi ✦</span>
       </div>
@@ -1168,7 +1168,32 @@
         if (p.status === 'dev') { statusClass = 'status-dev'; statusText = 'Pengembangan'; }
         else if (p.status === 'archived') { statusClass = 'status-archived'; statusText = 'Arsip'; }
 
-        const filePath = `https://nanjingtouzi.github.io/LIFECODE/porto/${p.fileName}`;
+        const folderMap = {
+            "WAIVER1": "WAIVER1",
+            "WAIVER5": "WAIVER5",
+            "AXION1": "AXION1",
+            "AXION10": "AXION10",
+            "CAPE1": "CAPE1",
+            "CAPE10": "CAPE10",
+            "SEAL1": "SEAL1",
+            "SEAL10": "SEAL10",
+            "TRICK7": "TRICK7",
+            "HOLE7": "HOLE7",
+            "ZEUS10": "ZEUS10",
+            "ZEUS50": "ZEUS50",
+            "ATHENA10": "ATHENA10",
+            "ATHENA50": "ATHENA50",
+            "ODIN10": "ODIN10",
+            "ODIN50": "ODIN50",
+            "DOLPHIN1": "DOLPHIN1",
+            "DOLPHIN10": "DOLPHIN10",
+            "ORCA1": "ORCA1",
+            "ORCA10": "ORCA10",
+            "MERLIN1": "MERLIN1",
+            "MERLIN10": "MERLIN10"
+        };
+        const folderName = folderMap[p.key] || p.key;
+        const filePath = `porto/${folderName}`;
         const updateDate = p.updated ? new Date(p.updated).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) : '—';
 
         const stats = p.stats || {};
