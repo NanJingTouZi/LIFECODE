@@ -3521,24 +3521,9 @@ document.getElementById('resetPasswordBtn').addEventListener('click', async func
     btn.textContent = '⏳ Mengirim...';
     
     try {
-        const userData = await getUser(email);
         var actionCodeSettings = {
             url: 'https://nanjingtouzi.github.io/LIFECODE/lifecode.html'
         };
-        
-        if (userData && userData.verified === false) {
-            console.log('📧 User belum verified, buat akun Firebase Auth dulu...');
-            const password = userData.password_temp || '123456';
-            try {
-                await auth.createUserWithEmailAndPassword(email, password);
-                console.log('✅ Akun Firebase Auth berhasil dibuat untuk reset password');
-            } catch (createError) {
-                if (createError.code !== 'auth/email-already-in-use') {
-                    throw createError;
-                }
-                console.log('ℹ️ Email sudah terdaftar di Firebase Auth');
-            }
-        }
         
         await auth.sendPasswordResetEmail(email, actionCodeSettings);
         
@@ -3554,12 +3539,7 @@ document.getElementById('resetPasswordBtn').addEventListener('click', async func
         btn.textContent = 'Kirim Link Reset';
         
         if (error.code === 'auth/user-not-found') {
-            const userData = await getUser(email);
-            if (userData && userData.verified === false) {
-                showCustomAlert('warning', 'Akun Belum Aktif', 'Email sudah terdaftar tapi belum diverifikasi. Silakan registrasi ulang atau hubungi admin.');
-            } else {
-                showCustomAlert('warning', 'Email Tidak Ditemukan', 'Email ini belum terdaftar. Silakan registrasi.');
-            }
+            showCustomAlert('warning', 'Email Tidak Ditemukan', 'Email ini belum terdaftar. Silakan registrasi.');
         } else if (error.code === 'auth/too-many-requests') {
             showCustomAlert('warning', 'Terlalu Banyak Percobaan', 'Terlalu banyak percobaan. Coba lagi nanti.');
         } else {
@@ -3761,7 +3741,13 @@ document.getElementById('registerSubmitBtn').addEventListener('click', async fun
     } catch (e) {
         console.error('Register error:', e);
         if (e.code === 'auth/email-already-in-use') {
-            showCustomAlert('warning', 'Email Terdaftar', 'Email sudah terdaftar. Silakan login.');
+            // Cek apakah user sudah terdaftar di Firestore
+            const existingUser = await getUser(email);
+            if (existingUser && !existingUser.verified) {
+                showCustomAlert('warning', 'Belum Terverifikasi', 'Email sudah terdaftar tapi belum diverifikasi.\n\n📧 Cek inbox email Anda untuk link verifikasi.\n\n💡 Hubungi admin untuk aktivasi manual.');
+            } else {
+                showCustomAlert('warning', 'Email Terdaftar', 'Email sudah terdaftar dan aktif. Silakan login.');
+            }
             showModal('login');
         } else if (e.code === 'auth/weak-password') {
             showCustomAlert('error', 'Password Lemah', 'Password minimal 6 karakter.');
