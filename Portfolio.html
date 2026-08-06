@@ -848,106 +848,7 @@
         </div>
       </div>
 
-      <!-- Row 2: Slider dengan Switch -->
-      <div class="slider-group" id="sliderGroup">
-        <!-- Backtest Return -->
-        <div class="slider-item">
-          <div class="switch-wrap">
-            <div class="switch-track" data-target="sliderReturn" id="switchReturn">
-              <span class="thumb"></span>
-            </div>
-          </div>
-          <div class="slider-body">
-            <div class="slider-header">
-              <span class="slider-label">Backtest Return</span>
-              <span class="slider-value" id="valReturn">50%</span>
-            </div>
-            <input type="range" id="sliderReturn" min="0" max="1000" value="50" step="1" disabled>
-          </div>
-        </div>
-
-        <!-- Backtest Max DD -->
-        <div class="slider-item">
-          <div class="switch-wrap">
-            <div class="switch-track" data-target="sliderDD" id="switchDD">
-              <span class="thumb"></span>
-            </div>
-          </div>
-          <div class="slider-body">
-            <div class="slider-header">
-              <span class="slider-label">Backtest Max DD</span>
-              <span class="slider-value" id="valDD">20%</span>
-            </div>
-            <input type="range" id="sliderDD" min="0" max="100" value="20" step="1" disabled>
-          </div>
-        </div>
-
-        <!-- Backtest Profit Factor -->
-        <div class="slider-item">
-          <div class="switch-wrap">
-            <div class="switch-track" data-target="sliderPF" id="switchPF">
-              <span class="thumb"></span>
-            </div>
-          </div>
-          <div class="slider-body">
-            <div class="slider-header">
-              <span class="slider-label">Backtest PF</span>
-              <span class="slider-value" id="valPF">2.0</span>
-            </div>
-            <input type="range" id="sliderPF" min="0" max="20" value="2" step="0.1" disabled>
-          </div>
-        </div>
-
-        <!-- Forward Gain -->
-        <div class="slider-item">
-          <div class="switch-wrap">
-            <div class="switch-track" data-target="sliderFGain" id="switchFGain">
-              <span class="thumb"></span>
-            </div>
-          </div>
-          <div class="slider-body">
-            <div class="slider-header">
-              <span class="slider-label">Forward Gain</span>
-              <span class="slider-value" id="valFGain">0%</span>
-            </div>
-            <input type="range" id="sliderFGain" min="-100" max="100" value="0" step="1" disabled>
-          </div>
-        </div>
-
-        <!-- Forward Max DD -->
-        <div class="slider-item">
-          <div class="switch-wrap">
-            <div class="switch-track" data-target="sliderFDD" id="switchFDD">
-              <span class="thumb"></span>
-            </div>
-          </div>
-          <div class="slider-body">
-            <div class="slider-header">
-              <span class="slider-label">Forward Max DD</span>
-              <span class="slider-value" id="valFDD">20%</span>
-            </div>
-            <input type="range" id="sliderFDD" min="0" max="100" value="20" step="1" disabled>
-          </div>
-        </div>
-
-        <!-- Forward Profit Factor -->
-        <div class="slider-item">
-          <div class="switch-wrap">
-            <div class="switch-track" data-target="sliderFPF" id="switchFPF">
-              <span class="thumb"></span>
-            </div>
-          </div>
-          <div class="slider-body">
-            <div class="slider-header">
-              <span class="slider-label">Forward PF</span>
-              <span class="slider-value" id="valFPF">1.0</span>
-            </div>
-            <input type="range" id="sliderFPF" min="0" max="10" value="1" step="0.1" disabled>
-          </div>
-        </div>
-      </div>
-
-      <!-- Row 3: Result Count + Reset -->
+      <!-- Row 2: Result Count + Reset -->
       <div class="filter-actions">
         <span class="result-count" id="resultCount">Menampilkan <strong>0</strong> dari <strong>0</strong> portofolio</span>
         <button class="btn-reset" id="resetFiltersBtn">↺ Reset Semua Filter</button>
@@ -1085,11 +986,6 @@
       });
     }
 
-    function isSwitchOn(targetId) {
-      const track = document.querySelector(`.switch-track[data-target="${targetId}"]`);
-      return track ? track.classList.contains('on') : false;
-    }
-
     // ============================================================
     // 4. FUNGSI FILTER
     // ============================================================
@@ -1098,19 +994,9 @@
       const activeChip = document.querySelector('.chip.active');
       const filterType = activeChip ? activeChip.dataset.filter : 'all';
 
-      // Slider values (hanya jika switch ON)
-      const minReturn = isSwitchOn('sliderReturn') ? parseFloat(document.getElementById('sliderReturn').value) || 0 : 0;
-      const minDD = isSwitchOn('sliderDD') ? parseFloat(document.getElementById('sliderDD').value) || 0 : 100;
-      const minPF = isSwitchOn('sliderPF') ? parseFloat(document.getElementById('sliderPF').value) || 0 : 0;
-      const minFGain = isSwitchOn('sliderFGain') ? parseFloat(document.getElementById('sliderFGain').value) || -100 : -100;
-      const minFDD = isSwitchOn('sliderFDD') ? parseFloat(document.getElementById('sliderFDD').value) || 0 : 100;
-      const minFPF = isSwitchOn('sliderFPF') ? parseFloat(document.getElementById('sliderFPF').value) || 0 : 0;
-
       filteredPortfolios = portfoliosData.filter(p => {
-        // Search
         if (searchTerm && !p.title.toLowerCase().includes(searchTerm)) return false;
 
-        // Category chips
         const dd = parsePercentage(p.stats.drawdown);
         const fwd = forwardData[p.key] || {};
         const fGain = parsePercentage(fwd.gain);
@@ -1118,20 +1004,6 @@
         if (filterType === 'lowrisk' && dd >= 5) return false;
         if (filterType === 'highrisk' && dd < 5) return false;
         if (filterType === 'forward' && fGain <= 0) return false;
-
-        // Sliders
-        const btReturn = parsePercentage(p.stats.return);
-        const btDD = parsePercentage(p.stats.drawdown);
-        const btPF = parseFloat(p.stats.profitFactor) || 0;
-        const fDD = parsePercentage(fwd.drawdown);
-        const fPF = parseFloat(fwd.profitFactor) || 0;
-
-        if (btReturn < minReturn) return false;
-        if (btDD > minDD) return false;
-        if (btPF < minPF) return false;
-        if (fGain < minFGain) return false;
-        if (fDD > minFDD) return false;
-        if (fPF < minFPF) return false;
 
         return true;
       });
@@ -1328,57 +1200,13 @@
       });
     });
 
-    // --- Sliders ---
-    const sliderMap = {
-      sliderReturn: 'valReturn',
-      sliderDD: 'valDD',
-      sliderPF: 'valPF',
-      sliderFGain: 'valFGain',
-      sliderFDD: 'valFDD',
-      sliderFPF: 'valFPF'
-    };
-    Object.keys(sliderMap).forEach(id => {
-      const input = document.getElementById(id);
-      const display = document.getElementById(sliderMap[id]);
-      input.addEventListener('input', function() {
-        const val = parseFloat(this.value);
-        if (id === 'sliderPF' || id === 'sliderFPF') display.textContent = val.toFixed(1);
-        else display.textContent = val + '%';
-        applyFilters();
-      });
-    });
-
     // --- Reset Filters ---
     document.getElementById('resetFiltersBtn').addEventListener('click', function() {
-      // Reset search
       document.getElementById('searchInput').value = '';
-      // Reset chips: aktifkan Low Risk
       document.querySelectorAll('.chip').forEach(c => {
         c.classList.remove('active', 'active-lowrisk', 'active-highrisk', 'active-forward');
       });
       document.getElementById('filterLowRisk').classList.add('active', 'active-lowrisk');
-      // Reset switches ke OFF
-      document.querySelectorAll('.switch-track').forEach(track => {
-        track.classList.remove('on');
-        const targetId = track.dataset.target;
-        const slider = document.getElementById(targetId);
-        if (slider) slider.disabled = true;
-      });
-      // Reset sliders ke nilai default
-      document.getElementById('sliderReturn').value = 50;
-      document.getElementById('sliderDD').value = 20;
-      document.getElementById('sliderPF').value = 2;
-      document.getElementById('sliderFGain').value = 0;
-      document.getElementById('sliderFDD').value = 20;
-      document.getElementById('sliderFPF').value = 1;
-      // Update display
-      document.getElementById('valReturn').textContent = '50%';
-      document.getElementById('valDD').textContent = '20%';
-      document.getElementById('valPF').textContent = '2.0';
-      document.getElementById('valFGain').textContent = '0%';
-      document.getElementById('valFDD').textContent = '20%';
-      document.getElementById('valFPF').textContent = '1.0';
-      // Reset sort ke Name ASC
       currentField = 'name';
       currentOrder = 'asc';
       document.getElementById('sortField').value = 'name';
