@@ -426,6 +426,7 @@ table .code-hidden{color:var(--paper-dim);opacity:0.4;text-decoration:line-throu
 .ass-type-badge.properti{background:rgba(201,162,74,0.2);color:var(--gold-soft);}
 .ass-type-badge.jiwa{background:rgba(180,72,58,0.2);color:#e0968a;}
 .ass-type-badge.wealth{background:rgba(107,63,160,0.2);color:#b89fd4;}
+.ass-type-badge.travel{background:rgba(56,189,248,0.2);color:#38bdf8;}
 
 .popup-radio-group{
   display:flex;
@@ -677,8 +678,8 @@ table .code-hidden{color:var(--paper-dim);opacity:0.4;text-decoration:line-throu
         <div class="table-controls">
           <button class="btn-sm gold" id="createTokenBtn">➕ Buat Token</button>
           <select id="codeFilter">
-            <option value="all">Semua</option>
             <option value="available">✅ Tersedia</option>
+            <option value="all">Semua</option>
             <option value="used">❌ Terpakai</option>
             <option value="hidden">🙈 Tersembunyi</option>
           </select>
@@ -762,6 +763,10 @@ table .code-hidden{color:var(--paper-dim);opacity:0.4;text-decoration:line-throu
         <div class="label">💰 Wealth</div>
       </div>
       <div class="stat-card">
+        <div class="num orange" id="assStatTravel">0</div>
+        <div class="label">✈️ Travel</div>
+      </div>
+      <div class="stat-card">
         <div class="num green" id="assStatTotal">0</div>
         <div class="label">📈 Total</div>
       </div>
@@ -777,6 +782,7 @@ table .code-hidden{color:var(--paper-dim);opacity:0.4;text-decoration:line-throu
             <option value="properti">🏠 Properti</option>
             <option value="jiwa">📋 Jiwa</option>
             <option value="wealth">💰 Wealth</option>
+            <option value="travel">✈️ Travel</option>
           </select>
           <input type="text" id="assSearch" placeholder="Cari user..." style="min-width:140px;">
           <button class="btn-sm" id="refreshAssBtn">🔄 Refresh</button>
@@ -1242,6 +1248,41 @@ async function deleteUser(email) {
     }
 }
 
+// ===== VERIFY EMAIL MANUAL (Admin) + BUAT LISENSI =====
+async function verifyUserEmail(email) {
+    try {
+        await updateDoc(doc(db, 'users', email), {
+            verified: true,
+            verified_by: 'admin',
+            verified_at: new Date().toISOString()
+        });
+        
+        // Buat lisensi jika belum ada
+        const existingLicense = await getDoc(doc(db, 'licenses', email));
+        if (!existingLicense.exists) {
+            const key = 'AKTIF-' + Date.now().toString(36).toUpperCase();
+            const expiry = new Date();
+            expiry.setDate(expiry.getDate() + 30);
+            await setDoc(doc(db, 'licenses', email), {
+                email: email,
+                key: key,
+                quota: 3,
+                used_count: 0,
+                expiry_date: expiry.toISOString().slice(0,10),
+                is_active: true,
+                created_at: new Date().toISOString()
+            });
+            console.log('✅ Lisensi dibuat untuk ' + email);
+        }
+        
+        console.log('✅ User ' + email + ' berhasil diverifikasi oleh admin');
+        return true;
+    } catch (error) {
+        console.error('Verify user error:', error);
+        return false;
+    }
+}
+
 // ===== ACTIVATE USER (create license) with referral bonus =====
 async function activateUser(email, quota, expiryDate) {
     try {
@@ -1334,7 +1375,7 @@ function generateToken() {
 async function createToken(type, duration, amount) {
     try {
         const token = generateToken();
-        await addDoc(collection(db, 'codes'), {
+        await setDoc(doc(db, 'codes', token), {
             code: token,
             token: token,
             type: type,
@@ -1652,19 +1693,21 @@ function renderStats() {
 
 function renderAssStats() {
     const ass = DATA.assCalculations || [];
-    let mobil = 0, properti = 0, jiwa = 0, wealth = 0;
+    let mobil = 0, properti = 0, jiwa = 0, wealth = 0, travel = 0;
     
     ass.forEach(item => {
         if (item.type === 'mobil') mobil++;
         else if (item.type === 'properti') properti++;
         else if (item.type === 'jiwa') jiwa++;
         else if (item.type === 'wealth') wealth++;
+        else if (item.type === 'travel') travel++;
     });
     
     document.getElementById('assStatMobil').textContent = mobil;
     document.getElementById('assStatProperti').textContent = properti;
     document.getElementById('assStatJiwa').textContent = jiwa;
     document.getElementById('assStatWealth').textContent = wealth;
+    document.getElementById('assStatTravel').textContent = travel;
     document.getElementById('assStatTotal').textContent = ass.length;
 }
 
@@ -1770,6 +1813,9 @@ function renderUsers() {
         html += '<td>' + item.registered + '</td>';
         html += '<td>' + esc(item.referred_by) + '</td>'; // BARU
         html += '<td class="' + item.statusClass + '">' + item.status;
+        if (!item._user.verified) {
+            html += ' <button class="verify-btn" data-email="' + esc(item.email) + '" style="background:transparent;border:1px solid var(--jade);color:var(--jade-soft);border-radius:4px;padding:2px 8px;font-size:9px;cursor:pointer;margin-right:4px;">Verify</button>';
+        }
         if (!item.hasLicense) {
             html += ' <button class="activate-btn" data-email="' + esc(item.email) + '" data-name="' + esc(item.name) + '">Aktifkan</button>';
         }
@@ -1784,6 +1830,34 @@ function renderUsers() {
         html = '<tr><td colspan="10" style="text-align:center;color:var(--paper-dim);padding:30px;">Tidak ada data.</td></tr>';
     }
     tbody.innerHTML = html;
+    
+    // Verify button
+    tbody.querySelectorAll('.verify-btn').forEach(btn => {
+        btn.addEventListener('click', async function() {
+            const email = this.dataset.email;
+            const user = DATA.users[email];
+            const name = user ? user.name : email;
+            
+            const confirmVerify = await showPopup('confirm', '✅ Verifikasi Email', 
+                'Yakin ingin verifikasi manual untuk <strong>' + esc(name) + '</strong> (' + esc(email) + ')?<br><br>' +
+                'User akan bisa login tanpa verifikasi email.', 
+                'Verifikasi', 'Batal');
+            
+            if (confirmVerify) {
+                try {
+                    const result = await verifyUserEmail(email);
+                    if (result) {
+                        await loadData();
+                        renderAll();
+                        await showPopup('success', '✅ Berhasil', 
+                            'User <strong>' + esc(name) + '</strong> berhasil diverifikasi!<br>User sekarang bisa login.');
+                    }
+                } catch (error) {
+                    await showPopup('error', '❌ Gagal', error.message || 'Gagal verifikasi user.');
+                }
+            }
+        });
+    });
     
     // Activate button
     tbody.querySelectorAll('.activate-btn').forEach(btn => {
@@ -2117,7 +2191,7 @@ function renderCodes() {
         html += '<td>' + item.date + '</td>';
         html += '<td>';
         if (!item._code.used) {
-            html += '<button class="copy-btn" data-code="' + esc(item.token) + '">📋 Salin</button> ';
+            html += '<button class="copy-btn" data-code="' + esc(item.token) + '" data-id="' + item._id + '">📋 Salin</button> ';
         }
         html += '<button class="hide-toggle-btn ' + (isHidden ? 'unhide' : '') + '" data-id="' + item._id + '">' + (isHidden ? '👁️ Tampilkan' : '🙈 Sembunyikan') + '</button> ';
         html += '<button class="delete-btn-table" data-id="' + item._id + '">🗑️</button>';
@@ -2130,14 +2204,26 @@ function renderCodes() {
     }
     tbody.innerHTML = html;
     
-    // Copy button
+    // Copy button (auto-hide after copy)
     tbody.querySelectorAll('.copy-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', async function() {
             const code = this.dataset.code;
-            navigator.clipboard.writeText(code).then(() => {
+            const id = this.dataset.id;
+            try {
+                await navigator.clipboard.writeText(code);
                 this.textContent = '✅';
+                // Auto-hide token setelah copy
+                if (id) {
+                    await toggleTokenHidden(id, true);
+                    await loadData();
+                    renderCodes();
+                } else {
+                    setTimeout(() => { this.textContent = '📋 Salin'; }, 2000);
+                }
+            } catch (e) {
+                this.textContent = '❌';
                 setTimeout(() => { this.textContent = '📋 Salin'; }, 2000);
-            });
+            }
         });
     });
     
@@ -2357,7 +2443,8 @@ function renderAssCalculations() {
             'mobil': '🚗 Mobil',
             'properti': '🏠 Properti',
             'jiwa': '📋 Jiwa',
-            'wealth': '💰 Wealth'
+            'wealth': '💰 Wealth',
+            'travel': '✈️ Travel'
         };
         
         const result = item.result || {};
@@ -2372,6 +2459,8 @@ function renderAssCalculations() {
             summary = 'Kebutuhan: ' + resultDisplay;
         } else if (item.type === 'wealth') {
             summary = 'Dana Pensiun: ' + resultDisplay;
+        } else if (item.type === 'travel') {
+            summary = (item.input || {}).tujuan || '-';
         }
         
         const date = item.created_at ? new Date(item.created_at) : new Date();
@@ -2410,7 +2499,8 @@ function renderAssCalculations() {
     data.forEach(item => {
         const badgeClass = item.type_raw === 'mobil' ? 'mobil' : 
                           item.type_raw === 'properti' ? 'properti' : 
-                          item.type_raw === 'jiwa' ? 'jiwa' : 'wealth';
+                          item.type_raw === 'jiwa' ? 'jiwa' : 
+                          item.type_raw === 'travel' ? 'travel' : 'wealth';
         html += '<tr>';
         html += '<td>' + item.no + '</td>';
         html += '<td>' + esc(item.user) + '</td>';

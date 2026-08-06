@@ -1,200 +1,200 @@
-{
+﻿{
   "WAIVER1": {
-    "gain": "+0.65%",
-    "profit": "+$64.70",
+    "gain": "+0.70%",
+    "profit": "+$69.80",
     "drawdown": "3.03%",
-    "winRate": "70.6%",
-    "profitFactor": "1.15",
-    "balance": "$10,064.70",
-    "lastUpdate": "2026-07-30"
+    "winRate": "71.4%",
+    "profitFactor": "1.14",
+    "balance": "$10,069.80",
+    "lastUpdate": "2026-08-06"
   },
   "WAIVER5": {
-    "gain": "+12.95%",
-    "profit": "+$258.92",
+    "gain": "+16.56%",
+    "profit": "+$331.26",
     "drawdown": "25.40%",
-    "winRate": "70.6%",
-    "profitFactor": "1.24",
-    "balance": "$2,258.92",
-    "lastUpdate": "2026-07-30"
+    "winRate": "71.4%",
+    "profitFactor": "1.26",
+    "balance": "$2,331.26",
+    "lastUpdate": "2026-08-06"
   },
   "AXION1": {
-    "gain": "+3.47%",
-    "profit": "+$347.02",
+    "gain": "+3.51%",
+    "profit": "+$351.20",
     "drawdown": "0.81%",
-    "winRate": "92.3%",
-    "profitFactor": "5.15",
-    "balance": "$10,347.02",
-    "lastUpdate": "2026-07-30"
+    "winRate": "88.2%",
+    "profitFactor": "3.36",
+    "balance": "$10,351.20",
+    "lastUpdate": "2026-08-06"
   },
   "AXION10": {
-    "gain": "+40.58%",
-    "profit": "+$811.51",
+    "gain": "+39.85%",
+    "profit": "+$796.98",
     "drawdown": "8.87%",
-    "winRate": "92.3%",
-    "profitFactor": "4.22",
-    "balance": "$2,811.51",
-    "lastUpdate": "2026-07-30"
+    "winRate": "88.2%",
+    "profitFactor": "2.79",
+    "balance": "$2,796.98",
+    "lastUpdate": "2026-08-06"
   },
   "CAPE1": {
-    "gain": "+1.39%",
-    "profit": "+$139.20",
+    "gain": "+1.80%",
+    "profit": "+$179.56",
     "drawdown": "1.08%",
-    "winRate": "81.8%",
-    "profitFactor": "1.64",
-    "balance": "$10,139.20",
-    "lastUpdate": "2026-07-30"
+    "winRate": "84.6%",
+    "profitFactor": "1.83",
+    "balance": "$10,179.56",
+    "lastUpdate": "2026-08-06"
   },
   "CAPE10": {
-    "gain": "+14.64%",
-    "profit": "+$292.75",
+    "gain": "+18.65%",
+    "profit": "+$373.04",
     "drawdown": "8.89%",
-    "winRate": "81.8%",
-    "profitFactor": "1.68",
-    "balance": "$2,292.75",
-    "lastUpdate": "2026-07-30"
+    "winRate": "84.6%",
+    "profitFactor": "1.87",
+    "balance": "$2,373.04",
+    "lastUpdate": "2026-08-06"
   },
   "SEAL1": {
-    "gain": "+5.07%",
-    "profit": "+$506.90",
-    "drawdown": "1.98%",
-    "winRate": "72.4%",
-    "profitFactor": "1.99",
-    "balance": "$10,506.90",
-    "lastUpdate": "2026-07-30"
+    "gain": "+4.51%",
+    "profit": "+$451.15",
+    "drawdown": "2.03%",
+    "winRate": "71.4%",
+    "profitFactor": "1.68",
+    "balance": "$10,451.15",
+    "lastUpdate": "2026-08-06"
   },
   "SEAL10": {
-    "gain": "-1.67%",
-    "profit": "-$33.35",
-    "drawdown": "19.17%",
-    "winRate": "60.9%",
-    "profitFactor": "0.97",
-    "balance": "$1,966.65",
-    "lastUpdate": "2026-07-30"
+    "gain": "-8.77%",
+    "profit": "-$175.44",
+    "drawdown": "22.71%",
+    "winRate": "62.1%",
+    "profitFactor": "0.88",
+    "balance": "$1,824.56",
+    "lastUpdate": "2026-08-06"
   },
   "TRICK7": {
-    "gain": "+0.86%",
-    "profit": "+$85.89",
+    "gain": "+3.08%",
+    "profit": "+$307.57",
     "drawdown": "7.51%",
-    "winRate": "90.0%",
-    "profitFactor": "1.05",
-    "balance": "$10,085.89",
-    "lastUpdate": "2026-07-30"
+    "winRate": "91.3%",
+    "profitFactor": "1.19",
+    "balance": "$10,307.57",
+    "lastUpdate": "2026-08-06"
   },
   "HOLE7": {
-    "gain": "+12.33%",
-    "profit": "+$1,232.75",
+    "gain": "+18.15%",
+    "profit": "+$1,815.49",
     "drawdown": "7.70%",
-    "winRate": "90.0%",
-    "profitFactor": "2.40",
-    "balance": "$11,232.75",
-    "lastUpdate": "2026-07-30"
+    "winRate": "91.7%",
+    "profitFactor": "3.06",
+    "balance": "$11,815.49",
+    "lastUpdate": "2026-08-06"
   },
   "ZEUS10": {
-    "gain": "-7.86%",
-    "profit": "-$7,856.14",
-    "drawdown": "10.04%",
-    "winRate": "60.0%",
-    "profitFactor": "0.39",
-    "balance": "$92,143.86",
-    "lastUpdate": "2026-07-30"
+    "gain": "-7.28%",
+    "profit": "-$7,279.40",
+    "drawdown": "10.48%",
+    "winRate": "63.1%",
+    "profitFactor": "0.44",
+    "balance": "$92,720.60",
+    "lastUpdate": "2026-08-06"
   },
   "ZEUS50": {
-    "gain": "-43.68%",
-    "profit": "-$436.83",
-    "drawdown": "49.91%",
-    "winRate": "59.2%",
-    "profitFactor": "0.38",
-    "balance": "$563.17",
-    "lastUpdate": "2026-07-30"
+    "gain": "-42.44%",
+    "profit": "-$424.38",
+    "drawdown": "50.84%",
+    "winRate": "62.5%",
+    "profitFactor": "0.41",
+    "balance": "$575.62",
+    "lastUpdate": "2026-08-06"
   },
   "ATHENA10": {
-    "gain": "-17.22%",
-    "profit": "-$17,217.71",
-    "drawdown": "17.53%",
-    "winRate": "50.6%",
-    "profitFactor": "0.20",
-    "balance": "$82,782.29",
-    "lastUpdate": "2026-07-30"
+    "gain": "-14.32%",
+    "profit": "-$14,324.09",
+    "drawdown": "20.30%",
+    "winRate": "57.5%",
+    "profitFactor": "0.36",
+    "balance": "$85,675.91",
+    "lastUpdate": "2026-08-06"
   },
   "ATHENA50": {
-    "gain": "-73.46%",
-    "profit": "-$734.63",
-    "drawdown": "73.87%",
-    "winRate": "49.4%",
-    "profitFactor": "0.12",
-    "balance": "$265.37",
-    "lastUpdate": "2026-07-30"
+    "gain": "-66.57%",
+    "profit": "-$665.69",
+    "drawdown": "80.37%",
+    "winRate": "57.0%",
+    "profitFactor": "0.22",
+    "balance": "$334.31",
+    "lastUpdate": "2026-08-06"
   },
   "ODIN10": {
-    "gain": "-9.19%",
-    "profit": "-$9,194.95",
-    "drawdown": "18.73%",
-    "winRate": "57.1%",
-    "profitFactor": "0.61",
-    "balance": "$90,805.05",
-    "lastUpdate": "2026-07-30"
+    "gain": "-17.71%",
+    "profit": "-$17,710.59",
+    "drawdown": "23.30%",
+    "winRate": "55.1%",
+    "profitFactor": "0.46",
+    "balance": "$82,289.41",
+    "lastUpdate": "2026-08-06"
   },
   "ODIN50": {
-    "gain": "-42.72%",
-    "profit": "-$427.19",
-    "drawdown": "65.82%",
-    "winRate": "56.7%",
-    "profitFactor": "0.68",
-    "balance": "$572.81",
-    "lastUpdate": "2026-07-30"
+    "gain": "-67.87%",
+    "profit": "-$678.72",
+    "drawdown": "80.82%",
+    "winRate": "55.8%",
+    "profitFactor": "0.58",
+    "balance": "$321.28",
+    "lastUpdate": "2026-08-06"
   },
   "DOLPHIN1": {
-    "gain": "-2.97%",
-    "profit": "-$296.99",
+    "gain": "-2.02%",
+    "profit": "-$201.86",
     "drawdown": "3.05%",
-    "winRate": "44.4%",
-    "profitFactor": "0.14",
-    "balance": "$9,703.01",
-    "lastUpdate": "2026-07-30"
+    "winRate": "64.3%",
+    "profitFactor": "0.42",
+    "balance": "$9,798.14",
+    "lastUpdate": "2026-08-06"
   },
   "DOLPHIN10": {
-    "gain": "-27.18%",
-    "profit": "-$271.79",
+    "gain": "-19.79%",
+    "profit": "-$197.87",
     "drawdown": "27.77%",
-    "winRate": "44.4%",
-    "profitFactor": "0.14",
-    "balance": "$728.21",
-    "lastUpdate": "2026-07-30"
+    "winRate": "64.3%",
+    "profitFactor": "0.37",
+    "balance": "$802.13",
+    "lastUpdate": "2026-08-06"
   },
   "ORCA1": {
-    "gain": "-0.57%",
-    "profit": "-$566.00",
-    "drawdown": "0.76%",
-    "winRate": "50.0%",
-    "profitFactor": "0.26",
-    "balance": "$99,434.00",
-    "lastUpdate": "2026-07-30"
+    "gain": "-1.74%",
+    "profit": "-$1,741.33",
+    "drawdown": "1.93%",
+    "winRate": "55.6%",
+    "profitFactor": "0.42",
+    "balance": "$98,258.67",
+    "lastUpdate": "2026-08-06"
   },
   "ORCA10": {
-    "gain": "-5.66%",
-    "profit": "-$56.60",
-    "drawdown": "7.46%",
-    "winRate": "50.0%",
-    "profitFactor": "0.26",
-    "balance": "$943.40",
-    "lastUpdate": "2026-07-30"
+    "gain": "-16.32%",
+    "profit": "-$163.23",
+    "drawdown": "17.92%",
+    "winRate": "55.6%",
+    "profitFactor": "0.40",
+    "balance": "$836.77",
+    "lastUpdate": "2026-08-06"
   },
   "MERLIN1": {
-    "gain": "+0.20%",
-    "profit": "+$200.90",
-    "drawdown": "0.00%",
-    "winRate": "100.0%",
-    "profitFactor": "0.00",
-    "balance": "$100,200.90",
-    "lastUpdate": "2026-07-30"
+    "gain": "+0.44%",
+    "profit": "+$439.80",
+    "drawdown": "0.14%",
+    "winRate": "60.0%",
+    "profitFactor": "2.87",
+    "balance": "$100,439.80",
+    "lastUpdate": "2026-08-06"
   },
   "MERLIN10": {
-    "gain": "+2.01%",
-    "profit": "+$201.00",
-    "drawdown": "0.00%",
-    "winRate": "100.0%",
-    "profitFactor": "0.00",
-    "balance": "$10,201.00",
-    "lastUpdate": "2026-07-30"
+    "gain": "+4.27%",
+    "profit": "+$426.62",
+    "drawdown": "1.44%",
+    "winRate": "60.0%",
+    "profitFactor": "2.71",
+    "balance": "$10,426.62",
+    "lastUpdate": "2026-08-06"
   }
 }

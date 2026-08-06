@@ -1690,23 +1690,18 @@ ul.trait-list li:last-child{border-bottom:none;}
       </p>
     </div>
 
-    <!-- Step 3: Register OTP Verification -->
+    <!-- Step 3: Email Verification Info -->
     <div id="registerOtpStep" style="display:none;">
-      <p style="color:var(--jade-soft);font-size:13px;">✅ Kode OTP telah dikirim ke <span id="regOtpEmailDisplay">—</span></p>
-      <div class="otp-container">
-        <input type="text" maxlength="1" class="otp-input-reg" data-index="0">
-        <input type="text" maxlength="1" class="otp-input-reg" data-index="1">
-        <input type="text" maxlength="1" class="otp-input-reg" data-index="2">
-        <input type="text" maxlength="1" class="otp-input-reg" data-index="3">
-        <input type="text" maxlength="1" class="otp-input-reg" data-index="4">
-        <input type="text" maxlength="1" class="otp-input-reg" data-index="5">
-      </div>
-      <div class="modal-btns">
-        <button class="btn btn-block" id="verifyRegOtpBtn">Verifikasi & Daftar</button>
-      </div>
-      <p style="text-align:center;font-size:13px;margin-top:12px;color:var(--paper-dim);">
-        Tidak menerima kode? <a href="#" id="resendRegOtpBtn" style="color:var(--gold-soft);text-decoration:none;">Kirim ulang</a>
+      <p style="color:var(--jade-soft);font-size:13px;">✅ Email verifikasi telah dikirim ke <span id="regOtpEmailDisplay">—</span></p>
+      <p style="color:var(--paper-dim);font-size:13px;margin-top:12px;">
+        Silakan cek inbox email Anda dan klik link verifikasi untuk mengaktifkan akun.<br><br>
+        <strong>Tidak menerima email?</strong><br>
+        - Cek folder Spam/Junk<br>
+        - Hubungi admin untuk aktivasi manual
       </p>
+      <div class="modal-btns">
+        <button class="btn btn-block" id="backToLoginBtn">Kembali ke Login</button>
+      </div>
     </div>
 
     <!-- Step 4: Token -->
@@ -1859,12 +1854,12 @@ ul.trait-list li:last-child{border-bottom:none;}
 </div>
 
 <!-- ============================================================
-   BAGIAN 3: JAVASCRIPT - FIREBASE + EMAILJS
+   BAGIAN 3: JAVASCRIPT - FIREBASE AUTH
    ============================================================ -->
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
 
 <!-- Load Firebase Config dari file terpisah -->
 <script src="config.js"></script>
@@ -1882,24 +1877,12 @@ const db = firebase.firestore();
 
 <script>
 // ============================================================
-// EMAILJS CONFIG
-// ============================================================
-(function() {
-    emailjs.init({
-        publicKey: 's0RdgWb8Mw4sJzBr4',
-    });
-})();
-
-// ============================================================
 // CONFIGURATION
 // ============================================================
 const CONFIG = {
     ADMIN_PHONE: '6285270269090',
     DEFAULT_QUOTA: 3,
-    DEFAULT_DAYS: 30,
-    EMAILJS_SERVICE_ID: 'service_yiq2t8f',
-    EMAILJS_TEMPLATE_ID: 'template_7aslf4m',
-    EMAILJS_PUBLIC_KEY: 's0RdgWb8Mw4sJzBr4'
+    DEFAULT_DAYS: 30
 };
 
 // ============================================================
@@ -2341,36 +2324,8 @@ function clearSession() {
 }
 
 // ============================================================
-// OTP FUNCTIONS (TETAP - HANYA UNTUK REGISTER)
+// EMAIL VERIFICATION (Firebase Auth)
 // ============================================================
-function generateOTP() { return String(Math.floor(100000 + Math.random() * 900000)); }
-function saveOTP(email, otp) { localStorage.setItem('otp_' + email, JSON.stringify({ code: otp, created_at: getNowISO(), attempts: 0 })); }
-function getOTP(email) { const data = localStorage.getItem('otp_' + email); return data ? JSON.parse(data) : null; }
-function verifyOTP(email, code) {
-    const otpData = getOTP(email);
-    if (!otpData) return { valid: false, message: 'OTP tidak ditemukan. Minta ulang.' };
-    const created = new Date(otpData.created_at);
-    const now = new Date();
-    const diff = (now - created) / 1000 / 60;
-    if (diff > 5) { localStorage.removeItem('otp_' + email); return { valid: false, message: 'OTP sudah kadaluarsa. Minta ulang.' }; }
-    if (otpData.attempts >= 3) { localStorage.removeItem('otp_' + email); return { valid: false, message: 'Terlalu banyak percobaan. Minta ulang.' }; }
-    if (otpData.code !== code) { otpData.attempts++; localStorage.setItem('otp_' + email, JSON.stringify(otpData)); return { valid: false, message: 'Kode OTP salah.' }; }
-    localStorage.removeItem('otp_' + email);
-    return { valid: true, message: 'OTP valid.' };
-}
-function sendOTP(email) {
-    const otp = generateOTP();
-    saveOTP(email, otp);
-    if (CONFIG.EMAILJS_PUBLIC_KEY) {
-        console.log('📧 Mengirim OTP ke ' + email + ' via EmailJS...');
-        emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_ID, { user_email: email, otp: otp }, CONFIG.EMAILJS_PUBLIC_KEY)
-        .then(function(response) { console.log('📧 Email OTP terkirim ke ' + email); })
-        .catch(function(error) { console.log('❌ Gagal kirim email:', error); console.log('📧 [FALLBACK] OTP untuk ' + email + ': ' + otp); });
-    } else {
-        console.log('📧 [LOCAL] OTP untuk ' + email + ': ' + otp);
-    }
-    return true;
-}
 function getWALink(email) {
     const phone = CONFIG.ADMIN_PHONE;
     const text = 'Halo Admin, saya mau minta token perpanjang lisensi Angka Kehidupan. Email saya: ' + email;
@@ -2504,17 +2459,20 @@ async function redeemToken(email, token) {
             used_at: getNowISO()
         });
         
-        const license = await getLicense(email);
+        // Buat lisensi jika belum ada
+        let license = await getLicense(email);
         if (!license) {
-            return { success: false, message: 'Lisensi tidak ditemukan.' };
+            await createLicense(email, 0, 30);
         }
         
         if (codeData.type === 'quota' || codeData.type === 'both') {
+            license = await getLicense(email);
             await db.collection('licenses').doc(email).update({
                 quota: license.quota + (codeData.amount || 10)
             });
         }
         if (codeData.type === 'time' || codeData.type === 'both') {
+            license = await getLicense(email);
             const currentExpiry = new Date(license.expiry_date);
             currentExpiry.setDate(currentExpiry.getDate() + (codeData.duration || 30));
             await db.collection('licenses').doc(email).update({
@@ -3288,12 +3246,10 @@ function showModal(step, email) {
         document.getElementById('regEmail').focus();
     } else if (step === 'register_otp') {
         document.getElementById('modalIcon').textContent = '📧';
-        document.getElementById('modalTitle').textContent = 'Verifikasi Kode OTP';
-        document.getElementById('modalSub').textContent = 'Masukkan kode 6 digit yang dikirim ke email Anda.';
+        document.getElementById('modalTitle').textContent = 'Verifikasi Email';
+        document.getElementById('modalSub').textContent = 'Cek inbox Anda dan klik link verifikasi.';
         document.getElementById('registerOtpStep').style.display = 'block';
         document.getElementById('regOtpEmailDisplay').textContent = email || '—';
-        document.querySelectorAll('.otp-input-reg').forEach(inp => inp.value = '');
-        document.querySelector('.otp-input-reg').focus();
     } else if (step === 'token') {
         document.getElementById('modalIcon').textContent = '🔑';
         document.getElementById('modalTitle').textContent = 'Masukkan Token Perpanjang';
@@ -3480,7 +3436,7 @@ document.getElementById('copyReferralBtn').addEventListener('click', function() 
     copyReferralLink();
 });
 
-// --- LOGIN (PAKAI PASSWORD) ---
+// --- LOGIN (PAKAI PASSWORD + CEK VERIFIKASI) ---
 document.getElementById('loginBtnAction').addEventListener('click', async function() {
     const email = document.getElementById('loginEmail').value.trim();
     const password = document.getElementById('loginPassword').value;
@@ -3492,16 +3448,40 @@ document.getElementById('loginBtnAction').addEventListener('click', async functi
     
     try {
         const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        const firebaseUser = userCredential.user;
         const user = await getUser(email);
-        if (user) {
-            setSession(email, user.name);
-            hideModal();
-            updateStatusBar();
-            showCustomAlert('success', 'Login Berhasil', 'Selamat datang, ' + user.name + '!');
-        } else {
-            showCustomAlert('error', 'Gagal', 'Data user tidak ditemukan.');
+        
+        if (!user) {
+            showCustomAlert('error', 'Gagal', 'Data user tidak ditemukan di database.');
             await auth.signOut();
+            return;
         }
+        
+        // CEK VERIFIKASI: Firebase email verified ATAU admin verified
+        const isVerified = firebaseUser.emailVerified || user.verified === true;
+        
+        if (!isVerified) {
+            showCustomAlert('warning', 'Belum Terverifikasi', 'Email belum diverifikasi. Cek inbox Anda atau hubungi admin untuk aktivasi manual.');
+            await auth.signOut();
+            return;
+        }
+        
+        // Update verified status di Firestore + buat lisensi jika belum
+        if (!user.verified) {
+            await db.collection('users').doc(email).update({ verified: true });
+            // Buat lisensi 3 quota + 30 hari setelah verifikasi
+            const existingLicense = await getLicense(email);
+            if (!existingLicense) {
+                await createLicense(email, CONFIG.DEFAULT_QUOTA, CONFIG.DEFAULT_DAYS);
+                console.log('✅ Lisensi dibuat untuk ' + email);
+            }
+        }
+        
+        setSession(email, user.name);
+        hideModal();
+        updateStatusBar();
+        showCustomAlert('success', 'Login Berhasil', 'Selamat datang, ' + user.name + '!');
+        
     } catch (error) {
         if (error.code === 'auth/user-not-found') {
             showCustomAlert('warning', 'Email Belum Terdaftar', 'Email belum terdaftar. Silakan registrasi terlebih dahulu.');
@@ -3725,17 +3705,14 @@ document.getElementById('registerSubmitBtn').addEventListener('click', async fun
         return;
     }
     
-    // CEK: apakah ada referral dari sessionStorage (dari link)
     const sessionRef = sessionStorage.getItem('referral_email');
     let finalReferral = referral || sessionRef || null;
     
-    // Validasi: tidak boleh referal sama dengan email sendiri
     if (finalReferral && finalReferral.toLowerCase() === email.toLowerCase()) {
         showCustomAlert('warning', 'Tidak Valid', 'Anda tidak bisa mereferensikan diri sendiri.');
         return;
     }
     
-    // Validasi: pastikan referal adalah email yang valid
     if (finalReferral && !finalReferral.includes('@')) {
         showCustomAlert('warning', 'Tidak Valid', 'Kode referal harus berupa email yang valid.');
         return;
@@ -3754,109 +3731,71 @@ document.getElementById('registerSubmitBtn').addEventListener('click', async fun
     }
     
     try {
+        // BUAT FIREBASE AUTH ACCOUNT DI AWAL
+        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        
+        // SIMPAN DATA USER (belum dapat lisensi)
         await db.collection('users').doc(email).set({
             name: name,
             phone: phone,
             verified: false,
             registered_at: getNowISO(),
-            password_temp: password,
             referred_by: finalReferral || null
         });
         
-        // Hapus referral dari session setelah digunakan
+        // KIRIM EMAIL VERIFIKASI FIREBASE
+        const currentUser = userCredential.user;
+        await currentUser.sendEmailVerification({
+            url: 'https://nanjingtouzi.github.io/LIFECODE/lifecode.html'
+        });
+        console.log('📧 Email verifikasi terkirim ke ' + email);
+        
         if (sessionRef) {
             sessionStorage.removeItem('referral_email');
         }
+        
+        // TAMPILKAN INFO VERIFIKASI
+        document.getElementById('regOtpEmailDisplay').textContent = email;
+        showModal('register_otp', email);
+        
     } catch (e) {
-        showCustomAlert('error', 'Gagal', 'Gagal menyimpan data: ' + e.message);
-        return;
-    }
-    
-    sendOTP(email);
-    showModal('register_otp', email);
-});
-
-// --- VERIFY REGISTER OTP ---
-document.getElementById('verifyRegOtpBtn').addEventListener('click', async function() {
-    const email = document.getElementById('regOtpEmailDisplay').textContent;
-    let otp = '';
-    document.querySelectorAll('.otp-input-reg').forEach(inp => otp += inp.value);
-    
-    if (otp.length !== 6) {
-        showCustomAlert('warning', 'Peringatan', 'Masukkan 6 digit kode OTP.');
-        return;
-    }
-    
-    const result = verifyOTP(email, otp);
-    if (result.valid) {
-        try {
-            const userDoc = await db.collection('users').doc(email).get();
-            if (!userDoc.exists) {
-                showCustomAlert('error', 'Gagal', 'Data user tidak ditemukan.');
-                return;
-            }
-            const userData = userDoc.data();
-            
-            // CEK: apakah user ini punya referal?
-            const referredBy = userData.referred_by || null;
-            
-            // ===== BONUS KUOTA UNTUK REFERAL =====
-            if (referredBy) {
-                console.log('🔗 User direferensikan oleh:', referredBy);
-                
-                const refererDoc = await db.collection('users').doc(referredBy).get();
-                if (refererDoc.exists) {
-                    const refererLicense = await getLicense(referredBy);
-                    if (refererLicense) {
-                        await db.collection('licenses').doc(referredBy).update({
-                            quota: refererLicense.quota + 2
-                        });
-                        console.log('✅ +2 kuota diberikan ke:', referredBy);
-                    } else {
-                        await createLicense(referredBy, 2, 30);
-                        console.log('✅ Lisensi baru dibuat untuk referal dengan kuota 2:', referredBy);
-                    }
-                } else {
-                    console.log('⚠️ Referal tidak ditemukan:', referredBy);
-                }
-            }
-            
-            const password = userData.password_temp || '123456';
-            await auth.createUserWithEmailAndPassword(email, password);
-            
-            await db.collection('users').doc(email).update({
-                verified: true,
-                password_temp: firebase.firestore.FieldValue.delete()
-            });
-            
-            await createLicense(email, CONFIG.DEFAULT_QUOTA, CONFIG.DEFAULT_DAYS);
-            setSession(email, userData.name);
-            hideModal();
-            updateStatusBar();
-            
-            let message = 'Selamat datang, ' + userData.name + '!';
-            if (referredBy) {
-                message += '\n\n🔗 Anda direferensikan oleh: ' + referredBy;
-                message += '\n✅ Mereka mendapat +2 kuota sebagai bonus!';
-            }
-            showCustomAlert('success', 'Registrasi Berhasil', message);
-            showCustomAlert('info', 'Selamat', 'Anda mendapatkan ' + CONFIG.DEFAULT_QUOTA + ' kali kuota dan ' + CONFIG.DEFAULT_DAYS + ' hari masa aktif.');
-            
-        } catch (e) {
-            console.error('Registrasi error:', e);
+        console.error('Register error:', e);
+        if (e.code === 'auth/email-already-in-use') {
+            showCustomAlert('warning', 'Email Terdaftar', 'Email sudah terdaftar. Silakan login.');
+            showModal('login');
+        } else if (e.code === 'auth/weak-password') {
+            showCustomAlert('error', 'Password Lemah', 'Password minimal 6 karakter.');
+        } else if (e.code === 'auth/invalid-email') {
+            showCustomAlert('error', 'Email Tidak Valid', 'Format email salah.');
+        } else {
             showCustomAlert('error', 'Gagal', 'Gagal registrasi: ' + e.message);
         }
-    } else {
-        showCustomAlert('error', 'Gagal', result.message);
     }
 });
 
-// --- RESEND REGISTER OTP ---
-document.getElementById('resendRegOtpBtn').addEventListener('click', function(e) {
-    e.preventDefault();
-    const email = document.getElementById('regOtpEmailDisplay').textContent;
-    sendOTP(email);
-    showCustomAlert('success', 'OTP Dikirim', 'Kode OTP baru telah dikirim ke ' + email);
+// --- CEK VERIFIKASI & BUAT LISENSI ---
+async function checkVerificationAndCreateLicense(email) {
+    try {
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+            await currentUser.reload();
+            if (currentUser.emailVerified) {
+                const user = await getUser(email);
+                if (user && !user.verified) {
+                    await db.collection('users').doc(email).update({ verified: true });
+                    await createLicense(email, CONFIG.DEFAULT_QUOTA, CONFIG.DEFAULT_DAYS);
+                    console.log('✅ Lisensi dibuat untuk ' + email);
+                }
+            }
+        }
+    } catch (e) {
+        console.error('Check verification error:', e);
+    }
+}
+
+// --- BACK TO LOGIN (setelah register) ---
+document.getElementById('backToLoginBtn').addEventListener('click', function() {
+    showModal('login');
 });
 
 // --- REDEEM TOKEN ---

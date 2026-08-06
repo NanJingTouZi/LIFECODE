@@ -865,9 +865,6 @@
         <select id="sortField">
           <option value="name" selected>Name</option>
           <option value="return">Backtest Return</option>
-          <option value="winRate">Backtest Win Rate</option>
-          <option value="drawdown">Backtest Max DD</option>
-          <option value="profitFactor">Backtest PF</option>
           <option value="forwardGain">Forward Gain</option>
           <option value="forwardPF">Forward PF</option>
         </select>
@@ -897,32 +894,9 @@
 
   <script>
     // ============================================================
-    // 1. DATA PORTOFOLIO
+    // 1. DATA PORTOFOLIO (loaded from JSON)
     // ============================================================
-    const portfoliosData = [
-      { id: 1, title: "WAIVER 1", key: "WAIVER1", status: "active", updated: "2026-07-24", stats: { return: "+571.47%", winRate: "90.61%", drawdown: "2.57%", profitFactor: "8.88" }, fileName: "waiver1.html" },
-      { id: 2, title: "WAIVER 5", key: "WAIVER5", status: "active", updated: "2026-07-24", stats: { return: "+562,998.74%", winRate: "90.33%", drawdown: "13.83%", profitFactor: "5.56" }, fileName: "waiver10.html" },
-      { id: 3, title: "AXION 1", key: "AXION1", status: "active", updated: "2026-07-24", stats: { return: "+258.63%", winRate: "97.12%", drawdown: "3.80%", profitFactor: "8.91" }, fileName: "AXION1.html" },
-      { id: 4, title: "AXION 10", key: "AXION10", status: "active", updated: "2026-07-24", stats: { return: "+16,233.66%", winRate: "97.12%", drawdown: "16.95%", profitFactor: "3.18" }, fileName: "AXION10.html" },
-      { id: 5, title: "CAPE 1", key: "CAPE1", status: "active", updated: "2026-07-24", stats: { return: "+44.94%", winRate: "98.03%", drawdown: "2.18%", profitFactor: "8.38" }, fileName: "CAPE1.html" },
-      { id: 6, title: "CAPE 10", key: "CAPE10", status: "active", updated: "2026-07-24", stats: { return: "+4,309.08%", winRate: "98.03%", drawdown: "19.96%", profitFactor: "3.94" }, fileName: "CAPE10.html" },
-      { id: 7, title: "SEAL 1", key: "SEAL1", status: "active", updated: "2026-07-24", stats: { return: "+99.88%", winRate: "82.41%", drawdown: "2.88%", profitFactor: "3.59" }, fileName: "SEAL1.html" },
-      { id: 8, title: "SEAL 10", key: "SEAL10", status: "active", updated: "2026-07-24", stats: { return: "+49,528.53%", winRate: "82.41%", drawdown: "25.21%", profitFactor: "2.87" }, fileName: "SEAL10.html" },
-      { id: 9, title: "TRICK 7", key: "TRICK7", status: "active", updated: "2026-07-24", stats: { return: "+2,606.09%", winRate: "96.42%", drawdown: "10.16%", profitFactor: "4.28" }, fileName: "TRICK7.html" },
-      { id: 10, title: "HOLE 7", key: "HOLE7", status: "active", updated: "2026-07-24", stats: { return: "+2,141.20%", winRate: "94.71%", drawdown: "21.29%", profitFactor: "5.28" }, fileName: "HOLE7.html" },
-      { id: 11, title: "ZEUS 10", key: "ZEUS10", status: "active", updated: "2026-07-24", stats: { return: "+144.55%", winRate: "84.14%", drawdown: "7.61%", profitFactor: "7.27" }, fileName: "ZEUS10.html" },
-      { id: 12, title: "ZEUS 50", key: "ZEUS50", status: "active", updated: "2026-07-24", stats: { return: "+8,186.61%", winRate: "84.14%", drawdown: "38.41%", profitFactor: "7.37" }, fileName: "ZEUS50.html" },
-      { id: 13, title: "ATHENA 10", key: "ATHENA10", status: "active", updated: "2026-07-24", stats: { return: "+205.40%", winRate: "80.97%", drawdown: "9.26%", profitFactor: "5.45" }, fileName: "ATHENA10.html" },
-      { id: 14, title: "ATHENA 50", key: "ATHENA50", status: "active", updated: "2026-07-24", stats: { return: "+24,390.66%", winRate: "82.95%", drawdown: "37.10%", profitFactor: "5.79" }, fileName: "ATHENA50.html" },
-      { id: 15, title: "ODIN 10", key: "ODIN10", status: "active", updated: "2026-07-24", stats: { return: "+206.73%", winRate: "82.73%", drawdown: "21.41%", profitFactor: "2.80" }, fileName: "ODIN10.html" },
-      { id: 16, title: "ODIN 50", key: "ODIN50", status: "active", updated: "2026-07-24", stats: { return: "+8,977.92%", winRate: "82.64%", drawdown: "84.13%", profitFactor: "1.27" }, fileName: "ODIN50.html" },
-      { id: 17, title: "DOLPHIN 1", key: "DOLPHIN1", status: "active", updated: "2026-07-24", stats: { return: "+163.32%", winRate: "95.89%", drawdown: "3.13%", profitFactor: "9.46" }, fileName: "DOLPHIN1.html" },
-      { id: 18, title: "DOLPHIN 10", key: "DOLPHIN10", status: "active", updated: "2026-07-24", stats: { return: "+1,002,454.69%", winRate: "95.89%", drawdown: "27.20%", profitFactor: "3.00" }, fileName: "DOLPHIN10.html" },
-      { id: 19, title: "ORCA 1", key: "ORCA1", status: "active", updated: "2026-07-30", stats: { return: "+189.72%", winRate: "95.55%", drawdown: "2.84%", profitFactor: "15.74" }, fileName: "ORCA1.html" },
-      { id: 20, title: "ORCA 10", key: "ORCA10", status: "active", updated: "2026-07-30", stats: { return: "+1,484,086.52%", winRate: "95.09%", drawdown: "30.02%", profitFactor: "27.65" }, fileName: "ORCA10.html" },
-      { id: 21, title: "MERLIN 1", key: "MERLIN1", status: "active", updated: "2026-07-30", stats: { return: "+127.79%", winRate: "83.90%", drawdown: "1.78%", profitFactor: "4.69" }, fileName: "MERLIN1.html" },
-      { id: 22, title: "MERLIN 10", key: "MERLIN10", status: "active", updated: "2026-07-30", stats: { return: "+22,649.79%", winRate: "83.90%", drawdown: "16.64%", profitFactor: "3.28" }, fileName: "MERLIN10.html" }
-    ];
+    let portfoliosData = [];
 
     // ============================================================
     // 2. VARIABEL & FUNGSI SORTING
@@ -938,14 +912,10 @@
     }
 
     function getSortValue(portfolio, field) {
-      const stats = portfolio.stats || {};
       const fwd = forwardData[portfolio.key] || {};
       switch (field) {
         case 'name': return portfolio.title.toLowerCase();
-        case 'return': return parsePercentage(stats.return);
-        case 'winRate': return parsePercentage(stats.winRate);
-        case 'drawdown': return parsePercentage(stats.drawdown);
-        case 'profitFactor': return parseFloat(stats.profitFactor) || 0;
+        case 'return': return parsePercentage(portfolio.backtestReturn);
         case 'forwardGain': return parsePercentage(fwd.gain);
         case 'forwardPF': return parseFloat(fwd.profitFactor) || 0;
         default: return 0;
@@ -966,28 +936,7 @@
     }
 
     // ============================================================
-    // 3. FUNGSI SWITCH TOGGLE
-    // ============================================================
-    function initSwitches() {
-      document.querySelectorAll('.switch-track').forEach(track => {
-        track.addEventListener('click', function() {
-          const targetId = this.dataset.target;
-          const slider = document.getElementById(targetId);
-          const isOn = this.classList.contains('on');
-          if (isOn) {
-            this.classList.remove('on');
-            slider.disabled = true;
-          } else {
-            this.classList.add('on');
-            slider.disabled = false;
-          }
-          applyFilters();
-        });
-      });
-    }
-
-    // ============================================================
-    // 4. FUNGSI FILTER
+    // 3. FUNGSI FILTER
     // ============================================================
     function applyFilters() {
       const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
@@ -997,12 +946,9 @@
       filteredPortfolios = portfoliosData.filter(p => {
         if (searchTerm && !p.title.toLowerCase().includes(searchTerm)) return false;
 
-        const dd = parsePercentage(p.stats.drawdown);
         const fwd = forwardData[p.key] || {};
         const fGain = parsePercentage(fwd.gain);
 
-        if (filterType === 'lowrisk' && dd >= 5) return false;
-        if (filterType === 'highrisk' && dd < 5) return false;
         if (filterType === 'forward' && fGain <= 0) return false;
 
         return true;
@@ -1040,46 +986,15 @@
         if (p.status === 'dev') { statusClass = 'status-dev'; statusText = 'Pengembangan'; }
         else if (p.status === 'archived') { statusClass = 'status-archived'; statusText = 'Arsip'; }
 
-        const folderMap = {
-            "WAIVER1": "WAIVER1",
-            "WAIVER5": "WAIVER5",
-            "AXION1": "AXION1",
-            "AXION10": "AXION10",
-            "CAPE1": "CAPE1",
-            "CAPE10": "CAPE10",
-            "SEAL1": "SEAL1",
-            "SEAL10": "SEAL10",
-            "TRICK7": "TRICK7",
-            "HOLE7": "HOLE7",
-            "ZEUS10": "ZEUS10",
-            "ZEUS50": "ZEUS50",
-            "ATHENA10": "ATHENA10",
-            "ATHENA50": "ATHENA50",
-            "ODIN10": "ODIN10",
-            "ODIN50": "ODIN50",
-            "DOLPHIN1": "DOLPHIN1",
-            "DOLPHIN10": "DOLPHIN10",
-            "ORCA1": "ORCA1",
-            "ORCA10": "ORCA10",
-            "MERLIN1": "MERLIN1",
-            "MERLIN10": "MERLIN10"
-        };
-        const folderName = folderMap[p.key] || p.key;
-        const filePath = `porto/${folderName}`;
-        const updateDate = p.updated ? new Date(p.updated).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) : '—';
+        const filePath = `porto/${p.key}`;
 
-        const stats = p.stats || {};
-        const returnVal = stats.return || '—';
-        const winRateVal = stats.winRate || '—';
-        const drawdownVal = stats.drawdown || '—';
-        const pfVal = stats.profitFactor || '—';
-
+        const returnVal = p.backtestReturn || '—';
         const gain = fwd.gain || '0.00%';
         const profit = fwd.profit || '$0.00';
-        const fwdDrawdown = fwd.drawdown || '0.00%';
+        const drawdown = fwd.drawdown || '0.00%';
         const fwdWinRate = fwd.winRate || '0%';
         const fwdPF = fwd.profitFactor || '0.00';
-        const lastUpdate = fwd.lastUpdate || '—';
+        const balance = fwd.balance || '$0.00';
 
         let gainClass = 'neutral';
         const gainNum = parsePercentage(gain);
@@ -1096,9 +1011,9 @@
 
             <div class="card-stats">
               <div class="stat-item"><span class="stat-label">Return</span><span class="stat-value">${returnVal}</span></div>
-              <div class="stat-item"><span class="stat-label">Win Rate</span><span class="stat-value">${winRateVal}</span></div>
-              <div class="stat-item"><span class="stat-label">Max DD</span><span class="stat-value">${drawdownVal}</span></div>
-              <div class="stat-item"><span class="stat-label">Profit Factor</span><span class="stat-value">${pfVal}</span></div>
+              <div class="stat-item"><span class="stat-label">Win Rate</span><span class="stat-value">${p.winRate}</span></div>
+              <div class="stat-item"><span class="stat-label">Max DD</span><span class="stat-value">${p.maxDD}</span></div>
+              <div class="stat-item"><span class="stat-label">Profit Factor</span><span class="stat-value">${p.profitFactor}</span></div>
             </div>
 
             <div class="forward-stats">
@@ -1111,8 +1026,8 @@
                 <span class="forward-value">${profit}</span>
               </div>
               <div class="forward-item">
-                <span class="forward-label">Max DD</span>
-                <span class="forward-value">${fwdDrawdown}</span>
+                <span class="forward-label">Drawdown</span>
+                <span class="forward-value">${drawdown}</span>
               </div>
               <div class="forward-item">
                 <span class="forward-label">Win Rate</span>
@@ -1123,12 +1038,10 @@
                 <span class="forward-value">${fwdPF}</span>
               </div>
               <div class="forward-item">
-                <span class="forward-label">Updated</span>
-                <span class="forward-value" style="font-size:0.6rem;color:#64748b;">${lastUpdate}</span>
+                <span class="forward-label">Balance</span>
+                <span class="forward-value">${balance}</span>
               </div>
             </div>
-
-            <div class="card-updated">🔄 Backtest: ${updateDate}</div>
             <a href="${filePath}" target="_blank" class="card-link">✦ Lihat Detail</a>
           </div>
         `;
@@ -1149,8 +1062,21 @@
     }
 
     // ============================================================
-    // 6. LOAD FORWARD TEST DATA
+    // 6. LOAD DATA FROM JSON FILES
     // ============================================================
+    async function loadPortfolioData() {
+      try {
+        const response = await fetch('portfolio-data.json');
+        if (!response.ok) throw new Error('File tidak ditemukan');
+        portfoliosData = await response.json();
+        console.log('✅ Portfolio data dimuat:', portfoliosData.length, 'portofolio');
+      } catch (error) {
+        console.warn('⚠️ Gagal memuat portfolio-data.json:', error.message);
+        portfoliosData = [];
+      }
+      applyFilters();
+    }
+
     async function loadForwardData() {
       try {
         const response = await fetch('forward-test.json');
@@ -1161,8 +1087,7 @@
         console.warn('⚠️ Gagal memuat forward-test.json:', error.message);
         forwardData = {};
       }
-      // Default: Low Risk aktif, Sort Name ASC, semua switch OFF
-      applyFilters();
+      loadPortfolioData();
     }
 
     // ============================================================
@@ -1174,9 +1099,6 @@
       currentField = 'name';
       currentOrder = 'asc';
       updateButtonStates();
-
-      // Inisialisasi switch
-      initSwitches();
 
       // Load data
       loadForwardData();

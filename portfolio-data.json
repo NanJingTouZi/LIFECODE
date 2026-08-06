@@ -1,0 +1,189 @@
+[
+  {
+    "key": "AXION1",
+    "winRate": "90.0%",
+    "status": "active",
+    "backtestReturn": "+258.63%",
+    "folder": "AXION1",
+    "maxDD": "0.81%",
+    "id": 1,
+    "title": "AXION1",
+    "profitFactor": "4.42"
+  },
+  {
+    "key": "AXION10",
+    "winRate": "90.0%",
+    "status": "active",
+    "backtestReturn": "+16,233.66%",
+    "folder": "AXION10",
+    "maxDD": "0.81%",
+    "id": 2,
+    "title": "AXION10",
+    "profitFactor": "4.42"
+  },
+  {
+    "key": "CAPE1",
+    "winRate": "81.8%",
+    "status": "active",
+    "backtestReturn": "+44.94%",
+    "folder": "CAPE1",
+    "maxDD": "1.08%",
+    "id": 3,
+    "title": "CAPE1",
+    "profitFactor": "1.64"
+  },
+  {
+    "key": "CAPE10",
+    "winRate": "81.8%",
+    "status": "active",
+    "backtestReturn": "+4,309.08%",
+    "folder": "CAPE10",
+    "maxDD": "8.89%",
+    "id": 4,
+    "title": "CAPE10",
+    "profitFactor": "1.68"
+  },
+  {
+    "key": "DOLPHIN1",
+    "winRate": "0.0%",
+    "status": "active",
+    "backtestReturn": "+163.32%",
+    "folder": "DOLPHIN1",
+    "maxDD": "0.00%",
+    "id": 5,
+    "title": "DOLPHIN1",
+    "profitFactor": "0.00"
+  },
+  {
+    "key": "DOLPHIN10",
+    "winRate": "0.0%",
+    "status": "active",
+    "backtestReturn": "+1,002,454.69%",
+    "folder": "DOLPHIN10",
+    "maxDD": "0.00%",
+    "id": 6,
+    "title": "DOLPHIN10",
+    "profitFactor": "0.00"
+  },
+  {
+    "key": "HOLE7",
+    "winRate": "87.5%",
+    "status": "active",
+    "backtestReturn": "+2,141.20%",
+    "folder": "HOLE7",
+    "maxDD": "7.70%",
+    "id": 7,
+    "title": "HOLE7",
+    "profitFactor": "1.89"
+  },
+  {
+    "key": "MERLIN1",
+    "winRate": "0.00%",
+    "status": "active",
+    "backtestReturn": "+127.79%",
+    "folder": "MERLIN1",
+    "maxDD": "0.00%",
+    "id": 8,
+    "title": "MERLIN1",
+    "profitFactor": "0.00"
+  },
+  {
+    "key": "MERLIN10",
+    "winRate": "0.00%",
+    "status": "active",
+    "backtestReturn": "+22,649.79%",
+    "folder": "MERLIN10",
+    "maxDD": "0.00%",
+    "id": 9,
+    "title": "MERLIN10",
+    "profitFactor": "0.00"
+  },
+  {
+    "key": "ORCA1",
+    "winRate": "0%",
+    "status": "active",
+    "backtestReturn": "+189.72%",
+    "folder": "ORCA1",
+    "maxDD": "0.00%",
+    "id": 10,
+    "title": "ORCA1",
+    "profitFactor": "0.00"
+  },
+  {
+    "key": "ORCA10",
+    "winRate": "0%",
+    "status": "active",
+    "backtestReturn": "+1,484,086.52%",
+    "folder": "ORCA10",
+    "maxDD": "0.00%",
+    "id": 11,
+    "title": "ORCA10",
+    "profitFactor": "0.00"
+  },
+  {
+    "key": "SEAL1",
+    "winRate": "79.2%",
+    "status": "active",
+    "backtestReturn": "+99.88%",
+    "folder": "SEAL1",
+    "maxDD": "1.98%",
+    "id": 12,
+    "title": "SEAL1",
+    "profitFactor": "2.85"
+  },
+  {
+    "key": "SEAL10",
+    "winRate": "66.7%",
+    "status": "active",
+    "backtestReturn": "+49,528.53%",
+    "folder": "SEAL10",
+    "maxDD": "19.17%",
+    "id": 13,
+    "title": "SEAL10",
+    "profitFactor": "1.31"
+  },
+  {
+    "key": "TRICK7",
+    "winRate": "94.4%",
+    "status": "active",
+    "backtestReturn": "+2,606.09%",
+    "folder": "TRICK7",
+    "maxDD": "7.51%",
+    "id": 14,
+    "title": "TRICK7",
+    "profitFactor": "2.04"
+  },
+  {
+    "key": "WAIVER1",
+    "winRate": "70.4%",
+    "status": "active",
+    "backtestReturn": "+571.47%",
+    "folder": "WAIVER1",
+    "maxDD": "1.95%",
+    "id": 15,
+    "title": "WAIVER1",
+    "profitFactor": "2.51"
+  },
+  {
+    "key": "WAIVER5",
+    "winRate": "75.0%",
+    "status": "active",
+    "backtestReturn": "+562,998.74%",
+    "folder": "WAIVER5",
+    "maxDD": "13.11%",
+    "id": 16,
+    "title": "WAIVER5",
+    "profitFactor": "1.77"
+  },
+  {
+    "key": "ZEUS10",
+    "winRate": "69.4%",
+    "status": "active",
+    "backtestReturn": "+144.55%",
+    "folder": "ZEUS10",
+    "maxDD": "4.09%",
+    "id": 17,
+    "title": "ZEUS10",
+    "profitFactor": "1.59"
+  }
+]
