@@ -203,7 +203,7 @@
 
     <div class="splash-container">
         <img 
-            src="nanjing1.jpeg" 
+            src="" 
             alt="Nanjing Investment" 
             class="splash-image"
             id="splashImage"
@@ -238,6 +238,69 @@
         const STORAGE_KEY = 'nanjing_last_visit_lifecode';
         const INSTALL_KEY = 'nanjing_app_installed';
         const SESSION_KEY = 'nanjing_just_from_menu';
+
+        // ============================================================
+        // 1.5. AUTO-DETECT & ROTATE IMAGES
+        // ============================================================
+        const MAX_IMAGES = 10;
+        let nanjingImages = [];
+        let currentImageIndex = 0;
+
+        function detectImages() {
+            return new Promise((resolve) => {
+                let loaded = 0;
+                let totalChecked = 0;
+
+                for (let i = 1; i <= MAX_IMAGES; i++) {
+                    const img = new Image();
+                    const src = `nanjing${i}.jpeg`;
+
+                    img.onload = function() {
+                        nanjingImages.push(src);
+                        loaded++;
+                        checkDone();
+                    };
+
+                    img.onerror = function() {
+                        checkDone();
+                    };
+
+                    img.src = src;
+                }
+
+                function checkDone() {
+                    totalChecked++;
+                    if (totalChecked === MAX_IMAGES) {
+                        if (nanjingImages.length === 0) {
+                            nanjingImages.push('nanjing1.jpeg');
+                        }
+                        resolve();
+                    }
+                }
+            });
+        }
+
+        function rotateImage() {
+            if (nanjingImages.length <= 1) return;
+            currentImageIndex = (currentImageIndex + 1) % nanjingImages.length;
+            const imgEl = document.getElementById('splashImage');
+            imgEl.style.opacity = '0';
+            setTimeout(function() {
+                imgEl.src = nanjingImages[currentImageIndex];
+                imgEl.style.opacity = '1';
+            }, 300);
+        }
+
+        function startImageRotation() {
+            detectImages().then(function() {
+                const imgEl = document.getElementById('splashImage');
+                imgEl.src = nanjingImages[0];
+                imgEl.style.transition = 'opacity 0.3s ease';
+                if (nanjingImages.length > 1) {
+                    setInterval(rotateImage, 4000);
+                }
+            });
+        }
 
         // ============================================================
         // 2. FITUR REFERAL - BACA PARAMETER DARI URL
@@ -356,6 +419,7 @@
         // 6. EKSEKUSI UTAMA
         // ============================================================
         const isRedirected = checkLastVisit();
+        startImageRotation();
 
         if (!isRedirected) {
             const btnLanjut = document.getElementById('btnLanjut');
