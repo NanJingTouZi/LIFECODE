@@ -3762,25 +3762,45 @@ document.getElementById('registerSubmitBtn').addEventListener('click', async fun
         // BUAT FIREBASE AUTH ACCOUNT DI AWAL
         const userCredential = await auth.createUserWithEmailAndPassword(email, password);
         
-        try {
-            // SIMPAN DATA USER (belum dapat lisensi)
-            await db.collection('users').doc(email).set({
-                name: name,
-                phone: phone,
-                verified: false,
-                registered_at: getNowISO(),
-                referred_by: finalReferral || null
-            });
-        } catch (firestoreError) {
-            // Firestore write gagal - hapus Auth account agar bisa register ulang
-            console.error('Firestore write failed, deleting Auth account:', firestoreError);
-            await userCredential.user.delete();
-            showCustomAlert('error', 'Gagal', 'Gagal menyimpan data user. Silakan coba lagi.');
+        // Tunggu sebentar agar Auth token siap
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        // SIMPAN DATA USER dengan retry (maks 3x)
+        let writeSuccess = false;
+        
+        for (let attempt = 1; attempt <= 3; attempt++) {
+            try {
+                await db.collection('users').doc(email).set({
+                    name: name,
+                    phone: phone,
+                    verified: false,
+                    registered_at: getNowISO(),
+                    referred_by: finalReferral || null
+                });
+                writeSuccess = true;
+                break;
+            } catch (firestoreError) {
+                console.warn('Firestore write attempt ' + attempt + ' failed:', firestoreError.message);
+                if (attempt < 3) {
+                    await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+                }
+            }
+        }
+        
+        if (!writeSuccess) {
+            // Semua retry gagal - hapus Auth account agar bisa register ulang
+            console.error('All Firestore write attempts failed, deleting Auth account');
+            try {
+                await userCredential.user.delete();
+            } catch (deleteError) {
+                console.error('Failed to delete Auth account:', deleteError);
+            }
+            showCustomAlert('error', 'Gagal', 'Gagal menyimpan data user setelah 3x percobaan. Silakan coba lagi.');
             return;
         }
         
         // KIRIM EMAIL VERIFIKASI FIREBASE
-        const currentUser = userCredential.user;
+        const currentUser = auth.currentUser;
         await currentUser.sendEmailVerification({
             url: 'https://nanjingtouzi.github.io/LIFECODE/lifecode.html'
         });
@@ -3797,14 +3817,49 @@ document.getElementById('registerSubmitBtn').addEventListener('click', async fun
     } catch (e) {
         console.error('Register error:', e);
         if (e.code === 'auth/email-already-in-use') {
-            // Cek apakah user sudah terdaftar di Firestore
+            // Email sudah ada di Firebase Auth - cek Firestore
             const existingUser = await getUser(email);
-            if (existingUser && !existingUser.verified) {
+            if (!existingUser) {
+                // Data tidak ada di Firestore = registrasi sebelumnya gagal
+                // Langsung simpan data + kirim ulang verifikasi
+                showCustomAlert('info', 'Lengkapi Data', 'Akun terdaftar tapi data belum lengkap. Melanjutkan registrasi...');
+                
+                try {
+                    await db.collection('users').doc(email).set({
+                        name: name,
+                        phone: phone,
+                        verified: false,
+                        registered_at: getNowISO(),
+                        referred_by: finalReferral || null
+                    });
+                } catch (firestoreError) {
+                    showCustomAlert('error', 'Gagal', 'Gagal menyimpan data. Coba lagi.');
+                    return;
+                }
+                
+                // Kirim ulang verifikasi
+                try {
+                    await auth.signInWithEmailAndPassword(email, password);
+                    const user = auth.currentUser;
+                    if (user) {
+                        await user.sendEmailVerification({
+                            url: 'https://nanjingtouzi.github.io/LIFECODE/lifecode.html'
+                        });
+                        await auth.signOut();
+                    }
+                } catch (signInError) {
+                    console.error('Sign in for verification failed:', signInError);
+                }
+                
+                document.getElementById('regOtpEmailDisplay').textContent = email;
+                showModal('register_otp', email);
+            } else if (!existingUser.verified) {
                 showCustomAlert('warning', 'Belum Terverifikasi', 'Email sudah terdaftar tapi belum diverifikasi.\n\n📧 Cek inbox email Anda untuk link verifikasi.\n\n💡 Hubungi admin untuk aktivasi manual.');
+                showModal('login');
             } else {
                 showCustomAlert('warning', 'Email Terdaftar', 'Email sudah terdaftar dan aktif. Silakan login.');
+                showModal('login');
             }
-            showModal('login');
         } else if (e.code === 'auth/weak-password') {
             showCustomAlert('error', 'Password Lemah', 'Password minimal 6 karakter.');
         } else if (e.code === 'auth/invalid-email') {
