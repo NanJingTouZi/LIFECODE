@@ -716,14 +716,15 @@ table .code-hidden{color:var(--paper-dim);opacity:0.4;text-decoration:line-throu
   <!-- Tab: History -->
   <div class="tab-content" id="tab-history">
     <div class="table-container">
-      <div class="table-header">
-        <h3>📊 Riwayat Perhitungan (Lifecode)</h3>
-        <div class="table-controls">
-          <input type="text" id="historySearch" placeholder="Cari nama/email..." style="min-width:160px;">
-          <button class="btn-sm" id="refreshHistoryBtn">🔄 Refresh</button>
-          <button class="btn-sm green" id="exportHistoryBtn">📥 Export CSV</button>
+        <div class="table-header">
+          <h3>📊 Riwayat Perhitungan (Lifecode)</h3>
+          <div class="table-controls">
+            <input type="text" id="historySearch" placeholder="Cari nama/email..." style="min-width:160px;">
+            <button class="btn-sm" id="refreshHistoryBtn">🔄 Refresh</button>
+            <button class="btn-sm green" id="exportHistoryBtn">📥 Export CSV</button>
+            <button class="btn-sm red" id="clearHistoryBtn">🗑️ Hapus Semua</button>
+          </div>
         </div>
-      </div>
       <div class="table-scroll">
         <table>
           <thead id="historyTableHead">
@@ -733,10 +734,11 @@ table .code-hidden{color:var(--paper-dim);opacity:0.4;text-decoration:line-throu
               <th data-sort="name">Nama Dihitung <span class="sort-icon">⇅</span></th>
               <th data-sort="dob">Tanggal Lahir <span class="sort-icon">⇅</span></th>
               <th data-sort="date">Waktu <span class="sort-icon">⇅</span></th>
+              <th>Aksi</th>
             </tr>
           </thead>
           <tbody id="historyTableBody">
-            <tr><td colspan="5" style="text-align:center;color:var(--paper-dim);padding:30px;">Memuat data...</td></tr>
+            <tr><td colspan="6" style="text-align:center;color:var(--paper-dim);padding:30px;">Memuat data...</td></tr>
           </tbody>
         </table>
       </div>
@@ -2401,7 +2403,8 @@ function renderHistory() {
             name: item.name,
             dob: item.dob,
             date: dateStr,
-            _dateObj: date
+            _dateObj: date,
+            _id: item.id
         });
     });
     
@@ -2427,13 +2430,31 @@ function renderHistory() {
         html += '<td>' + esc(item.name) + '</td>';
         html += '<td>' + esc(item.dob) + '</td>';
         html += '<td>' + item.date + '</td>';
+        html += '<td><button class="delete-btn-table history-delete-btn" data-id="' + item._id + '">🗑️</button></td>';
         html += '</tr>';
     });
     
     if (data.length === 0) {
-        html = '<tr><td colspan="5" style="text-align:center;color:var(--paper-dim);padding:30px;">Tidak ada data.</td></tr>';
+        html = '<tr><td colspan="6" style="text-align:center;color:var(--paper-dim);padding:30px;">Tidak ada data.</td></tr>';
     }
     tbody.innerHTML = html;
+    
+    // Delete history button
+    tbody.querySelectorAll('.history-delete-btn').forEach(btn => {
+        btn.addEventListener('click', async function() {
+            const id = this.dataset.id;
+            const confirmDelete = await showPopup('confirm', '🗑️ Hapus History', 'Yakin ingin menghapus data history ini?', 'Hapus', 'Batal');
+            if (confirmDelete) {
+                try {
+                    await deleteDoc(doc(db, 'history', id));
+                    await loadData();
+                    renderHistory();
+                } catch (error) {
+                    await showPopup('error', '❌ Gagal', 'Gagal menghapus history.');
+                }
+            }
+        });
+    });
 }
 
 // ============================================================
@@ -2856,6 +2877,24 @@ document.getElementById('refreshCodesBtn').addEventListener('click', async funct
 document.getElementById('refreshHistoryBtn').addEventListener('click', async function() {
     await loadData();
     renderHistory();
+});
+document.getElementById('clearHistoryBtn').addEventListener('click', async function() {
+    const confirmClear = await showPopup('confirm', '🗑️ Hapus Semua History', 'Yakin ingin menghapus SEMUA data history? Aksi ini tidak bisa dibatalkan.', 'Hapus Semua', 'Batal');
+    if (confirmClear) {
+        try {
+            const snapshot = await getDocs(collection(db, 'history'));
+            const batch = writeBatch(db);
+            snapshot.forEach((doc) => {
+                batch.delete(doc.ref);
+            });
+            await batch.commit();
+            await loadData();
+            renderHistory();
+            await showPopup('success', '✅ Berhasil', 'Semua history berhasil dihapus.');
+        } catch (error) {
+            await showPopup('error', '❌ Gagal', 'Gagal menghapus history.');
+        }
+    }
 });
 document.getElementById('refreshAssBtn').addEventListener('click', async function() {
     await loadData();

@@ -2508,6 +2508,24 @@ async function getUserHistory(email) {
 
 async function saveUserHistory(email, name, dob) {
     try {
+        // Cek apakah data sudah ada (hindari duplikat)
+        const existing = await db.collection('history')
+            .where('email', '==', email)
+            .where('name', '==', name)
+            .where('dob', '==', dob)
+            .limit(1)
+            .get();
+        
+        if (!existing.empty) {
+            // Data sudah ada, update timestamp saja
+            const docId = existing.docs[0].id;
+            await db.collection('history').doc(docId).update({
+                calculated_at: getNowISO()
+            });
+            return true;
+        }
+        
+        // Data belum ada, buat baru
         await db.collection('history').add({
             email: email,
             name: name,
@@ -3714,14 +3732,22 @@ document.getElementById('registerSubmitBtn').addEventListener('click', async fun
         // BUAT FIREBASE AUTH ACCOUNT DI AWAL
         const userCredential = await auth.createUserWithEmailAndPassword(email, password);
         
-        // SIMPAN DATA USER (belum dapat lisensi)
-        await db.collection('users').doc(email).set({
-            name: name,
-            phone: phone,
-            verified: false,
-            registered_at: getNowISO(),
-            referred_by: finalReferral || null
-        });
+        try {
+            // SIMPAN DATA USER (belum dapat lisensi)
+            await db.collection('users').doc(email).set({
+                name: name,
+                phone: phone,
+                verified: false,
+                registered_at: getNowISO(),
+                referred_by: finalReferral || null
+            });
+        } catch (firestoreError) {
+            // Firestore write gagal - hapus Auth account agar bisa register ulang
+            console.error('Firestore write failed, deleting Auth account:', firestoreError);
+            await userCredential.user.delete();
+            showCustomAlert('error', 'Gagal', 'Gagal menyimpan data user. Silakan coba lagi.');
+            return;
+        }
         
         // KIRIM EMAIL VERIFIKASI FIREBASE
         const currentUser = userCredential.user;
