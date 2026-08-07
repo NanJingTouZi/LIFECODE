@@ -1649,6 +1649,8 @@ ul.trait-list li:last-child{border-bottom:none;}
       </div>
       <p style="text-align:center;font-size:13px;margin-top:8px;color:var(--paper-dim);">
         <a href="#" id="forgotPasswordBtn" style="color:var(--gold-soft);text-decoration:none;">Lupa password?</a>
+        &nbsp;|&nbsp;
+        <a href="#" id="resendVerifyBtn" style="color:var(--jade-soft);text-decoration:none;">Kirim Ulang Verifikasi</a>
       </p>
       <p style="text-align:center;font-size:13px;margin-top:4px;color:var(--paper-dim);">
         Belum punya akun? <a href="#" id="goToRegister" style="color:var(--gold-soft);text-decoration:none;">Daftar di sini</a>
@@ -3479,7 +3481,14 @@ document.getElementById('loginBtnAction').addEventListener('click', async functi
         const isVerified = firebaseUser.emailVerified || user.verified === true;
         
         if (!isVerified) {
-            showCustomAlert('warning', 'Belum Terverifikasi', 'Email belum diverifikasi. Cek inbox Anda atau hubungi admin untuk aktivasi manual.');
+            // Auto-kirim ulang email verifikasi
+            try {
+                await firebaseUser.sendEmailVerification();
+                console.log('📧 Email verifikasi ulang terkirim ke ' + email);
+            } catch (e) {
+                console.log('Gagal kirim ulang verifikasi:', e);
+            }
+            showCustomAlert('warning', 'Belum Terverifikasi', 'Email belum diverifikasi.\n\n📧 Link verifikasi ULANG telah dikirim ke ' + email + '.\n\nCek inbox Anda dan klik link terbaru.');
             await auth.signOut();
             return;
         }
@@ -3509,6 +3518,27 @@ document.getElementById('loginBtnAction').addEventListener('click', async functi
         } else {
             showCustomAlert('error', 'Error', error.message);
         }
+    }
+});
+
+// --- RESEND VERIFICATION EMAIL ---
+document.getElementById('resendVerifyBtn').addEventListener('click', async function(e) {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim();
+    if (!email || !email.includes('@')) {
+        showCustomAlert('warning', 'Peringatan', 'Masukkan email Anda terlebih dahulu.');
+        return;
+    }
+    try {
+        const user = auth.currentUser;
+        if (user) {
+            await user.sendEmailVerification();
+            showCustomAlert('success', 'Email Terkirim', 'Link verifikasi baru telah dikirim ke ' + email);
+        } else {
+            showCustomAlert('warning', 'Perlu Login', 'Silakan login dulu untuk kirim ulang verifikasi.');
+        }
+    } catch (error) {
+        showCustomAlert('error', 'Gagal', 'Gagal mengirim email verifikasi: ' + error.message);
     }
 });
 
